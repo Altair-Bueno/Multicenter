@@ -5,6 +5,12 @@ import App.Multicenter.DataStructures.Tree;
 import java.io.File;
 import java.util.function.Function;
 
+/**
+ * Proporciona herramientas para leer y escribir ficheros XML de forma sencilla
+ * Ambas acciones pueden utilizar funciones como interpretes para permitir la lectura y
+ * escritura de forma sencilla
+ * @param <T> Tipo utilizado en la traducción
+ */
 public class XMLBuddy<T> {
     /**
      * Lee el fichero recibido como parámetro, conservando su estructura
