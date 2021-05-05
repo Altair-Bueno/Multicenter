@@ -1,5 +1,7 @@
 package App.Multicenter.Widget;
 
+import java.awt.*;
+
 public interface Widget {
 
     /**
@@ -13,5 +15,14 @@ public interface Widget {
      * @return True si la cadena está, False si no.
      */
     boolean buscar(String cadena);
+
+    /**
+     * Devuelve el identificador
+     * del widget, que es un número
+     * entero.
+     *
+     * @return El identificador.
+     */
+    int getId();
 
 }
