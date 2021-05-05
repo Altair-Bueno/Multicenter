@@ -39,7 +39,7 @@ public class SearchedString<E> implements Comparable<SearchedString> {
      * @param o El SearchedString a comparar con this.
      * @return Un valor > 0 si this.ratio es mayor que o.ratio.
      * Un valor < 0 si this.ratio es menor que o.ratio.
-     * 0 si this.ratio es igual a o.ratio.
+     * 0 si los ratios son iguales.
      */
     public int compareTo(SearchedString o) {
         return Integer.compare(ratio, o.getRatio());
