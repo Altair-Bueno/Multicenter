@@ -9,9 +9,19 @@ import java.util.function.Function;
  * un único padre y un número indeterminado de hijos. El primer elemento del
  * árbol recibe el nombre de "raíz" y es padre de si mismo. Los elementos
  * situados al final del árbol son conocidos como "hojas" y no presentan hijos
+ *
  * @param <E> Tipo de los datos almacenados
  */
 public interface Tree <E>{
+    /**
+     * Devuelve un sub-árbol donde el elemento raíz es el nodo recibido como
+     * parámetro. Si el árbol no contiene dicho elemento, devolverá null
+     *
+     * @param elem Nodo raíz del nuevo sub-árbol
+     * @return Sub-árbol nuevo. Los cambios <b>no</b> afectarán al árbol original
+     */
+    Tree<E> getSubTree(E elem);
+
     /**
      * Devuelve un conjunto con los elementos que mantienen una relación de hijos
      * con el elemento padre

@@ -12,8 +12,13 @@ public class HierarchyTree <E> implements Tree<E>{
 
     // Constructores
 
-
     // Operaciones
+
+    @Override
+    public Tree<E> getSubTree(E elem) {
+        return null;
+    }
+
     @Override
     public Set<E> getChildren(E father) {
         return null;
