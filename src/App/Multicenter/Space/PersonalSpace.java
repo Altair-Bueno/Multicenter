@@ -3,6 +3,7 @@ package App.Multicenter.Space;
 import App.Multicenter.DataStructures.Tree;
 import App.Multicenter.Widget.Widget;
 
+import java.io.File;
 import java.util.Set;
 
 /**
@@ -25,8 +26,9 @@ public class PersonalSpace {
      * árbol de widgets del espacio personal.
      *
      * @param w Widget a añadir al árbol.
+     * @param padre Widget a ser padre de w.
      */
-    public void addWidget(Widget w){
+    public void addWidget(Widget w, Widget padre){
 
     }
 
@@ -52,5 +54,17 @@ public class PersonalSpace {
      */
     public Set<Widget> buscar(String cadena){
         return null;
+    }
+
+    /**
+     * Guarda el espacio personal en un archivo
+     * con ayuda de la clase XMLBuddy, pasándole
+     * como parámetro el archivo especificado en
+     * file, y el arbol de widgets.
+     *
+     * @param file Archivo donde escribir.
+     */
+    public void savePersonalSpace(File file){
+
     }
 }
