@@ -6,11 +6,20 @@ import java.awt.*;
  * The type Abstract widget.
  */
 public abstract class AbstractWidget implements Widget {
-    int id;
+    String id;
+    int layer;
 
     // Operaciones
-    public boolean buscar(String cadena){return false;}
-    public int getId(){
+    public boolean buscar(String cadena){
+        return false;
+    }
+    public String getId(){
        return id;
+    }
+    public int getLayer(){
+        return layer;
+    }
+    public void setLayer(int capa){
+        layer = capa;
     }
 }

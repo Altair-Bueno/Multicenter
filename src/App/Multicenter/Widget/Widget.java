@@ -18,11 +18,24 @@ public interface Widget {
 
     /**
      * Devuelve el identificador
-     * del widget, que es un número
-     * entero.
+     * del widget, que es un String.
      *
      * @return El identificador.
      */
-    int getId();
+    String getId();
+
+    /**
+     * Devuelve la capa del widget
+     * que es un número entero.
+     *
+     * @return La capa.
+     */
+    int getLayer();
+
+    /**
+     * Cambia la capa del widget por
+     * la pasada como parámetro.
+     */
+    void setLayer(int capa);
 
 }

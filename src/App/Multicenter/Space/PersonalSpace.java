@@ -5,6 +5,7 @@ import App.Multicenter.Widget.Widget;
 
 import java.io.File;
 import java.util.Set;
+import java.util.SortedSet;
 
 /**
  * Clase que representa un espacio personal del usuario.
@@ -16,6 +17,7 @@ import java.util.Set;
  */
 public class PersonalSpace {
     Tree<Widget> widgetTree;
+    File archivo;
 
     // Constructor
 
@@ -49,22 +51,25 @@ public class PersonalSpace {
      * widgets del espacio personal actual.
      *
      * @param cadena La cadena a buscar
-     * @return El conjunto de widgets en los que
-     * se ha encontrado la cadena.
+     * @return El conjunto de objetos de la
+     * clase SearchedString, que almacena
+     * Strings en los que se ha encontrado
+     * la cadena junto con el widget del que
+     * provienen.
      */
-    public Set<Widget> buscar(String cadena){
+    public SortedSet<SearchedString<Widget>> buscar(String cadena){
         return null;
     }
 
     /**
      * Guarda el espacio personal en un archivo
      * con ayuda de la clase XMLBuddy, pasándole
-     * como parámetro el archivo especificado en
-     * file, y el arbol de widgets.
+     * como parámetro el archivo almacenado en
+     * la variable de clase archivo y el arbol de
+     * widgets widgetTree.
      *
-     * @param file Archivo donde escribir.
      */
-    public void savePersonalSpace(File file){
+    public void savePersonalSpace(){
 
     }
 }
