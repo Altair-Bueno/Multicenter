@@ -1,12 +1,16 @@
 package App.Multicenter.Preferences;
 
+import App.Multicenter.Platform.LanguageManager;
+import App.Multicenter.Platform.ThemeManager;
+
 import java.awt.*;
 import java.io.File;
 
 public class Preferences {
     // TODO Preferences Constantes
     private File SpacesFolder;
-    private String Theme, Language;
+    private ThemeManager theme;
+    private LanguageManager language;
     private Dimension WindowsSize;
     // TODO Preferences Constructor
     /**
@@ -34,7 +38,7 @@ public class Preferences {
      */
     public String getTheme() {
         // TODO Preferences getTheme
-        return Theme;
+        return null;
     }
 
     /**
@@ -44,7 +48,6 @@ public class Preferences {
      */
     public void setTheme(String theme) {
         // TODO Preferences setTheme
-        Theme = theme;
     }
 
     /**
@@ -54,7 +57,7 @@ public class Preferences {
      */
     public String getLanguage() {
         // TODO Preferences getLanguage
-        return Language;
+        return null;
     }
 
     /**
@@ -64,7 +67,6 @@ public class Preferences {
      */
     public void setLanguage(String language) {
         // TODO Preferences setLanguage
-        Language = language;
     }
 
     /**
