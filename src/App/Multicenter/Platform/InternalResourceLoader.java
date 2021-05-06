@@ -9,6 +9,7 @@ import java.net.URL;
  */
 public class InternalResourceLoader {
     // Constantes
+    // TODO
 
     /**
      * Devuelve una URL al elemento solicitado. Tenga en cuenta que este método solo
@@ -21,6 +22,7 @@ public class InternalResourceLoader {
      * @return URL al recurso
      */
     public static URL getResourceURL(String path){
+        // TODO
         return null;
     }
 }

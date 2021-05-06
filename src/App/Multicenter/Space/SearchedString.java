@@ -16,6 +16,7 @@ public class SearchedString<E> implements Comparable<SearchedString> {
      * @return El widget.
      */
     public E getWidget(){
+        // TODO
         return widget;
     }
 
@@ -23,6 +24,7 @@ public class SearchedString<E> implements Comparable<SearchedString> {
      * @return La cadena.
      */
     public String getCadena(){
+        // TODO
         return cadena;
     }
 
@@ -30,6 +32,7 @@ public class SearchedString<E> implements Comparable<SearchedString> {
      * @return El ratio.
      */
     public int getRatio(){
+        // TODO
         return ratio;
     }
 
@@ -42,6 +45,7 @@ public class SearchedString<E> implements Comparable<SearchedString> {
      * 0 si los ratios son iguales.
      */
     public int compareTo(SearchedString o) {
+        // TODO
         return Integer.compare(ratio, o.getRatio());
     }
 }

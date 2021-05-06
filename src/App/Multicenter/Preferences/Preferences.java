@@ -13,6 +13,7 @@ public class Preferences {
      * @return El SpacesFolder
      */
     public File getSpacesFolder() {
+        // TODO
         return SpacesFolder;
     }
 
@@ -22,6 +23,7 @@ public class Preferences {
      * @param spacesFolder el nuevo SpacesFolder.
      */
     public void setSpacesFolder(File spacesFolder) {
+        // TODO
         SpacesFolder = spacesFolder;
     }
 
@@ -31,6 +33,7 @@ public class Preferences {
      * @return El tema.
      */
     public String getTheme() {
+        // TODO
         return Theme;
     }
 
@@ -40,6 +43,7 @@ public class Preferences {
      * @param theme El tema.
      */
     public void setTheme(String theme) {
+        // TODO
         Theme = theme;
     }
 
@@ -49,6 +53,7 @@ public class Preferences {
      * @return El idioma.
      */
     public String getLanguage() {
+        // TODO
         return Language;
     }
 
@@ -58,6 +63,7 @@ public class Preferences {
      * @param language El idioma
      */
     public void setLanguage(String language) {
+        // TODO
         Language = language;
     }
 
@@ -67,6 +73,7 @@ public class Preferences {
      * @return La dimensión de la ventana.
      */
     public Dimension getWindowsSize() {
+        // TODO
         return WindowsSize;
     }
 
@@ -76,6 +83,7 @@ public class Preferences {
      * @param windowsSize La dimensión de la ventana.
      */
     public void setWindowsSize(Dimension windowsSize) {
+        // TODO
         WindowsSize = windowsSize;
     }
 }

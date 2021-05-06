@@ -6,6 +6,9 @@ package App.Multicenter.Platform;
 public class ThemeManager {
     private String currentTheme;
 
+    // Constantes
+    // TODO
+
     /**
      * Sustituye el Look and Feel actual por otro soportado por la aplicación.
      * Los nombres de los temas son constantes de ThemeManager
@@ -13,6 +16,7 @@ public class ThemeManager {
      * @return true si el tema se ha aplicado correctamente, falso en otro caso
      */
     public boolean setTheme(String ThemeName){
+        // TODO
         return false;
     }
 }

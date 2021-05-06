@@ -18,7 +18,7 @@ public class PlatformManager {
      * </ul>
      */
     public void setJVMEnviroment() {
-
+        // TODO
     }
 
     /**
@@ -29,6 +29,7 @@ public class PlatformManager {
      * @return Meta_MASK o CTRL_MASK
      */
     public int getAccelerator(){
+        // TODO
         return 0;
     }
 }
