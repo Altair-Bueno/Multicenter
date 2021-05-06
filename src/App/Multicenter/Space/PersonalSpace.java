@@ -19,8 +19,7 @@ public class PersonalSpace {
     Tree<Widget> widgetTree;
     File archivo;
 
-    // Constructor
-    // TODO
+    // TODO PersonalSpace Constructor
 
     // Operaciones
 
@@ -32,7 +31,7 @@ public class PersonalSpace {
      * @param padre Widget a ser padre de w.
      */
     public void addWidget(Widget w, Widget padre){
-        // TODO
+        // TODO PersonalSpace addWidget
 
     }
 
@@ -43,7 +42,7 @@ public class PersonalSpace {
      * @param w Widget a eliminar del árbol.
      */
     public void deleteWidget(Widget w){
-        // TODO
+        // TODO PersonalSpace deleteWidget
 
     }
 
@@ -61,7 +60,7 @@ public class PersonalSpace {
      * provienen.
      */
     public SortedSet<SearchedString<Widget>> buscar(String cadena){
-        // TODO
+        // TODO PersonalSpace buscar
         return null;
     }
 
@@ -74,7 +73,7 @@ public class PersonalSpace {
      *
      */
     public void savePersonalSpace(){
-        // TODO
+        // TODO PersonalSpace savePersonalSpace
 
     }
 }

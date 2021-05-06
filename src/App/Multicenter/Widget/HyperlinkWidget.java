@@ -1,10 +1,10 @@
 package App.Multicenter.Widget;
 
 public class HyperlinkWidget extends AbstractWidget{
-    // TODO
+    // TODO HyperlinkWidget Constructor
 
     public boolean buscar(String cadena) {
-        // TODO
+        // TODO HyperlinkWidget buscar
         return false;
     }
 

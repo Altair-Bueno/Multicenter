@@ -1,10 +1,10 @@
 package App.Multicenter.Widget;
 
 public class EmbeddedWidget extends AbstractWidget{
-    // TODO
+    // TODO EmbeddedWidget Constructor
 
     public boolean buscar(String cadena) {
-        // TODO
+        // TODO EmbeddedWidget buscar
         return false;
     }
 

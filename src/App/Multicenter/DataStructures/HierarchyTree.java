@@ -11,86 +11,85 @@ public class HierarchyTree <E> implements Tree<E> {
     // Variables de clase
     Map<E,E> relation; // Nodo(hijo) -> Nodo(padre)
 
-    // Constructores
-    // TODO
+    // TODO Constructores
 
     // Operaciones
 
     @Override
     public Tree<E> getSubTree(E elem) {
-        // TODO
+        // TODO HierarchyTree getSubtree
         return null;
     }
 
     @Override
     public Set<E> getChildren(E father) {
-        // TODO
+        // TODO HierarchyTree getChildren
         return null;
     }
 
     @Override
     public E getFather(E element) {
-        // TODO
+        // TODO HierarchyTree getFather
         return null;
     }
 
     @Override
     public boolean setChildren(Collection<E> children, E father) {
-        // TODO
+        // TODO HierarchyTree setChildren
         return false;
     }
 
     @Override
     public boolean addChildren(E children, E father) {
-        // TODO
+        // TODO HierarchyTree addChildren
         return false;
     }
 
     @Override
     public boolean addChildren(Collection<E> children, E father) {
-        // TODO
+        // TODO HierarchyTree addChildren
         return false;
     }
 
     @Override
     public boolean removeElement(E element) {
-        // TODO
+        // TODO HierarchyTree removeElement
         return false;
     }
 
     @Override
     public boolean removeElement(Collection<E> element) {
-        // TODO
+        // TODO HierarchyTree removeElement
         return false;
     }
 
     @Override
     public boolean removeAllChildren(E element) {
-        // TODO
+        // TODO HierarchyTree removeAllChildren
         return false;
     }
 
     @Override
     public boolean removeAllChildren(Collection<E> element) {
-        // TODO
+        // TODO HierarchyTree removeAllChildren
         return false;
     }
 
     @Override
     public boolean contains(E element) {
-        // TODO
+        // TODO HierarchyTree contains
         return false;
     }
 
     @Override
     public <R> Tree<R> map(Function<E, R> function) {
-        // TODO
+        // TODO HierarchyTree map
         return null;
     }
 
     @Override
     public int getSize() {
-        // TODO
+        // TODO HierarchyTree getSize
         return 0;
     }
 
@@ -102,8 +101,7 @@ public class HierarchyTree <E> implements Tree<E> {
         // Variables de clase
         Set<E> children;
         E element;
-        // Constructores
-        // TODO
+        // TODO Node Constructores
 
         // Operaciones
 

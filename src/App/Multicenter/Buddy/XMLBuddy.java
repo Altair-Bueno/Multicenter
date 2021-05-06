@@ -42,7 +42,7 @@ public class XMLBuddy<T> {
      * @throws IllegalArgumentException si function == null
      */
     public Tree<T> parseXMLFile(File file, Function<String,T> function){
-        // TODO
+        // TODO XMLBuddy parseXMLFile
         return null;
     }
 
@@ -75,6 +75,6 @@ public class XMLBuddy<T> {
      */
 
     public void parseTreeStructure(File file , Tree<T> tree , Function<T,String> function){
-        // TODO
+        // TODO XMLBuddy parseTreeStructure
     }
 }

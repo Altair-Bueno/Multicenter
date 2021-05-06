@@ -5,7 +5,7 @@ public class SearchedString<E> implements Comparable<SearchedString> {
     private String cadena;
     private int ratio;
 
-    // Constructor
+    // TODO SearchedString Constructor
     // Recibirá un widget y dos cadenas por parámetro (la encontrada y la referencia).
     // Calculará el ratio de semejanza entre la cadena encontrada y la referencia.
     // Inicializa widget (parámetro), cadena (parámetro - encontrada), ratio (calculado).
@@ -16,7 +16,7 @@ public class SearchedString<E> implements Comparable<SearchedString> {
      * @return El widget.
      */
     public E getWidget(){
-        // TODO
+        // TODO SearchedString getWidget
         return widget;
     }
 
@@ -24,7 +24,7 @@ public class SearchedString<E> implements Comparable<SearchedString> {
      * @return La cadena.
      */
     public String getCadena(){
-        // TODO
+        // TODO SearchedString getCadena
         return cadena;
     }
 
@@ -32,7 +32,7 @@ public class SearchedString<E> implements Comparable<SearchedString> {
      * @return El ratio.
      */
     public int getRatio(){
-        // TODO
+        // TODO SearchedString getRatio
         return ratio;
     }
 
@@ -45,7 +45,7 @@ public class SearchedString<E> implements Comparable<SearchedString> {
      * 0 si los ratios son iguales.
      */
     public int compareTo(SearchedString o) {
-        // TODO
+        // TODO SearchedString compareTo
         return Integer.compare(ratio, o.getRatio());
     }
 }

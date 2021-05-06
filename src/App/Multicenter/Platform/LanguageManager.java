@@ -10,8 +10,7 @@ import java.util.ResourceBundle;
 public class LanguageManager {
     ResourceBundle resourceBundle;
 
-    //Constantes
-    // TODO
+    // TODO LanguageManager Constantes
 
     /**
      * Solicita a la JVM cambiar el idioma por el seleccionado
@@ -22,7 +21,7 @@ public class LanguageManager {
      * @return Si se ha cambiado el idioma de forma satisfactoria
      */
     public boolean setLanguage(int code){
-        // TODO
+        // TODO LanguageManager setLanguage
         return false;
     }
 
@@ -35,7 +34,7 @@ public class LanguageManager {
      */
 
     public String getString(String key) {
-        // TODO
+        // TODO LanguageManager getString
         return null;
     }
 }

@@ -1,10 +1,10 @@
 package App.Multicenter.Widget;
 
 public class NotesWidget extends AbstractWidget {
-    // TODO
+    // TODO ImageWidget Constructor
 
     public boolean buscar(String cadena) {
-        // TODO
+        // TODO ImageWidget buscar
         return false;
     }
 

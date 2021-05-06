@@ -1,10 +1,10 @@
 package App.Multicenter.Widget;
 
 public class VoicenoteWidget extends AbstractWidget{
-    // TODO
+    // TODO VoicenoteWidget Constructor
 
     public boolean buscar(String cadena) {
-        // TODO
+        // TODO VoicenoteWidget buscar
         return false;
     }
 

@@ -4,16 +4,16 @@ import java.awt.*;
 import java.io.File;
 
 public class Preferences {
+    // TODO Preferences Constantes
     private File SpacesFolder;
     private String Theme, Language;
     private Dimension WindowsSize;
-
-
+    // TODO Preferences Constructor
     /**
      * @return El SpacesFolder
      */
     public File getSpacesFolder() {
-        // TODO
+        // TODO Preferences getSpacesFolder
         return SpacesFolder;
     }
 
@@ -23,7 +23,7 @@ public class Preferences {
      * @param spacesFolder el nuevo SpacesFolder.
      */
     public void setSpacesFolder(File spacesFolder) {
-        // TODO
+        // TODO Preferences setSpacesFolder
         SpacesFolder = spacesFolder;
     }
 
@@ -33,7 +33,7 @@ public class Preferences {
      * @return El tema.
      */
     public String getTheme() {
-        // TODO
+        // TODO Preferences getTheme
         return Theme;
     }
 
@@ -43,7 +43,7 @@ public class Preferences {
      * @param theme El tema.
      */
     public void setTheme(String theme) {
-        // TODO
+        // TODO Preferences setTheme
         Theme = theme;
     }
 
@@ -53,7 +53,7 @@ public class Preferences {
      * @return El idioma.
      */
     public String getLanguage() {
-        // TODO
+        // TODO Preferences getLanguage
         return Language;
     }
 
@@ -63,7 +63,7 @@ public class Preferences {
      * @param language El idioma
      */
     public void setLanguage(String language) {
-        // TODO
+        // TODO Preferences setLanguage
         Language = language;
     }
 
@@ -73,7 +73,7 @@ public class Preferences {
      * @return La dimensión de la ventana.
      */
     public Dimension getWindowsSize() {
-        // TODO
+        // TODO Preferences getWindowsSize
         return WindowsSize;
     }
 
@@ -83,7 +83,7 @@ public class Preferences {
      * @param windowsSize La dimensión de la ventana.
      */
     public void setWindowsSize(Dimension windowsSize) {
-        // TODO
+        // TODO Preferences setWindosSize
         WindowsSize = windowsSize;
     }
 }

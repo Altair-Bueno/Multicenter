@@ -12,19 +12,19 @@ public abstract class AbstractWidget extends JInternalFrame implements Widget {
 
     // Operaciones
     public boolean buscar(String cadena){
-        // TODO
+        // TODO AbstractWidget buscar
         return false;
     }
     public String getId(){
-        // TODO
+        // TODO AbstractWidget getId
        return id;
     }
     public int getLayer(){
-        // TODO
+        // TODO AbstractWidget getLayer
         return layer;
     }
     public void setLayer(int capa){
-        // TODO
+        // TODO AbstractWidget setLayer
         layer = capa;
     }
 }
