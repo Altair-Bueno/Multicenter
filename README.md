@@ -1,1 +1,3 @@
 Multicenter es un espacio de trabajo diseñado para optimizar la organización de archivos multimedia, texto plano y utilidades de distintos usos (música, agenda personal, etc.). Está pensado para estudiantes, aunque no es de uso exclusivo. La mejora en la presentación de la información es el máximo beneficio y nuestra meta es que ayude a todos los usuarios posibles.
+
+![Diagrama de clases](Model.png)
