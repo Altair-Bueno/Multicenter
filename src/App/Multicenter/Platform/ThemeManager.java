@@ -11,10 +11,10 @@ public class ThemeManager {
     /**
      * Sustituye el Look and Feel actual por otro soportado por la aplicación.
      * Los nombres de los temas son constantes de ThemeManager
-     * @param ThemeName Nombre del Look and Feel
+     * @param themecode Constante de tema
      * @return true si el tema se ha aplicado correctamente, falso en otro caso
      */
-    public boolean setTheme(String ThemeName){
+    public boolean setTheme(int themecode){
         // TODO ThemeManager setTheme
         return false;
     }
