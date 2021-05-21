@@ -1,3 +1,5 @@
+package App.Multicenter.GUI;
+
 public class AppWindow {
     //Attributes
     PersonalSpaceView ps;
