@@ -30,7 +30,7 @@ public class LanguageManager {
      * @return Código de idioma utilizado
      */
     public static String getActualLocale() {
-        return Locale.getDefault().toLanguageTag();
+        return resourceBundle.getLocale().toLanguageTag();
     }
 
     /**

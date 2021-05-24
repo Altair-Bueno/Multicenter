@@ -19,6 +19,7 @@ public class ThemeManager {
     public static final int DARK = 1;
     public static final int DARCULA = 2;
     public static final int INTELLIJ = 3;
+    private static boolean __INSTALL = setTheme(LIGHT);
 
     private static int CURRENT;
 
