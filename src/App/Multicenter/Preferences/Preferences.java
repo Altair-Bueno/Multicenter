@@ -45,7 +45,7 @@ public class Preferences {
         prop.setProperty("window_size", "800-800");
         WindowsSize = new Dimension(800,800);
 
-        prop.setProperty("lang", "1"); // Default: Español
+        prop.setProperty("lang", "es"); // Default: Español
 
         push();
 
@@ -72,13 +72,13 @@ public class Preferences {
                 String[] settings = s.split("=");
                 if(settings[0].equals("window_size")){
                     String[] dim = settings[1].split("-");
-                    setWindowsSize(new Dimension(Integer.parseInt(dim[0]),Integer.parseInt(dim[1])));
+                    setWindowsSize(new Dimension(Integer.parseInt(dim[0]), Integer.parseInt(dim[1])));
                 }else if(settings[0].equals("working_directory")){
                     setSpacesFolder(new File(settings[1]));
                 }else if(settings[0].equals("theme")){
                     setTheme(Integer.parseInt(settings[1]));
                 }else if(settings[0].equals("lang")){
-                    setLanguage(Integer.parseInt(settings[1]));
+                    setLanguage(settings[1]);
                 }
             }
 
@@ -132,7 +132,7 @@ public class Preferences {
      *
      * @return El idioma.
      */
-    public int getLanguage() {
+    public String getLanguage() {
         return LanguageManager.getActualLocale();
     }
 
@@ -141,10 +141,10 @@ public class Preferences {
      *
      * @param language El idioma
      */
-    public void setLanguage(int language) {
+    public void setLanguage(String language) {
         LanguageManager.setLanguage(language);
 
-        prop.setProperty("lang", Integer.toString(language));
+        prop.setProperty("lang", language);
         push();
     }
 
