@@ -31,7 +31,7 @@ public class Preferences {
         }
     }
 
-    public static void initialPreferences(){
+    public void initialPreferences(){
 
         propertiesFile.mkdir();
         prop = new Properties();
@@ -47,7 +47,7 @@ public class Preferences {
 
         prop.setProperty("lang", "1"); // Default: Español
 
-        //push();
+        push();
 
     }
 
@@ -56,8 +56,6 @@ public class Preferences {
             OutputStream out = new FileOutputStream(propertiesFile);
             prop.storeToXML(out, "");
             out.close();
-
-            System.out.println("SALIDA DE GUARDAR: " + prop.toString());
         } catch (IOException e){
             e.printStackTrace();
         }
@@ -105,7 +103,7 @@ public class Preferences {
         //Actualizamos tanto el SpacesFolder que tenemos como el archivo properties:
         prop.setProperty("working_directory", spacesFolder.getAbsolutePath());
         SpacesFolder = spacesFolder;
-        //push();
+        push();
     }
 
     /**
@@ -126,7 +124,7 @@ public class Preferences {
     public void setTheme(int theme) {
         prop.setProperty("theme", Integer.toString(theme));
         ThemeManager.setTheme(theme);
-        //push();
+        push();
     }
 
     /**
@@ -147,7 +145,7 @@ public class Preferences {
         LanguageManager.setLanguage(language);
 
         prop.setProperty("lang", Integer.toString(language));
-        //push();
+        push();
     }
 
     /**
@@ -167,7 +165,7 @@ public class Preferences {
     public void setWindowsSize(Dimension windowsSize) {
         prop.setProperty("window_size", windowsSize.getWidth() + "-" + windowsSize.getHeight());
         WindowsSize = windowsSize;
-        //push();
+        push();
     }
 }
 
