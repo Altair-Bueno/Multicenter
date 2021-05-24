@@ -1,6 +1,9 @@
 package App.Multicenter.GUI;
 
-public class PersonalSpaceView {
+import javax.swing.*;
+import java.awt.*;
+
+public class PersonalSpaceView extends Container {
     //Atributtes
     Header header;
     Board board;
@@ -11,6 +14,14 @@ public class PersonalSpaceView {
         this.header = header;
         this.board = board;
         this.name = name;
+
+        setPreferredSize(new Dimension(250, 250));
+        setLayout(new BorderLayout());
+
+        add(header, BorderLayout.NORTH);
+        add(board, BorderLayout.CENTER);
+
+        setVisible(true);
     }
   
     //Methods

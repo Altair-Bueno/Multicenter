@@ -1,12 +1,15 @@
 package App.Multicenter.GUI;
 
+import App.Multicenter.Space.PersonalSpace;
+
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 
-public class Header {
+public class Header extends JPanel {
     //Atributtes
     String title;
-    JPanel panel;
+    JLabel text;
 
     //Constructor
     /** 
@@ -15,7 +18,18 @@ public class Header {
      * 
      */
     public Header(String title) {
+        this.title = title;
+        setPreferredSize(new Dimension(100, 80));
+        setBackground(new Color(Color.RED.getRGB()));
+        setLayout(null);
 
+        text = new JLabel();
+        text.setText(title);
+        text.setForeground(Color.lightGray);
+        text.setBounds(30, 40, 200, 50);
+        add(text);
+
+        setVisible(true);
     }
 
     //Methods
@@ -25,7 +39,8 @@ public class Header {
      * 
      */
     public void changeTitle(String newTitle) {
-
+        title = newTitle;
+        updateUI();
     }
 
     /** 
