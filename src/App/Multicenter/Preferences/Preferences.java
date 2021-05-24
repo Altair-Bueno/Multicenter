@@ -3,16 +3,21 @@ package App.Multicenter.Preferences;
 import App.Multicenter.Platform.LanguageManager;
 import App.Multicenter.Platform.ThemeManager;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
+import java.util.Locale;
+import java.util.Properties;
+import java.util.prefs.*;
+
 import java.awt.*;
 import java.io.File;
 
 public class Preferences {
-    // TODO Preferences Constantes
-    private File SpacesFolder;
-    private ThemeManager theme;
-    private LanguageManager language;
-    private Dimension WindowsSize;
-    // TODO Preferences Constructor
+    private static File SpacesFolder;
+    private static Dimension WindowsSize;
+    private static Properties prop;
+    private final static File propertiesFile = new File("~/.multicenter_config.mtcr");
 
     /**
      * Constructor de la clase Preferences.
@@ -22,9 +27,12 @@ public class Preferences {
      */
 
     public Preferences(){
+        initialPreferences();
+    }
+
+    public static void initialPreferences(){
         //Creamos el objeto Properties y el archivo donde se guardan las propiedades, establecemos los valores por defecto de todo.
         prop = new Properties();
-        final File propertiesFile = new File("~/.multicenter_config.mtcr");
 
         prop.setProperty("working_directory", System.getProperty("user.dir"));
         SpacesFolder = new File(System.getProperty("user.dir"));
@@ -32,23 +40,25 @@ public class Preferences {
         prop.setProperty("theme", "0");
         ThemeManager.setTheme(0);
 
-        prop.setProperty("window_size", "null"); //Saved only once bc cube window.
-        WindowsSize = null;
+        prop.setProperty("window_size", "800,800");
+        WindowsSize = new Dimension(800,800);
 
-        prop.setProperty("lang", Locale.getDefault().getLanguage());
-        //No cambia el lenguaje, ya que pone el default del sistema, si el user lo quisiera cambiar que lo haga en el setter.
+        prop.setProperty("lang", "1"); // Default: Español
+
+        push();
+    }
+
+    private static void push(){
         try{
             OutputStream out = new FileOutputStream(propertiesFile);
         } catch (FileNotFoundException e){
             e.printStackTrace();
         }
-
     }
     /**
-     * @return El SpacesFolder
+     * @return El SpacesFolder (directorio de trabajo)
      */
-    public File getSpacesFolder() {
-        // TODO Preferences getSpacesFolder
+    public File getSpacesFolder(){
         return SpacesFolder;
     }
 
@@ -58,8 +68,10 @@ public class Preferences {
      * @param spacesFolder el nuevo SpacesFolder.
      */
     public void setSpacesFolder(File spacesFolder) {
-        // TODO Preferences setSpacesFolder
+        //Actualizamos tanto el SpacesFolder que tenemos como el archivo properties:
+        prop.setProperty("working_directory", spacesFolder.getAbsolutePath());
         SpacesFolder = spacesFolder;
+        push();
     }
 
     /**
@@ -67,9 +79,9 @@ public class Preferences {
      *
      * @return El tema.
      */
-    public String getTheme() {
-        // TODO Preferences getTheme
-        return null;
+    public int getTheme() {
+        //return ThemeManager.getTheme();
+        return 0;
     }
 
     /**
@@ -80,6 +92,7 @@ public class Preferences {
     public void setTheme(int theme) {
         prop.setProperty("theme", Integer.toString(theme));
         ThemeManager.setTheme(theme);
+        push();
     }
 
     /**
@@ -87,8 +100,8 @@ public class Preferences {
      *
      * @return El idioma.
      */
-    public String getLanguage() {
-        return Locale.getDefault().getLanguage();
+    public int getLanguage() {
+        return LanguageManager.getActualLocale();
     }
 
     /**
@@ -109,7 +122,6 @@ public class Preferences {
      * @return La dimensión de la ventana.
      */
     public Dimension getWindowsSize() {
-        // TODO Preferences getWindowsSize
         return WindowsSize;
     }
 
@@ -121,6 +133,7 @@ public class Preferences {
     public void setWindowsSize(Dimension windowsSize) {
         prop.setProperty("window_size", windowsSize.getWidth() + "," + windowsSize.getHeight());
         WindowsSize = windowsSize;
+        push();
     }
 }
 
