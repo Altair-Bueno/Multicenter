@@ -10,7 +10,7 @@ import java.util.prefs.*;
 
 import java.awt.*;
 
-public class Preferences implements Closeable{
+public class Preferences{
     private static File SpacesFolder = new File(System.getProperty("user.dir"));;
     private static Dimension WindowsSize = new Dimension(800,800);
     private static Properties prop = new Properties();
@@ -50,14 +50,10 @@ public class Preferences implements Closeable{
         }
     }
 
-    public static Preferences getInstance(){
-        return preferences;
-    }
-
     /**
      * @return El SpacesFolder (directorio de trabajo)
      */
-    public File getSpacesFolder(){
+    public static File getSpacesFolder(){
         return SpacesFolder;
     }
 
@@ -66,7 +62,7 @@ public class Preferences implements Closeable{
      *
      * @param spacesFolder el nuevo SpacesFolder.
      */
-    public void setSpacesFolder(File spacesFolder) {
+    public static void setSpacesFolder(File spacesFolder) {
         SpacesFolder = spacesFolder;
     }
 
@@ -75,7 +71,7 @@ public class Preferences implements Closeable{
      *
      * @return El tema.
      */
-    public int getTheme() {
+    public static int getTheme() {
         return ThemeManager.getCurrentTheme();
     }
 
@@ -84,7 +80,7 @@ public class Preferences implements Closeable{
      *
      * @param theme El tema.
      */
-    public void setTheme(int theme) {
+    public static void setTheme(int theme) {
         ThemeManager.setTheme(theme);
     }
 
@@ -93,7 +89,7 @@ public class Preferences implements Closeable{
      *
      * @return El idioma.
      */
-    public String getLanguage() {
+    public static String getLanguage() {
         return LanguageManager.getActualLocale();
     }
 
@@ -102,7 +98,7 @@ public class Preferences implements Closeable{
      *
      * @param language El idioma
      */
-    public void setLanguage(String language) {
+    public static void setLanguage(String language) {
         LanguageManager.setLanguage(language);
     }
 
@@ -111,7 +107,7 @@ public class Preferences implements Closeable{
      *
      * @return La dimensión de la ventana.
      */
-    public Dimension getWindowsSize() {
+    public static Dimension getWindowsSize() {
         return WindowsSize;
     }
 
@@ -120,19 +116,27 @@ public class Preferences implements Closeable{
      *
      * @param windowsSize La dimensión de la ventana.
      */
-    public void setWindowsSize(Dimension windowsSize) {
+    public static void setWindowsSize(Dimension windowsSize) {
         WindowsSize = windowsSize;
     }
 
-    public void close() throws IOException {
+    public static boolean save() {
         prop.setProperty("working_directory", getSpacesFolder().getAbsolutePath());
         prop.setProperty("theme", Integer.toString(getTheme()));
         prop.setProperty("window_size", getWindowsSize().getWidth() + "-" + getWindowsSize().getHeight());
         prop.setProperty("lang", getLanguage());
 
-        OutputStream out = new FileOutputStream(propertiesFile + "/preferences.xml");
-        prop.storeToXML(out, "");
-        out.close();
+        try {
+            OutputStream out = new FileOutputStream(propertiesFile + "/preferences.xml");
+            prop.storeToXML(out, "");
+            out.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        return true;
+
     }
 }
 
