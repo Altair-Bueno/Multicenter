@@ -14,13 +14,12 @@ import java.util.ResourceBundle;
  */
 public class LanguageManager {
     // Ubicación ResourceBundle
-    private static final String LOCALE_PATH = "App/Multicenter/Properties/Strings";
+    private static final String LOCALE_BUNDLE_PATH = "App/Multicenter/Properties/Strings";
     // Idiomas soportados
-    public static final int ENGLISH = 0;//Locale.ENGLISH;
-    public static final int SPANISH = 1;//new Locale("es");
-    private static int ACTUAL_LOCALE;
+    public static final String ENGLISH = "en";//Locale.ENGLISH;
+    public static final String SPANISH = "es";//new Locale("es");
 
-    private static ResourceBundle resourceBundle;
+    private static ResourceBundle resourceBundle = ResourceBundle.getBundle(LOCALE_BUNDLE_PATH);
 
     // Cierre de clase
     private LanguageManager(){}
@@ -30,8 +29,8 @@ public class LanguageManager {
      *
      * @return Código de idioma utilizado
      */
-    public static int getActualLocale() {
-        return ACTUAL_LOCALE;
+    public static String getActualLocale() {
+        return Locale.getDefault().toLanguageTag();
     }
 
     /**
@@ -44,21 +43,12 @@ public class LanguageManager {
      * @param supportedLocale Constantes de LanguageManager
      * @return Si el cambio se ha producido de forma satisfactoria
      */
-    public static boolean setLanguage(int supportedLocale){
+    public static boolean setLanguage(String supportedLocale){
         boolean out = true;
         try{
-            Locale locale;
-            switch (supportedLocale) {
-                case 1:
-                    locale = new Locale("es");
-                    ACTUAL_LOCALE = 1;
-                    break;
-                default:
-                    locale = Locale.ENGLISH;
-                    ACTUAL_LOCALE = 0;
-            }
+            Locale locale = new Locale(supportedLocale);
             Locale.setDefault(locale);
-            resourceBundle = ResourceBundle.getBundle(LOCALE_PATH , locale);
+            resourceBundle = ResourceBundle.getBundle(LOCALE_BUNDLE_PATH, locale);
         } catch (Exception e) { out = false; }
         return out;
     }

@@ -19,6 +19,15 @@ public class LanguageManagerTest {
     }
     @Test
     public void Appname(){
+        LanguageManager.setLanguage(LanguageManager.ENGLISH);
         Assert.assertNotNull(LanguageManager.getString("app_name"));
+    }
+    @Test
+    public void LocaleCode(){
+        LanguageManager.setLanguage(LanguageManager.ENGLISH);
+        Assert.assertEquals(LanguageManager.getActualLocale() , LanguageManager.ENGLISH);
+
+        LanguageManager.setLanguage(LanguageManager.SPANISH);
+        Assert.assertEquals(LanguageManager.getActualLocale() , LanguageManager.SPANISH);
     }
 }
