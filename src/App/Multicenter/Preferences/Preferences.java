@@ -96,8 +96,11 @@ public class Preferences {
      *
      * @param language El idioma
      */
-    public void setLanguage(String language) {
-        LanguageManager.setLanguage(Locale.forLanguageTag(language));
+    public void setLanguage(int language) {
+        LanguageManager.setLanguage(language);
+
+        prop.setProperty("lang", Integer.toString(language));
+        push();
     }
 
     /**
@@ -116,7 +119,8 @@ public class Preferences {
      * @param windowsSize La dimensión de la ventana.
      */
     public void setWindowsSize(Dimension windowsSize) {
-        // TODO Preferences setWindosSize
+        prop.setProperty("window_size", windowsSize.getWidth() + "," + windowsSize.getHeight());
         WindowsSize = windowsSize;
     }
 }
+
