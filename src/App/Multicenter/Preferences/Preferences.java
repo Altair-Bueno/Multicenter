@@ -13,6 +13,37 @@ public class Preferences {
     private LanguageManager language;
     private Dimension WindowsSize;
     // TODO Preferences Constructor
+
+    /**
+     * Constructor de la clase Preferences.
+     * Establece el workingDirectory por defecto en su primera creación, siendo este el lugar de ejecución del programa.
+     * Establece como tema principal el tema claro.
+     * Establece como dimensión inicial de la ventana  800x800
+     */
+
+    public Preferences(){
+        //Creamos el objeto Properties y el archivo donde se guardan las propiedades, establecemos los valores por defecto de todo.
+        prop = new Properties();
+        final File propertiesFile = new File("~/.multicenter_config.mtcr");
+
+        prop.setProperty("working_directory", System.getProperty("user.dir"));
+        SpacesFolder = new File(System.getProperty("user.dir"));
+
+        prop.setProperty("theme", "0");
+        ThemeManager.setTheme(0);
+
+        prop.setProperty("window_size", "null"); //Saved only once bc cube window.
+        WindowsSize = null;
+
+        prop.setProperty("lang", Locale.getDefault().getLanguage());
+        //No cambia el lenguaje, ya que pone el default del sistema, si el user lo quisiera cambiar que lo haga en el setter.
+        try{
+            OutputStream out = new FileOutputStream(propertiesFile);
+        } catch (FileNotFoundException e){
+            e.printStackTrace();
+        }
+
+    }
     /**
      * @return El SpacesFolder
      */
@@ -46,8 +77,9 @@ public class Preferences {
      *
      * @param theme El tema.
      */
-    public void setTheme(String theme) {
-        // TODO Preferences setTheme
+    public void setTheme(int theme) {
+        prop.setProperty("theme", Integer.toString(theme));
+        ThemeManager.setTheme(theme);
     }
 
     /**
@@ -56,8 +88,7 @@ public class Preferences {
      * @return El idioma.
      */
     public String getLanguage() {
-        // TODO Preferences getLanguage
-        return null;
+        return Locale.getDefault().getLanguage();
     }
 
     /**
@@ -66,7 +97,7 @@ public class Preferences {
      * @param language El idioma
      */
     public void setLanguage(String language) {
-        // TODO Preferences setLanguage
+        LanguageManager.setLanguage(Locale.forLanguageTag(language));
     }
 
     /**
