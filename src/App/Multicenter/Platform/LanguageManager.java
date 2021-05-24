@@ -1,40 +1,53 @@
 package App.Multicenter.Platform;
 
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 /**
  * Provee los métodos necesarios para cambiar el idioma de la aplicación
  * de forma sencilla. Incluye las constantes para cambiar el idioma
- * a solo aquellos soportados
+ * a solo aquellos soportados. Esta clase funciona de forma estática
+ * y no se puede instanciar
  */
 public class LanguageManager {
-    ResourceBundle resourceBundle;
+    // Ubicación ResourceBundle
+    private static final String LOCALE_PATH = "App/Multicenter/Properties/Strings";
+    // Idiomas soportados
+    public static final Locale ENGLISH = Locale.ENGLISH;
+    public static final Locale SPANISH = new Locale("es");
 
-    // TODO LanguageManager Constantes
+    private static ResourceBundle resourceBundle = ResourceBundle.getBundle(LOCALE_PATH, Locale.getDefault());
+
+    // No se puede instanciar
+    private LanguageManager(){}
 
     /**
-     * Solicita a la JVM cambiar el idioma por el seleccionado
-     * NOTA: Para que surja efecto, debe actualizar la cadena
+     * Cambia el idioma de la aplicación al seleccionado. Actualiza los métodos
+     * de la clase LanguageManager con el nuevo idioma seleccionado
      *
      * @see ResourceBundle
-     * @param code Constantes de LanguageManager
-     * @return Si se ha cambiado el idioma de forma satisfactoria
+     * @param supportedLocale Constantes de LanguageManager
+     * @return Si el cambio se ha producido de forma satisfactoria
      */
-    public boolean setLanguage(int code){
-        // TODO LanguageManager setLanguage
-        return false;
+    public static boolean setLanguage(Locale supportedLocale){
+        boolean out = true;
+        try{
+            Locale.setDefault(supportedLocale);
+            resourceBundle = ResourceBundle.getBundle(LOCALE_PATH , supportedLocale);
+        } catch (Exception e) { out = false; }
+        return out;
     }
 
     /**
      * Dada una clave del ResourceBundle, proporciona su correspondiente traducción
+     * La ubicación del ResourceBundle es resources/App/Multicenter/Properties/
      *
      * @see ResourceBundle
      * @param key clave
      * @return Cadena correspondiente
      */
 
-    public String getString(String key) {
-        // TODO LanguageManager getString
-        return null;
+    public static String getString(String key) {
+        return resourceBundle == null ? null : resourceBundle.getString(key);
     }
 }
