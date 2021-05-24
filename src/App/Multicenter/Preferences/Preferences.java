@@ -14,7 +14,7 @@ public class Preferences {
     private static File SpacesFolder;
     private static Dimension WindowsSize;
     private static Properties prop;
-    private final static File propertiesFile = new File("~/.multicenter_config.mtcr");
+    private final static File propertiesFile = new File(System.getProperty("user.home") + "\\Multicenter");
 
     /**
      * Constructor de la clase Preferences.
@@ -24,11 +24,16 @@ public class Preferences {
      */
 
     public Preferences(){
-        initialPreferences();
+        if(propertiesFile.isFile()){ //si ya existe
+            load();
+        } else {//primera ejecucion
+            initialPreferences();
+        }
     }
 
     public static void initialPreferences(){
-        //Creamos el objeto Properties y el archivo donde se guardan las propiedades, establecemos los valores por defecto de todo.
+
+        propertiesFile.mkdir();
         prop = new Properties();
 
         prop.setProperty("working_directory", "~/Multicenter");
@@ -37,15 +42,16 @@ public class Preferences {
         prop.setProperty("theme", "0");
         ThemeManager.setTheme(0);
 
-        prop.setProperty("window_size", "800,800");
+        prop.setProperty("window_size", "800-800");
         WindowsSize = new Dimension(800,800);
 
         prop.setProperty("lang", "1"); // Default: Español
 
-        push();
+        //push();
+
     }
 
-    private static void push(){
+    public void push(){
         try{
             OutputStream out = new FileOutputStream(propertiesFile);
             prop.storeToXML(out, "");
@@ -99,7 +105,7 @@ public class Preferences {
         //Actualizamos tanto el SpacesFolder que tenemos como el archivo properties:
         prop.setProperty("working_directory", spacesFolder.getAbsolutePath());
         SpacesFolder = spacesFolder;
-        push();
+        //push();
     }
 
     /**
@@ -120,7 +126,7 @@ public class Preferences {
     public void setTheme(int theme) {
         prop.setProperty("theme", Integer.toString(theme));
         ThemeManager.setTheme(theme);
-        push();
+        //push();
     }
 
     /**
@@ -141,7 +147,7 @@ public class Preferences {
         LanguageManager.setLanguage(language);
 
         prop.setProperty("lang", Integer.toString(language));
-        push();
+        //push();
     }
 
     /**
@@ -159,9 +165,9 @@ public class Preferences {
      * @param windowsSize La dimensión de la ventana.
      */
     public void setWindowsSize(Dimension windowsSize) {
-        prop.setProperty("window_size", windowsSize.getWidth() + "," + windowsSize.getHeight());
+        prop.setProperty("window_size", windowsSize.getWidth() + "-" + windowsSize.getHeight());
         WindowsSize = windowsSize;
-        push();
+        //push();
     }
 }
 
