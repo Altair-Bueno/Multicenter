@@ -25,11 +25,4 @@ public class Test {
         Assert.assertNotEquals("Fallo",tree,null);
     }
 
-
-    public static void main(String[] args) throws FileNotFoundException {
-        System.out.println("Creando preferences por defecto...");
-        System.out.println(System.getProperty("user.home"));
-
-    }
-
 }
