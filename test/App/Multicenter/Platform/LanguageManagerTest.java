@@ -17,4 +17,8 @@ public class LanguageManagerTest {
         LanguageManager.setLanguage(LanguageManager.SPANISH);
         Assert.assertEquals("test2" ,  LanguageManager.getString("test_key"));
     }
+    @Test
+    public void Appname(){
+        Assert.assertNotNull(LanguageManager.getString("app_name"));
+    }
 }

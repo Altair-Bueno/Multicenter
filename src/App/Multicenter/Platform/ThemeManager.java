@@ -9,6 +9,9 @@ import javax.swing.*;
 
 /**
  * Proporciona herramientas para cambiar el Look and Feel de la aplicación
+ * Estos temas son proporcionadas de forma gratuita por FormDevSoftware. Para
+ * más información visitar el sitio web de
+ * <a href="https://github.com/JFormDesigner/FlatLaf">Flatlaf</a>
  */
 public class ThemeManager {
     // Constantes  de temas

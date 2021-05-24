@@ -6,8 +6,11 @@ import java.util.ResourceBundle;
 /**
  * Provee los métodos necesarios para cambiar el idioma de la aplicación
  * de forma sencilla. Incluye las constantes para cambiar el idioma
- * a solo aquellos soportados. Esta clase funciona de forma estática
- * y no se puede instanciar
+ * a solo aquellos soportados por Multicenter. Al inicio de la aplicación la
+ * JVM decide que idioma debe cargar por defecto. Este comportamiento se puede
+ * sobreescribir los flags -Duser.language=CODE y -Duser.country=CODE. Para más
+ * información visiar <a href="https://www.oracle.com/technical-resources/articles/javase/locale.html#using">documentación de Oracle</a>
+ * Esta clase funciona de forma estática por lo que no se puede instanciar.
  */
 public class LanguageManager {
     // Ubicación ResourceBundle
@@ -18,14 +21,16 @@ public class LanguageManager {
 
     private static ResourceBundle resourceBundle = ResourceBundle.getBundle(LOCALE_PATH, Locale.getDefault());
 
-    // No se puede instanciar
+    // Cierre de clase
     private LanguageManager(){}
 
     /**
      * Cambia el idioma de la aplicación al seleccionado. Actualiza los métodos
-     * de la clase LanguageManager con el nuevo idioma seleccionado
+     * de la clase LanguageManager con el nuevo idioma seleccionado. Este método
+     * afecta al comportamiento de la clase {@link Locale}
      *
      * @see ResourceBundle
+     * @see Locale
      * @param supportedLocale Constantes de LanguageManager
      * @return Si el cambio se ha producido de forma satisfactoria
      */
@@ -39,7 +44,7 @@ public class LanguageManager {
     }
 
     /**
-     * Dada una clave del ResourceBundle, proporciona su correspondiente traducción
+     * Dada una clave del ResourceBundle 'Strings', proporciona su correspondiente traducción
      * La ubicación del ResourceBundle es resources/App/Multicenter/Properties/
      *
      * @see ResourceBundle
