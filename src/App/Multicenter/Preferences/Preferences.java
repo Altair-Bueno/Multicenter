@@ -3,15 +3,12 @@ package App.Multicenter.Preferences;
 import App.Multicenter.Platform.LanguageManager;
 import App.Multicenter.Platform.ThemeManager;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.util.Locale;
 import java.util.Properties;
 import java.util.prefs.*;
 
 import java.awt.*;
-import java.io.File;
 
 public class Preferences {
     private static File SpacesFolder;
@@ -34,7 +31,7 @@ public class Preferences {
         //Creamos el objeto Properties y el archivo donde se guardan las propiedades, establecemos los valores por defecto de todo.
         prop = new Properties();
 
-        prop.setProperty("working_directory", System.getProperty("user.dir"));
+        prop.setProperty("working_directory", "~/Multicenter");
         SpacesFolder = new File(System.getProperty("user.dir"));
 
         prop.setProperty("theme", "0");
@@ -51,7 +48,38 @@ public class Preferences {
     private static void push(){
         try{
             OutputStream out = new FileOutputStream(propertiesFile);
-        } catch (FileNotFoundException e){
+            prop.storeToXML(out, "");
+            out.close();
+
+            System.out.println("SALIDA DE GUARDAR: " + prop.toString());
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    public void load(){
+        try{
+            InputStream in = new FileInputStream(propertiesFile);
+            prop.loadFromXML(in);
+            in.close();
+
+            String ajustes = prop.toString().substring(1, prop.toString().length()-1);
+            for(String s : ajustes.split(",")){
+                String[] settings = s.split("=");
+                if(settings[0].equals("window_size")){
+                    String[] dim = settings[1].split("-");
+                    setWindowsSize(new Dimension(Integer.parseInt(dim[0]),Integer.parseInt(dim[1])));
+                }else if(settings[0].equals("working_directory")){
+                    setSpacesFolder(new File(settings[1]));
+                }else if(settings[0].equals("theme")){
+                    setTheme(Integer.parseInt(settings[1]));
+                }else if(settings[0].equals("lang")){
+                    setLanguage(Integer.parseInt(settings[1]));
+                }
+            }
+
+            System.out.println("SALIDA DE CARGAR: " + prop.toString());
+        } catch (IOException e){
             e.printStackTrace();
         }
     }
