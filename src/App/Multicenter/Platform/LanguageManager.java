@@ -16,7 +16,7 @@ public class LanguageManager {
     // Ubicación ResourceBundle
     private static final String LOCALE_BUNDLE_PATH = "App/Multicenter/Properties/Strings";
     // Idiomas soportados
-    public static final String ENGLISH = "en";//Locale.ENGLISH;
+    public static final String ENGLISH = "und";//Locale.ENGLISH;
     public static final String SPANISH = "es";//new Locale("es");
 
     private static ResourceBundle resourceBundle = ResourceBundle.getBundle(LOCALE_BUNDLE_PATH);
