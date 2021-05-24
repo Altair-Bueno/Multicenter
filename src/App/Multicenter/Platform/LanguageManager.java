@@ -9,7 +9,7 @@ import java.util.ResourceBundle;
  * a solo aquellos soportados por Multicenter. Al inicio de la aplicación la
  * JVM decide que idioma debe cargar por defecto. Este comportamiento se puede
  * sobreescribir los flags -Duser.language=CODE y -Duser.country=CODE. Para más
- * información visiar <a href="https://www.oracle.com/technical-resources/articles/javase/locale.html#using">documentación de Oracle</a>
+ * información visitar <a href="https://www.oracle.com/technical-resources/articles/javase/locale.html#using">documentación de Oracle</a>
  * Esta clase funciona de forma estática por lo que no se puede instanciar.
  */
 public class LanguageManager {
