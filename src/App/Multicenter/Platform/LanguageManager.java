@@ -16,13 +16,23 @@ public class LanguageManager {
     // Ubicación ResourceBundle
     private static final String LOCALE_PATH = "App/Multicenter/Properties/Strings";
     // Idiomas soportados
-    public static final Locale ENGLISH = Locale.ENGLISH;
-    public static final Locale SPANISH = new Locale("es");
+    public static final int ENGLISH = 0;//Locale.ENGLISH;
+    public static final int SPANISH = 1;//new Locale("es");
+    private static int ACTUAL_LOCALE;
 
-    private static ResourceBundle resourceBundle = ResourceBundle.getBundle(LOCALE_PATH, Locale.getDefault());
+    private static ResourceBundle resourceBundle;
 
     // Cierre de clase
     private LanguageManager(){}
+
+    /**
+     * Devuelve el código de idioma utilizado actualmente en Multicenter
+     *
+     * @return Código de idioma utilizado
+     */
+    public static int getActualLocale() {
+        return ACTUAL_LOCALE;
+    }
 
     /**
      * Cambia el idioma de la aplicación al seleccionado. Actualiza los métodos
@@ -34,11 +44,21 @@ public class LanguageManager {
      * @param supportedLocale Constantes de LanguageManager
      * @return Si el cambio se ha producido de forma satisfactoria
      */
-    public static boolean setLanguage(Locale supportedLocale){
+    public static boolean setLanguage(int supportedLocale){
         boolean out = true;
         try{
-            Locale.setDefault(supportedLocale);
-            resourceBundle = ResourceBundle.getBundle(LOCALE_PATH , supportedLocale);
+            Locale locale;
+            switch (supportedLocale) {
+                case 1:
+                    locale = new Locale("es");
+                    ACTUAL_LOCALE = 1;
+                    break;
+                default:
+                    locale = Locale.ENGLISH;
+                    ACTUAL_LOCALE = 0;
+            }
+            Locale.setDefault(locale);
+            resourceBundle = ResourceBundle.getBundle(LOCALE_PATH , locale);
         } catch (Exception e) { out = false; }
         return out;
     }
