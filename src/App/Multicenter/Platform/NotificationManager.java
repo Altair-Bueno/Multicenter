@@ -9,10 +9,6 @@ import java.util.*;
  * que no se puede instanciar.
  */
 public class NotificationManager {
-
-    private static Map<Integer , Timer> timers = new HashMap<>();
-    private static int next = 0;
-
     // Cierre de clase
     private NotificationManager(){}
     /**
@@ -68,10 +64,10 @@ public class NotificationManager {
      * @param caption Título de la notificación
      * @param text Contenido de la notificación
      * @param messageType Tipo de mensaje
-     * @return Identificador de temporizador
+     * @return Timer activo
      * @throws AWTException Si las notificaciones no están soportadas en este sistema
      */
-    public static int notifyLater(Date date ,Image image, String appname , String caption, String text, TrayIcon.MessageType messageType) throws AWTException {
+    public static Timer notifyLater(Date date ,Image image, String appname , String caption, String text, TrayIcon.MessageType messageType) throws AWTException {
         return notifyLater(date , new TrayIcon(image,appname),caption , text, messageType);
     }
 
@@ -85,19 +81,15 @@ public class NotificationManager {
      * @param caption Título de la notificación
      * @param text Contenido de la notificación
      * @param messageType Tipo de mensaje
-     * @return Identificador de temporizador
+     * @return Timer activo
      * @throws AWTException Si las notificaciones no están soportadas en este sistema
      */
-    private static int notifyLater(Date date , TrayIcon trayIcon, String caption, String text, TrayIcon.MessageType messageType) throws AWTException {
+    private static Timer notifyLater(Date date , TrayIcon trayIcon, String caption, String text, TrayIcon.MessageType messageType) throws AWTException {
         if (!isSupported())throw new AWTException("Unable to send desktop notification");
-        next++;
         TimerTask timerTask = new TimerTask() {
-            int timerCode = next;
-
             @Override
             public void run() {
                 try {
-                    timers.remove(timerCode);
                     notifyNow(trayIcon, caption, text, messageType);
                 } catch (AWTException e) {
                     e.printStackTrace();
@@ -106,35 +98,6 @@ public class NotificationManager {
         };
         Timer timer = new Timer();
         timer.schedule(timerTask,date);
-        timers.put(next,timer);
-        return next;
-    }
-
-    /**
-     * Desactiva el temporizador utilizado para mostrar la notificación.
-     * Si dicho temporizador se puede eliminar esta función devolverá true.
-     * En cualquier otro caso false
-     *
-     * @param code Código de temporizador
-     * @return Si la eliminación es exitosa o no
-     */
-    public static boolean disableNotifyLater(int code) {
-        Timer timer = timers.get(code);
-        if (timer == null) return false;
-        else {
-            timer.cancel();
-            timers.remove(code);
-            return true;
-        }
-    }
-
-    /**
-     * Desactiva todos los temporizadores de la app Multicenter
-     */
-    public static void disableAll(){
-        for (Timer timer:timers.values()){
-            timer.cancel();
-        }
-        timers = new HashMap<>();
+        return timer;
     }
 }

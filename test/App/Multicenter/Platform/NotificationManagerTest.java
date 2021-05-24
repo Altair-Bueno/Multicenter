@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import java.awt.*;
 import java.util.Date;
+import java.util.Timer;
 
 public class NotificationManagerTest {
     Image image = Toolkit.getDefaultToolkit().createImage("resources/App/Multicenter/Icons/information.svg");
@@ -24,9 +25,9 @@ public class NotificationManagerTest {
 
     @Test
     public void disble() throws AWTException, InterruptedException {
-        int code = NotificationManager.notifyLater(new Date(System.currentTimeMillis() + 5000),image , null,"No debe aparecer" , null , TrayIcon.MessageType.INFO);
+        Timer t = NotificationManager.notifyLater(new Date(System.currentTimeMillis() + 5000),image , null,"No debe aparecer" , null , TrayIcon.MessageType.INFO);
         Thread.sleep(1000);
-        NotificationManager.disableNotifyLater(code);
+        t.cancel();
         Thread.sleep(10000);
     }
 }

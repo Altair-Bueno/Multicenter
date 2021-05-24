@@ -20,6 +20,10 @@ public class ThemeManager {
     public static final int DARCULA = 2;
     public static final int INTELLIJ = 3;
 
+    private static int CURRENT;
+
+    public static final String [] THEME_NAMES = {"Light","Dark", "Darcula","IntelliJ"};
+
     /**
      * Sustituye el Look and Feel actual por otro soportado por la aplicación.
      * Los nombres de los temas son constantes de ThemeManager. Es de vital
@@ -39,6 +43,7 @@ public class ThemeManager {
             default -> null;
         };
         if (laf == null) return false;
+        CURRENT = themecode;
 
         boolean out = true;
         try {
@@ -48,5 +53,8 @@ public class ThemeManager {
             out = false;
         }
         return out;
+    }
+    public static int getCurrentTheme(){
+        return CURRENT;
     }
 }
