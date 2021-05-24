@@ -10,11 +10,13 @@ import java.util.prefs.*;
 
 import java.awt.*;
 
-public class Preferences {
-    private static File SpacesFolder;
-    private static Dimension WindowsSize;
-    private static Properties prop;
-    private final static File propertiesFile = new File(System.getProperty("user.home") + "\\Multicenter");
+public class Preferences implements Closeable{
+    private static File SpacesFolder = new File(System.getProperty("user.dir"));;
+    private static Dimension WindowsSize = new Dimension(800,800);
+    private static Properties prop = new Properties();
+    private final static File propertiesFile = new File(System.getProperty("user.home") + ".mctrproperties.xml");
+
+    private final static Preferences preferences = new Preferences();
 
     /**
      * Constructor de la clase Preferences.
@@ -23,70 +25,35 @@ public class Preferences {
      * Establece como dimensión inicial de la ventana  800x800
      */
 
-    public Preferences(){
-        if(propertiesFile.isFile()){ //si ya existe
-            load();
-        } else {//primera ejecucion
-            initialPreferences();
-        }
-    }
-
-    public void initialPreferences(){
-
-        propertiesFile.mkdir();
-        prop = new Properties();
-
-        prop.setProperty("working_directory", "~/Multicenter");
-        SpacesFolder = new File(System.getProperty("user.dir"));
-
-        prop.setProperty("theme", "0");
-        ThemeManager.setTheme(0);
-
-        prop.setProperty("window_size", "800-800");
-        WindowsSize = new Dimension(800,800);
-
-        prop.setProperty("lang", "es"); // Default: Español
-
-        push();
-
-    }
-
-    public void push(){
+    private Preferences(){
         try{
-            OutputStream out = new FileOutputStream(propertiesFile);
-            prop.storeToXML(out, "");
-            out.close();
-        } catch (IOException e){
-            e.printStackTrace();
-        }
-    }
-
-    public void load(){
-        try{
-            InputStream in = new FileInputStream(propertiesFile);
+            InputStream in = new FileInputStream(propertiesFile + "/preferences.xml");
             prop.loadFromXML(in);
             in.close();
 
             String ajustes = prop.toString().substring(1, prop.toString().length()-1);
             for(String s : ajustes.split(",")){
                 String[] settings = s.split("=");
-                if(settings[0].equals("window_size")){
-                    String[] dim = settings[1].split("-");
-                    setWindowsSize(new Dimension(Integer.parseInt(dim[0]), Integer.parseInt(dim[1])));
-                }else if(settings[0].equals("working_directory")){
-                    setSpacesFolder(new File(settings[1]));
-                }else if(settings[0].equals("theme")){
-                    setTheme(Integer.parseInt(settings[1]));
-                }else if(settings[0].equals("lang")){
-                    setLanguage(settings[1]);
+
+                switch (settings[0]) {
+                    case "window_size" -> {
+                        String[] dim = settings[1].split("-");
+                        setWindowsSize(new Dimension(Integer.parseInt(dim[0]), Integer.parseInt(dim[1])));
+                    }
+                    case "working_directory" -> setSpacesFolder(new File(settings[1]));
+                    case "theme" -> setTheme(Integer.parseInt(settings[1]));
+                    case "lang" -> setLanguage(settings[1]);
                 }
             }
-
-            System.out.println("SALIDA DE CARGAR: " + prop.toString());
         } catch (IOException e){
             e.printStackTrace();
         }
     }
+
+    public static Preferences getInstance(){
+        return preferences;
+    }
+
     /**
      * @return El SpacesFolder (directorio de trabajo)
      */
@@ -100,10 +67,7 @@ public class Preferences {
      * @param spacesFolder el nuevo SpacesFolder.
      */
     public void setSpacesFolder(File spacesFolder) {
-        //Actualizamos tanto el SpacesFolder que tenemos como el archivo properties:
-        prop.setProperty("working_directory", spacesFolder.getAbsolutePath());
         SpacesFolder = spacesFolder;
-        push();
     }
 
     /**
@@ -112,8 +76,7 @@ public class Preferences {
      * @return El tema.
      */
     public int getTheme() {
-        //return ThemeManager.getTheme();
-        return 0;
+        return ThemeManager.getCurrentTheme();
     }
 
     /**
@@ -122,9 +85,7 @@ public class Preferences {
      * @param theme El tema.
      */
     public void setTheme(int theme) {
-        prop.setProperty("theme", Integer.toString(theme));
         ThemeManager.setTheme(theme);
-        push();
     }
 
     /**
@@ -143,9 +104,6 @@ public class Preferences {
      */
     public void setLanguage(String language) {
         LanguageManager.setLanguage(language);
-
-        prop.setProperty("lang", language);
-        push();
     }
 
     /**
@@ -163,9 +121,18 @@ public class Preferences {
      * @param windowsSize La dimensión de la ventana.
      */
     public void setWindowsSize(Dimension windowsSize) {
-        prop.setProperty("window_size", windowsSize.getWidth() + "-" + windowsSize.getHeight());
         WindowsSize = windowsSize;
-        push();
+    }
+
+    public void close() throws IOException {
+        prop.setProperty("working_directory", getSpacesFolder().getAbsolutePath());
+        prop.setProperty("theme", Integer.toString(getTheme()));
+        prop.setProperty("window_size", getWindowsSize().getWidth() + "-" + getWindowsSize().getHeight());
+        prop.setProperty("lang", getLanguage());
+
+        OutputStream out = new FileOutputStream(propertiesFile + "/preferences.xml");
+        prop.storeToXML(out, "");
+        out.close();
     }
 }
 
