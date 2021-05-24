@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Datos estructurados de ejemplo. Representa un espacio personal
+    El contenido de la carpeta utilizada como espacio de trabajo es
+    el siguiente
+
+    | PersonalSpacesFolder(Preferences location)
+        ...                                         // otros PS
+        | 28934982.xml                              // Este fichero
+        | 28934982                                  // Directorio
+            | 12345678                              // NotesWidget
+                | 12345678.txt
+            | 38345234                              // ImageWidget
+                |34235654.jpg                       // Foto 1
+                |67685567.jpg                       // Foto 2
+                |36576455.png                       // Foto 3
+-->
+<PS id="28934982">
+    <widget class="NotesWidget" id="12345678" layer="1">
+        <position x="2" y="4"/>
+        <size x="40" y="30"/>
+        <file id="12345678.txt"/>
+    </widget>
+    <widget class="CountdownWidget" id="12735618" layer="2">
+        <position x="9" y="3"/>
+        <size x="100" y="300"/>
+        <timer date="1621863272771"/>
+    </widget>
+    <widget class="ImageWidget" id="38345234" layer="3">
+        <position x="23" y="34"/>
+        <size x="234" y="43"/>
+        <image id="34235654.jpg" num="1"/>
+        <image id="67685567.jpg" num="2"/>
+        <image id="36576455.png" num="3"/>
+    </widget>
+</PS>
