@@ -12,4 +12,9 @@ public class VoicenoteWidget extends AbstractWidget{
         return null;
     }
 
+    @Override
+    public boolean toggleEditMode() {
+        return false;
+    }
+
 }

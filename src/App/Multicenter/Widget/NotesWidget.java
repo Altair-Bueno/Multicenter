@@ -28,7 +28,7 @@ public class NotesWidget extends AbstractWidget {
         }
     };
     JEditorPane jEditorPane;
-    JScrollPane jPanel;
+    JPanel jPanel;
     File markdownFile;
 
     Parser parser = Parser.builder().build();
@@ -48,15 +48,20 @@ public class NotesWidget extends AbstractWidget {
         setAlignmentY(y);
         setSize(dimension);
         markdownFile = file;
-        edit = true;
+        edit = false;
 
         jEditorPane = new JEditorPane();
-        jEditorPane.setContentType("text/html");
-        jPanel = new JScrollPane();
+        jPanel = new JPanel();
+        jPanel.setLayout(new BorderLayout());
         jPanel.add(jEditorPane);
         add(jPanel);
 
-        boolean b = toggleEditMode();
+        try {
+            renderMardown();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         // TODO Completar GUI de noteswidget
     }
 
@@ -68,23 +73,38 @@ public class NotesWidget extends AbstractWidget {
         edit = !edit;
         return toggleEditMode(edit);
     }
+    /*
     private boolean toggleEditMode(boolean b){
         boolean out;
         try {
             if (b){
-                //jEditorPane.setContentType("text/html");
                 jEditorPane.setPage(markdownFile.toURI().toURL());
                 jEditorPane.removeHyperlinkListener(hyperlinkListener);
             }else {
                 Writer writer = new OutputStreamWriter(new FileOutputStream(markdownFile));
                 jEditorPane.write(writer);
                 writer.close();
-
-                Node document = parser.parseReader(new InputStreamReader(new FileInputStream(markdownFile)));
-                jEditorPane.setText(renderer.render(document));
-                jEditorPane.addHyperlinkListener(hyperlinkListener);
             }
             jEditorPane.setEditable(b);
+
+            out = true;
+        }catch (Exception e){
+            out = false;
+        }
+        return out;
+    }*/
+
+    private boolean toggleEditMode(boolean b){
+        // TODO
+        boolean out;
+        try {
+            if (b){
+                //jEditorPane.setContentType("text/html");
+                editor();
+            }else {
+                save();
+                renderMardown();
+            }
             out = true;
         } catch (IOException e) {
             e.printStackTrace();
@@ -92,4 +112,26 @@ public class NotesWidget extends AbstractWidget {
         }
         return out;
     }
+
+    private void save() throws IOException {
+        Writer writer = new OutputStreamWriter(new FileOutputStream(markdownFile));
+        jEditorPane.write(writer);
+        writer.close();
+    }
+    private void renderMardown() throws IOException {
+        InputStreamReader r = new InputStreamReader(new FileInputStream(markdownFile));
+        Node document = parser.parseReader(r);
+        jEditorPane.setContentType("text/html");
+        jEditorPane.setText("<html>" + renderer.render(document) + "</html>");
+        jEditorPane.addHyperlinkListener(hyperlinkListener);
+        r.close();
+        jEditorPane.setEditable(false);
+    }
+    private void editor() throws IOException {
+        jEditorPane.setContentType("text/plain");
+        jEditorPane.setPage(markdownFile.toURI().toURL());
+        jEditorPane.removeHyperlinkListener(hyperlinkListener);
+        jEditorPane.setEditable(true);
+    }
+
 }

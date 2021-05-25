@@ -41,4 +41,5 @@ public interface Widget {
      */
     void setLayer(int capa);
 
+    boolean toggleEditMode();
 }

@@ -51,5 +51,10 @@ public class CountdownWidget extends AbstractWidget{
         return res;
     }
 
+    @Override
+    public boolean toggleEditMode() {
+        return false;
+    }
+
 }
 

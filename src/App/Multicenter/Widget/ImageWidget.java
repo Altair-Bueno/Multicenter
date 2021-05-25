@@ -22,4 +22,9 @@ public class ImageWidget extends AbstractWidget{
         res.add(s);
         return res;
     }
+
+    @Override
+    public boolean toggleEditMode() {
+        return false;
+    }
 }

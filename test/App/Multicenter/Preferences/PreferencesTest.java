@@ -18,13 +18,4 @@ public class PreferencesTest {
         Assert.assertEquals(new Dimension(800,800),Preferences.getWindowsSize());
         Preferences.save();
     }
-/*
-    @Before
-    public void save(){
-        Preferences.loadPreferences();
-        Preferences.setLanguage("es");
-        Preferences.save();
-    }
-
- */
 }

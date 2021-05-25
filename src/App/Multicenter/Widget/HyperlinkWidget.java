@@ -19,4 +19,9 @@ public class HyperlinkWidget extends AbstractWidget{
         return res;
     }
 
+    @Override
+    public boolean toggleEditMode() {
+        return false;
+    }
+
 }

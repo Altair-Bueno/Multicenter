@@ -17,7 +17,8 @@ public class NotesWidgetTest {
 
         JButton edit = new JButton("Edit");
         edit.addActionListener(e -> {
-            notesWidget.toggleEditMode();
+            boolean b =notesWidget.toggleEditMode();
+            //System.out.println(b);
         });
 
         jPanel.add(edit);

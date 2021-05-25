@@ -17,4 +17,9 @@ public class CalendarWidget extends AbstractWidget{
         return null;
     }
 
+    @Override
+    public boolean toggleEditMode() {
+        return false;
+    }
+
 }
