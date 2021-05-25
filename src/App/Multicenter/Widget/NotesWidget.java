@@ -25,13 +25,14 @@ public class NotesWidget extends AbstractWidget {
             }
         }
     };
-    JEditorPane jEditorPane;
-    JPanel jPanel;
-    File markdownFile;
 
-    Parser parser = Parser.builder().build();
-    HtmlRenderer renderer = HtmlRenderer.builder().build();
-    boolean edit;
+    private JEditorPane jEditorPane;
+    private JPanel jPanel;
+    private File markdownFile;
+
+    private Parser parser = Parser.builder().build();
+    private HtmlRenderer renderer = HtmlRenderer.builder().build();
+    private boolean edit;
 
     public NotesWidget(int layer){
         // TODO Constructor
@@ -107,7 +108,8 @@ public class NotesWidget extends AbstractWidget {
         try(InputStreamReader r = new InputStreamReader(new FileInputStream(markdownFile))){
             Node document = parser.parseReader(r);
             jEditorPane.setContentType("text/html");
-            jEditorPane.setText("<html>" + renderer.render(document) + "</html>");
+            String renderedHTML = renderer.render(document);
+            jEditorPane.setText("<html>" + renderedHTML + "</html>");
             jEditorPane.addHyperlinkListener(hyperlinkListener);
             jEditorPane.setEditable(false);
         }catch (Exception ignored){}
@@ -125,6 +127,6 @@ public class NotesWidget extends AbstractWidget {
 
     @Override
     public void close() throws IOException {
-
+        save();
     }
 }
