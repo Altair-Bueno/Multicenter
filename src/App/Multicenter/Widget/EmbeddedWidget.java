@@ -1,11 +1,26 @@
 package App.Multicenter.Widget;
 
-public class EmbeddedWidget extends AbstractWidget{
-    // TODO EmbeddedWidget Constructor
+import App.Multicenter.Space.SearchedString;
 
-    public boolean buscar(String cadena) {
-        // TODO EmbeddedWidget buscar
-        return false;
+import java.io.File;
+import java.util.SortedSet;
+import java.net.URL;
+import java.util.TreeSet;
+
+public class EmbeddedWidget extends AbstractWidget{
+    String URL;
+    String nombre;
+
+    public EmbeddedWidget(String url, String nombreRecurso){
+        URL = url;
+        this.nombre = nombreRecurso;
+    }
+
+    public SortedSet<SearchedString<Widget>> buscar(String cadena) {
+        SortedSet<SearchedString<Widget>> res = new TreeSet<>();
+        res.add(new SearchedString<>(this,URL,cadena));
+        res.add(new SearchedString<>(this,nombre,cadena));
+        return res;
     }
 
 }

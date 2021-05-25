@@ -7,7 +7,6 @@ import java.util.Set;
 import java.util.function.Function;
 
 public class HierarchyTree <E> implements Tree<E> {
-
     // Variables de clase
     Map<E,E> relation; // Nodo(hijo) -> Nodo(padre)
 
