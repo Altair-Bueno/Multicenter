@@ -21,7 +21,7 @@ public class Preferences{
     private static File spacesFolder;
     private static Dimension windowsSize;
     private static Properties prop;
-    private final static File propertiesFile = new File(System.getProperty("user.home") , ".mctrproperties.xml");
+    private final static File propertiesFile = new File(System.getProperty("user.home") , ".mctrpreferences.xml");
 
     // Cierre de clase
     private Preferences(){}
@@ -171,6 +171,10 @@ public class Preferences{
         Preferences.windowsSize = windowsSize;
     }
 
+
+    public static Properties getPropObject(){
+        return prop;
+    }
     /**
      * Almacena la configuración actual de forma persistente en el disco. Si este método
      * no es llamado antes del cierre de la aplicación no se almacenarán los cambios
