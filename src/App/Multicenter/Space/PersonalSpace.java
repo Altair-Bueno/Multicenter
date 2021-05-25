@@ -7,9 +7,8 @@ import App.Multicenter.Widget.Widget;
 import java.io.Closeable;
 import java.io.File;
 import java.io.IOException;
-import java.util.Set;
-import java.util.SortedSet;
-import java.util.TreeSet;
+import java.util.*;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -70,15 +69,16 @@ public class PersonalSpace {
         // Llama al metodo buscar de cada widget en widgettree
         // Cada uno devuelve su sortedset de searchedstring
         // Ahora los mezclamos todos en un solo sortedset
-
-        SortedSet<SearchedString<Widget>> res = widgetTree.getNodes().parallelStream().map(e -> e.buscar(cadena)).flatMap(collect(Collectors));
-
+        Supplier<TreeSet<SearchedString<Widget>>> sortedset = ()->new TreeSet<>(Comparator.reverseOrder());
         //Stream<Widget> stwid = widgetTree.getNodes().parallelStream();
         //stwid.forEach((l) -> res.addAll(l.buscar(cadena)));
-
-
-
-        return res;
+        return widgetTree.
+                getNodes().
+                parallelStream().
+                //map(e->e.buscar(cadena)).
+                flatMap(e -> e.buscar(cadena).stream()).
+                sorted().
+                collect(Collectors.toCollection(sortedset));
     }
 
     /**
