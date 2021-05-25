@@ -24,6 +24,7 @@ public class CountdownWidget extends AbstractWidget{
 
     public CountdownWidget(int dia, int mes, int anyo, String titulo) throws ParseException { //Debe introducir el día, hora y minuto del evento deseado
         this.titulo = titulo;
+        //Test
 
         String fechaDS = dia + "/" + mes + "/" + anyo;
         Date fechaFinal = new SimpleDateFormat("dd/MM/yyyy").parse(fechaDS);

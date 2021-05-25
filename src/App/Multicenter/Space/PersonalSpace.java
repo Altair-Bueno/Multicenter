@@ -12,9 +12,7 @@ import java.io.IOException;
 import java.util.*;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
-import static java.util.stream.Nodes.collect;
 
 /**
  * Clase que representa un espacio personal del usuario.
@@ -99,7 +97,7 @@ public class PersonalSpace implements Closeable {
     public void savePersonalSpace(){
         // TODO PersonalSpace savePersonalSpace (dependemos de App.Multicenter.XMLBuddy)
         XMLBuddy<Widget> s = new XMLBuddy<>();
-        s.parseTreeStructure(archivo, widgetTree);
+        //s.parseTreeStructure(archivo, widgetTree);
     }
 
     public void close() throws IOException {
