@@ -1,14 +1,14 @@
 package App.Multicenter.GUI;
 
+import java.awt.*;
 import java.util.List;
 import javax.swing.JPanel;
 import App.Multicenter.Space.PersonalSpace;
 import App.Multicenter.Widget.Widget;
 
-public class Board {
+public class Board extends JPanel {
     //Attributes
     PersonalSpace widgets;
-    JPanel panel;
     Widget[][] malla;
     List<WidgetView> widgetV;
 
@@ -19,7 +19,11 @@ public class Board {
      * 
      */
     public Board(PersonalSpace widgets) {
-        
+        this.widgets = widgets;
+
+        setBackground(new Color(Color.BLUE.getRGB()));
+
+        setVisible(true);
     }    
 
     //Methods

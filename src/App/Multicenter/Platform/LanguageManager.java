@@ -6,10 +6,9 @@ import java.util.ResourceBundle;
 /**
  * Provee los métodos necesarios para cambiar el idioma de la aplicación
  * de forma sencilla. Incluye las constantes para cambiar el idioma
- * a solo aquellos soportados por Multicenter. Al inicio de la aplicación la
- * JVM decide que idioma debe cargar por defecto. Este comportamiento se puede
- * sobreescribir los flags -Duser.language=CODE y -Duser.country=CODE. Para más
- * información visitar <a href="https://www.oracle.com/technical-resources/articles/javase/locale.html#using">documentación de Oracle</a>
+ * a solo aquellos soportados por Multicenter.
+ * Para poder utilizar esta clase de forma satisfactoria, es necesario ejecutar
+ * al inicio de la aplicación el método setLanguage para iniciar esta clase estática
  * Esta clase funciona de forma estática por lo que no se puede instanciar.
  */
 public class LanguageManager {
@@ -18,8 +17,10 @@ public class LanguageManager {
     // Idiomas soportados
     public static final String ENGLISH = "en";//Locale.ENGLISH;
     public static final String SPANISH = "es";//new Locale("es");
+    // Idioma por defecto
+    public static final String DEFAULT = "und";
 
-    private static ResourceBundle resourceBundle = ResourceBundle.getBundle(LOCALE_BUNDLE_PATH);
+    private static ResourceBundle resourceBundle = null;
 
     // Cierre de clase
     private LanguageManager(){}
@@ -28,15 +29,19 @@ public class LanguageManager {
      * Devuelve el código de idioma utilizado actualmente en Multicenter
      *
      * @return Código de idioma utilizado
+     * @throws IllegalStateException Si no se ha inicializado correctamente la aplicación
      */
     public static String getActualLocale() {
+        if (resourceBundle ==null) throw new IllegalStateException("LanguageManager not correctly initialized");
         return resourceBundle.getLocale().toLanguageTag();
     }
 
     /**
      * Cambia el idioma de la aplicación al seleccionado. Actualiza los métodos
      * de la clase LanguageManager con el nuevo idioma seleccionado. Este método
-     * afecta al comportamiento de la clase {@link Locale}
+     * afecta al comportamiento de la clase {@link Locale}. Si recibe como
+     * parámetro null, cambia al idioma por defecto. Si existe algún error, retorna
+     * null y configura el idioma por defecto
      *
      * @see ResourceBundle
      * @see Locale
@@ -49,13 +54,19 @@ public class LanguageManager {
             Locale locale = new Locale(supportedLocale);
             Locale.setDefault(locale);
             resourceBundle = ResourceBundle.getBundle(LOCALE_BUNDLE_PATH, locale);
-        } catch (Exception e) { out = false; }
+        } catch (Exception e) {
+            Locale locale = new Locale(DEFAULT);
+            Locale.setDefault(locale);
+            resourceBundle = ResourceBundle.getBundle(LOCALE_BUNDLE_PATH,locale);
+            out = false;
+        }
         return out;
     }
 
     /**
      * Dada una clave del ResourceBundle 'Strings', proporciona su correspondiente traducción
-     * La ubicación del ResourceBundle es resources/App/Multicenter/Properties/
+     * La ubicación del ResourceBundle es resources/App/Multicenter/Properties/. Si la cadena
+     * no existe o no se ha inicializado correctamente {@link LanguageManager} devolverá null
      *
      * @see ResourceBundle
      * @param key clave

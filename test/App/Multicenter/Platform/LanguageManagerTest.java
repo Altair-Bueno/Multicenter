@@ -30,4 +30,9 @@ public class LanguageManagerTest {
         LanguageManager.setLanguage(LanguageManager.SPANISH);
         Assert.assertEquals(LanguageManager.getActualLocale() , LanguageManager.SPANISH);
     }
+    @Test
+    public void defaul(){
+        LanguageManager.setLanguage(null);
+        Assert.assertNotNull(LanguageManager.getString("app_name"));
+    }
 }

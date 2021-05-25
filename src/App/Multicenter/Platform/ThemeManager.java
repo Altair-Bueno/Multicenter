@@ -6,6 +6,8 @@ import com.formdev.flatlaf.FlatIntelliJLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 
 import javax.swing.*;
+import java.awt.*;
+import java.util.Arrays;
 
 /**
  * Proporciona herramientas para cambiar el Look and Feel de la aplicación
@@ -19,11 +21,10 @@ public class ThemeManager {
     public static final int DARK = 1;
     public static final int DARCULA = 2;
     public static final int INTELLIJ = 3;
-    private static boolean __INSTALL = setTheme(LIGHT);
 
-    private static int CURRENT;
+    private static int CURRENT = -1;
 
-    public static final String [] THEME_NAMES = {"Light","Dark", "Darcula","IntelliJ"};
+    private static final String [] THEME_NAMES = {"Light","Dark", "Darcula","IntelliJ"};
 
     /**
      * Sustituye el Look and Feel actual por otro soportado por la aplicación.
@@ -31,7 +32,7 @@ public class ThemeManager {
      * importancia actualizar el ComponentTree al cambiar el tema para que
      * los cambios surtan efecto
      *
-     * @see SwingUtilities
+     * @see SwingUtilities#updateComponentTreeUI(Component)
      * @param themecode Constante de tema {LIGHT,DARK,DARCULA,INTELLIJ}
      * @return true si el tema se ha aplicado correctamente, falso en otro caso
      */
@@ -55,7 +56,18 @@ public class ThemeManager {
         }
         return out;
     }
+
+    /**
+     * Devuelve el código de tema actualmente en la aplicación
+     * @return Código de tema actual
+     *
+     * @throws IllegalStateException Si no se ha inicializado correctamente la aplicación
+     */
     public static int getCurrentTheme(){
+        if (CURRENT == -1) throw new IllegalStateException("ThemeManager not correctly initialized");
         return CURRENT;
+    }
+    public static String[] getThemeNames(){
+        return Arrays.copyOf(THEME_NAMES,THEME_NAMES.length);
     }
 }
