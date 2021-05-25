@@ -3,9 +3,13 @@ package App.Multicenter.Widget;
 public class CalendarWidget extends AbstractWidget{
     // TODO CalendarWidget Constructor
 
-    public boolean buscar(String cadena) {
-        // TODO CalendarWidget CalendarWidget buscar
-        return false;
+    public CalendarWidget(){
+        c = Calendar.getInstance();
+    }
+
+    //TODO ¿Se podría prescindir del calendario?
+    public SortedSet<SearchedString<Widget>> buscar(String cadena) {
+        return null;
     }
 
 }

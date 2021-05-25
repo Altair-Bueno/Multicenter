@@ -1,11 +1,19 @@
 package App.Multicenter.Space;
 
 import App.Multicenter.DataStructures.Tree;
+import App.Multicenter.Preferences.Preferences;
 import App.Multicenter.Widget.Widget;
 
+import java.io.Closeable;
 import java.io.File;
+import java.io.IOException;
 import java.util.Set;
 import java.util.SortedSet;
+import java.util.TreeSet;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import static java.util.stream.Nodes.collect;
 
 /**
  * Clase que representa un espacio personal del usuario.
@@ -19,6 +27,7 @@ public class PersonalSpace {
     Tree<Widget> widgetTree;
     File archivo;
 
+
     // TODO PersonalSpace Constructor
 
     // Operaciones
@@ -31,8 +40,7 @@ public class PersonalSpace {
      * @param padre Widget a ser padre de w.
      */
     public void addWidget(Widget w, Widget padre){
-        // TODO PersonalSpace addWidget
-
+        widgetTree.addChildren(w, padre);
     }
 
     /**
@@ -42,8 +50,7 @@ public class PersonalSpace {
      * @param w Widget a eliminar del árbol.
      */
     public void deleteWidget(Widget w){
-        // TODO PersonalSpace deleteWidget
-
+        widgetTree.removeElement(w);
     }
 
 
@@ -59,9 +66,19 @@ public class PersonalSpace {
      * la cadena junto con el widget del que
      * provienen.
      */
-    public SortedSet<SearchedString<Widget>> buscar(String cadena){
-        // TODO PersonalSpace buscar
-        return null;
+    public SortedSet<SearchedString<Widget>> buscarcadena(String cadena){
+        // Llama al metodo buscar de cada widget en widgettree
+        // Cada uno devuelve su sortedset de searchedstring
+        // Ahora los mezclamos todos en un solo sortedset
+
+        SortedSet<SearchedString<Widget>> res = widgetTree.getNodes().parallelStream().map(e -> e.buscar(cadena)).flatMap(collect(Collectors));
+
+        //Stream<Widget> stwid = widgetTree.getNodes().parallelStream();
+        //stwid.forEach((l) -> res.addAll(l.buscar(cadena)));
+
+
+
+        return res;
     }
 
     /**
@@ -73,7 +90,12 @@ public class PersonalSpace {
      *
      */
     public void savePersonalSpace(){
-        // TODO PersonalSpace savePersonalSpace
+        // TODO PersonalSpace savePersonalSpace (dependemos de App.Multicenter.XMLBuddy)
+        XMLBuddy<Widget> s = new XMLBuddy<>();
+        s.parseTreeStructure(archivo, widgetTree);
+    }
 
+    public void close() throws IOException {
+        savePersonalSpace();
     }
 }

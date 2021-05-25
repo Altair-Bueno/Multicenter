@@ -1,7 +1,10 @@
 package App.Multicenter.Widget;
 
+import App.Multicenter.Space.SearchedString;
+
 import javax.swing.*;
 import java.awt.*;
+import java.util.SortedSet;
 
 /**
  * The type Abstract widget.
@@ -11,9 +14,9 @@ public abstract class AbstractWidget extends JInternalFrame implements Widget {
     int layer;
 
     // Operaciones
-    public boolean buscar(String cadena){
+    public SortedSet<SearchedString<Widget>> buscar(String cadena){
         // TODO AbstractWidget buscar
-        return false;
+        return null;
     }
     public String getId(){
         // TODO AbstractWidget getId
