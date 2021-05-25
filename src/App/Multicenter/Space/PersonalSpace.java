@@ -6,10 +6,7 @@ import App.Multicenter.DataStructures.Tree;
 import App.Multicenter.Preferences.Preferences;
 import App.Multicenter.Widget.Widget;
 
-import java.io.Closeable;
-import java.io.File;
-import java.io.IOException;
-import java.io.Serializable;
+import java.io.*;
 import java.util.*;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
@@ -25,17 +22,29 @@ import java.util.stream.Collectors;
  */
 public class PersonalSpace implements Closeable, Serializable {
     Tree<Widget> widgetTree;
+    String id;
     File archivo;
+    XMLBuddy<Tree<Widget>> xmlbuddy;
 
 
-    // TODO PersonalSpace Constructor
+    /**
+     * Instancia un nuevo espacio personal.
+     *
+     * <p>Se intenta abrir el archivo XML con la información
+     * del árbol de widgets almacenada dentro y si no se
+     * encuentra el archivo (porque no está creado, o
+     * porque haya habido algún error), se crea un árbol
+     * de widgets vacío)
+     */
     public PersonalSpace(){
-        widgetTree = new HierarchyTree<>();
-        archivo = Preferences.getSpacesFolder();
-        //XMLBuddy.parseXMLFile(archivo);
-    }
+        try {
+            archivo = new File(Preferences.getSpacesFolder().getCanonicalPath() + ".mctrSpace.xml");
+            widgetTree = xmlbuddy.parseXMLFile(archivo);
+        } catch (IOException e) {
+            widgetTree = new HierarchyTree<>();
+        }
 
-    // Operaciones
+    }
 
     /**
      * Añade el widget pasado por parámetro al
@@ -72,12 +81,8 @@ public class PersonalSpace implements Closeable, Serializable {
      * provienen.
      */
     public SortedSet<SearchedString<Widget>> buscarcadena(String cadena){
-        // Llama al metodo buscar de cada widget en widgettree
-        // Cada uno devuelve su sortedset de searchedstring
-        // Ahora los mezclamos todos en un solo sortedset
         Supplier<TreeSet<SearchedString<Widget>>> sortedset = ()->new TreeSet<>(Comparator.reverseOrder());
-        //Stream<Widget> stwid = widgetTree.getNodes().parallelStream();
-        //stwid.forEach((l) -> res.addAll(l.buscar(cadena)));
+
         return widgetTree.
                 getNodes().
                 parallelStream().
@@ -96,9 +101,8 @@ public class PersonalSpace implements Closeable, Serializable {
      *
      */
     public void savePersonalSpace(){
-        // TODO PersonalSpace savePersonalSpace (dependemos de App.Multicenter.XMLBuddy)
-        XMLBuddy<Widget> s = new XMLBuddy<>();
-        //s.parseTreeStructure(archivo, widgetTree);
+        XMLBuddy<Tree<Widget>> s = new XMLBuddy<>();
+        s.parseTreeStructure(archivo, widgetTree);
     }
 
     public void close() throws IOException {
