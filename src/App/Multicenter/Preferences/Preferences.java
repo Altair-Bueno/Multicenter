@@ -9,7 +9,7 @@ import java.util.Properties;
 import java.awt.*;
 
 /**
- * Test
+ *
  * Proporciona los métodos necesarios para cambiar las preferencias
  * de la aplicación temporalmente, y para cambiarlas definitivamente
  * mediante el uso de un archivo oculto en formato xml guardado en
