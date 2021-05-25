@@ -15,10 +15,11 @@ public class LanguageManager {
     // Ubicación ResourceBundle
     private static final String LOCALE_BUNDLE_PATH = "App/Multicenter/Properties/Strings";
     // Idiomas soportados
+    public static final String DEFAULT = "und";
     public static final String ENGLISH = "en";//Locale.ENGLISH;
     public static final String SPANISH = "es";//new Locale("es");
-    // Idioma por defecto
-    public static final String DEFAULT = "und";
+    // Idioma de la JVM
+    public static final String USER_ENV = Locale.getDefault().toLanguageTag();
 
     private static ResourceBundle resourceBundle = null;
 
@@ -33,15 +34,15 @@ public class LanguageManager {
      */
     public static String getActualLocale() {
         if (resourceBundle ==null) throw new IllegalStateException("LanguageManager not correctly initialized");
-        return resourceBundle.getLocale().toLanguageTag();
+        return Locale.getDefault().toLanguageTag();
     }
 
     /**
      * Cambia el idioma de la aplicación al seleccionado. Actualiza los métodos
      * de la clase LanguageManager con el nuevo idioma seleccionado. Este método
      * afecta al comportamiento de la clase {@link Locale}. Si recibe como
-     * parámetro null, cambia al idioma por defecto. Si existe algún error, retorna
-     * null y configura el idioma por defecto
+     * parámetro null, cambia al idioma de la JVM. Si existe algún error, retorna
+     * null y configura el idioma de la JVM
      *
      * @see ResourceBundle
      * @see Locale
@@ -55,9 +56,9 @@ public class LanguageManager {
             Locale.setDefault(locale);
             resourceBundle = ResourceBundle.getBundle(LOCALE_BUNDLE_PATH, locale);
         } catch (Exception e) {
-            Locale locale = new Locale(DEFAULT);
+            Locale locale = new Locale(USER_ENV);
             Locale.setDefault(locale);
-            resourceBundle = ResourceBundle.getBundle(LOCALE_BUNDLE_PATH,locale);
+            resourceBundle = ResourceBundle.getBundle(LOCALE_BUNDLE_PATH);
             out = false;
         }
         return out;

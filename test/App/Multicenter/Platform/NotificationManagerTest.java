@@ -1,13 +1,16 @@
 package App.Multicenter.Platform;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.awt.*;
 import java.util.Date;
 import java.util.Timer;
 
+@Ignore ("Muy molesto")
 public class NotificationManagerTest {
     Image image = Toolkit.getDefaultToolkit().createImage("resources/App/Multicenter/Icons/information.svg");
+
     @Test
     public void notifyNow() throws AWTException {
         for (int i = 0 ; i< 4 ; i++)

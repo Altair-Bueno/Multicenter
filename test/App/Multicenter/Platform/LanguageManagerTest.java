@@ -32,7 +32,11 @@ public class LanguageManagerTest {
     }
     @Test
     public void defaul(){
+        // Run configurations > Arguments > Add '-Duser.language=fra'
+        // Usamos fr pq no está soportado
+        Assert.assertEquals("fra",Locale.getDefault().getLanguage());
         LanguageManager.setLanguage(null);
         Assert.assertNotNull(LanguageManager.getString("app_name"));
+        Assert.assertEquals(LanguageManager.DEFAULT,LanguageManager.getActualLocale());
     }
 }

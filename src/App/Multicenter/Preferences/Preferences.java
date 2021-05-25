@@ -32,7 +32,7 @@ public class Preferences{
      * <ul>
      *     <li>Establece como working directory la carpeta home</li>
      *     <li>Establece como tamaño de ventana predeterminada 800x800</li>
-     *     <li>Establece el idioma de la aplicación al idioma por defecto</li>
+     *     <li>Establece el idioma de la aplicación al idioma de la JVM</li>
      *     <li>Establece como tema de la aplicación LIGHT</li>
      *     <li>Crea el archivo de preferencias y guarda esta configuración inicial</li>
      * </ul>
@@ -43,7 +43,7 @@ public class Preferences{
         spacesFolder = new File(System.getProperty("user.dir"));
         windowsSize = new Dimension(800,800);
         prop = new Properties();
-        LanguageManager.setLanguage(LanguageManager.DEFAULT);
+        LanguageManager.setLanguage(LanguageManager.USER_ENV);
         ThemeManager.setTheme(ThemeManager.LIGHT);
 
         boolean out = true;
