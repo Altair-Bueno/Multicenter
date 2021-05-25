@@ -1,8 +1,13 @@
 package App.Multicenter.Buddy;
 
 import App.Multicenter.DataStructures.Tree;
+import App.Multicenter.Space.PersonalSpace;
 
-import java.io.File;
+import java.beans.Beans;
+import java.beans.XMLDecoder;
+import java.beans.XMLEncoder;
+import java.io.*;
+import java.util.Set;
 import java.util.function.Function;
 
 /**
@@ -22,10 +27,6 @@ public class XMLBuddy<T> {
      * @param file Archivo del que leer el XML
      * @return Árbol jerárquico de Strings
      */
-    public static Tree<String> parseXMLFile(File file){
-        XMLBuddy<String> buddy = new XMLBuddy<>();
-        return buddy.parseXMLFile(file,e->e);
-    }
 
     /**
      * Lee el fichero recibido como parámetro, conservando su estructura jerárquica
@@ -41,9 +42,15 @@ public class XMLBuddy<T> {
      * @return Árbol jerárquico
      * @throws IllegalArgumentException si function == null
      */
-    public Tree<T> parseXMLFile(File file, Function<String,T> function){
-        // TODO XMLBuddy parseXMLFile
-        return null;
+    public T parseXMLFile(File file){
+        T ret = null;
+        try {
+            XMLDecoder decoder = new XMLDecoder(new BufferedInputStream(new FileInputStream(file)));
+            ret = (T) decoder.readObject();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        return ret;
     }
 
     /**
@@ -56,10 +63,6 @@ public class XMLBuddy<T> {
      * @param file Archivo donde escribir el XML
      * @param tree Árbol jerárquico a almacenar
      */
-    public static void parseTreeStructure(File file , Tree<String> tree) {
-        XMLBuddy<String> buddy = new XMLBuddy<>();
-        buddy.parseTreeStructure(file,tree,e->e);
-    }
 
     /**
      * Almacena el contenido del árbol recibido como parámetro en el
@@ -74,7 +77,19 @@ public class XMLBuddy<T> {
      * @throws IllegalArgumentException si function == null
      */
 
-    public void parseTreeStructure(File file , Tree<T> tree , Function<T,String> function){
+    public boolean parseTreeStructure(File file , T personalSpaces){
         // TODO XMLBuddy parseTreeStructure
+        boolean out;
+        XMLEncoder encoder = null;
+        try {
+            encoder = new XMLEncoder(new BufferedOutputStream(new FileOutputStream(file)));
+            encoder.writeObject(personalSpaces);
+            encoder.close();
+            out = true;
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            out = false;
+        }
+        return out;
     }
 }

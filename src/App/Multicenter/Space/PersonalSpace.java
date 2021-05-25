@@ -9,6 +9,7 @@ import App.Multicenter.Widget.Widget;
 import java.io.Closeable;
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.*;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
@@ -22,7 +23,7 @@ import java.util.stream.Collectors;
  * Ofrecerá operaciones para añadir y eliminar widgets,
  * y para buscar cadenas en el espacio personal.
  */
-public class PersonalSpace implements Closeable {
+public class PersonalSpace implements Closeable, Serializable {
     Tree<Widget> widgetTree;
     File archivo;
 
@@ -31,7 +32,7 @@ public class PersonalSpace implements Closeable {
     public PersonalSpace(){
         widgetTree = new HierarchyTree<>();
         archivo = Preferences.getSpacesFolder();
-        XMLBuddy.parseXMLFile(archivo);
+        //XMLBuddy.parseXMLFile(archivo);
     }
 
     // Operaciones

@@ -16,7 +16,7 @@
                 |36576455.png                       // Foto 3
 
 -->
-<PS id="28934982">
+<PS name="Espacio personal 1" id="28934982">
     <widget class="NotesWidget" id="12345678" layer="1">
         <position x="2" y="4"/>
         <size x="40" y="30"/>
