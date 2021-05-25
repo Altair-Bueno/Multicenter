@@ -16,6 +16,11 @@ public class HierarchyTree <E> implements Tree<E> {
     // Operaciones
 
     @Override
+    public E getRoot() {
+        return null;
+    }
+
+    @Override
     public Tree<E> getSubTree(E elem) {
         // TODO HierarchyTree getSubtree
         return null;
@@ -91,6 +96,11 @@ public class HierarchyTree <E> implements Tree<E> {
     public int getSize() {
         // TODO HierarchyTree getSize
         return 0;
+    }
+
+    @Override
+    public Set<E> getNodes() {
+        return null;
     }
 
     /**

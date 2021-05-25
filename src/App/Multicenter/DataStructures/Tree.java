@@ -1,6 +1,7 @@
 package App.Multicenter.DataStructures;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 import java.util.function.Function;
 
@@ -13,6 +14,12 @@ import java.util.function.Function;
  * @param <E> Tipo de los datos almacenados
  */
 public interface Tree <E>{
+    /**
+     * Obtiene el elemento raíz de este árbol
+     *
+     * @return Raíz del arbol
+     */
+    E getRoot();
     /**
      * Devuelve un sub-árbol donde el elemento raíz es el nodo recibido como
      * parámetro. Si el árbol no contiene dicho elemento, devolverá null
@@ -135,4 +142,12 @@ public interface Tree <E>{
      * @return Nº de elementos almacenados
      */
     int getSize();
+
+    /**
+     * Devuelve un conjunto con todos los elementos del árbol sin
+     * jerarquía
+     *
+     * @return Conjunto de elementos
+     */
+    Set<E> getNodes();
 }
