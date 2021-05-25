@@ -14,10 +14,6 @@ import java.awt.*;
  * mediante el uso de un archivo oculto en formato xml guardado en
  * "user.dir", ".mctrpreferences.xml".
  *
- * Limitado a 1 instancia (Constructor privado)
- * Establece el workingDirectory por defecto en su primera creación.
- * Establece como tema principal el tema claro.
- * Establece como dimensión inicial de la ventana  800x800.
  */
 public class Preferences{
     // Variables estáticas
@@ -96,12 +92,12 @@ public class Preferences{
      * Devuelve el tema usado ctualmente en la aplicación.
      *
      * @return El número indexado al tema actual.
-     *         {
-     *         0 = "LIGHT",
-     *         1 = "DARK",
-     *         2 = "DARCULA",
-     *         3 = "INTELLIJ"
-     *         }
+     * <ul>
+     *     <li>0 = "LIGHT"</li>
+     *     <li>1 = "DARK"</li>
+     *     <li>2 = "DARCULA"</li>
+     *     <li>3 = "INTELLIJ"</li>
+     * </ul>
      */
     public static int getTheme() {
         if (prop == null) throw new IllegalStateException("Preferences not correctly initialized");
@@ -112,12 +108,12 @@ public class Preferences{
      * Cambia el tema de la aplicación.
      *
      * @param theme El entero asociado al tema al que se quiere cambiar.
-     *              {
-     *              0 = "LIGHT",
-     *              1 = "DARK",
-     *              2 = "DARCULA",
-     *              3 = "INTELLIJ"
-     *              }
+     * <ul>
+     *     <li>0 = "LIGHT"</li>
+     *     <li>1 = "DARK"</li>
+     *     <li>2 = "DARCULA"</li>
+     *     <li>3 = "INTELLIJ"</li>
+     * </ul>
      */
     public static void setTheme(int theme) {
         if (prop == null) throw new IllegalStateException("Preferences not correctly initialized");
@@ -129,6 +125,10 @@ public class Preferences{
      * usado en la aplicación.
      *
      * @return El idioma.
+     * <ul>
+     *     <li>"es" = Español 🇪🇸</li>
+     *     <li>"en" = Inglés 🇬🇧</li>
+     * </ul>
      */
     public static String getLanguage() {
         if (prop == null) throw new IllegalStateException("Preferences not correctly initialized");
@@ -139,8 +139,10 @@ public class Preferences{
      * Cambia el idioma de la aplicación.
      *
      * @param language El prefijo del idioma
-     *                 "es" = Español
-     *                 "en" = Inglés
+     * <ul>
+     *     <li>"es" = Español 🇪🇸</li>
+     *     <li>"en" = Inglés 🇬🇧</li>
+     * </ul>
      */
     public static void setLanguage(String language) {
         if (prop == null) throw new IllegalStateException("Preferences not correctly initialized");
