@@ -11,20 +11,18 @@ public class HierarchyTree <E> implements Tree<E> {
     HashMap<E,E> relationFather; // hijo -> padre
     HashMap<E,Set<E>> relationChildren; // Padre-> Set(hijo)
     E root;
-    int tam;
 
     // TODO Constructores
     public HierarchyTree(HashMap<E,E> rf,HashMap<E,Set<E>> rc,E root){
         relationFather = rf;
         relationChildren = rc;
         this.root = root;
-        tam = 0;
+
     }
     public HierarchyTree(E root){
         relationFather = new HashMap<>();
         relationChildren = new HashMap<>();
         this.root = root;
-        tam = 0;
     }
     // Operaciones
 
