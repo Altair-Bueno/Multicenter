@@ -1,10 +1,12 @@
 package App.Multicenter.GUI;
 
+import App.Multicenter.Preferences.Preferences;
 import App.Multicenter.Space.PersonalSpace;
 
 import javax.swing.*;
 import java.awt.*;
 import java.lang.reflect.InvocationTargetException;
+import java.util.Calendar;
 
 public class AppWindow extends JFrame {
     //Attributes
@@ -20,6 +22,7 @@ public class AppWindow extends JFrame {
         add(ps, BorderLayout.CENTER);
         add(sb, BorderLayout.WEST);
         setVisible(true);
+        setMinimumSize(new Dimension(400, 400));
     }
     
     //Methods
@@ -45,12 +48,5 @@ public class AppWindow extends JFrame {
         SideBar sideBar = new SideBar();
 
         AppWindow app = new AppWindow(personalSpaceView, sideBar);
-    }
-    public static void main(String[] args) throws InvocationTargetException, InterruptedException {
-        javax.swing.SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                createAndShowGUI();
-            }
-        });
     }
 }

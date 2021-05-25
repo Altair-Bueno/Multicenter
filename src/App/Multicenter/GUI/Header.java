@@ -20,14 +20,16 @@ public class Header extends JPanel {
     public Header(String title) {
         this.title = title;
         setPreferredSize(new Dimension(100, 80));
-        setBackground(new Color(Color.RED.getRGB()));
+        //setBackground(new Color(Color.RED.getRGB()));
         setLayout(null);
+        setBorder(BorderFactory.createMatteBorder(0,0,1,0,Color.lightGray));
 
         text = new JLabel();
         text.setText(title);
         text.setForeground(Color.lightGray);
         text.setBounds(30, 40, 200, 50);
         add(text);
+
 
         setVisible(true);
     }

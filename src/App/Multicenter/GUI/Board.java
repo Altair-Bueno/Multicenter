@@ -21,7 +21,7 @@ public class Board extends JPanel {
     public Board(PersonalSpace widgets) {
         this.widgets = widgets;
 
-        setBackground(new Color(Color.BLUE.getRGB()));
+        //setBackground(new Color(Color.BLUE.getRGB()));
 
         setVisible(true);
     }    

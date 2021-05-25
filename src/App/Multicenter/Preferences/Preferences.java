@@ -65,7 +65,7 @@ public class Preferences{
                 }
             }
         } catch (Exception e){
-            //e.printStackTrace();
+            e.printStackTrace();
             out = false;
         }
         return out;
