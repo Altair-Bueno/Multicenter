@@ -1,11 +1,15 @@
 package App.Multicenter.Widget;
 
-public class NotesWidget extends AbstractWidget {
-    // TODO ImageWidget Constructor
+import App.Multicenter.Space.SearchedString;
 
-    public boolean buscar(String cadena) {
-        // TODO ImageWidget buscar
-        return false;
+import java.util.SortedSet;
+
+public class NotesWidget extends AbstractWidget {
+    // TODO EmbeddedWidget Constructor
+
+    public SortedSet<SearchedString<Widget>> buscar(String cadena) {
+        // TODO EmbeddedWidget buscar
+        return null;
     }
 
 }
