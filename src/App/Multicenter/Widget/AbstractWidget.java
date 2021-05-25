@@ -4,12 +4,14 @@ import App.Multicenter.Space.SearchedString;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.Closeable;
+import java.io.Serializable;
 import java.util.SortedSet;
 
 /**
  * The type Abstract widget.
  */
-public abstract class AbstractWidget extends JInternalFrame implements Widget {
+public abstract class AbstractWidget extends JInternalFrame implements Widget , Serializable, Closeable {
     String id;
     int layer;
 

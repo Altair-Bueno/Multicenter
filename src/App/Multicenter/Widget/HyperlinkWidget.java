@@ -3,6 +3,7 @@ package App.Multicenter.Widget;
 
 import App.Multicenter.Space.SearchedString;
 
+import java.io.IOException;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
@@ -19,4 +20,12 @@ public class HyperlinkWidget extends AbstractWidget{
         return res;
     }
 
+    @Override
+    public void toggleEditMode() {
+    }
+
+    @Override
+    public void close() throws IOException {
+
+    }
 }

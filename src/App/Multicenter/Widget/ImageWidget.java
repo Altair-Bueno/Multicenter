@@ -4,6 +4,7 @@ package App.Multicenter.Widget;
 import App.Multicenter.Space.SearchedString;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
@@ -21,5 +22,14 @@ public class ImageWidget extends AbstractWidget{
         SortedSet<SearchedString<Widget>> res = new TreeSet<>();
         res.add(s);
         return res;
+    }
+
+    @Override
+    public void toggleEditMode() {
+    }
+
+    @Override
+    public void close() throws IOException {
+
     }
 }

@@ -1,12 +1,13 @@
 package App.Multicenter.DataStructures;
 
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Function;
 
-public class HierarchyTree <E> implements Tree<E> {
+public class HierarchyTree <E> implements Tree<E>, Serializable {
     // Variables de clase
     Map<E,E> relation; // Nodo(hijo) -> Nodo(padre)
 

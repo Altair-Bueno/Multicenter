@@ -1,5 +1,6 @@
 package App.Multicenter.DataStructures;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
@@ -13,7 +14,7 @@ import java.util.function.Function;
  *
  * @param <E> Tipo de los datos almacenados
  */
-public interface Tree <E>{
+public interface Tree <E> {
     /**
      * Obtiene el elemento raíz de este árbol
      *
