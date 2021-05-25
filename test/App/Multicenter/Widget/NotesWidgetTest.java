@@ -17,7 +17,7 @@ public class NotesWidgetTest {
 
         JButton edit = new JButton("Edit");
         edit.addActionListener(e -> {
-            boolean b =notesWidget.toggleEditMode();
+            notesWidget.toggleEditMode();
             //System.out.println(b);
         });
 

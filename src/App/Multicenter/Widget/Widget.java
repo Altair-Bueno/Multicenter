@@ -2,7 +2,6 @@ package App.Multicenter.Widget;
 
 import App.Multicenter.Space.SearchedString;
 
-import java.awt.*;
 import java.util.SortedSet;
 
 public interface Widget {
@@ -41,5 +40,5 @@ public interface Widget {
      */
     void setLayer(int capa);
 
-    boolean toggleEditMode();
+    void toggleEditMode();
 }
