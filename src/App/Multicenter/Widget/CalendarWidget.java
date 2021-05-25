@@ -1,7 +1,12 @@
 package App.Multicenter.Widget;
 
+import App.Multicenter.Space.SearchedString;
+
+import java.util.Calendar;
+import java.util.SortedSet;
+
 public class CalendarWidget extends AbstractWidget{
-    // TODO CalendarWidget Constructor
+    private Calendar c;
 
     public CalendarWidget(){
         c = Calendar.getInstance();

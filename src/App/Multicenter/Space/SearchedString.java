@@ -103,7 +103,6 @@ public class SearchedString<E> implements Comparable<SearchedString> {
      * @return El widget.
      */
     public E getWidget(){
-        // TODO SearchedString getWidget
         return widget;
     }
 
@@ -111,15 +110,13 @@ public class SearchedString<E> implements Comparable<SearchedString> {
      * @return La cadena.
      */
     public String getCadena(){
-        // TODO SearchedString getCadena
         return cadena;
     }
 
     /**
      * @return El ratio.
      */
-    public int getRatio(){
-        // TODO SearchedString getRatio
+    public double getRatio(){
         return ratio;
     }
 
@@ -131,8 +128,8 @@ public class SearchedString<E> implements Comparable<SearchedString> {
      * Un valor < 0 si this.ratio es menor que o.ratio.
      * 0 si los ratios son iguales.
      */
+    @Override
     public int compareTo(SearchedString o) {
-        // TODO SearchedString compareTo
-        return Integer.compare(ratio, o.getRatio());
+        return Double.compare(ratio, o.getRatio());
     }
 }

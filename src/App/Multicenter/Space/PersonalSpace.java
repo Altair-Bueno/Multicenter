@@ -1,5 +1,7 @@
 package App.Multicenter.Space;
 
+import App.Multicenter.Buddy.XMLBuddy;
+import App.Multicenter.DataStructures.HierarchyTree;
 import App.Multicenter.DataStructures.Tree;
 import App.Multicenter.Preferences.Preferences;
 import App.Multicenter.Widget.Widget;
@@ -22,12 +24,17 @@ import static java.util.stream.Nodes.collect;
  * Ofrecerá operaciones para añadir y eliminar widgets,
  * y para buscar cadenas en el espacio personal.
  */
-public class PersonalSpace {
+public class PersonalSpace implements Closeable {
     Tree<Widget> widgetTree;
     File archivo;
 
 
     // TODO PersonalSpace Constructor
+    public PersonalSpace(){
+        widgetTree = new HierarchyTree<>();
+        archivo = Preferences.getSpacesFolder();
+        XMLBuddy.parseXMLFile(archivo);
+    }
 
     // Operaciones
 
