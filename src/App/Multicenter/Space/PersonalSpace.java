@@ -84,7 +84,7 @@ public class PersonalSpace implements Closeable {
                 parallelStream().
                 //map(e->e.buscar(cadena)).
                 flatMap(e -> e.buscar(cadena).stream()).
-                sorted().
+                //sorted().
                 collect(Collectors.toCollection(sortedset));
     }
 
