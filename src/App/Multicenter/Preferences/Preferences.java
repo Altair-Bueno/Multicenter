@@ -8,6 +8,17 @@ import java.util.Properties;
 
 import java.awt.*;
 
+/**
+ * Proporciona los métodos necesarios para cambiar las preferencias
+ * de la aplicación temporalmente, y para cambiarlas definitivamente
+ * mediante el uso de un archivo oculto en formato xml guardado en
+ * "user.dir", ".mctrpreferences.xml".
+ *
+ * Limitado a 1 instancia (Constructor privado)
+ * Establece el workingDirectory por defecto en su primera creación.
+ * Establece como tema principal el tema claro.
+ * Establece como dimensión inicial de la ventana  800x800.
+ */
 public class Preferences{
     // Variables estáticas
     private static File spacesFolder;
@@ -82,9 +93,15 @@ public class Preferences{
     }
 
     /**
-     * Devuelve el tema de la aplicación.
+     * Devuelve el tema usado ctualmente en la aplicación.
      *
-     * @return El tema.
+     * @return El número indexado al tema actual.
+     *         {
+     *         0 = "LIGHT",
+     *         1 = "DARK",
+     *         2 = "DARCULA",
+     *         3 = "INTELLIJ"
+     *         }
      */
     public static int getTheme() {
         if (prop == null) throw new IllegalStateException("Preferences not correctly initialized");
@@ -94,7 +111,13 @@ public class Preferences{
     /**
      * Cambia el tema de la aplicación.
      *
-     * @param theme El tema.
+     * @param theme El entero asociado al tema al que se quiere cambiar.
+     *              {
+     *              0 = "LIGHT",
+     *              1 = "DARK",
+     *              2 = "DARCULA",
+     *              3 = "INTELLIJ"
+     *              }
      */
     public static void setTheme(int theme) {
         if (prop == null) throw new IllegalStateException("Preferences not correctly initialized");
@@ -102,7 +125,8 @@ public class Preferences{
     }
 
     /**
-     * Devuelve el idioma de la aplicación.
+     * Devuelve el idioma que está siendo
+     * usado en la aplicación.
      *
      * @return El idioma.
      */
@@ -114,7 +138,9 @@ public class Preferences{
     /**
      * Cambia el idioma de la aplicación.
      *
-     * @param language El idioma
+     * @param language El prefijo del idioma
+     *                 "es" = Español
+     *                 "en" = Inglés
      */
     public static void setLanguage(String language) {
         if (prop == null) throw new IllegalStateException("Preferences not correctly initialized");
@@ -122,7 +148,8 @@ public class Preferences{
     }
 
     /**
-     * Devuelve la dimensión de la ventana.
+     * Devuelve la dimensión de la ventana
+     * de la aplicación.
      *
      * @return La dimensión de la ventana.
      */
