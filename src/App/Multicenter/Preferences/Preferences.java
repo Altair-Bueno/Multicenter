@@ -10,24 +10,37 @@ import java.util.prefs.*;
 
 import java.awt.*;
 
+/**
+ * Proporciona los métodos necesarios para cambiar las preferencias
+ * de la aplicación temporalmente, y para cambiarlas definitivamente
+ * mediante el uso de un archivo oculto en formato xml guardado en
+ * "user.dir", ".mctrpreferences.xml".
+ *
+ * Limitado a 1 instancia (Constructor privado)
+ * Establece el workingDirectory por defecto en su primera creación.
+ * Establece como tema principal el tema claro.
+ * Establece como dimensión inicial de la ventana  800x800.
+ */
 public class Preferences{
     private static File SpacesFolder = new File(System.getProperty("user.dir"));;
     private static Dimension WindowsSize = new Dimension(800,800);
     private static Properties prop = new Properties();
-    private final static File propertiesFile = new File(System.getProperty("user.home") + ".mctrproperties.xml");
+    private final static File propertiesFile = new File(System.getProperty("user.home") + "/.mctrproperties.xml");
 
     private final static Preferences preferences = new Preferences();
 
     /**
-     * Constructor de la clase Preferences.
-     * Establece el workingDirectory por defecto en su primera creación, siendo este el lugar de ejecución del programa.
-     * Establece como tema principal el tema claro.
-     * Establece como dimensión inicial de la ventana  800x800
+     * Constructor privado de la clase Preferences.
+     *
+     * Abre el archivo .mctrpreferences.xml del directorio de usuario
+     * "user.dir" y carga las propiedades en el objeto Properties "prop"
+     * que tenemos como variable de clase.
+     *
      */
 
     private Preferences(){
         try{
-            InputStream in = new FileInputStream(propertiesFile + "/preferences.xml");
+            InputStream in = new FileInputStream(propertiesFile);
             prop.loadFromXML(in);
             in.close();
 
@@ -51,6 +64,7 @@ public class Preferences{
     }
 
     /**
+     *
      * @return El SpacesFolder (directorio de trabajo)
      */
     public static File getSpacesFolder(){
@@ -67,9 +81,15 @@ public class Preferences{
     }
 
     /**
-     * Devuelve el tema de la aplicación.
+     * Devuelve el tema usado ctualmente en la aplicación.
      *
-     * @return El tema.
+     * @return El número indexado al tema actual.
+     *         {
+     *         0 = "LIGHT",
+     *         1 = "DARK",
+     *         2 = "DARCULA",
+     *         3 = "INTELLIJ"
+     *         }
      */
     public static int getTheme() {
         return ThemeManager.getCurrentTheme();
@@ -78,16 +98,27 @@ public class Preferences{
     /**
      * Cambia el tema de la aplicación.
      *
-     * @param theme El tema.
+     * @param theme El entero asociado al tema al que se quiere cambiar.
+     *              {
+     *              0 = "LIGHT",
+     *              1 = "DARK",
+     *              2 = "DARCULA",
+     *              3 = "INTELLIJ"
+     *              }
      */
     public static void setTheme(int theme) {
         ThemeManager.setTheme(theme);
     }
 
     /**
-     * Devuelve el idioma de la aplicación.
+     * Devuelve el idioma que está siendo
+     * usado en la aplicación.
      *
      * @return El idioma.
+     *         {
+     *         "es" = Español,
+     *         "en" = Inglés
+     *         }
      */
     public static String getLanguage() {
         return LanguageManager.getActualLocale();
@@ -96,14 +127,17 @@ public class Preferences{
     /**
      * Cambia el idioma de la aplicación.
      *
-     * @param language El idioma
+     * @param language El prefijo del idioma
+     *                 "es" = Español
+     *                 "en" = Inglés
      */
     public static void setLanguage(String language) {
         LanguageManager.setLanguage(language);
     }
 
     /**
-     * Devuelve la dimensión de la ventana.
+     * Devuelve la dimensión de la ventana
+     * de la aplicación.
      *
      * @return La dimensión de la ventana.
      */
@@ -127,7 +161,7 @@ public class Preferences{
         prop.setProperty("lang", getLanguage());
 
         try {
-            OutputStream out = new FileOutputStream(propertiesFile + "/preferences.xml");
+            OutputStream out = new FileOutputStream(propertiesFile);
             prop.storeToXML(out, "");
             out.close();
         } catch (IOException e) {
