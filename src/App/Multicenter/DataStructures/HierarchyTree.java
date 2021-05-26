@@ -1,4 +1,5 @@
 package App.Multicenter.DataStructures;
+
 import org.w3c.dom.Node;
 
 import java.util.*;
@@ -22,6 +23,10 @@ public class HierarchyTree <E> implements Tree<E> {
     }
     // Operaciones
 
+    public E getRoot() {
+        return  root;
+    }
+
     /**
      * Devuelve un sub-árbol donde el elemento raíz es el nodo recibido como
      * parámetro. Si el árbol no contiene dicho elemento, devolverá null
@@ -29,22 +34,23 @@ public class HierarchyTree <E> implements Tree<E> {
      * @param elem Nodo raíz del nuevo sub-árbol
      * @return Sub-árbol nuevo. Los cambios <b>no</b> afectarán al árbol original
      */
-    public Tree<E> getSubTree(E elem) { //INCOMPLETO
-        Tree<E> subarbol=null;
-        Object[] objects = new Object[2];
-        if(relation.containsKey(elem)){
-            Set<E> hijos =getChildren(elem);
-            subarbol.setChildren(hijos,elem);
+    public Tree<E> getSubTree(E elem) {
+        HashMap<E,Object[]> nmap = new HashMap<>();
+        for (E child: getChildren(elem)) {
+            nmap = ampliarMap(nmap,child);
         }
-        return subarbol;
+        nmap.put(elem, relation.get(elem));
+        HierarchyTree arbol = new HierarchyTree(nmap,5);
+
+        return arbol;
     }
-    /*
-    public void mostrarTree(Tree<E> arb,E raiz){
-        Set<E> conj = arb.getChildren(raiz);
-        System.out.println(conj);
-        conj
+    public HashMap<E,Object[]> ampliarMap (HashMap<E,Object[]> map,E child){
+        map.put(child, relation.get(child));
+        for (E ch: getChildren(child)) {
+            map = ampliarMap(map,ch);
+        }
+        return map;
     }
-    */
     /**
      * Devuelve un conjunto con los elementos que mantienen una relación de hijos
      * con el elemento padre
@@ -84,7 +90,7 @@ public class HierarchyTree <E> implements Tree<E> {
      * @param father Elemento padre destino
      * @return true si la operación es satisfactoria en todos los elementos, false en cualquier otro caso
      */
-    public boolean setChildren(Collection<E> children, E father) { ///????
+    public boolean setChildren(Collection<E> children, E father) {
         if (relation.containsKey(father)){
             removeAllChildren(father);
         }
@@ -105,18 +111,21 @@ public class HierarchyTree <E> implements Tree<E> {
      */
     public boolean addChildren(E children, E father) {
         Object[] objects = new Object[2];
-        E elem = null;
-        if(relation.containsKey(children)){
-            objects = relation.get(father);
+        E elem;
+        if(contains(children)){
             objects[0] = father;
-            objects[1] = getChildren(father).add(children);
+            objects[1] = children;
+            elem = (E) relation.replace(children,objects);
         }else{
             objects[0] = father;
             objects[1] = null;
-            elem = (E) relation.put(children, objects);
+            elem = (E) relation.put(children,objects);
         }
-
-        return elem != null;
+        Object[] objF = new Object[2];
+        objF[0] = getFather(father);
+        objF[1] = getChildren(father).add(children);
+        relation.replace(father,objF);
+        return elem !=null;
     }
 
     /**
@@ -128,11 +137,13 @@ public class HierarchyTree <E> implements Tree<E> {
      * @param father Elemento padre
      * @return true si la operación es satisfactoria en todos los elementos, false en cualquier otro caso
      */
-    public boolean addChildren(Collection<E> children, E father) { //INCOMPLETO
+    public boolean addChildren(Collection<E> children, E father) {
+        Object[] objects = new Object[2];
+        E elem = null;
         for (E child:children) {
             addChildren(child,father);
         }
-        return true;
+        return elem != null;
     }
 
     /**
@@ -143,8 +154,12 @@ public class HierarchyTree <E> implements Tree<E> {
      * @return true si la operación es satisfactoria, false en cualquier otro caso
      */
     public boolean removeElement(E element) {
-        // TODO HierarchyTree removeElement
-        return false;
+        if(contains(element)){
+            addChildren(getChildren(element),getFather(element));
+        }else{
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -155,7 +170,9 @@ public class HierarchyTree <E> implements Tree<E> {
      * @return true si la operación es satisfactoria en todos los elementos, false en cualquier otro caso
      */
     public boolean removeElement(Collection<E> element) {
-        // TODO HierarchyTree removeElement
+        for (E elem: element) {
+            removeElement(elem);
+        }
         return false;
     }
 
@@ -167,8 +184,15 @@ public class HierarchyTree <E> implements Tree<E> {
      * @return true si la operación es satisfactoria, false en cualquier otro caso
      */
     public boolean removeAllChildren(E element) {
-        // TODO HierarchyTree removeAllChildren
-        return false;
+        Set<E> hijos =getChildren(element);
+        if(element != null){
+            for (E child:hijos) {
+                removeAllChildren(child);
+            }
+        }else {
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -212,8 +236,11 @@ public class HierarchyTree <E> implements Tree<E> {
      * @return Nº de elementos almacenados
      */
     public int getSize() {
-        // TODO HierarchyTree getSize
-        return 0;
+        return relation.size();
+    }
+
+    public Set<E> getNodes() {
+        return relation.keySet();
     }
 
 }
