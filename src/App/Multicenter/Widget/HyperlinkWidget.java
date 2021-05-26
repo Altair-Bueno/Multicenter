@@ -14,10 +14,9 @@ public class HyperlinkWidget extends AbstractWidget {
         link = l;
     }
 
-    public SortedSet<SearchedString<Widget>> buscar(String cadena) {
-        SortedSet<SearchedString<Widget>> res = new TreeSet<>();
-        res.add(new SearchedString<>(this, link, cadena));
-        return res;
+    public SearchedString<Widget> buscar(String cadena) {
+        
+        return new SearchedString<>(this, link, cadena);
     }
 
     @Override

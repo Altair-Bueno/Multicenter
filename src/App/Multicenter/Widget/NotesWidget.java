@@ -1,5 +1,6 @@
 package App.Multicenter.Widget;
 
+import App.Multicenter.Preferences.Preferences;
 import App.Multicenter.Space.RandomNameGenerator;
 import App.Multicenter.Space.SearchedString;
 import org.commonmark.node.Node;
@@ -11,7 +12,6 @@ import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
 import java.awt.*;
 import java.io.*;
-import java.util.SortedSet;
 
 public class NotesWidget extends AbstractWidget {
     // TODO EmbeddedWidget Constructor
@@ -35,6 +35,10 @@ public class NotesWidget extends AbstractWidget {
     private final Parser parser = Parser.builder().build();
     private final HtmlRenderer renderer = HtmlRenderer.builder().build();
     private boolean edit;
+
+    public NotesWidget() {
+        this(0, Preferences.getSpacesFolder());
+    }
 
     public NotesWidget(int layer, File spacesFolder) {
         // TODO Constructor
@@ -81,9 +85,8 @@ public class NotesWidget extends AbstractWidget {
         // TODO Completar GUI de noteswidget
     }
 
-    public SortedSet<SearchedString<Widget>> buscar(String cadena) {
-        // TODO EmbeddedWidget buscar
-        return null;
+    public SearchedString<Widget> buscar(String cadena) {
+        return super.bestSearchedString(jEditorPane.getText(),cadena,this);
     }
 
     public void toggleEditMode() {
