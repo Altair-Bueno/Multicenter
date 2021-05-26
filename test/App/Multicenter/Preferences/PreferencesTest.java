@@ -12,6 +12,7 @@ public class PreferencesTest {
     @Test
     public void def(){
         Preferences.loadPreferences();
+        Preferences.setLanguage(LanguageManager.DEFAULT);
         Assert.assertEquals(LanguageManager.DEFAULT,Preferences.getLanguage());
         Assert.assertEquals(ThemeManager.LIGHT,Preferences.getTheme());
         Assert.assertEquals(new File(System.getProperty("user.dir")),Preferences.getSpacesFolder());
