@@ -21,10 +21,10 @@ import java.util.stream.Collectors;
  * y para buscar cadenas en el espacio personal.
  */
 public class PersonalSpace implements Closeable, Serializable {
-    Tree<Widget> widgetTree;
-    String id;
-    File archivo;
-    XMLBuddy<Tree<Widget>> xmlbuddy;
+    private Tree<Widget> widgetTree;
+    private String id;
+    private File archivo;
+    private XMLBuddy<Tree<Widget>> xmlbuddy;
 
 
     /**
@@ -37,10 +37,13 @@ public class PersonalSpace implements Closeable, Serializable {
      * de widgets vacío)
      */
     public PersonalSpace(){
+        RandomNameGenerator rng = new RandomNameGenerator();
+        id = rng.generate(Preferences.getSpacesFolder());
+
         try {
             archivo = new File(Preferences.getSpacesFolder().getCanonicalPath() + ".mctrSpace.xml");
             widgetTree = xmlbuddy.parseXMLFile(archivo);
-        } catch (IOException e) {
+        } catch (Exception e) {
             widgetTree = new HierarchyTree<>();
         }
 
@@ -103,6 +106,10 @@ public class PersonalSpace implements Closeable, Serializable {
     public void savePersonalSpace(){
         XMLBuddy<Tree<Widget>> s = new XMLBuddy<>();
         s.parseTreeStructure(archivo, widgetTree);
+    }
+
+    public String getId(){
+        return id;
     }
 
     public void close() throws IOException {
