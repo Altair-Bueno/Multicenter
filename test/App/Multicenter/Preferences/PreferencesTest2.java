@@ -11,7 +11,7 @@ public class PreferencesTest2 {
         System.out.println("TEMA CARGADO: " + tema);
 
         String idioma = Preferences.getLanguage();
-        System.out.println("IDIOMA CARGADO: " + idioma + " Locale : " + Locale.getDefault().toLanguageTag());
+        System.out.println("IDIOMA CARGADO: " + idioma);
 
         if(idioma.equals("es")){
             Preferences.setLanguage("en");
@@ -19,6 +19,7 @@ public class PreferencesTest2 {
         } else {
             Preferences.setLanguage("es");
             System.out.println("CHANGED LANGUAGE TO SPANISH: " + Preferences.getPropObject().toString());
+            System.out.println(Preferences.getLanguage());
         }
 
         Preferences.save();

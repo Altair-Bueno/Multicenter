@@ -22,6 +22,7 @@ public class LanguageManager {
     public static final String USER_ENV = Locale.getDefault().toLanguageTag();
 
     private static ResourceBundle resourceBundle = null;
+    private static String actualLocale=null;
 
     // Cierre de clase
     private LanguageManager(){}
@@ -33,8 +34,8 @@ public class LanguageManager {
      * @throws IllegalStateException Si no se ha inicializado correctamente la aplicación
      */
     public static String getActualLocale() {
-        if (resourceBundle ==null) throw new IllegalStateException("LanguageManager not correctly initialized");
-        return Locale.getDefault().toLanguageTag();
+        if (resourceBundle ==null) throw new IllegalStateException("LanguageManager is not correctly initialized");
+        return actualLocale;
     }
 
     /**
@@ -55,9 +56,11 @@ public class LanguageManager {
             Locale locale = new Locale(supportedLocale);
             Locale.setDefault(locale);
             resourceBundle = ResourceBundle.getBundle(LOCALE_BUNDLE_PATH, locale);
+            actualLocale = supportedLocale;
         } catch (Exception e) {
             Locale locale = new Locale(USER_ENV);
             Locale.setDefault(locale);
+            actualLocale = USER_ENV;
             resourceBundle = ResourceBundle.getBundle(LOCALE_BUNDLE_PATH);
             out = false;
         }
