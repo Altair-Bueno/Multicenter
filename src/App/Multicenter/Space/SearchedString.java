@@ -1,7 +1,6 @@
 package App.Multicenter.Space;
 
 import App.Multicenter.Widget.Widget;
-
 import java.util.*;
 
 public class SearchedString<E> implements Comparable<SearchedString> {
