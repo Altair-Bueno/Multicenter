@@ -14,7 +14,7 @@ public class Test {
             public void run() {
                 boolean b = Preferences.loadPreferences();
                 createAndShowGUI();
-                //Preferences.save();
+                Preferences.save();
             }
         });
     }

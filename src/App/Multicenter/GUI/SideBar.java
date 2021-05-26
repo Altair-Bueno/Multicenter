@@ -1,17 +1,26 @@
 package App.Multicenter.GUI;
 
-import javax.swing.*;
-import java.awt.*;
-import java.util.List;
+import App.Multicenter.Space.PersonalSpace;
 
-public class SideBar extends JPanel {
+import javax.swing.*;
+import javax.swing.plaf.ScrollPaneUI;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class SideBar extends JDesktopPane {
     //Attributes
     JTextField searchBox;
-    List<PersonalSpaceView> psv;
+    Map<Section, PersonalSpaceView> psv;
     JButton addButton;
     JButton delButton;
     JButton zoom;
     Boolean isShown;
+    int numSections;
+    //JScrollPane scrollContainer = new JScrollPane();
 
     //Constructor
 
@@ -21,45 +30,38 @@ public class SideBar extends JPanel {
      */
     public SideBar() {
         isShown = true;
+        numSections = 0;
+        psv = new HashMap<>();
 
         //setBackground(new Color(45, 45, 50));
         setPreferredSize(new Dimension(250, 100));
         setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
-        setBorder(BorderFactory.createMatteBorder(0, 0, 0, 1, Color.lightGray));
+        //setBorder(BorderFactory.createMatteBorder(0, 0, 0, 1, Color.lightGray));
+        //scrollContainer.setViewportView(this);
 
+        /**
+         * SEARCHBOX
+         */
         searchBox = new JTextField(" \uD83D\uDD0D SearchBox");
         searchBox.setPreferredSize(new Dimension(249, 25));
         //searchBox.setBackground(Color.gray);
         searchBox.setBorder(BorderFactory.createEmptyBorder());
         add(searchBox);
 
-        addButton = new JButton();
-        addButton.setText("ADD");
-        addButton.setPreferredSize(new Dimension(70, 25));
-        //addButton.setForeground(Color.lightGray);
-        //addButton.setBackground(new Color(77,77,77));
-        addButton.setBorderPainted(false);
-        addButton.setFocusPainted(false);
-        add(addButton);
+        addButton = createButton("ADD", addButton);
+        delButton = createButton("DEL", delButton);
+        zoom = createButton("\uD83D\uDD0D +", zoom);
 
-        delButton = new JButton();
-        delButton.setText("DEL");
-        delButton.setPreferredSize(new Dimension(70, 25));
-        //delButton.setForeground(Color.lightGray);
-        //delButton.setBackground(new Color(77,77,77));
-        delButton.setBorderPainted(false);
-        delButton.setFocusPainted(false);
-        add(delButton);
+        addButton.addActionListener(e -> {
+            Section newSec = new Section(numSections);
+            PersonalSpace widgets = new PersonalSpace();
+            Header newH = new Header("Prueba " + numSections);
+            Board newB = new Board(widgets);
+            PersonalSpaceView newPsv = new PersonalSpaceView(newH, newB, "Prueba "+ numSections);
 
-        zoom = new JButton();
-        zoom.setText("\uD83D\uDD0D +");
-        zoom.setPreferredSize(new Dimension(70, 25));
-        //zoom.setForeground(Color.lightGray);
-        //zoom.setBackground(new Color(77,77,77));
-        zoom.setBorderPainted(false);
-        zoom.setFocusPainted(false);
-        add(zoom);
-
+            addPersonalSpace(newSec, newPsv);
+            System.out.println(psv.toString());
+        });
         setVisible(isShown);
     }
 
@@ -77,8 +79,27 @@ public class SideBar extends JPanel {
      *
      * @param ps PersonalSpaceView a añadir
      */
-    public void addPersonalSpace(PersonalSpaceView ps) {
-        psv.add(ps);
+    public void addPersonalSpace(Section s, PersonalSpaceView ps) {
+        psv.put(s, ps);
+        add(s);
+        numSections++;
+        updateUI();
     }
+
+    private JButton createButton(String type, JButton button) {
+        //addButton.setForeground(Color.lightGray);
+        //addButton.setBackground(new Color(77,77,77));
+        button = new JButton();
+        button.setText(type);
+        button.setPreferredSize(new Dimension(70, 25));
+        //delButton.setForeground(Color.lightGray);
+        //delButton.setBackground(new Color(77,77,77));
+        button.setBorderPainted(false);
+        button.setFocusPainted(false);
+        add(button);
+        return button;
+    }
+
+
 
 }

@@ -61,4 +61,8 @@ public class PersonalSpaceView extends Container {
         board = newBoard;
     }
 
+    public String toString() {
+        return "psv[" + header.title + "]";
+    }
+
 }

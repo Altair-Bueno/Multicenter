@@ -4,6 +4,8 @@ import App.Multicenter.Space.PersonalSpace;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 
 public class AppWindow extends JFrame {
     //Attributes
@@ -14,12 +16,22 @@ public class AppWindow extends JFrame {
     public AppWindow(PersonalSpaceView personalSpaceView, SideBar sideBar) {
         ps = personalSpaceView;
         sb = sideBar;
+
         setLayout(new BorderLayout());
         setBounds(0, 0, 800, 800);
         add(ps, BorderLayout.CENTER);
         add(sb, BorderLayout.WEST);
         setVisible(true);
+        /*
         setMinimumSize(new Dimension(400, 400));
+
+        addComponentListener(new ComponentAdapter() {
+            public void componentResized(ComponentEvent evt) {
+                revalidateDesktopPane();
+            }
+        });
+
+         */
     }
 
     //Methods
@@ -46,4 +58,20 @@ public class AppWindow extends JFrame {
     public void changePersonalSpace(PersonalSpaceView newPs) {
         ps = newPs;
     }
+/*
+    private void revalidateDesktopPane() {
+        Dimension dim = new Dimension(0,0);
+        Component[] com = sb.getComponents();
+        for (int i=0 ; i<com.length ; i++) {
+            int w = (int) dim.getWidth()+com[i].getWidth();
+            int h = (int) dim.getHeight()+com[i].getHeight();
+            dim.setSize(new Dimension(w,h));
+        }
+        sb.setPreferredSize(dim);
+        sb.revalidate();
+        revalidate();
+        repaint();
+    }
+
+ */
 }
