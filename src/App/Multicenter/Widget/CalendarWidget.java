@@ -4,7 +4,6 @@ import App.Multicenter.Space.SearchedString;
 
 import java.io.IOException;
 import java.util.Calendar;
-import java.util.SortedSet;
 
 public class CalendarWidget extends AbstractWidget {
     private final Calendar c;
@@ -13,7 +12,7 @@ public class CalendarWidget extends AbstractWidget {
         c = Calendar.getInstance();
     }
 
-    public SortedSet<SearchedString<Widget>> buscar(String cadena) {
+    public SearchedString<Widget> buscar(String cadena) {
         return null;
     }
 

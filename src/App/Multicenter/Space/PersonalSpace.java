@@ -94,8 +94,8 @@ public class PersonalSpace implements Closeable, Serializable {
         return widgetTree.
                 getNodes().
                 parallelStream().
-                //map(e->e.buscar(cadena)).
-                        flatMap(e -> e.buscar(cadena).stream()).
+                map(e->e.buscar(cadena)).
+                        //flatMap(e -> e.buscar(cadena).stream()).
                 //sorted().
                         collect(Collectors.toCollection(sortedset));
     }

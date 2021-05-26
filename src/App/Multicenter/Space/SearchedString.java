@@ -93,14 +93,6 @@ public class SearchedString<E> implements Comparable<SearchedString> {
         return (double) matches / (n + m);
     }
 
-    public SearchedString<Widget> bestSearchedString(String frase, String ref, Widget w){
-        SortedSet<SearchedString<Widget>> res = new TreeSet<>(Comparator.reverseOrder());
-        Iterator<String> iter = Arrays.stream(frase.split("\\W+")).iterator();
-        while(iter.hasNext()){
-            res.add(new SearchedString<Widget>(w,frase,ref));
-        }
-        return res.first();
-    }
 
     // Operaciones
 

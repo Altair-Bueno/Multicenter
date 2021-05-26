@@ -45,7 +45,7 @@ public class CountdownWidget extends AbstractWidget {
         return timetoevent;
     }
 
-    public SortedSet<SearchedString<Widget>> buscar(String cadena) {
+    public SearchedString<Widget> buscar(String cadena) {
         SortedSet<SearchedString<Widget>> res = new TreeSet<>();
         res.add(new SearchedString<>(this, titulo, cadena));
         return res;

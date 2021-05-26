@@ -11,7 +11,6 @@ import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
 import java.awt.*;
 import java.io.*;
-import java.util.SortedSet;
 
 public class NotesWidget extends AbstractWidget {
     // TODO EmbeddedWidget Constructor
@@ -81,9 +80,8 @@ public class NotesWidget extends AbstractWidget {
         // TODO Completar GUI de noteswidget
     }
 
-    public SortedSet<SearchedString<Widget>> buscar(String cadena) {
-        // TODO EmbeddedWidget buscar
-        return null;
+    public SearchedString<Widget> buscar(String cadena) {
+        return super.bestSearchedString(jEditorPane.getText(),cadena,this);
     }
 
     public void toggleEditMode() {

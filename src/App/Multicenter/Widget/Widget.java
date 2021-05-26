@@ -2,8 +2,6 @@ package App.Multicenter.Widget;
 
 import App.Multicenter.Space.SearchedString;
 
-import java.util.SortedSet;
-
 public interface Widget {
 
     /**
@@ -16,7 +14,7 @@ public interface Widget {
      * @param cadena La cadena a buscar.
      * @return True si la cadena está, False si no.
      */
-    SortedSet<SearchedString<Widget>> buscar(String cadena);
+    SearchedString<Widget> buscar(String cadena);
 
     /**
      * Devuelve el identificador

@@ -15,7 +15,7 @@ public class EmbeddedWidget extends AbstractWidget {
         this.nombre = nombreRecurso;
     }
 
-    public SortedSet<SearchedString<Widget>> buscar(String cadena) {
+    public SearchedString<Widget> buscar(String cadena) {
         SortedSet<SearchedString<Widget>> res = new TreeSet<>();
         res.add(new SearchedString<>(this, nombre, cadena));
 
