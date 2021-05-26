@@ -1,8 +1,9 @@
 package App.Multicenter.GUI;
 
-import java.awt.event.*;
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
-import javax.swing.JTextField;
 
 public class SearchBoxListener implements ActionListener {
     //Attributes
@@ -10,14 +11,15 @@ public class SearchBoxListener implements ActionListener {
     List<PersonalSpaceView> psv;
 
     //Methods
-    /** 
+
+    /**
      * Busca en la lista de espacios personales disponibles
      * lo introducido en la searchBox
+     *
      * @param e ActionEvent
-     * 
      */
     @Override
     public void actionPerformed(ActionEvent e) {
-        
+
     }
 }

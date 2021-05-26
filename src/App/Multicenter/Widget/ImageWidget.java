@@ -8,11 +8,11 @@ import java.io.IOException;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-public class ImageWidget extends AbstractWidget{
+public class ImageWidget extends AbstractWidget {
     String nombreFoto;
     File img;
 
-    public ImageWidget(File f){
+    public ImageWidget(File f) {
         nombreFoto = f.getName().split("\\.")[0];
         img = f;
     }

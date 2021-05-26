@@ -12,20 +12,20 @@ import java.util.ResourceBundle;
  * Esta clase funciona de forma estática por lo que no se puede instanciar.
  */
 public class LanguageManager {
-    // Ubicación ResourceBundle
-    private static final String LOCALE_BUNDLE_PATH = "App/Multicenter/Properties/Strings";
     // Idiomas soportados
     public static final String DEFAULT = "und";
     public static final String ENGLISH = "en";//Locale.ENGLISH;
     public static final String SPANISH = "es";//new Locale("es");
     // Idioma de la JVM
     public static final String USER_ENV = Locale.getDefault().toLanguageTag();
-
+    // Ubicación ResourceBundle
+    private static final String LOCALE_BUNDLE_PATH = "App/Multicenter/Properties/Strings";
     private static ResourceBundle resourceBundle = null;
-    private static String actualLocale=null;
+    private static String actualLocale = null;
 
     // Cierre de clase
-    private LanguageManager(){}
+    private LanguageManager() {
+    }
 
     /**
      * Devuelve el código de idioma utilizado actualmente en Multicenter
@@ -34,7 +34,7 @@ public class LanguageManager {
      * @throws IllegalStateException Si no se ha inicializado correctamente la aplicación
      */
     public static String getActualLocale() {
-        if (resourceBundle ==null) throw new IllegalStateException("LanguageManager is not correctly initialized");
+        if (resourceBundle == null) throw new IllegalStateException("LanguageManager is not correctly initialized");
         return actualLocale;
     }
 
@@ -45,14 +45,14 @@ public class LanguageManager {
      * parámetro null, cambia al idioma de la JVM. Si existe algún error, retorna
      * null y configura el idioma de la JVM
      *
-     * @see ResourceBundle
-     * @see Locale
      * @param supportedLocale Constantes de LanguageManager
      * @return Si el cambio se ha producido de forma satisfactoria
+     * @see ResourceBundle
+     * @see Locale
      */
-    public static boolean setLanguage(String supportedLocale){
+    public static boolean setLanguage(String supportedLocale) {
         boolean out = true;
-        try{
+        try {
             Locale locale = new Locale(supportedLocale);
             Locale.setDefault(locale);
             resourceBundle = ResourceBundle.getBundle(LOCALE_BUNDLE_PATH, locale);
@@ -72,9 +72,9 @@ public class LanguageManager {
      * La ubicación del ResourceBundle es resources/App/Multicenter/Properties/. Si la cadena
      * no existe o no se ha inicializado correctamente {@link LanguageManager} devolverá null
      *
-     * @see ResourceBundle
      * @param key clave
      * @return Cadena correspondiente
+     * @see ResourceBundle
      */
 
     public static String getString(String key) {

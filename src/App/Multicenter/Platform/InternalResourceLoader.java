@@ -1,7 +1,5 @@
 package App.Multicenter.Platform;
 
-import java.net.URL;
-
 /**
  * Depricated: Para más información visitar <a href="https://www.jetbrains.com/help/idea/add-items-to-project.html#import-image-to-project">documentación de intelliJ</a>
  */

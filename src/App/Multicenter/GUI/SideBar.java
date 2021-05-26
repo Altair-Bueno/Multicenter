@@ -1,10 +1,7 @@
 package App.Multicenter.GUI;
+
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
-import javax.swing.text.DefaultCaret;
 import java.awt.*;
-import java.util.*;
 import java.util.List;
 
 public class SideBar extends JPanel {
@@ -17,10 +14,10 @@ public class SideBar extends JPanel {
     Boolean isShown;
 
     //Constructor
-    /** 
-     * Crea una barra lateral vacia, solo se 
+
+    /**
+     * Crea una barra lateral vacia, solo se
      * hará una vez al generar el proyecto
-     * 
      */
     public SideBar() {
         isShown = true;
@@ -28,7 +25,7 @@ public class SideBar extends JPanel {
         //setBackground(new Color(45, 45, 50));
         setPreferredSize(new Dimension(250, 100));
         setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
-        setBorder(BorderFactory.createMatteBorder(0,0,0,1, Color.lightGray));
+        setBorder(BorderFactory.createMatteBorder(0, 0, 0, 1, Color.lightGray));
 
         searchBox = new JTextField(" \uD83D\uDD0D SearchBox");
         searchBox.setPreferredSize(new Dimension(249, 25));
@@ -67,18 +64,18 @@ public class SideBar extends JPanel {
     }
 
     //Methods
-    /** 
+
+    /**
      * Alterna la visibilidad de la barra lateral
-     * 
      */
     public void toggleShow() {
         isShown = !isShown;
     }
 
-    /** 
+    /**
      * Añade espacios personales nuevos a la barra lateral
+     *
      * @param ps PersonalSpaceView a añadir
-     * 
      */
     public void addPersonalSpace(PersonalSpaceView ps) {
         psv.add(ps);

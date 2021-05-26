@@ -15,9 +15,9 @@ public class XMLBuddy<T> {
     /**
      * Reconstruye la clase almacenada en el archivo XML que recibe como parámetro
      *
-     * @see Serializable
      * @param file Archivo del que leer
      * @return Objeto reconstruido.
+     * @see Serializable
      */
     public T parseXMLFile(File file) throws FileNotFoundException {
         XMLDecoder decoder = new XMLDecoder(new BufferedInputStream(new FileInputStream(file)));
@@ -30,7 +30,7 @@ public class XMLBuddy<T> {
      * @param file Archivo donde almacenar el contenido
      */
 
-    public boolean parseTreeStructure(File file , T object){
+    public boolean parseTreeStructure(File file, T object) {
         // TODO XMLBuddy parseTreeStructure
         boolean out;
         XMLEncoder encoder = null;

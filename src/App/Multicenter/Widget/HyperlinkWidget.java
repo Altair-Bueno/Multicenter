@@ -7,10 +7,10 @@ import java.io.IOException;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-public class HyperlinkWidget extends AbstractWidget{
+public class HyperlinkWidget extends AbstractWidget {
     String link;
 
-    public HyperlinkWidget(String l){
+    public HyperlinkWidget(String l) {
         link = l;
     }
 

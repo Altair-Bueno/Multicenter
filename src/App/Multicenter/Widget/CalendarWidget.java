@@ -6,10 +6,10 @@ import java.io.IOException;
 import java.util.Calendar;
 import java.util.SortedSet;
 
-public class CalendarWidget extends AbstractWidget{
-    private Calendar c;
+public class CalendarWidget extends AbstractWidget {
+    private final Calendar c;
 
-    public CalendarWidget(){
+    public CalendarWidget() {
         c = Calendar.getInstance();
     }
 

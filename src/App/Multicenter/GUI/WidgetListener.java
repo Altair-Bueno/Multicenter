@@ -1,6 +1,7 @@
 package App.Multicenter.GUI;
 
-import java.awt.event.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 public class WidgetListener implements MouseListener {
     //Attributes
@@ -8,46 +9,47 @@ public class WidgetListener implements MouseListener {
     WidgetView widgetV;
 
     //Methods
+
     /**
      * Despliega las opciones disponibles al hacer click
      * sobre un widget
+     *
      * @param e MouseEvent
-     * 
      */
     @Override
     public void mouseClicked(MouseEvent e) {
-        
-    }
 
-     /** 
-     * Arrastra el widget
-     * @param e MouseEvent
-     * 
-     */
-    @Override
-    public void mousePressed(MouseEvent e) {
-        
     }
 
     /**
-    * Coloca el widget en el lugar donde se deje de pulsar click
-    * @param e MouseEvent
-    * 
-    */
+     * Arrastra el widget
+     *
+     * @param e MouseEvent
+     */
+    @Override
+    public void mousePressed(MouseEvent e) {
+
+    }
+
+    /**
+     * Coloca el widget en el lugar donde se deje de pulsar click
+     *
+     * @param e MouseEvent
+     */
     @Override
     public void mouseReleased(MouseEvent e) {
-        
+
     }
 
     //Unused method
     @Override
     public void mouseEntered(MouseEvent e) {
-        
+
     }
 
     //Unused method
     @Override
     public void mouseExited(MouseEvent e) {
-        
+
     }
 }

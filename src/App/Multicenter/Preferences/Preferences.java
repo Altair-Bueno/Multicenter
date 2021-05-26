@@ -3,28 +3,27 @@ package App.Multicenter.Preferences;
 import App.Multicenter.Platform.LanguageManager;
 import App.Multicenter.Platform.ThemeManager;
 
+import java.awt.*;
 import java.io.*;
 import java.util.Properties;
 
-import java.awt.*;
-
 /**
- *
  * Proporciona los métodos necesarios para cambiar las preferencias
  * de la aplicación temporalmente, y para cambiarlas definitivamente
  * mediante el uso de un archivo oculto en formato xml guardado en
  * "user.dir", ".mctrpreferences.xml".
- *
  */
-public class Preferences{
+public class Preferences {
+    private final static File propertiesFile = new File(System.getProperty("user.home"), ".mctrpreferences.xml");
     // Variables estáticas
     private static File spacesFolder;
     private static Dimension windowsSize;
     private static Properties prop;
-    private final static File propertiesFile = new File(System.getProperty("user.home") , ".mctrpreferences.xml");
 
     // Cierre de clase
-    private Preferences(){}
+    private Preferences() {
+    }
+
     /**
      * Inicializa las preferencias de Multicenter para este usuario. Si
      * dicho usuario no tiene preferencias guardadas se creará una configurarión
@@ -36,22 +35,23 @@ public class Preferences{
      *     <li>Establece como tema de la aplicación LIGHT</li>
      *     <li>Crea el archivo de preferencias y guarda esta configuración inicial</li>
      * </ul>
+     *
      * @return true si existía una configuración anterior y false si dicho archivo
-     *          no existe
+     * no existe
      */
-    public static boolean loadPreferences(){
+    public static boolean loadPreferences() {
         spacesFolder = new File(System.getProperty("user.dir") + "/");
-        windowsSize = new Dimension(800,800);
+        windowsSize = new Dimension(800, 800);
         prop = new Properties();
         LanguageManager.setLanguage(LanguageManager.USER_ENV);
         ThemeManager.setTheme(ThemeManager.LIGHT);
 
         boolean out = true;
-        try(InputStream in = new FileInputStream(propertiesFile)){
+        try (InputStream in = new FileInputStream(propertiesFile)) {
             prop.loadFromXML(in);
 
-            String ajustes = prop.toString().substring(1, prop.toString().length()-1);
-            for(String s : ajustes.split(",")){
+            String ajustes = prop.toString().substring(1, prop.toString().length() - 1);
+            for (String s : ajustes.split(",")) {
                 String[] settings = s.split("=");
 
                 switch (settings[0]) {
@@ -64,7 +64,7 @@ public class Preferences{
                     case "lang" -> setLanguage(settings[1]);
                 }
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             out = false;
         }
@@ -74,7 +74,7 @@ public class Preferences{
     /**
      * @return El spacesFolder (directorio de trabajo)
      */
-    public static File getSpacesFolder(){
+    public static File getSpacesFolder() {
         if (prop == null) throw new IllegalStateException("Preferences not correctly initialized");
         return spacesFolder;
     }
@@ -109,12 +109,12 @@ public class Preferences{
      * Cambia el tema de la aplicación.
      *
      * @param theme El entero asociado al tema al que se quiere cambiar.
-     * <ul>
-     *     <li>0 = "LIGHT"</li>
-     *     <li>1 = "DARK"</li>
-     *     <li>2 = "DARCULA"</li>
-     *     <li>3 = "INTELLIJ"</li>
-     * </ul>
+     *              <ul>
+     *                  <li>0 = "LIGHT"</li>
+     *                  <li>1 = "DARK"</li>
+     *                  <li>2 = "DARCULA"</li>
+     *                  <li>3 = "INTELLIJ"</li>
+     *              </ul>
      */
     public static void setTheme(int theme) {
         if (prop == null) throw new IllegalStateException("Preferences not correctly initialized");
@@ -140,10 +140,10 @@ public class Preferences{
      * Cambia el idioma de la aplicación.
      *
      * @param language El prefijo del idioma
-     * <ul>
-     *     <li>"es" = Español 🇪🇸</li>
-     *     <li>"en" = Inglés 🇬🇧</li>
-     * </ul>
+     *                 <ul>
+     *                     <li>"es" = Español 🇪🇸</li>
+     *                     <li>"en" = Inglés 🇬🇧</li>
+     *                 </ul>
      */
     public static void setLanguage(String language) {
         if (prop == null) throw new IllegalStateException("Preferences not correctly initialized");
@@ -172,23 +172,24 @@ public class Preferences{
     }
 
 
-    public static Properties getPropObject(){
+    public static Properties getPropObject() {
         return prop;
     }
+
     /**
      * Almacena la configuración actual de forma persistente en el disco. Si este método
      * no es llamado antes del cierre de la aplicación no se almacenarán los cambios
      *
      * @return true si se ha podido almacenar correctamente o false si dicha acción
-     *          ha fallado
+     * ha fallado
      */
     public static boolean save() {
         prop.setProperty("working_directory", getSpacesFolder().getAbsolutePath());
         prop.setProperty("theme", Integer.toString(getTheme()));
-        prop.setProperty("window_size", (int)getWindowsSize().getWidth() + "-" + (int)getWindowsSize().getHeight());
+        prop.setProperty("window_size", (int) getWindowsSize().getWidth() + "-" + (int) getWindowsSize().getHeight());
         prop.setProperty("lang", getLanguage());
 
-        try(OutputStream out = new FileOutputStream(propertiesFile)) {
+        try (OutputStream out = new FileOutputStream(propertiesFile)) {
             prop.storeToXML(out, null);
         } catch (IOException e) {
             e.printStackTrace();

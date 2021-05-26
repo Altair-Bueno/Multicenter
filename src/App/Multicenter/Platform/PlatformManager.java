@@ -17,10 +17,13 @@ public class PlatformManager {
     private static final int MAIN_KEYBOARD = hostOS.contains(MACOSX) ? ActionEvent.META_MASK : ActionEvent.CTRL_MASK;
 
     // Cierre de clase
-    private PlatformManager(){}
+    private PlatformManager() {
+    }
+
     /**
      * Devuelve el nombre del sistema operativo en el que se está
      * ejecutando multicenter
+     *
      * @return nombre del sistema operativo en minúsculas
      */
     public static String getHostOSName() {
@@ -47,7 +50,7 @@ public class PlatformManager {
                 System.setProperty("apple.awt.textantialiasing", "true");
                 //Application.getApplication().setDockIconImage(new ImageIcon(MineSweeperResourceManager.getResourceURL(MineSweeperResourceManager.APPICON)).getImage());
                 break;
-                default:
+            default:
         }
     }
 
@@ -55,10 +58,10 @@ public class PlatformManager {
      * Devuelve el acelerador utilizado por defecto en cada Sistema Operativo.
      * En el caso de macOS es META_MASK y en Windows/Linux CTRL_MASK
      *
-     * @see java.awt.event.ActionEvent
      * @return Meta_MASK o CTRL_MASK
+     * @see java.awt.event.ActionEvent
      */
-    public static int getAccelerator(){
+    public static int getAccelerator() {
         return MAIN_KEYBOARD;
     }
 }

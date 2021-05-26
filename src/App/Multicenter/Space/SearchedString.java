@@ -1,13 +1,11 @@
 package App.Multicenter.Space;
 
-import App.Multicenter.Widget.Widget;
-
 import java.util.Arrays;
 
 public class SearchedString<E> implements Comparable<SearchedString> {
-    private E widget;
-    private String cadena;
-    private double ratio;
+    private final E widget;
+    private final String cadena;
+    private final double ratio;
 
     // Recibirá un widget y dos cadenas por parámetro (la encontrada y la referencia).
     // Calculará el ratio de semejanza entre la cadena encontrada y la referencia.
@@ -16,7 +14,7 @@ public class SearchedString<E> implements Comparable<SearchedString> {
     public SearchedString(E w, String cadena, String ref) {
         widget = w;
         this.cadena = cadena;
-        ratio = diceCoefficientOptimizado(cadena,ref);
+        ratio = diceCoefficientOptimizado(cadena, ref);
     }
 
     /**
@@ -36,12 +34,11 @@ public class SearchedString<E> implements Comparable<SearchedString> {
      * @param s La primera cadena
      * @param t La segunda cadena
      * @return El coeficiente de Dice entre las dos cadenas de entrada. Devuelve 0 si
-     *         una o ambas cadenas son {@code null}. También devuelve 0 si una o ambas
-     *         cadenas contienen menos de 2 carácteres y no son iguales.
+     * una o ambas cadenas son {@code null}. También devuelve 0 si una o ambas
+     * cadenas contienen menos de 2 carácteres y no son iguales.
      */
 
-    public static double diceCoefficientOptimizado(String s, String t)
-    {
+    public static double diceCoefficientOptimizado(String s, String t) {
         // Verificamos la entrada:
         if (s == null || t == null)
             return 0;
@@ -54,26 +51,26 @@ public class SearchedString<E> implements Comparable<SearchedString> {
             return 0;
 
         // Crea el bigrama para la cadena s:
-        final int n = s.length()-1;
+        final int n = s.length() - 1;
         final int[] sPairs = new int[n];
         for (int i = 0; i <= n; i++)
             if (i == 0)
                 sPairs[i] = s.charAt(i) << 16;
             else if (i == n)
-                sPairs[i-1] |= s.charAt(i);
+                sPairs[i - 1] |= s.charAt(i);
             else
-                sPairs[i] = (sPairs[i-1] |= s.charAt(i)) << 16;
+                sPairs[i] = (sPairs[i - 1] |= s.charAt(i)) << 16;
 
         // Crea el bigrama para la cadena t:
-        final int m = t.length()-1;
+        final int m = t.length() - 1;
         final int[] tPairs = new int[m];
         for (int i = 0; i <= m; i++)
             if (i == 0)
                 tPairs[i] = t.charAt(i) << 16;
             else if (i == m)
-                tPairs[i-1] |= t.charAt(i);
+                tPairs[i - 1] |= t.charAt(i);
             else
-                tPairs[i] = (tPairs[i-1] |= t.charAt(i)) << 16;
+                tPairs[i] = (tPairs[i - 1] |= t.charAt(i)) << 16;
 
         // Ordena las listas de los bigramas:
         Arrays.sort(sPairs);
@@ -81,20 +78,17 @@ public class SearchedString<E> implements Comparable<SearchedString> {
 
         // Cuenta las igualdades:
         int matches = 0, i = 0, j = 0;
-        while (i < n && j < m)
-        {
-            if (sPairs[i] == tPairs[j])
-            {
+        while (i < n && j < m) {
+            if (sPairs[i] == tPairs[j]) {
                 matches += 2;
                 i++;
                 j++;
-            }
-            else if (sPairs[i] < tPairs[j])
+            } else if (sPairs[i] < tPairs[j])
                 i++;
             else
                 j++;
         }
-        return (double)matches/(n+m);
+        return (double) matches / (n + m);
     }
 
     // Operaciones
@@ -102,21 +96,21 @@ public class SearchedString<E> implements Comparable<SearchedString> {
     /**
      * @return El widget.
      */
-    public E getWidget(){
+    public E getWidget() {
         return widget;
     }
 
     /**
      * @return La cadena.
      */
-    public String getCadena(){
+    public String getCadena() {
         return cadena;
     }
 
     /**
      * @return El ratio.
      */
-    public double getRatio(){
+    public double getRatio() {
         return ratio;
     }
 

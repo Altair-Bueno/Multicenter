@@ -5,7 +5,7 @@ import App.Multicenter.Space.SearchedString;
 import java.io.IOException;
 import java.util.SortedSet;
 
-public class VoicenoteWidget extends AbstractWidget{
+public class VoicenoteWidget extends AbstractWidget {
     // TODO VoicenoteWidget Constructor
 
     public SortedSet<SearchedString<Widget>> buscar(String cadena) {

@@ -7,9 +7,9 @@ import java.util.Map;
 import java.util.Set;
 import java.util.function.Function;
 
-public class HierarchyTree <E> implements Tree<E>, Serializable {
+public class HierarchyTree<E> implements Tree<E>, Serializable {
     // Variables de clase
-    Map<E,E> relation; // Nodo(hijo) -> Nodo(padre)
+    Map<E, E> relation; // Nodo(hijo) -> Nodo(padre)
 
     // TODO Constructores
 
@@ -105,9 +105,10 @@ public class HierarchyTree <E> implements Tree<E>, Serializable {
 
     /**
      * Representa un elemento almacenado dentro de un árbol HierarchyTree
+     *
      * @param <E> Tipo de HierarchyTree
      */
-    class Node<E>{
+    class Node<E> {
         // Variables de clase
         Set<E> children;
         E element;

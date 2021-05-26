@@ -1,8 +1,6 @@
 package App.Multicenter.DataStructures;
 
-import java.io.Serializable;
 import java.util.Collection;
-import java.util.List;
 import java.util.Set;
 import java.util.function.Function;
 
@@ -14,13 +12,14 @@ import java.util.function.Function;
  *
  * @param <E> Tipo de los datos almacenados
  */
-public interface Tree <E> {
+public interface Tree<E> {
     /**
      * Obtiene el elemento raíz de este árbol
      *
      * @return Raíz del arbol
      */
     E getRoot();
+
     /**
      * Devuelve un sub-árbol donde el elemento raíz es el nodo recibido como
      * parámetro. Si el árbol no contiene dicho elemento, devolverá null
@@ -54,12 +53,12 @@ public interface Tree <E> {
      * existía dicho elemento, se sobreescribirá su contenido con el del elemento recibido
      * Aquellos elementos hijos del elemento father serán eliminados utilizando removeAllChildren
      *
-     * @see Tree removeAllChildren(Collection <E> element)
      * @param children Colección de nuevos hijos
-     * @param father Elemento padre destino
+     * @param father   Elemento padre destino
      * @return true si la operación es satisfactoria en todos los elementos, false en cualquier otro caso
+     * @see Tree removeAllChildren(Collection <E> element)
      */
-    boolean setChildren(Collection<E> children , E father);
+    boolean setChildren(Collection<E> children, E father);
 
     /**
      * Añade el elemento children como hijo del elemento father. Si ya
@@ -67,10 +66,10 @@ public interface Tree <E> {
      * del elemento recibido
      *
      * @param children Elemento a añadir
-     * @param father Elemento padre
+     * @param father   Elemento padre
      * @return true si la operación es satisfactoria, false en cualquier otro caso
      */
-    boolean addChildren(E children , E father);
+    boolean addChildren(E children, E father);
 
     /**
      * Añade todos los elementos de la colección como hijo elemento de father.
@@ -78,10 +77,10 @@ public interface Tree <E> {
      * el del elemento recibido
      *
      * @param children Collección de elementos a añadir
-     * @param father Elemento padre
+     * @param father   Elemento padre
      * @return true si la operación es satisfactoria en todos los elementos, false en cualquier otro caso
      */
-    boolean addChildren(Collection <E> children, E father);
+    boolean addChildren(Collection<E> children, E father);
 
     /**
      * Elimina el elemento del árbol. Los hijos del elemento pasarán a formar
@@ -117,7 +116,7 @@ public interface Tree <E> {
      * @param element Colección de elementos a borrar
      * @return true si la operación es satisfactoria en todos los elementos, false en cualquier otro caso
      */
-    boolean removeAllChildren(Collection <E> element);
+    boolean removeAllChildren(Collection<E> element);
 
     /**
      * Indica si un elemento está almacenado en el árbol o no
@@ -130,16 +129,18 @@ public interface Tree <E> {
     /**
      * Aplica una función a todos los elementos del árbol, almacenando
      * el resultado en otro árbol que mantiene la misma estructura que el árbol
-     *
+     * <p>
      * original. Esta operación NO modifica el árbol original
+     *
      * @param function Función de dos entradas
-     * @param <R> Tipo de salida para el nuevo árbol
+     * @param <R>      Tipo de salida para el nuevo árbol
      * @return Árbol de tipo R que conserva la estructura del árbol original
      */
-    <R> Tree<R> map (Function<E,R> function);
+    <R> Tree<R> map(Function<E, R> function);
 
     /**
      * Devuelve el número de elementos almacenados en el árbol
+     *
      * @return Nº de elementos almacenados
      */
     int getSize();

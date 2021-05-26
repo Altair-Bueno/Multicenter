@@ -2,15 +2,14 @@ package App.Multicenter.Widget;
 
 import App.Multicenter.Space.SearchedString;
 
-
 import java.io.IOException;
 import java.util.Date;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-public class CountdownWidget extends AbstractWidget{
-    private String titulo;
-    private Date fechaevento;
+public class CountdownWidget extends AbstractWidget {
+    private final String titulo;
+    private final Date fechaevento;
 
     /**
      * Crea un widget de cuenta atrás, ajustando las variables
@@ -34,13 +33,13 @@ public class CountdownWidget extends AbstractWidget{
         this.fechaevento = fechaevento;
     }
 
-    public int[] check(){
+    public int[] check() {
         int[] timetoevent = new int[4]; // 0 - Days, 1 - Hours, 2 - Minutes, 3 - Seconds
         long diff = (fechaevento.getTime() - new Date().getTime()) / 1000; // new Date() = current system date
 
-        timetoevent[0] = (int) (diff / (60*60*24)); // Days
-        timetoevent[1] = (int) (diff / (60*60)) % 24; // Hours
-        timetoevent[2] = (int) (diff / 60) % 60 ; // Minutes
+        timetoevent[0] = (int) (diff / (60 * 60 * 24)); // Days
+        timetoevent[1] = (int) (diff / (60 * 60)) % 24; // Hours
+        timetoevent[2] = (int) (diff / 60) % 60; // Minutes
         timetoevent[3] = (int) diff % 60; // Seconds
 
         return timetoevent;
