@@ -47,7 +47,7 @@ public class PersonalSpace implements Closeable, Serializable {
 
         try {
             archivo = new File(Preferences.getSpacesFolder().getCanonicalPath() + ".mctrSpace.xml");
-            widgetTree = xmlbuddy.parseXMLFile(archivo);
+            widgetTree = xmlbuddy.readFromFile(archivo);
         } catch (Exception e) {
             widgetTree = new HierarchyTree<>();
         }
@@ -109,7 +109,7 @@ public class PersonalSpace implements Closeable, Serializable {
      */
     public void savePersonalSpace() {
         XMLBuddy<Tree<Widget>> s = new XMLBuddy<>();
-        s.parseTreeStructure(archivo, widgetTree);
+        s.saveToFile(archivo, widgetTree);
     }
 
     public String getId() {

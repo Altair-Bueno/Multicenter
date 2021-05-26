@@ -17,9 +17,9 @@ public class XMLBuddyTest {
         Set<Integer> set1 = new HashSet<>();
         Collections.addAll(set1, 1,2,3,3,4);
         XMLBuddy<Set<Integer>> x = new XMLBuddy<>();
-        x.parseTreeStructure(file,set1);
+        x.saveToFile(file,set1);
 
-        Set<Integer> set2 = x.parseXMLFile(file);
+        Set<Integer> set2 = x.readFromFile(file);
 
         Assert.assertEquals(set1,set2);
     }
