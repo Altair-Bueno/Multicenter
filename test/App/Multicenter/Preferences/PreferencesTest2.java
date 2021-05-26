@@ -1,7 +1,5 @@
 package App.Multicenter.Preferences;
 
-import java.util.Locale;
-
 public class PreferencesTest2 {
     public static void main(String[] args) {
         Preferences.loadPreferences();
@@ -13,13 +11,13 @@ public class PreferencesTest2 {
         String idioma = Preferences.getLanguage();
         System.out.println("IDIOMA CARGADO: " + idioma);
 
-        if(idioma.equals("es")){
+
+        if(idioma.equals("es-ES")){
             Preferences.setLanguage("en");
             System.out.println("CHANGED LANGUAGE TO ENGLISH: " + Preferences.getPropObject().toString());
         } else {
             Preferences.setLanguage("es");
             System.out.println("CHANGED LANGUAGE TO SPANISH: " + Preferences.getPropObject().toString());
-            System.out.println(Preferences.getLanguage());
         }
 
         Preferences.save();
