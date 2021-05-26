@@ -37,8 +37,8 @@ public class EmbeddedWidget extends AbstractWidget {
         for (String subdomain : subdomains) {
             res.add(new SearchedString<>(this, subdomain, cadena));
         }
-
-        return res;
+//TODO
+        return null;
     }
 
     @Override

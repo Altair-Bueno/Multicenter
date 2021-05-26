@@ -19,9 +19,7 @@ public class ImageWidget extends AbstractWidget {
 
     public SearchedString<Widget> buscar(String cadena) {
         SearchedString<Widget> s = new SearchedString<>(this, nombreFoto, cadena);
-        SortedSet<SearchedString<Widget>> res = new TreeSet<>();
-        res.add(s);
-        return res;
+        return s;
     }
 
     @Override

@@ -11,7 +11,7 @@ import java.util.*;
 /**
  * The type Abstract widget.
  */
-public abstract class AbstractWidget extends JInternalFrame implements Widget, Serializable, Closeable {
+public abstract class AbstractWidget extends JInternalFrame implements Widget, Serializable, Closeable , Comparable<AbstractWidget> {
 
     public static final Dimension STANDARD_DIMENSION = new Dimension(100, 100);
 
@@ -38,5 +38,10 @@ public abstract class AbstractWidget extends JInternalFrame implements Widget, S
             res.add(new SearchedString<Widget>(w,frase,ref));
         }
         return res.first();
+    }
+
+    @Override
+    public int compareTo(AbstractWidget o) {
+        return this.layer - o.layer;
     }
 }

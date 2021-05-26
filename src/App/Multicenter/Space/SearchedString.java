@@ -17,6 +17,11 @@ public class SearchedString<E> implements Comparable<SearchedString> {
         this.cadena = cadena;
         ratio = diceCoefficientOptimizado(cadena, ref);
     }
+    public SearchedString(E w,String cadena,double ratio){
+        widget = w;
+        this.cadena = cadena;
+        this.ratio = ratio;
+    }
 
     /**
      * Aquí tenemos una versión optimizada del cálculo algoritmo de Dice. Se

@@ -1,5 +1,6 @@
 package App.Multicenter.Widget;
 
+import App.Multicenter.Preferences.Preferences;
 import App.Multicenter.Space.RandomNameGenerator;
 import App.Multicenter.Space.SearchedString;
 import org.commonmark.node.Node;
@@ -34,6 +35,10 @@ public class NotesWidget extends AbstractWidget {
     private final Parser parser = Parser.builder().build();
     private final HtmlRenderer renderer = HtmlRenderer.builder().build();
     private boolean edit;
+
+    public NotesWidget() {
+        this(0, Preferences.getSpacesFolder());
+    }
 
     public NotesWidget(int layer, File spacesFolder) {
         // TODO Constructor
