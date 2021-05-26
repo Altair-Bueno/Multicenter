@@ -17,8 +17,27 @@ public class EmbeddedWidget extends AbstractWidget {
 
     public SortedSet<SearchedString<Widget>> buscar(String cadena) {
         SortedSet<SearchedString<Widget>> res = new TreeSet<>();
-        res.add(new SearchedString<>(this, URL, cadena));
         res.add(new SearchedString<>(this, nombre, cadena));
+
+        // www.example.org/domain1/file.html
+        // urlparts = {www, example, org/domain1/file.html}
+        // subdomains = {org, domain1, file, html}
+
+        // www.example.org
+        // urlparts = {www, example, org}
+        // subdomains = {org}
+
+        String[] urlparts = URL.split("\\.");
+        String[] subdomains = urlparts[urlparts.length-1].split("/");
+
+        for(int i = 0; i < urlparts.length - 1; i++){
+            res.add(new SearchedString<>(this, urlparts[i], cadena));
+        }
+
+        for (String subdomain : subdomains) {
+            res.add(new SearchedString<>(this, subdomain, cadena));
+        }
+
         return res;
     }
 

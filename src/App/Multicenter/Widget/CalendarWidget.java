@@ -13,7 +13,6 @@ public class CalendarWidget extends AbstractWidget {
         c = Calendar.getInstance();
     }
 
-    //TODO ¿Se podría prescindir del calendario?
     public SortedSet<SearchedString<Widget>> buscar(String cadena) {
         return null;
     }
