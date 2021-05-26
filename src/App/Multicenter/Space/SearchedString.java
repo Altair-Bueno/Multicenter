@@ -1,7 +1,6 @@
 package App.Multicenter.Space;
 
 import App.Multicenter.Widget.Widget;
-
 import java.util.*;
 
 public class SearchedString<E> implements Comparable<SearchedString> {
@@ -93,7 +92,7 @@ public class SearchedString<E> implements Comparable<SearchedString> {
         return (double) matches / (n + m);
     }
 
-    public SearchedString<Widget> bestSearchedString(String frase, String ref, Widget w){
+    public static SearchedString<Widget> bestSearchedString(String frase, String ref, Widget w){
         SortedSet<SearchedString<Widget>> res = new TreeSet<>(Comparator.reverseOrder());
         Iterator<String> iter = Arrays.stream(frase.split("\\W+")).iterator();
         while(iter.hasNext()){
@@ -102,7 +101,6 @@ public class SearchedString<E> implements Comparable<SearchedString> {
         return res.first();
     }
 
-    // Operaciones
 
     /**
      * @return El widget.
