@@ -1,11 +1,31 @@
 package App.Multicenter.Widget;
 
-public class HyperlinkWidget extends AbstractWidget{
-    // TODO HyperlinkWidget Constructor
 
-    public boolean buscar(String cadena) {
-        // TODO HyperlinkWidget buscar
-        return false;
+import App.Multicenter.Space.SearchedString;
+
+import java.io.IOException;
+import java.util.SortedSet;
+import java.util.TreeSet;
+
+public class HyperlinkWidget extends AbstractWidget {
+    String link;
+
+    public HyperlinkWidget(String l) {
+        link = l;
     }
 
+    public SortedSet<SearchedString<Widget>> buscar(String cadena) {
+        SortedSet<SearchedString<Widget>> res = new TreeSet<>();
+        res.add(new SearchedString<>(this, link, cadena));
+        return res;
+    }
+
+    @Override
+    public void toggleEditMode() {
+    }
+
+    @Override
+    public void close() throws IOException {
+
+    }
 }

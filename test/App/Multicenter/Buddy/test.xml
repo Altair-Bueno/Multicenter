@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="14.0.1" class="java.beans.XMLDecoder">
+ <object class="java.util.HashSet">
+  <void method="add">
+   <int>1</int>
+  </void>
+  <void method="add">
+   <int>2</int>
+  </void>
+  <void method="add">
+   <int>3</int>
+  </void>
+  <void method="add">
+   <int>4</int>
+  </void>
+ </object>
+</java>

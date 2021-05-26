@@ -1,11 +1,21 @@
 package App.Multicenter.Space;
 
+import App.Multicenter.Buddy.XMLBuddy;
+import App.Multicenter.DataStructures.HierarchyTree;
 import App.Multicenter.DataStructures.Tree;
+import App.Multicenter.Preferences.Preferences;
 import App.Multicenter.Widget.Widget;
 
+import java.io.Closeable;
 import java.io.File;
-import java.util.Set;
+import java.io.IOException;
+import java.io.Serializable;
+import java.util.Comparator;
 import java.util.SortedSet;
+import java.util.TreeSet;
+import java.util.function.Supplier;
+import java.util.stream.Collectors;
+
 
 /**
  * Clase que representa un espacio personal del usuario.
@@ -15,24 +25,44 @@ import java.util.SortedSet;
  * Ofrecerá operaciones para añadir y eliminar widgets,
  * y para buscar cadenas en el espacio personal.
  */
-public class PersonalSpace {
-    Tree<Widget> widgetTree;
-    File archivo;
+public class PersonalSpace implements Closeable, Serializable {
+    private Tree<Widget> widgetTree;
+    private final String id;
+    private File archivo;
+    private XMLBuddy<Tree<Widget>> xmlbuddy;
 
-    // TODO PersonalSpace Constructor
 
-    // Operaciones
+    /**
+     * Instancia un nuevo espacio personal.
+     *
+     * <p>Se intenta abrir el archivo XML con la información
+     * del árbol de widgets almacenada dentro y si no se
+     * encuentra el archivo (porque no está creado, o
+     * porque haya habido algún error), se crea un árbol
+     * de widgets vacío)
+     */
+    public PersonalSpace() {
+        RandomNameGenerator rng = new RandomNameGenerator();
+        id = rng.generate(Preferences.getSpacesFolder());
+
+        try {
+            archivo = new File(Preferences.getSpacesFolder().getCanonicalPath() + ".mctrSpace.xml");
+            widgetTree = xmlbuddy.parseXMLFile(archivo);
+        } catch (Exception e) {
+            widgetTree = new HierarchyTree<>();
+        }
+
+    }
 
     /**
      * Añade el widget pasado por parámetro al
      * árbol de widgets del espacio personal.
      *
-     * @param w Widget a añadir al árbol.
+     * @param w     Widget a añadir al árbol.
      * @param padre Widget a ser padre de w.
      */
-    public void addWidget(Widget w, Widget padre){
-        // TODO PersonalSpace addWidget
-
+    public void addWidget(Widget w, Widget padre) {
+        widgetTree.addChildren(w, padre);
     }
 
     /**
@@ -41,9 +71,8 @@ public class PersonalSpace {
      *
      * @param w Widget a eliminar del árbol.
      */
-    public void deleteWidget(Widget w){
-        // TODO PersonalSpace deleteWidget
-
+    public void deleteWidget(Widget w) {
+        widgetTree.removeElement(w);
     }
 
 
@@ -59,9 +88,16 @@ public class PersonalSpace {
      * la cadena junto con el widget del que
      * provienen.
      */
-    public SortedSet<SearchedString<Widget>> buscar(String cadena){
-        // TODO PersonalSpace buscar
-        return null;
+    public SortedSet<SearchedString<Widget>> buscarcadena(String cadena) {
+        Supplier<TreeSet<SearchedString<Widget>>> sortedset = () -> new TreeSet<>(Comparator.reverseOrder());
+
+        return widgetTree.
+                getNodes().
+                parallelStream().
+                //map(e->e.buscar(cadena)).
+                        flatMap(e -> e.buscar(cadena).stream()).
+                //sorted().
+                        collect(Collectors.toCollection(sortedset));
     }
 
     /**
@@ -70,10 +106,17 @@ public class PersonalSpace {
      * como parámetro el archivo almacenado en
      * la variable de clase archivo y el arbol de
      * widgets widgetTree.
-     *
      */
-    public void savePersonalSpace(){
-        // TODO PersonalSpace savePersonalSpace
+    public void savePersonalSpace() {
+        XMLBuddy<Tree<Widget>> s = new XMLBuddy<>();
+        s.parseTreeStructure(archivo, widgetTree);
+    }
 
+    public String getId() {
+        return id;
+    }
+
+    public void close() throws IOException {
+        savePersonalSpace();
     }
 }

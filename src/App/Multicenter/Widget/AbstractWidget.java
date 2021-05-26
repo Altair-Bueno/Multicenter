@@ -1,29 +1,40 @@
 package App.Multicenter.Widget;
 
+import App.Multicenter.Space.SearchedString;
+
 import javax.swing.*;
 import java.awt.*;
+import java.io.Closeable;
+import java.io.Serializable;
+import java.util.SortedSet;
 
 /**
  * The type Abstract widget.
  */
-public abstract class AbstractWidget extends JInternalFrame implements Widget {
+public abstract class AbstractWidget extends JInternalFrame implements Widget, Serializable, Closeable {
+
+    public static final Dimension STANDARD_DIMENSION = new Dimension(100, 100);
+
     String id;
     int layer;
 
     // Operaciones
-    public boolean buscar(String cadena){
+    public SortedSet<SearchedString<Widget>> buscar(String cadena) {
         // TODO AbstractWidget buscar
-        return false;
+        return null;
     }
-    public String getId(){
+
+    public String getId() {
         // TODO AbstractWidget getId
-       return id;
+        return id;
     }
-    public int getLayer(){
+
+    public int getLayer() {
         // TODO AbstractWidget getLayer
         return layer;
     }
-    public void setLayer(int capa){
+
+    public void setLayer(int capa) {
         // TODO AbstractWidget setLayer
         layer = capa;
     }

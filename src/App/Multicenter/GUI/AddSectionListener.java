@@ -1,6 +1,7 @@
 package App.Multicenter.GUI;
 
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 
 public class AddSectionListener implements ActionListener {
@@ -8,13 +9,14 @@ public class AddSectionListener implements ActionListener {
     List<PersonalSpaceView> psv;
 
     //Methods
-    /** 
+
+    /**
      * Al pulsar el boton añadirá un nuevo espacio personal
+     *
      * @param e ActionEvent
-     * 
      */
     @Override
     public void actionPerformed(ActionEvent e) {
-        
+
     }
 }

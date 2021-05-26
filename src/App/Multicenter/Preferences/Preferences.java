@@ -3,49 +3,55 @@ package App.Multicenter.Preferences;
 import App.Multicenter.Platform.LanguageManager;
 import App.Multicenter.Platform.ThemeManager;
 
-import java.io.*;
-import java.util.Locale;
-import java.util.Properties;
-import java.util.prefs.*;
-
 import java.awt.*;
+import java.io.*;
+import java.util.Properties;
 
 /**
  * Proporciona los métodos necesarios para cambiar las preferencias
  * de la aplicación temporalmente, y para cambiarlas definitivamente
  * mediante el uso de un archivo oculto en formato xml guardado en
  * "user.dir", ".mctrpreferences.xml".
- *
- * Limitado a 1 instancia (Constructor privado)
- * Establece el workingDirectory por defecto en su primera creación.
- * Establece como tema principal el tema claro.
- * Establece como dimensión inicial de la ventana  800x800.
  */
-public class Preferences{
-    private static File SpacesFolder = new File(System.getProperty("user.dir"));;
-    private static Dimension WindowsSize = new Dimension(800,800);
-    private static Properties prop = new Properties();
-    private final static File propertiesFile = new File(System.getProperty("user.home") + "/.mctrproperties.xml");
+public class Preferences {
+    private final static File propertiesFile = new File(System.getProperty("user.home"), ".mctrpreferences.xml");
+    // Variables estáticas
+    private static File spacesFolder;
+    private static Dimension windowsSize;
+    private static Properties prop;
 
-    private final static Preferences preferences = new Preferences();
+    // Cierre de clase
+    private Preferences() {
+    }
 
     /**
-     * Constructor privado de la clase Preferences.
+     * Inicializa las preferencias de Multicenter para este usuario. Si
+     * dicho usuario no tiene preferencias guardadas se creará una configurarión
+     * por defecto:
+     * <ul>
+     *     <li>Establece como working directory la carpeta home</li>
+     *     <li>Establece como tamaño de ventana predeterminada 800x800</li>
+     *     <li>Establece el idioma de la aplicación al idioma de la JVM</li>
+     *     <li>Establece como tema de la aplicación LIGHT</li>
+     *     <li>Crea el archivo de preferencias y guarda esta configuración inicial</li>
+     * </ul>
      *
-     * Abre el archivo .mctrpreferences.xml del directorio de usuario
-     * "user.dir" y carga las propiedades en el objeto Properties "prop"
-     * que tenemos como variable de clase.
-     *
+     * @return true si existía una configuración anterior y false si dicho archivo
+     * no existe
      */
+    public static boolean loadPreferences() {
+        spacesFolder = new File(System.getProperty("user.dir") + "/");
+        windowsSize = new Dimension(800, 800);
+        prop = new Properties();
+        LanguageManager.setLanguage(LanguageManager.USER_ENV);
+        ThemeManager.setTheme(ThemeManager.LIGHT);
 
-    private Preferences(){
-        try{
-            InputStream in = new FileInputStream(propertiesFile);
+        boolean out = true;
+        try (InputStream in = new FileInputStream(propertiesFile)) {
             prop.loadFromXML(in);
-            in.close();
 
-            String ajustes = prop.toString().substring(1, prop.toString().length()-1);
-            for(String s : ajustes.split(",")){
+            String ajustes = prop.toString().substring(1, prop.toString().length() - 1);
+            for (String s : ajustes.split(",")) {
                 String[] settings = s.split("=");
 
                 switch (settings[0]) {
@@ -58,40 +64,44 @@ public class Preferences{
                     case "lang" -> setLanguage(settings[1]);
                 }
             }
-        } catch (IOException e){
+        } catch (Exception e) {
             e.printStackTrace();
+            out = false;
         }
+        return out;
     }
 
     /**
-     *
-     * @return El SpacesFolder (directorio de trabajo)
+     * @return El spacesFolder (directorio de trabajo)
      */
-    public static File getSpacesFolder(){
-        return SpacesFolder;
+    public static File getSpacesFolder() {
+        if (prop == null) throw new IllegalStateException("Preferences not correctly initialized");
+        return spacesFolder;
     }
 
     /**
-     * Define el SpacesFolder.
+     * Define el spacesFolder.
      *
-     * @param spacesFolder el nuevo SpacesFolder.
+     * @param spacesFolder el nuevo spacesFolder.
      */
     public static void setSpacesFolder(File spacesFolder) {
-        SpacesFolder = spacesFolder;
+        if (prop == null) throw new IllegalStateException("Preferences not correctly initialized");
+        Preferences.spacesFolder = spacesFolder;
     }
 
     /**
      * Devuelve el tema usado ctualmente en la aplicación.
      *
      * @return El número indexado al tema actual.
-     *         {
-     *         0 = "LIGHT",
-     *         1 = "DARK",
-     *         2 = "DARCULA",
-     *         3 = "INTELLIJ"
-     *         }
+     * <ul>
+     *     <li>0 = "LIGHT"</li>
+     *     <li>1 = "DARK"</li>
+     *     <li>2 = "DARCULA"</li>
+     *     <li>3 = "INTELLIJ"</li>
+     * </ul>
      */
     public static int getTheme() {
+        if (prop == null) throw new IllegalStateException("Preferences not correctly initialized");
         return ThemeManager.getCurrentTheme();
     }
 
@@ -99,14 +109,15 @@ public class Preferences{
      * Cambia el tema de la aplicación.
      *
      * @param theme El entero asociado al tema al que se quiere cambiar.
-     *              {
-     *              0 = "LIGHT",
-     *              1 = "DARK",
-     *              2 = "DARCULA",
-     *              3 = "INTELLIJ"
-     *              }
+     *              <ul>
+     *                  <li>0 = "LIGHT"</li>
+     *                  <li>1 = "DARK"</li>
+     *                  <li>2 = "DARCULA"</li>
+     *                  <li>3 = "INTELLIJ"</li>
+     *              </ul>
      */
     public static void setTheme(int theme) {
+        if (prop == null) throw new IllegalStateException("Preferences not correctly initialized");
         ThemeManager.setTheme(theme);
     }
 
@@ -115,12 +126,13 @@ public class Preferences{
      * usado en la aplicación.
      *
      * @return El idioma.
-     *         {
-     *         "es" = Español,
-     *         "en" = Inglés
-     *         }
+     * <ul>
+     *     <li>"es" = Español 🇪🇸</li>
+     *     <li>"en" = Inglés 🇬🇧</li>
+     * </ul>
      */
     public static String getLanguage() {
+        if (prop == null) throw new IllegalStateException("Preferences not correctly initialized");
         return LanguageManager.getActualLocale();
     }
 
@@ -128,10 +140,13 @@ public class Preferences{
      * Cambia el idioma de la aplicación.
      *
      * @param language El prefijo del idioma
-     *                 "es" = Español
-     *                 "en" = Inglés
+     *                 <ul>
+     *                     <li>"es" = Español 🇪🇸</li>
+     *                     <li>"en" = Inglés 🇬🇧</li>
+     *                 </ul>
      */
     public static void setLanguage(String language) {
+        if (prop == null) throw new IllegalStateException("Preferences not correctly initialized");
         LanguageManager.setLanguage(language);
     }
 
@@ -142,7 +157,8 @@ public class Preferences{
      * @return La dimensión de la ventana.
      */
     public static Dimension getWindowsSize() {
-        return WindowsSize;
+        if (prop == null) throw new IllegalStateException("Preferences not correctly initialized");
+        return windowsSize;
     }
 
     /**
@@ -151,26 +167,35 @@ public class Preferences{
      * @param windowsSize La dimensión de la ventana.
      */
     public static void setWindowsSize(Dimension windowsSize) {
-        WindowsSize = windowsSize;
+        if (prop == null) throw new IllegalStateException("Preferences not correctly initialized");
+        Preferences.windowsSize = windowsSize;
     }
 
+
+    public static Properties getPropObject() {
+        return prop;
+    }
+
+    /**
+     * Almacena la configuración actual de forma persistente en el disco. Si este método
+     * no es llamado antes del cierre de la aplicación no se almacenarán los cambios
+     *
+     * @return true si se ha podido almacenar correctamente o false si dicha acción
+     * ha fallado
+     */
     public static boolean save() {
         prop.setProperty("working_directory", getSpacesFolder().getAbsolutePath());
         prop.setProperty("theme", Integer.toString(getTheme()));
-        prop.setProperty("window_size", getWindowsSize().getWidth() + "-" + getWindowsSize().getHeight());
+        prop.setProperty("window_size", (int) getWindowsSize().getWidth() + "-" + (int) getWindowsSize().getHeight());
         prop.setProperty("lang", getLanguage());
 
-        try {
-            OutputStream out = new FileOutputStream(propertiesFile);
-            prop.storeToXML(out, "");
-            out.close();
+        try (OutputStream out = new FileOutputStream(propertiesFile)) {
+            prop.storeToXML(out, null);
         } catch (IOException e) {
             e.printStackTrace();
             return false;
         }
-
         return true;
-
     }
 }
 

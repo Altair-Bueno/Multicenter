@@ -1,6 +1,8 @@
 package App.Multicenter.Widget;
 
-import java.awt.*;
+import App.Multicenter.Space.SearchedString;
+
+import java.util.SortedSet;
 
 public interface Widget {
 
@@ -14,7 +16,7 @@ public interface Widget {
      * @param cadena La cadena a buscar.
      * @return True si la cadena está, False si no.
      */
-    boolean buscar(String cadena);
+    SortedSet<SearchedString<Widget>> buscar(String cadena);
 
     /**
      * Devuelve el identificador
@@ -38,4 +40,5 @@ public interface Widget {
      */
     void setLayer(int capa);
 
+    void toggleEditMode();
 }

@@ -2,11 +2,7 @@ package App.Multicenter;
 
 import App.Multicenter.DataStructures.HierarchyTree;
 import App.Multicenter.DataStructures.Tree;
-import App.Multicenter.Preferences.Preferences;
 
-import java.awt.*;
-import java.util.Arrays;
-import java.io.*;
 import org.junit.*;
 
 /**
