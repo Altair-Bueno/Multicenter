@@ -7,12 +7,15 @@ import javax.swing.plaf.ScrollPaneUI;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class SideBar extends JDesktopPane {
+public class SideBar extends JPanel {
     //Attributes
+    AppWindow app;
     JTextField searchBox;
     Map<Section, PersonalSpaceView> psv;
     JButton addButton;
@@ -20,7 +23,6 @@ public class SideBar extends JDesktopPane {
     JButton zoom;
     Boolean isShown;
     int numSections;
-    //JScrollPane scrollContainer = new JScrollPane();
 
     //Constructor
 
@@ -33,18 +35,12 @@ public class SideBar extends JDesktopPane {
         numSections = 0;
         psv = new HashMap<>();
 
-        //setBackground(new Color(45, 45, 50));
         setPreferredSize(new Dimension(250, 100));
         setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
-        //setBorder(BorderFactory.createMatteBorder(0, 0, 0, 1, Color.lightGray));
-        //scrollContainer.setViewportView(this);
+        setBorder(BorderFactory.createMatteBorder(0, 0, 0, 1, Color.lightGray));
 
-        /**
-         * SEARCHBOX
-         */
         searchBox = new JTextField(" \uD83D\uDD0D SearchBox");
         searchBox.setPreferredSize(new Dimension(249, 25));
-        //searchBox.setBackground(Color.gray);
         searchBox.setBorder(BorderFactory.createEmptyBorder());
         add(searchBox);
 
@@ -53,15 +49,45 @@ public class SideBar extends JDesktopPane {
         zoom = createButton("\uD83D\uDD0D +", zoom);
 
         addButton.addActionListener(e -> {
-            Section newSec = new Section(numSections);
+            String nombre = JOptionPane.showInputDialog("Introduce el nombre para tu espacio personal");
+
+            Section newSec = new Section(numSections, nombre);
             PersonalSpace widgets = new PersonalSpace();
-            Header newH = new Header("Prueba " + numSections);
+            Header newH = new Header(nombre);
             Board newB = new Board(widgets);
-            PersonalSpaceView newPsv = new PersonalSpaceView(newH, newB, "Prueba "+ numSections);
+            PersonalSpaceView newPsv = new PersonalSpaceView(newH, newB, nombre);
 
             addPersonalSpace(newSec, newPsv);
             System.out.println(psv.toString());
+            newSec.addMouseListener(new MouseListener() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+
+                }
+
+                @Override
+                public void mousePressed(MouseEvent e) {
+
+                }
+
+                @Override
+                public void mouseReleased(MouseEvent e) {
+
+                }
+
+                @Override
+                public void mouseEntered(MouseEvent e) {
+                    newSec.def = getBackground();
+                    newSec.setBackground(Color.lightGray);
+                }
+
+                @Override
+                public void mouseExited(MouseEvent e) {
+                    newSec.setBackground(newSec.def);
+                }
+            });
         });
+
         setVisible(isShown);
     }
 
@@ -87,13 +113,9 @@ public class SideBar extends JDesktopPane {
     }
 
     private JButton createButton(String type, JButton button) {
-        //addButton.setForeground(Color.lightGray);
-        //addButton.setBackground(new Color(77,77,77));
         button = new JButton();
         button.setText(type);
         button.setPreferredSize(new Dimension(70, 25));
-        //delButton.setForeground(Color.lightGray);
-        //delButton.setBackground(new Color(77,77,77));
         button.setBorderPainted(false);
         button.setFocusPainted(false);
         add(button);

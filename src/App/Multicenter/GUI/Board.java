@@ -6,7 +6,7 @@ import App.Multicenter.Widget.Widget;
 import javax.swing.*;
 import java.util.List;
 
-public class Board extends JPanel {
+public class Board extends JDesktopPane {
     //Attributes
     PersonalSpace widgets;
     Widget[][] malla;

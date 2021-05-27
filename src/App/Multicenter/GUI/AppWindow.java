@@ -22,16 +22,7 @@ public class AppWindow extends JFrame {
         add(ps, BorderLayout.CENTER);
         add(sb, BorderLayout.WEST);
         setVisible(true);
-        /*
         setMinimumSize(new Dimension(400, 400));
-
-        addComponentListener(new ComponentAdapter() {
-            public void componentResized(ComponentEvent evt) {
-                revalidateDesktopPane();
-            }
-        });
-
-         */
     }
 
     //Methods
@@ -42,9 +33,9 @@ public class AppWindow extends JFrame {
     public static void createAndShowGUI() {
         PersonalSpace widgets = new PersonalSpace();
 
-        Header header = new Header("THIS IS A TEST HEADER");
+        Header header = new Header("Welcome!");
         Board board = new Board(widgets);
-        PersonalSpaceView personalSpaceView = new PersonalSpaceView(header, board, "PERSONAL SPACE TEST");
+        PersonalSpaceView personalSpaceView = new PersonalSpaceView(header, board, "WelcomePSV");
         SideBar sideBar = new SideBar();
 
         AppWindow app = new AppWindow(personalSpaceView, sideBar);
@@ -56,22 +47,8 @@ public class AppWindow extends JFrame {
      * @param newPs Espacio personal a mostrar
      */
     public void changePersonalSpace(PersonalSpaceView newPs) {
+        remove(ps);
         ps = newPs;
+        add(ps);
     }
-/*
-    private void revalidateDesktopPane() {
-        Dimension dim = new Dimension(0,0);
-        Component[] com = sb.getComponents();
-        for (int i=0 ; i<com.length ; i++) {
-            int w = (int) dim.getWidth()+com[i].getWidth();
-            int h = (int) dim.getHeight()+com[i].getHeight();
-            dim.setSize(new Dimension(w,h));
-        }
-        sb.setPreferredSize(dim);
-        sb.revalidate();
-        revalidate();
-        repaint();
-    }
-
- */
 }
