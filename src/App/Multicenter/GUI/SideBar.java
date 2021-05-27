@@ -16,6 +16,7 @@ import java.util.Map;
 public class SideBar extends JPanel {
     //Attributes
     AppWindow app;
+    Section selected;
     JTextField searchBox;
     Map<Section, PersonalSpaceView> psv;
     JButton addButton;
@@ -33,6 +34,7 @@ public class SideBar extends JPanel {
     public SideBar() {
         isShown = true;
         numSections = 0;
+        selected = null;
         psv = new HashMap<>();
 
         setPreferredSize(new Dimension(250, 100));
@@ -48,18 +50,7 @@ public class SideBar extends JPanel {
         delButton = createButton("DEL", delButton);
         zoom = createButton("\uD83D\uDD0D +", zoom);
 
-        addButton.addActionListener(e -> {
-            String nombre = JOptionPane.showInputDialog("Introduce el nombre para tu espacio personal");
-
-            Section newSec = new Section(numSections, nombre, this);
-            PersonalSpace widgets = new PersonalSpace();
-            Header newH = new Header(nombre);
-            Board newB = new Board(widgets);
-            PersonalSpaceView newPsv = new PersonalSpaceView(newH, newB, nombre);
-
-            addPersonalSpace(newSec, newPsv);
-            System.out.println(psv.toString());
-        });
+        addButton.addActionListener(new AddSectionListener(this));
 
         setVisible(isShown);
     }

@@ -1,5 +1,8 @@
 package App.Multicenter.GUI;
 
+import App.Multicenter.Space.PersonalSpace;
+
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -7,6 +10,12 @@ import java.util.List;
 public class AddSectionListener implements ActionListener {
     //Attributes
     List<PersonalSpaceView> psv;
+    SideBar sideBar;
+
+    //Constructor
+    public AddSectionListener(SideBar sideBar) {
+        this.sideBar = sideBar;
+    }
 
     //Methods
 
@@ -17,6 +26,15 @@ public class AddSectionListener implements ActionListener {
      */
     @Override
     public void actionPerformed(ActionEvent e) {
+        String nombre = JOptionPane.showInputDialog("Introduce el nombre para tu espacio personal");
 
+        Section newSec = new Section(sideBar.numSections, nombre, sideBar);
+        PersonalSpace widgets = new PersonalSpace();
+        Header newH = new Header(nombre);
+        Board newB = new Board(widgets);
+        PersonalSpaceView newPsv = new PersonalSpaceView(newH, newB, nombre);
+
+        sideBar.addPersonalSpace(newSec, newPsv);
+        System.out.println(sideBar.psv.toString());
     }
 }

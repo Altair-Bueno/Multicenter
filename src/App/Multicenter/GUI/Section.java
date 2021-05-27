@@ -18,45 +18,18 @@ public class Section extends JPanel {
         this.parent = parent;
         def = getBackground();
         title = nombre;
+
         label = new JLabel();
         label.setText(nombre);
         label.setFont(new Font("Arial", Font.BOLD, 15));
         label.setForeground(Color.gray);
         add(label);
+
         setPreferredSize(new Dimension(249, 40));
         setBorder(BorderFactory.createMatteBorder(1,0,1,0,Color.lightGray));
+        addMouseListener(new SectionListener(parent.app, parent, this, parent.selected));
 
         setVisible(true);
-        addMouseListener(new MouseListener() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                parent.app.changePersonalSpace(parent.psv.get(Section.this));
-                parent.app.ps.header.updateUI();
-                parent.app.ps.board.updateUI();
-                updateUI();
-            }
-
-            @Override
-            public void mousePressed(MouseEvent e) {
-                //TODO Drag listener for sections
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
-                //TODO Drop listener for sections
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                def = getBackground();
-                setBackground(Color.lightGray);
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                setBackground(def);
-            }
-        });
     }
 
     //Methods
