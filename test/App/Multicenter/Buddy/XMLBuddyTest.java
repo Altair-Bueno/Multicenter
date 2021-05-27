@@ -3,7 +3,6 @@ package App.Multicenter.Buddy;
 import App.Multicenter.Preferences.Preferences;
 import App.Multicenter.Space.PersonalSpace;
 import App.Multicenter.Widget.NotesWidget;
-import org.junit.Assert;
 import org.junit.Test;
 
 import java.awt.*;
@@ -48,6 +47,9 @@ public class XMLBuddyTest {
         Preferences.loadPreferences();
         Preferences.setSpacesFolder(new File("/Users/compux72/Downloads/TestMulticenter"));
         PersonalSpace personalSpace = new PersonalSpace();
-        personalSpace.
+        personalSpace.setCarpeta(new File("test"));
+        personalSpace.setId("dsfasd");
+        XMLBuddy<PersonalSpace> sa  =new XMLBuddy<>();
+        sa.saveToFile(new File(Preferences.getSpacesFolder(),"notas.txt"),personalSpace);
     }
 }

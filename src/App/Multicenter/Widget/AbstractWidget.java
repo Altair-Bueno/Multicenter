@@ -15,8 +15,9 @@ public abstract class AbstractWidget extends JInternalFrame implements Widget, S
 
     public static final Dimension STANDARD_DIMENSION = new Dimension(100, 100);
 
-    String id;
-    int layer;
+    protected String id;
+    protected int layer;
+    // TODO cuildado que extend JINternalFrame da problemas
 
     // Operaciones
 
@@ -27,10 +28,15 @@ public abstract class AbstractWidget extends JInternalFrame implements Widget, S
     public int getLayer() {
         return layer;
     }
-
+/*
     public void setLayer(int capa) {
         layer = capa;
+    }*/
+
+    public void setId(String id) {
+        this.id = id;
     }
+
     protected SearchedString<Widget> bestSearchedString(String frase, String ref, Widget w){
         SortedSet<SearchedString<Widget>> res = new TreeSet<>(Comparator.reverseOrder());
         Iterator<String> iter = Arrays.stream(frase.split("\\W+")).iterator();

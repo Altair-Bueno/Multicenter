@@ -28,13 +28,13 @@ public class NotesWidget extends AbstractWidget {
         }
     };
 
-    private final JEditorPane jEditorPane;
-    private final JPanel jPanel;
-    private final File markdownFile;
+    protected final JEditorPane jEditorPane;
+    protected final JPanel jPanel;
+    protected final File markdownFile;
 
-    private final Parser parser = Parser.builder().build();
-    private final HtmlRenderer renderer = HtmlRenderer.builder().build();
-    private boolean edit;
+    protected final Parser parser = Parser.builder().build();
+    protected final HtmlRenderer renderer = HtmlRenderer.builder().build();
+    protected boolean edit;
 
     public NotesWidget() {
         this(0, Preferences.getSpacesFolder());

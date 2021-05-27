@@ -1,7 +1,5 @@
 package App.Multicenter.Space;
 
-import App.Multicenter.Buddy.XMLBuddy;
-import App.Multicenter.DataStructures.Tree;
 import App.Multicenter.Preferences.Preferences;
 import App.Multicenter.Widget.AbstractWidget;
 import App.Multicenter.Widget.Widget;
@@ -28,15 +26,15 @@ import java.util.stream.Collectors;
 public class PersonalSpace implements Closeable, Serializable {
     private SortedSet<Widget> widgetTree;
     private String id;
-    private File archivo;
+    private File carpeta;
 
 
     /**
      * Instancia un nuevo espacio personal.
      *
-     * Se intenta abrir el archivo XML con la información
+     * Se intenta abrir el carpeta XML con la información
      * del árbol de widgets almacenada dentro y si no se
-     * encuentra el archivo (porque no está creado, o
+     * encuentra el carpeta (porque no está creado, o
      * porque haya habido algún error), se crea un árbol
      * de widgets vacío)
      */
@@ -46,7 +44,7 @@ public class PersonalSpace implements Closeable, Serializable {
         widgetTree = new TreeSet<>();
 
         try {
-            archivo = new File(Preferences.getSpacesFolder().getCanonicalPath() + ".mctrSpace.xml");
+            carpeta = new File(Preferences.getSpacesFolder().getCanonicalPath() + ".mctrSpace.xml");
         } catch (Exception e) {
         }
 
@@ -121,11 +119,11 @@ public class PersonalSpace implements Closeable, Serializable {
         this.id = id;
     }
 
-    public File getArchivo() {
-        return archivo;
+    public File getCarpeta() {
+        return carpeta;
     }
 
-    public void setArchivo(File archivo) {
-        this.archivo = archivo;
+    public void setCarpeta(File carpeta) {
+        this.carpeta = carpeta;
     }
 }
