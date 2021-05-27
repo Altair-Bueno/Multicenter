@@ -30,7 +30,6 @@ public class SectionListener implements MouseListener {
     @Override
     public void mousePressed(MouseEvent e) {
         // TODO Auto-generated method stub
-
     }
 
     /**

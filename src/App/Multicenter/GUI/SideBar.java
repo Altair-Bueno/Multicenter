@@ -51,7 +51,7 @@ public class SideBar extends JPanel {
         addButton.addActionListener(e -> {
             String nombre = JOptionPane.showInputDialog("Introduce el nombre para tu espacio personal");
 
-            Section newSec = new Section(numSections, nombre);
+            Section newSec = new Section(numSections, nombre, this);
             PersonalSpace widgets = new PersonalSpace();
             Header newH = new Header(nombre);
             Board newB = new Board(widgets);
@@ -59,33 +59,6 @@ public class SideBar extends JPanel {
 
             addPersonalSpace(newSec, newPsv);
             System.out.println(psv.toString());
-            newSec.addMouseListener(new MouseListener() {
-                @Override
-                public void mouseClicked(MouseEvent e) {
-
-                }
-
-                @Override
-                public void mousePressed(MouseEvent e) {
-
-                }
-
-                @Override
-                public void mouseReleased(MouseEvent e) {
-
-                }
-
-                @Override
-                public void mouseEntered(MouseEvent e) {
-                    newSec.def = getBackground();
-                    newSec.setBackground(Color.lightGray);
-                }
-
-                @Override
-                public void mouseExited(MouseEvent e) {
-                    newSec.setBackground(newSec.def);
-                }
-            });
         });
 
         setVisible(isShown);

@@ -39,6 +39,7 @@ public class AppWindow extends JFrame {
         SideBar sideBar = new SideBar();
 
         AppWindow app = new AppWindow(personalSpaceView, sideBar);
+        sideBar.app = app;
     }
 
     /**
@@ -49,6 +50,6 @@ public class AppWindow extends JFrame {
     public void changePersonalSpace(PersonalSpaceView newPs) {
         remove(ps);
         ps = newPs;
-        add(ps);
+        add(newPs);
     }
 }
