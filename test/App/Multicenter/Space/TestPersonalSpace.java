@@ -15,9 +15,11 @@ import java.util.Date;
 public class TestPersonalSpace {
     @Test
     public void testeo(){
+        System.out.println(System.getProperty("user.home"));
         Preferences.loadPreferences();
         PersonalSpace p = new PersonalSpace(Preferences.getSpacesFolder());
         p.addWidget(new VoicenoteWidget());
         p.addWidget(new CountdownWidget(new Date(), "pruebaEvento"));
+        Preferences.save();
     }
 }

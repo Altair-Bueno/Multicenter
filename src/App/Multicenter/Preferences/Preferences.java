@@ -40,8 +40,10 @@ public class Preferences {
      * no existe
      */
     public static boolean loadPreferences() {
-        spacesFolder = new File(System.getProperty("user.dir"), "personalSpace");
-        spacesFolder.mkdirs();
+        spacesFolder = new File(System.getProperty("user.home"), "personalSpace");
+        if(!spacesFolder.exists()){
+            spacesFolder.mkdirs();
+        }
         windowsSize = new Dimension(800, 800);
         prop = new Properties();
         LanguageManager.setLanguage(LanguageManager.USER_ENV);
