@@ -29,10 +29,7 @@ public class HyperlinkWidget extends AbstractWidget {
     public void toggleEditMode() {
     }
 
-    @Override
-    public JInternalFrame getComponentView() {
-        return null;
-    }
+
 
     @Override
     public void close() throws IOException {

@@ -3,6 +3,7 @@ package App.Multicenter.Widget;
 import App.Multicenter.Space.SearchedString;
 
 import javax.swing.*;
+import java.awt.*;
 
 public interface Widget {
 
@@ -42,5 +43,17 @@ public interface Widget {
 
     void toggleEditMode();
 
-    JInternalFrame getComponentView();
+    void setAlignmentX(float alignmentX);
+
+    void setAlignmentY(float alignmentY);
+
+    void setSize(Dimension d);
+
+    Dimension getSize(Dimension rv);
+
+    float getAlignmentX();
+
+    float getAlignmentY();
+
+    JInternalFrame getJInternalFrame();
 }

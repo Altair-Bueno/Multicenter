@@ -11,36 +11,22 @@ import java.util.*;
 /**
  * The type Abstract widget.
  */
-public abstract class AbstractWidget implements Widget, Serializable, Closeable , Comparable<AbstractWidget> {
+public abstract class AbstractWidget extends JInternalFrame implements Widget, Serializable, Closeable , Comparable<AbstractWidget> {
 
     public static final Dimension STANDARD_DIMENSION = new Dimension(100, 100);
 
+    // Variables de clase
     protected String id;
-    protected int layer;
-    protected Dimension dimension;
-    protected float x;
-    protected float y;
+    protected int abstractLayer;
+    protected Dimension abstractdimension;
+    protected float abstractx;
+    protected float abstracty;
 
-    // TODO cuildado que extend JINternalFrame da problemas
+    protected AbstractWidget(){
+        super();
+    }
 
     // Operaciones
-
-    public String getId() {
-        return id;
-    }
-
-    public int getLayer() {
-        return layer;
-    }
-/*
-    public void setLayer(int capa) {
-        layer = capa;
-    }*/
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
     protected SearchedString<Widget> bestSearchedString(String frase, String ref, Widget w){
         SortedSet<SearchedString<Widget>> res = new TreeSet<>(Comparator.reverseOrder());
         Iterator<String> iter = Arrays.stream(frase.split("\\W+")).iterator();
@@ -52,12 +38,69 @@ public abstract class AbstractWidget implements Widget, Serializable, Closeable 
 
     @Override
     public int compareTo(AbstractWidget o) {
-        return this.layer - o.layer;
+        return this.abstractLayer - o.abstractLayer;
+    }
+
+    public String getId() {
+        return id;
     }
 
     @Override
-    public JInternalFrame getComponentView() {
-        // Preparar el JInternalFrame
-        return null;
+    public int getLayer() {
+        return super.getLayer();
+    }
+
+    @Override
+    public void setLayer(int capa) {
+        super.setLayer(capa);
+        abstractLayer = capa;
+    }
+
+    @Override
+    public void setAlignmentX(float alignmentX) {
+        super.setAlignmentX(alignmentX);
+        abstractx = alignmentX;
+    }
+
+    @Override
+    public void setAlignmentY(float alignmentY) {
+        super.setAlignmentY(alignmentY);
+        abstracty = alignmentY;
+    }
+
+    @Override
+    public void setSize(Dimension d) {
+        super.setSize(d);
+        abstractdimension = d;
+    }
+
+    @Override
+    public Dimension getSize(Dimension rv) {
+        return super.getSize(rv);
+    }
+
+    @Override
+    public float getAlignmentX() {
+        return super.getAlignmentX();
+    }
+
+    @Override
+    public float getAlignmentY() {
+        return super.getAlignmentY();
+    }
+
+    @Override
+    public Dimension getSize() {
+        return super.getSize();
+    }
+
+    @Override
+    public JInternalFrame getJInternalFrame() {
+        super.setAlignmentX(abstractx);
+        super.setAlignmentY(abstracty);
+        super.setSize(abstractdimension);
+        super.setLayer(abstractLayer);
+        super.setLayout(new BorderLayout());
+        return this;
     }
 }

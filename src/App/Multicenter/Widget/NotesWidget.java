@@ -1,6 +1,5 @@
 package App.Multicenter.Widget;
 
-import App.Multicenter.Preferences.Preferences;
 import App.Multicenter.Space.RandomNameGenerator;
 import App.Multicenter.Space.SearchedString;
 import org.commonmark.node.Node;
@@ -14,7 +13,6 @@ import java.awt.*;
 import java.io.*;
 
 public class NotesWidget extends AbstractWidget {
-    // TODO EmbeddedWidget Constructor
 
     private final HyperlinkListener hyperlinkListener = a -> {
         if (HyperlinkEvent.EventType.ACTIVATED.equals(a.getEventType())) {
@@ -27,17 +25,15 @@ public class NotesWidget extends AbstractWidget {
             }
         }
     };
+    private JEditorPane jEditorPane = new JEditorPane();
+    private final Parser parser = Parser.builder().build();
+    private final HtmlRenderer renderer = HtmlRenderer.builder().build();
+    private boolean edit;
 
-    protected final JEditorPane jEditorPane;
-    protected final JPanel jPanel;
-    protected final File markdownFile;
-
-    protected final Parser parser = Parser.builder().build();
-    protected final HtmlRenderer renderer = HtmlRenderer.builder().build();
-    protected boolean edit;
+    protected File markdownFile = null;
 
     protected NotesWidget() {
-        // this(0, Preferences.getSpacesFolder());
+        // Serializable constructor
     }
 
     public NotesWidget(int layer, File spacesFolder) {
@@ -46,52 +42,19 @@ public class NotesWidget extends AbstractWidget {
         // this(randomgen,layer)...
         RandomNameGenerator r = new RandomNameGenerator();
         String id = r.generate(spacesFolder);
-
-        this.id = id;
-        this.layer = layer;
+        super.id = id;
         setAlignmentX(0);
         setAlignmentY(0);
         setSize(STANDARD_DIMENSION);
         markdownFile = new File(spacesFolder, id);
         edit = false;
-
         jEditorPane = new JEditorPane();
-        jPanel = new JPanel();
-        jPanel.setLayout(new BorderLayout());
-        jPanel.add(jEditorPane);
-        add(jPanel);
-
+        super.add(jEditorPane);
         renderMardown();
-    }
-
-    public NotesWidget(String id, int layer, float x, float y, Dimension dimension, File file) {
-        // TODO Constructor
-        this.id = id;
-        this.layer = layer;
-        setAlignmentX(x);
-        setAlignmentY(y);
-        setSize(dimension);
-        markdownFile = file;
-        edit = false;
-
-        jEditorPane = new JEditorPane();
-        jPanel = new JPanel();
-        jPanel.setLayout(new BorderLayout());
-        jPanel.add(jEditorPane);
-        add(jPanel);
-
-        renderMardown();
-
-        // TODO Completar GUI de noteswidget
     }
 
     public SearchedString<Widget> buscar(String cadena) {
         return super.bestSearchedString(jEditorPane.getText(),cadena,this);
-    }
-
-    @Override
-    public void setLayer(int capa) {
-
     }
 
     public void toggleEditMode() {
@@ -105,11 +68,10 @@ public class NotesWidget extends AbstractWidget {
     }
 
     @Override
-    public JInternalFrame getComponentView() {
-        JInternalFrame internalFrame = super.getComponentView();
-        // Complementarlo
-        // add sitio
-        return null;
+    public JInternalFrame getJInternalFrame() {
+        JInternalFrame jInternalFrame = super.getJInternalFrame();
+        jInternalFrame.add(jEditorPane);
+        return jInternalFrame;
     }
 
     private void save() {
