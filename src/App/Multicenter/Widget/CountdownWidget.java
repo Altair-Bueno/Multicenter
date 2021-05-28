@@ -1,12 +1,10 @@
 package App.Multicenter.Widget;
 
 import App.Multicenter.Space.SearchedString;
+import App.Multicenter.Widget.Data.WidgetData;
 
-import javax.swing.*;
 import java.io.IOException;
 import java.util.Date;
-import java.util.SortedSet;
-import java.util.TreeSet;
 
 public class CountdownWidget extends AbstractWidget {
     private final String titulo;
@@ -59,6 +57,10 @@ public class CountdownWidget extends AbstractWidget {
     public void toggleEditMode() {
     }
 
+    @Override
+    public WidgetData getWidgetsDataInstance() {
+        return null;
+    }
 
 
     @Override

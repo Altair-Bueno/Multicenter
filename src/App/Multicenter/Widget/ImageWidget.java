@@ -2,12 +2,10 @@ package App.Multicenter.Widget;
 
 
 import App.Multicenter.Space.SearchedString;
+import App.Multicenter.Widget.Data.WidgetData;
 
-import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
-import java.util.SortedSet;
-import java.util.TreeSet;
 
 public class ImageWidget extends AbstractWidget {
     String nombreFoto;
@@ -32,6 +30,10 @@ public class ImageWidget extends AbstractWidget {
     public void toggleEditMode() {
     }
 
+    @Override
+    public WidgetData getWidgetsDataInstance() {
+        return null;
+    }
 
 
     @Override

@@ -3,7 +3,6 @@ package App.Multicenter.GUI;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
 
 public class RemoveSectionListener implements ActionListener {
     //Attributes
@@ -23,7 +22,7 @@ public class RemoveSectionListener implements ActionListener {
      */
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(sideBar.selected != null) {
+        if (sideBar.selected != null) {
             int option = JOptionPane.showConfirmDialog(null, "¿Estás seguro de borrar el espacio " + sideBar.selected + "?\nEste cambio será permanente.");
             if (option == 0) {
                 sideBar.app.changePersonalSpace(AppWindow.psDefault);

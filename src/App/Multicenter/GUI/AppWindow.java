@@ -1,17 +1,13 @@
 package App.Multicenter.GUI;
 
-import App.Multicenter.Space.PersonalSpace;
-
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
 
 public class AppWindow extends JFrame {
+    static final PersonalSpaceView psDefault = new PersonalSpaceView();
     //Attributes
     PersonalSpaceView ps;
     SideBar sb;
-    static final PersonalSpaceView psDefault = new PersonalSpaceView();
 
     //Constructor
     public AppWindow(PersonalSpaceView personalSpaceView, SideBar sideBar) {

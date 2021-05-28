@@ -1,16 +1,8 @@
 package App.Multicenter.GUI;
 
-import App.Multicenter.Space.PersonalSpace;
-
 import javax.swing.*;
-import javax.swing.plaf.ScrollPaneUI;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class SideBar extends JPanel {
@@ -95,7 +87,6 @@ public class SideBar extends JPanel {
         add(button);
         return button;
     }
-
 
 
 }

@@ -1,8 +1,8 @@
 package App.Multicenter.Widget;
 
 import App.Multicenter.Space.SearchedString;
+import App.Multicenter.Widget.Data.WidgetData;
 
-import javax.swing.*;
 import java.io.IOException;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -29,9 +29,9 @@ public class EmbeddedWidget extends AbstractWidget {
         // subdomains = {org}
 
         String[] urlparts = URL.split("\\.");
-        String[] subdomains = urlparts[urlparts.length-1].split("/");
+        String[] subdomains = urlparts[urlparts.length - 1].split("/");
 
-        for(int i = 0; i < urlparts.length - 1; i++){
+        for (int i = 0; i < urlparts.length - 1; i++) {
             res.add(new SearchedString<>(this, urlparts[i], cadena));
         }
 
@@ -51,6 +51,10 @@ public class EmbeddedWidget extends AbstractWidget {
     public void toggleEditMode() {
     }
 
+    @Override
+    public WidgetData getWidgetsDataInstance() {
+        return null;
+    }
 
 
     @Override

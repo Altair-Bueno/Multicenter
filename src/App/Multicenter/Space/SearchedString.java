@@ -1,7 +1,6 @@
 package App.Multicenter.Space;
 
-import App.Multicenter.Widget.Widget;
-import java.util.*;
+import java.util.Arrays;
 
 public class SearchedString<E> implements Comparable<SearchedString> {
     private final E widget;
@@ -17,7 +16,8 @@ public class SearchedString<E> implements Comparable<SearchedString> {
         this.cadena = cadena;
         ratio = diceCoefficientOptimizado(cadena, ref);
     }
-    public SearchedString(E w,String cadena,double ratio){
+
+    public SearchedString(E w, String cadena, double ratio) {
         widget = w;
         this.cadena = cadena;
         this.ratio = ratio;

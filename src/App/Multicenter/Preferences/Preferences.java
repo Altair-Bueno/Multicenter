@@ -14,7 +14,7 @@ import java.util.Properties;
  * "user.dir", ".mctrpreferences.xml".
  */
 public class Preferences {
-    private final static File propertiesFile = new File(System.getProperty("user.home"), ".mctrpreferences.xml");
+    private final static File propertiesFile = new File(System.getProperty("user.home"), ".mctrpreferences");
     // Variables estáticas
     private static File spacesFolder;
     private static Dimension windowsSize;
@@ -41,8 +41,8 @@ public class Preferences {
      */
     public static boolean loadPreferences() {
         spacesFolder = new File(System.getProperty("user.home"), "personalSpace");
-        if(!spacesFolder.exists()){
-            spacesFolder.mkdirs();
+        if (!spacesFolder.exists()) {
+            spacesFolder.mkdir();
         }
         windowsSize = new Dimension(800, 800);
         prop = new Properties();
@@ -89,6 +89,11 @@ public class Preferences {
     public static void setSpacesFolder(File spacesFolder) {
         if (prop == null) throw new IllegalStateException("Preferences not correctly initialized");
         Preferences.spacesFolder = spacesFolder;
+    }
+
+    public static File getSpacesSaveFile() {
+        if (prop == null) throw new IllegalStateException("Preferences not correctly initialized");
+        return new File(spacesFolder, "savefile.xml");
     }
 
     /**

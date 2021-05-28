@@ -2,6 +2,8 @@ package App.Multicenter.Widget;
 
 import App.Multicenter.Space.RandomNameGenerator;
 import App.Multicenter.Space.SearchedString;
+import App.Multicenter.Widget.Data.NotesWidgetData;
+import App.Multicenter.Widget.Data.WidgetData;
 import org.commonmark.node.Node;
 import org.commonmark.parser.Parser;
 import org.commonmark.renderer.html.HtmlRenderer;
@@ -25,15 +27,17 @@ public class NotesWidget extends AbstractWidget {
             }
         }
     };
-    private JEditorPane jEditorPane = new JEditorPane();
     private final Parser parser = Parser.builder().build();
     private final HtmlRenderer renderer = HtmlRenderer.builder().build();
-    private boolean edit;
+    public File markdownFile;
+    private final JEditorPane jEditorPane = new JEditorPane();
+    private boolean edit = false;
 
-    protected File markdownFile = null;
-
-    protected NotesWidget() {
-        // Serializable constructor
+    protected NotesWidget(NotesWidgetData nwd) {
+        super(nwd);
+        markdownFile = new File(nwd.markdownFile);
+        super.add(jEditorPane);
+        renderMardown();
     }
 
     public NotesWidget(int layer, File spacesFolder) {
@@ -47,14 +51,12 @@ public class NotesWidget extends AbstractWidget {
         setAlignmentY(0);
         setSize(STANDARD_DIMENSION);
         markdownFile = new File(spacesFolder, id);
-        edit = false;
-        jEditorPane = new JEditorPane();
         super.add(jEditorPane);
         renderMardown();
     }
 
     public SearchedString<Widget> buscar(String cadena) {
-        return super.bestSearchedString(jEditorPane.getText(),cadena,this);
+        return super.bestSearchedString(jEditorPane.getText(), cadena, this);
     }
 
     public void toggleEditMode() {
@@ -68,11 +70,13 @@ public class NotesWidget extends AbstractWidget {
     }
 
     @Override
-    public JInternalFrame getJInternalFrame() {
-        JInternalFrame jInternalFrame = super.getJInternalFrame();
-        jInternalFrame.add(jEditorPane);
-        return jInternalFrame;
+    public WidgetData getWidgetsDataInstance() {
+        NotesWidgetData nwd = new NotesWidgetData();
+        nwd.classname = NOTESWIDGET;
+        nwd.markdownFile = markdownFile.getAbsolutePath();
+        return super.getWidgetsDataInstance(nwd);
     }
+
 
     private void save() {
         try (FileOutputStream out = new FileOutputStream(markdownFile)) {
@@ -110,5 +114,19 @@ public class NotesWidget extends AbstractWidget {
     @Override
     public void close() throws IOException {
         save();
+    }
+
+    @Override
+    public int compareTo(AbstractWidget o) {
+        return super.compareTo(o);
+    }
+
+    @Override
+    public String toString() {
+        return "NotesWidget{" +
+                "id='" + id + '\'' +
+                ", edit=" + edit +
+                ", markdownFile=" + markdownFile +
+                '}';
     }
 }

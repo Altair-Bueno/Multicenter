@@ -12,7 +12,7 @@ public class RandomNameGeneratorTest {
         System.out.println("GENERATED NAME: " + id);
 
         Preferences.loadPreferences();
-        PersonalSpace espacio = new PersonalSpace();
+        PersonalSpace espacio = new PersonalSpace(Preferences.getSpacesFolder());
         System.out.println("ESPACIO CREADO CON ID: " + espacio.getId());
     }
 }

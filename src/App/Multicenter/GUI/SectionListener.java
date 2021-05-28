@@ -68,7 +68,7 @@ public class SectionListener implements MouseListener {
     //Unused method
     @Override
     public void mouseExited(MouseEvent e) {
-        if(section != parent.selected) {
+        if (section != parent.selected) {
             section.setBackground(section.def);
         }
     }

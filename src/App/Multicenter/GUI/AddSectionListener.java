@@ -6,7 +6,6 @@ import App.Multicenter.Space.PersonalSpace;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
 
 public class AddSectionListener implements ActionListener {
     //Attributes
@@ -27,7 +26,7 @@ public class AddSectionListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         String nombre = JOptionPane.showInputDialog("Introduce el nombre para tu espacio personal");
-        if(nombre != null) {
+        if (nombre != null) {
             Section newSec = new Section(sideBar.numSections, nombre, sideBar);
             PersonalSpace widgets = new PersonalSpace(Preferences.getSpacesFolder());
             Header newH = new Header(nombre);

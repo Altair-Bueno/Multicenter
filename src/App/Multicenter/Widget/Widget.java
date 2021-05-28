@@ -1,11 +1,24 @@
 package App.Multicenter.Widget;
 
 import App.Multicenter.Space.SearchedString;
+import App.Multicenter.Widget.Data.NotesWidgetData;
+import App.Multicenter.Widget.Data.WidgetData;
 
-import javax.swing.*;
 import java.awt.*;
 
 public interface Widget {
+
+    String NOTESWIDGET = "NotesWidget";
+
+    static Widget instanciateWidgetsFromData(WidgetData wd) {
+        Widget w = null;
+        switch (wd.classname) {
+            case NOTESWIDGET:
+                w = new NotesWidget((NotesWidgetData) wd);
+                break;
+        }
+        return w;
+    }
 
     /**
      * Busca la cadena pasada como parámetro
@@ -43,17 +56,17 @@ public interface Widget {
 
     void toggleEditMode();
 
-    void setAlignmentX(float alignmentX);
-
-    void setAlignmentY(float alignmentY);
-
     void setSize(Dimension d);
 
     Dimension getSize(Dimension rv);
 
     float getAlignmentX();
 
+    void setAlignmentX(float alignmentX);
+
     float getAlignmentY();
 
-    JInternalFrame getJInternalFrame();
+    void setAlignmentY(float alignmentY);
+
+    WidgetData getWidgetsDataInstance();
 }

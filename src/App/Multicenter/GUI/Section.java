@@ -1,10 +1,7 @@
 package App.Multicenter.GUI;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 public class Section extends JPanel {
     //Atributtes
@@ -26,7 +23,7 @@ public class Section extends JPanel {
         add(label);
 
         setPreferredSize(new Dimension(249, 40));
-        setBorder(BorderFactory.createMatteBorder(1,0,1,0,Color.lightGray));
+        setBorder(BorderFactory.createMatteBorder(1, 0, 1, 0, Color.lightGray));
         addMouseListener(new SectionListener(parent.app, parent, this, parent.selected));
 
         setVisible(true);

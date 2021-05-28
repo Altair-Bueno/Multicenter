@@ -1,106 +1,63 @@
 package App.Multicenter.Widget;
 
 import App.Multicenter.Space.SearchedString;
+import App.Multicenter.Widget.Data.WidgetData;
 
 import javax.swing.*;
 import java.awt.*;
 import java.io.Closeable;
-import java.io.Serializable;
 import java.util.*;
 
 /**
  * The type Abstract widget.
  */
-public abstract class AbstractWidget extends JInternalFrame implements Widget, Serializable, Closeable , Comparable<AbstractWidget> {
+public abstract class AbstractWidget extends JInternalFrame
+        implements Widget, Closeable, Comparable<AbstractWidget> {
 
-    public static final Dimension STANDARD_DIMENSION = new Dimension(100, 100);
+    // Constantes de valores por defecto
+    public static final Dimension STANDARD_DIMENSION = new Dimension(200, 200);
 
     // Variables de clase
     protected String id;
-    protected int abstractLayer;
-    protected Dimension abstractdimension;
-    protected float abstractx;
-    protected float abstracty;
 
-    protected AbstractWidget(){
-        super();
+    // Constructores
+    protected AbstractWidget() {
     }
 
-    // Operaciones
-    protected SearchedString<Widget> bestSearchedString(String frase, String ref, Widget w){
-        SortedSet<SearchedString<Widget>> res = new TreeSet<>(Comparator.reverseOrder());
-        Iterator<String> iter = Arrays.stream(frase.split("\\W+")).iterator();
-        while(iter.hasNext()){
-            res.add(new SearchedString<Widget>(w,frase,ref));
-        }
-        return res.first();
-    }
-
-    @Override
-    public int compareTo(AbstractWidget o) {
-        return this.abstractLayer - o.abstractLayer;
+    protected AbstractWidget(WidgetData wd) {
+        setSize(wd.dimension);
+        setAlignmentX(wd.x);
+        setAlignmentY(wd.y);
+        setLayer(wd.layer);
+        id = wd.id;
     }
 
     public String getId() {
         return id;
     }
 
-    @Override
-    public int getLayer() {
-        return super.getLayer();
+
+    // Operaciones
+    protected SearchedString<Widget> bestSearchedString(String frase, String ref, Widget w) {
+        SortedSet<SearchedString<Widget>> res = new TreeSet<>(Comparator.reverseOrder());
+        Iterator<String> iter = Arrays.stream(frase.split("\\W+")).iterator();
+        while (iter.hasNext()) {
+            res.add(new SearchedString<Widget>(w, frase, ref));
+        }
+        return res.first();
     }
 
     @Override
-    public void setLayer(int capa) {
-        super.setLayer(capa);
-        abstractLayer = capa;
+    public int compareTo(AbstractWidget o) {
+        return this.getLayer() - o.getLayer();
     }
 
-    @Override
-    public void setAlignmentX(float alignmentX) {
-        super.setAlignmentX(alignmentX);
-        abstractx = alignmentX;
-    }
-
-    @Override
-    public void setAlignmentY(float alignmentY) {
-        super.setAlignmentY(alignmentY);
-        abstracty = alignmentY;
-    }
-
-    @Override
-    public void setSize(Dimension d) {
-        super.setSize(d);
-        abstractdimension = d;
-    }
-
-    @Override
-    public Dimension getSize(Dimension rv) {
-        return super.getSize(rv);
-    }
-
-    @Override
-    public float getAlignmentX() {
-        return super.getAlignmentX();
-    }
-
-    @Override
-    public float getAlignmentY() {
-        return super.getAlignmentY();
-    }
-
-    @Override
-    public Dimension getSize() {
-        return super.getSize();
-    }
-
-    @Override
-    public JInternalFrame getJInternalFrame() {
-        super.setAlignmentX(abstractx);
-        super.setAlignmentY(abstracty);
-        super.setSize(abstractdimension);
-        super.setLayer(abstractLayer);
-        super.setLayout(new BorderLayout());
-        return this;
+    protected WidgetData getWidgetsDataInstance(WidgetData wd) {
+        wd.dimension = getSize();
+        wd.id = id;
+        wd.x = getAlignmentX();
+        wd.y = getAlignmentY();
+        wd.layer = getLayer();
+        return wd;
     }
 }

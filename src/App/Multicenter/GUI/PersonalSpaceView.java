@@ -26,6 +26,7 @@ public class PersonalSpaceView extends Container {
 
         setVisible(true);
     }
+
     public PersonalSpaceView() {
         this(new Header("Welcome!"), null, "psDefault");
     }
