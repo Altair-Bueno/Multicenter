@@ -40,7 +40,8 @@ public class Preferences {
      * no existe
      */
     public static boolean loadPreferences() {
-        spacesFolder = new File(System.getProperty("user.dir") + "/");
+        spacesFolder = new File(System.getProperty("user.dir"), "personalSpace");
+        spacesFolder.mkdirs();
         windowsSize = new Dimension(800, 800);
         prop = new Properties();
         LanguageManager.setLanguage(LanguageManager.USER_ENV);
@@ -65,7 +66,6 @@ public class Preferences {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
             out = false;
         }
         return out;
