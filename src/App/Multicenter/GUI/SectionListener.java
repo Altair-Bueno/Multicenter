@@ -28,18 +28,12 @@ public class SectionListener implements MouseListener {
     @Override
     public void mouseClicked(MouseEvent e) {
         // TODO Auto-generated method stub
-        System.out.println(parent.selected);
         app.changePersonalSpace(parent.psv.get(section));
-        app.ps.header.updateUI();
-        app.ps.board.updateUI();
         if (parent.selected != null) {
             parent.selected.setBackground(section.def);
         }
         section.setBackground(Color.lightGray);
         parent.selected = section;
-        section.updateUI();
-        parent.selected.updateUI();
-        parent.updateUI();
         System.out.println(parent.selected);
     }
 
@@ -51,7 +45,7 @@ public class SectionListener implements MouseListener {
      */
     @Override
     public void mousePressed(MouseEvent e) {
-        // TODO Auto-generated method stub
+        // TODO Drag section from sidebar
     }
 
     /**
@@ -62,7 +56,7 @@ public class SectionListener implements MouseListener {
      */
     @Override
     public void mouseReleased(MouseEvent e) {
-        // TODO Auto-generated method stub
+        // TODO Drop section from sidebar
 
     }
 

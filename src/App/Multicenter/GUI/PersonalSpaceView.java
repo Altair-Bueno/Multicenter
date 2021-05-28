@@ -1,5 +1,7 @@
 package App.Multicenter.GUI;
 
+import App.Multicenter.Space.PersonalSpace;
+
 import java.awt.*;
 
 public class PersonalSpaceView extends Container {
@@ -10,17 +12,21 @@ public class PersonalSpaceView extends Container {
 
     //Constructor
     public PersonalSpaceView(Header header, Board board, String name) {
+        PersonalSpace widgets = new PersonalSpace();
         this.header = header;
-        this.board = board;
+        this.board = new Board(widgets);
         this.name = name;
 
         setPreferredSize(new Dimension(250, 250));
         setLayout(new BorderLayout());
 
-        add(header, BorderLayout.NORTH);
-        add(board, BorderLayout.CENTER);
+        add(this.header, BorderLayout.NORTH);
+        add(this.board, BorderLayout.CENTER);
 
         setVisible(true);
+    }
+    public PersonalSpaceView() {
+        this(new Header("Welcome!"), null, "psDefault");
     }
 
     //Methods

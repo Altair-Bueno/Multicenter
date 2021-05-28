@@ -17,11 +17,13 @@ public class SideBar extends JPanel {
     //Attributes
     AppWindow app;
     Section selected;
+
     JTextField searchBox;
-    Map<Section, PersonalSpaceView> psv;
     JButton addButton;
     JButton delButton;
     JButton zoom;
+
+    Map<Section, PersonalSpaceView> psv;
     Boolean isShown;
     int numSections;
 
@@ -51,6 +53,7 @@ public class SideBar extends JPanel {
         zoom = createButton("\uD83D\uDD0D +", zoom);
 
         addButton.addActionListener(new AddSectionListener(this));
+        delButton.addActionListener(new RemoveSectionListener(this));
 
         setVisible(isShown);
     }
@@ -73,6 +76,12 @@ public class SideBar extends JPanel {
         psv.put(s, ps);
         add(s);
         numSections++;
+        updateUI();
+    }
+
+    public void delPersonalSpace(Section s) {
+        psv.remove(s);
+        remove(s);
         updateUI();
     }
 

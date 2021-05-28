@@ -11,6 +11,7 @@ public class AppWindow extends JFrame {
     //Attributes
     PersonalSpaceView ps;
     SideBar sb;
+    static final PersonalSpaceView psDefault = new PersonalSpaceView();
 
     //Constructor
     public AppWindow(PersonalSpaceView personalSpaceView, SideBar sideBar) {
@@ -31,11 +32,7 @@ public class AppWindow extends JFrame {
      * Crea y muestra todos los elementos visuales de la aplicación
      */
     public static void createAndShowGUI() {
-        PersonalSpace widgets = new PersonalSpace();
-
-        Header header = new Header("Welcome!");
-        Board board = new Board(widgets);
-        PersonalSpaceView personalSpaceView = new PersonalSpaceView(header, board, "WelcomePSV");
+        PersonalSpaceView personalSpaceView = new PersonalSpaceView();
         SideBar sideBar = new SideBar();
 
         AppWindow app = new AppWindow(personalSpaceView, sideBar);
@@ -50,6 +47,8 @@ public class AppWindow extends JFrame {
     public void changePersonalSpace(PersonalSpaceView newPs) {
         remove(ps);
         ps = newPs;
-        add(newPs);
+        add(ps);
+        ps.header.updateUI();
+        ps.board.updateUI();
     }
 }
