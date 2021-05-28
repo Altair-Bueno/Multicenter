@@ -38,7 +38,7 @@ public class NotesWidget extends AbstractWidget {
         markdownFile = new File(nwd.markdownFile);
         super.add(jEditorPane);
         try {
-            renderMardown();
+            renderMardownMode();
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
@@ -57,13 +57,14 @@ public class NotesWidget extends AbstractWidget {
         markdownFile = new File(spacesFolder, id);
         super.add(jEditorPane);
         try {
-            renderMardown();
+            renderMardownMode();
         } catch (IOException e) {
             System.err.println(e.getMessage());
         }
     }
 
     public SearchedString<Widget> search(String cadena) {
+        if (edit) throw new IllegalStateException("Edit mode on. Please disable edit view first");
         return super.bestSearchedString(jEditorPane.getText(), cadena, this);
     }
 
@@ -71,10 +72,10 @@ public class NotesWidget extends AbstractWidget {
         edit = !edit;
         try {
             if (edit) {
-                editor();
+                editorMode();
             } else {
-                save();
-                renderMardown();
+                saveIntoFile();
+                renderMardownMode();
             }
         } catch (Exception e) {
             System.err.println(e.getMessage());
@@ -83,7 +84,7 @@ public class NotesWidget extends AbstractWidget {
 
     @Override
     public void moveFilesToFolder(File folder) throws IOException {
-        save();
+        saveIntoFile();
         folder.mkdir();
         markdownFile.renameTo(new File(folder, id));
     }
@@ -97,13 +98,13 @@ public class NotesWidget extends AbstractWidget {
     }
 
 
-    private void save() throws IOException {
+    private void saveIntoFile() throws IOException {
         FileOutputStream out = new FileOutputStream(markdownFile);
         Writer writer = new OutputStreamWriter(out);
         jEditorPane.write(writer);
     }
 
-    private void renderMardown() throws IOException {
+    private void renderMardownMode() throws IOException {
         InputStreamReader r = new InputStreamReader(new FileInputStream(markdownFile));
         Node document = parser.parseReader(r);
         jEditorPane.setContentType("text/html");
@@ -114,7 +115,7 @@ public class NotesWidget extends AbstractWidget {
         r.close();
     }
 
-    private void editor() throws IOException {
+    private void editorMode() throws IOException {
         jEditorPane.setContentType("text/plain");
         jEditorPane.setPage(markdownFile.toURI().toURL());
         jEditorPane.removeHyperlinkListener(hyperlinkListener);
@@ -123,7 +124,7 @@ public class NotesWidget extends AbstractWidget {
 
     @Override
     public void close() throws IOException {
-        save();
+        saveIntoFile();
     }
 
     @Override
