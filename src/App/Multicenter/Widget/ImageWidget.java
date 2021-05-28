@@ -16,7 +16,7 @@ public class ImageWidget extends AbstractWidget {
         img = f;
     }
 
-    public SearchedString<Widget> buscar(String cadena) {
+    public SearchedString<Widget> search(String cadena) {
         SearchedString<Widget> s = new SearchedString<>(this, nombreFoto, cadena);
         return s;
     }
@@ -28,6 +28,10 @@ public class ImageWidget extends AbstractWidget {
 
     @Override
     public void toggleEditMode() {
+    }
+
+    @Override
+    public void moveFilesToFolder(File folder) throws IOException {
     }
 
     @Override

@@ -14,5 +14,7 @@ public class Multicenter {
         // Multithreading: Load necesary classes
         // Index neccesary data
         // Load GUI
+        // Save preferences
+        Preferences.save();
     }
 }

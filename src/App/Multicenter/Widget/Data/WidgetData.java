@@ -3,6 +3,12 @@ package App.Multicenter.Widget.Data;
 import java.awt.*;
 import java.io.Serializable;
 
+/**
+ * Clase abstracta que contiene los datos comunes a
+ * todos los Widgets. Solo debe utilizarse mediante polimorfismo
+ *
+ * @see App.Multicenter.Widget.Widget#instanciateWidgetsFromData(WidgetData)
+ */
 public abstract class WidgetData implements Serializable {
     public String classname;
 

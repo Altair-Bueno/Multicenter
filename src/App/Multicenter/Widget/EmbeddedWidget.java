@@ -3,6 +3,7 @@ package App.Multicenter.Widget;
 import App.Multicenter.Space.SearchedString;
 import App.Multicenter.Widget.Data.WidgetData;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -16,7 +17,7 @@ public class EmbeddedWidget extends AbstractWidget {
         this.nombre = nombreRecurso;
     }
 
-    public SearchedString<Widget> buscar(String cadena) {
+    public SearchedString<Widget> search(String cadena) {
         SortedSet<SearchedString<Widget>> res = new TreeSet<>();
         res.add(new SearchedString<>(this, nombre, cadena));
 
@@ -49,6 +50,10 @@ public class EmbeddedWidget extends AbstractWidget {
 
     @Override
     public void toggleEditMode() {
+    }
+
+    @Override
+    public void moveFilesToFolder(File folder) throws IOException {
     }
 
     @Override

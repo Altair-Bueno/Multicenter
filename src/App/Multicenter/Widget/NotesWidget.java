@@ -29,15 +29,19 @@ public class NotesWidget extends AbstractWidget {
     };
     private final Parser parser = Parser.builder().build();
     private final HtmlRenderer renderer = HtmlRenderer.builder().build();
-    public File markdownFile;
     private final JEditorPane jEditorPane = new JEditorPane();
+    private final File markdownFile;
     private boolean edit = false;
 
     protected NotesWidget(NotesWidgetData nwd) {
         super(nwd);
         markdownFile = new File(nwd.markdownFile);
         super.add(jEditorPane);
-        renderMardown();
+        try {
+            renderMardown();
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
     }
 
     public NotesWidget(int layer, File spacesFolder) {
@@ -52,63 +56,69 @@ public class NotesWidget extends AbstractWidget {
         setSize(STANDARD_DIMENSION);
         markdownFile = new File(spacesFolder, id);
         super.add(jEditorPane);
-        renderMardown();
+        try {
+            renderMardown();
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
     }
 
-    public SearchedString<Widget> buscar(String cadena) {
+    public SearchedString<Widget> search(String cadena) {
         return super.bestSearchedString(jEditorPane.getText(), cadena, this);
     }
 
     public void toggleEditMode() {
         edit = !edit;
-        if (edit) {
-            editor();
-        } else {
-            save();
-            renderMardown();
+        try {
+            if (edit) {
+                editor();
+            } else {
+                save();
+                renderMardown();
+            }
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
         }
+    }
+
+    @Override
+    public void moveFilesToFolder(File folder) throws IOException {
+        save();
+        folder.mkdir();
+        markdownFile.renameTo(new File(folder, id));
     }
 
     @Override
     public WidgetData getWidgetsDataInstance() {
         NotesWidgetData nwd = new NotesWidgetData();
-        nwd.classname = NOTESWIDGET;
+        nwd.classname = NOTES;
         nwd.markdownFile = markdownFile.getAbsolutePath();
         return super.getWidgetsDataInstance(nwd);
     }
 
 
-    private void save() {
-        try (FileOutputStream out = new FileOutputStream(markdownFile)) {
-            Writer writer = new OutputStreamWriter(out);
-            jEditorPane.write(writer);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    private void save() throws IOException {
+        FileOutputStream out = new FileOutputStream(markdownFile);
+        Writer writer = new OutputStreamWriter(out);
+        jEditorPane.write(writer);
     }
 
-    private void renderMardown() {
-        try (InputStreamReader r = new InputStreamReader(new FileInputStream(markdownFile))) {
-            Node document = parser.parseReader(r);
-            jEditorPane.setContentType("text/html");
-            String renderedHTML = renderer.render(document);
-            jEditorPane.setText("<html>" + renderedHTML + "</html>");
-            jEditorPane.addHyperlinkListener(hyperlinkListener);
-            jEditorPane.setEditable(false);
-        } catch (Exception ignored) {
-        }
-
+    private void renderMardown() throws IOException {
+        InputStreamReader r = new InputStreamReader(new FileInputStream(markdownFile));
+        Node document = parser.parseReader(r);
+        jEditorPane.setContentType("text/html");
+        String renderedHTML = renderer.render(document);
+        jEditorPane.setText("<html>" + renderedHTML + "</html>");
+        jEditorPane.addHyperlinkListener(hyperlinkListener);
+        jEditorPane.setEditable(false);
+        r.close();
     }
 
-    private void editor() {
-        try {
-            jEditorPane.setContentType("text/plain");
-            jEditorPane.setPage(markdownFile.toURI().toURL());
-            jEditorPane.removeHyperlinkListener(hyperlinkListener);
-            jEditorPane.setEditable(true);
-        } catch (Exception ignored) {
-        }
-
+    private void editor() throws IOException {
+        jEditorPane.setContentType("text/plain");
+        jEditorPane.setPage(markdownFile.toURI().toURL());
+        jEditorPane.removeHyperlinkListener(hyperlinkListener);
+        jEditorPane.setEditable(true);
     }
 
     @Override

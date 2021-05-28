@@ -3,6 +3,7 @@ package App.Multicenter.Widget;
 import App.Multicenter.Space.SearchedString;
 import App.Multicenter.Widget.Data.WidgetData;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Date;
 
@@ -44,7 +45,7 @@ public class CountdownWidget extends AbstractWidget {
         return timetoevent;
     }
 
-    public SearchedString<Widget> buscar(String cadena) {
+    public SearchedString<Widget> search(String cadena) {
         return new SearchedString<>(this, titulo, cadena);
     }
 
@@ -55,6 +56,10 @@ public class CountdownWidget extends AbstractWidget {
 
     @Override
     public void toggleEditMode() {
+    }
+
+    @Override
+    public void moveFilesToFolder(File folder) throws IOException {
     }
 
     @Override

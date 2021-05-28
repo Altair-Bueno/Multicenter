@@ -9,7 +9,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.*;
-import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 
@@ -22,7 +21,8 @@ import java.util.stream.Collectors;
  * y para buscar cadenas en el espacio personal.
  */
 public class PersonalSpace implements Closeable, Serializable {
-    private final SortedSet<Widget> widgetTree;
+
+    private final SortedSet<Widget> widgets = new TreeSet<>();
     private final String id;
     private File carpeta;
 
@@ -40,25 +40,25 @@ public class PersonalSpace implements Closeable, Serializable {
     public PersonalSpace(File f) {
         RandomNameGenerator rng = new RandomNameGenerator();
         id = rng.generate(f);
-        widgetTree = new TreeSet<>();
-
-        try {
-            carpeta = new File(f, id);
-            carpeta.mkdir();
-            //Queda creada la carpeta del Espacio Peronal.
-        } catch (Exception e) {
-        }
+        carpeta = new File(f, id);
+        carpeta.mkdir();
     }
 
+    // Constructor privado utilizado para cargar el PersonalSpacesData
     private PersonalSpace(PersonalSpaceData data) {
         id = data.id;
         carpeta = new File(data.folderPath);
-        widgetTree = new TreeSet<>();
-        for (WidgetData w : data.widgetData) {
-            widgetTree.add(Widget.instanciateWidgetsFromData(w));
-        }
+
+        for (WidgetData w : data.widgetData)
+            widgets.add(Widget.instanciateWidgetsFromData(w));
     }
 
+    /**
+     * Carga el PersonalSpacesData en una instancia de PersonalSpaces.
+     *
+     * @param data PersonalSpacesData con la información deserializada
+     * @return Instancia de PersonalSpaces
+     */
     public static PersonalSpace loadPersonalSpaces(PersonalSpaceData data) {
         return new PersonalSpace(data);
     }
@@ -71,7 +71,7 @@ public class PersonalSpace implements Closeable, Serializable {
      * @param w Widget a añadir al árbol.
      */
     public void addWidget(Widget w) {
-        widgetTree.add(w);
+        widgets.add(w);
     }
 
     /**
@@ -81,7 +81,7 @@ public class PersonalSpace implements Closeable, Serializable {
      * @param w Widget a eliminar del árbol.
      */
     public void deleteWidget(Widget w) {
-        widgetTree.remove(w);
+        widgets.remove(w);
     }
 
 
@@ -90,39 +90,78 @@ public class PersonalSpace implements Closeable, Serializable {
      * en los diferentes Strings de todos los
      * widgets del espacio personal actual.
      *
-     * @param cadena La cadena a buscar
+     * @param cadena La cadena a search
      * @return El conjunto de objetos de la
      * clase SearchedString, que almacena
      * Strings en los que se ha encontrado
      * la cadena junto con el widget del que
      * provienen.
      */
-    public SortedSet<SearchedString<PersonalSpace>> buscarcadena(String cadena) {
-        Supplier<TreeSet<SearchedString<PersonalSpace>>> sortedset = () -> new TreeSet<>(Comparator.reverseOrder());
-
-        return widgetTree.
+    public SortedSet<SearchedString<PersonalSpace>> searchString(String cadena) {
+        return widgets.
                 parallelStream().
                 map(e -> {
-                    SearchedString<Widget> searchedString = e.buscar(cadena);
+                    SearchedString<Widget> searchedString = e.search(cadena);
                     return new SearchedString<PersonalSpace>(this, searchedString.getCadena(), searchedString.getRatio());
                 }).
-                //flatMap(e -> e.buscar(cadena).stream()).
-                //sorted().
-                        collect(Collectors.toCollection(sortedset));
+                collect(
+                        Collectors.toCollection(
+                                () -> new TreeSet<SearchedString<PersonalSpace>>(Comparator.reverseOrder())
+                        )
+                );
     }
 
-    public String getId() {
-        return id;
-    }
 
+    /**
+     * Cierra todos los archivos abiertos en el PersonalSpaces
+     * y sus widgets.
+     *
+     * @throws IOException Si se produce algún error al cerrar dichos archivos
+     * @see Closeable
+     */
     public void close() throws IOException {
-        for (Widget w : widgetTree) {
+        for (Widget w : widgets)
             ((AbstractWidget) w).close();
-        }
     }
 
-    public SortedSet<Widget> getWidgetTree() {
-        return widgetTree;
+    /**
+     * Devuelve una instancia de PersonalSpacesData utilizada para
+     * almacenar los datos del espacio personal. Los objetos de
+     * tipo PersonalSpacesData son Serializables
+     *
+     * @return PersonalSpacesData listo para ser almacenado
+     * @see Serializable
+     */
+    public PersonalSpaceData getPersonalSpaceDataInstance() {
+        Set<WidgetData> set = new HashSet<>();
+        for (Widget w : widgets)
+            set.add(w.getWidgetsDataInstance());
+
+        PersonalSpaceData psd = new PersonalSpaceData();
+        psd.widgetData = set;
+        psd.id = id;
+        psd.folderPath = carpeta.getAbsolutePath();
+
+        return psd;
+    }
+
+    /**
+     * Mueve la carpeta que contiene los archivos de este PersonalSpace
+     * a la carpeta destino
+     *
+     * @param folder Nueva carpeta donde contener dicho espacio personal
+     * @throws IOException Si ocurre algún error
+     */
+    public void movePersonalSpacesToFolder(File folder) throws IOException {
+        folder.mkdir();
+        carpeta = new File(folder, id);
+        for (Widget w : widgets)
+            w.moveFilesToFolder(carpeta);
+
+    }
+
+    public SortedSet<Widget> getWidgets() {
+        return widgets;
     }
 
     public File getCarpeta() {
@@ -133,6 +172,10 @@ public class PersonalSpace implements Closeable, Serializable {
         this.carpeta = carpeta;
     }
 
+    public String getId() {
+        return id;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -140,37 +183,24 @@ public class PersonalSpace implements Closeable, Serializable {
 
         PersonalSpace that = (PersonalSpace) o;
 
-        if (!Objects.equals(widgetTree, that.widgetTree)) return false;
+        if (!Objects.equals(widgets, that.widgets)) return false;
         if (!Objects.equals(id, that.id)) return false;
         return Objects.equals(carpeta, that.carpeta);
     }
 
     @Override
     public int hashCode() {
-        int result = widgetTree != null ? widgetTree.hashCode() : 0;
+        int result = widgets.hashCode();
         result = 31 * result + (id != null ? id.hashCode() : 0);
         result = 31 * result + (carpeta != null ? carpeta.hashCode() : 0);
         return result;
     }
 
-    public PersonalSpaceData getPersonalSpaceDataInstance() {
-        Set<WidgetData> set = new HashSet<>();
-        for (Widget w : widgetTree) {
-            set.add(w.getWidgetsDataInstance());
-        }
-
-        PersonalSpaceData psd = new PersonalSpaceData();
-        psd.widgetData = set;
-        psd.id = id;
-        psd.folderPath = carpeta.getAbsolutePath();
-
-        return psd;
-    }
 
     @Override
     public String toString() {
         return "PersonalSpace{" +
-                "widgetTree=" + widgetTree +
+                "widgets=" + widgets +
                 ", id='" + id + '\'' +
                 ", carpeta=" + carpeta +
                 '}';

@@ -40,7 +40,7 @@ public class Preferences {
      * no existe
      */
     public static boolean loadPreferences() {
-        spacesFolder = new File(System.getProperty("user.home"), "personalSpace");
+        spacesFolder = new File(System.getProperty("user.home"), "Multicenter Files");
         if (!spacesFolder.exists()) {
             spacesFolder.mkdir();
         }
