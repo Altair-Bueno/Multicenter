@@ -11,12 +11,16 @@ import java.util.*;
 /**
  * The type Abstract widget.
  */
-public abstract class AbstractWidget extends JInternalFrame implements Widget, Serializable, Closeable , Comparable<AbstractWidget> {
+public abstract class AbstractWidget implements Widget, Serializable, Closeable , Comparable<AbstractWidget> {
 
     public static final Dimension STANDARD_DIMENSION = new Dimension(100, 100);
 
     protected String id;
     protected int layer;
+    protected Dimension dimension;
+    protected float x;
+    protected float y;
+
     // TODO cuildado que extend JINternalFrame da problemas
 
     // Operaciones
@@ -49,5 +53,11 @@ public abstract class AbstractWidget extends JInternalFrame implements Widget, S
     @Override
     public int compareTo(AbstractWidget o) {
         return this.layer - o.layer;
+    }
+
+    @Override
+    public JInternalFrame getComponentView() {
+        // Preparar el JInternalFrame
+        return null;
     }
 }

@@ -3,6 +3,7 @@ package App.Multicenter.Widget;
 
 import App.Multicenter.Space.SearchedString;
 
+import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.SortedSet;
@@ -23,7 +24,17 @@ public class ImageWidget extends AbstractWidget {
     }
 
     @Override
+    public void setLayer(int capa) {
+
+    }
+
+    @Override
     public void toggleEditMode() {
+    }
+
+    @Override
+    public JInternalFrame getComponentView() {
+        return null;
     }
 
     @Override

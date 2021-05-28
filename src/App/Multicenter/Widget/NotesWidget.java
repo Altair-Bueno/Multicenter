@@ -36,8 +36,8 @@ public class NotesWidget extends AbstractWidget {
     protected final HtmlRenderer renderer = HtmlRenderer.builder().build();
     protected boolean edit;
 
-    public NotesWidget() {
-        this(0, Preferences.getSpacesFolder());
+    protected NotesWidget() {
+        // this(0, Preferences.getSpacesFolder());
     }
 
     public NotesWidget(int layer, File spacesFolder) {
@@ -89,6 +89,11 @@ public class NotesWidget extends AbstractWidget {
         return super.bestSearchedString(jEditorPane.getText(),cadena,this);
     }
 
+    @Override
+    public void setLayer(int capa) {
+
+    }
+
     public void toggleEditMode() {
         edit = !edit;
         if (edit) {
@@ -97,6 +102,14 @@ public class NotesWidget extends AbstractWidget {
             save();
             renderMardown();
         }
+    }
+
+    @Override
+    public JInternalFrame getComponentView() {
+        JInternalFrame internalFrame = super.getComponentView();
+        // Complementarlo
+        // add sitio
+        return null;
     }
 
     private void save() {

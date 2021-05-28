@@ -2,6 +2,8 @@ package App.Multicenter.Widget;
 
 import App.Multicenter.Space.SearchedString;
 
+import javax.swing.*;
+
 public interface Widget {
 
     /**
@@ -39,4 +41,6 @@ public interface Widget {
     void setLayer(int capa);
 
     void toggleEditMode();
+
+    JInternalFrame getComponentView();
 }
