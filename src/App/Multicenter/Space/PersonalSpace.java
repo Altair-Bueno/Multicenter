@@ -38,17 +38,22 @@ public class PersonalSpace implements Closeable, Serializable {
      * porque haya habido algún error), se crea un árbol
      * de widgets vacío)
      */
-    public PersonalSpace() {
+    protected PersonalSpace() {}
+
+
+    public PersonalSpace(File f){
         RandomNameGenerator rng = new RandomNameGenerator();
-        id = rng.generate(Preferences.getSpacesFolder());
+        id = rng.generate(f);
         widgetTree = new TreeSet<>();
 
         try {
-            carpeta = new File(Preferences.getSpacesFolder().getCanonicalPath() + ".mctrSpace.xml");
+            carpeta = new File(f, String.valueOf(new RandomNameGenerator()));
+            carpeta.mkdir();
+            //Queda creada la carpeta del Espacio Peronal.
         } catch (Exception e) {
         }
-
     }
+
 
     /**
      * Añade el widget pasado por parámetro al
