@@ -47,7 +47,7 @@ public class PersonalSpace implements Closeable, Serializable {
         widgetTree = new TreeSet<>();
 
         try {
-            carpeta = new File(f, String.valueOf(new RandomNameGenerator()));
+            carpeta = new File(f, id);
             carpeta.mkdir();
             //Queda creada la carpeta del Espacio Peronal.
         } catch (Exception e) {
