@@ -34,7 +34,6 @@ public class SectionListener implements MouseListener {
         }
         section.setBackground(Color.lightGray);
         parent.selected = section;
-        System.out.println(parent.selected);
     }
 
     /**

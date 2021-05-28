@@ -82,6 +82,7 @@ public class SideBar extends JPanel {
     public void delPersonalSpace(Section s) {
         psv.remove(s);
         remove(s);
+        numSections--;
         updateUI();
     }
 

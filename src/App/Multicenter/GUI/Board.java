@@ -22,8 +22,6 @@ public class Board extends JDesktopPane {
     public Board(PersonalSpace widgets) {
         this.widgets = widgets;
 
-        //setBackground(new Color(Color.BLUE.getRGB()));
-
         setVisible(true);
     }
 
@@ -35,7 +33,7 @@ public class Board extends JDesktopPane {
      * @param widget Widget
      */
     public void addWidget(Widget widget) {
-
+        //TODO Add widget to board
     }
 
     /**
@@ -44,7 +42,7 @@ public class Board extends JDesktopPane {
      * @param widget Widget
      */
     public void deleteWidget(Widget widget) {
-
+        //TODO Delete selected widget from board
     }
 
     /**
@@ -53,6 +51,6 @@ public class Board extends JDesktopPane {
      * @param widget Widget
      */
     public void editWidget(Widget widget) {
-
+        //TODO Edit selected widget from board
     }
 }

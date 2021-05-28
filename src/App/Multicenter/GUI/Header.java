@@ -50,7 +50,7 @@ public class Header extends JPanel {
      * @param color Color
      */
     public void changeBackground(Color color) {
-
+        //TODO Change header background
     }
 
     /**
@@ -59,6 +59,6 @@ public class Header extends JPanel {
      * @param color Color
      */
     public void changeTitleColor(Color color) {
-
+        //TODO Change header title color
     }
 }
