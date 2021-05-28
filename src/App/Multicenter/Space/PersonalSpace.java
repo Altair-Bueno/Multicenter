@@ -24,9 +24,9 @@ import java.util.stream.Collectors;
  * y para buscar cadenas en el espacio personal.
  */
 public class PersonalSpace implements Closeable, Serializable {
-    private SortedSet<Widget> widgetTree;
-    private String id;
-    private File carpeta;
+    protected SortedSet<Widget> widgetTree;
+    protected String id;
+    protected File carpeta;
 
 
     /**
@@ -114,14 +114,6 @@ public class PersonalSpace implements Closeable, Serializable {
 
     public SortedSet<Widget> getWidgetTree() {
         return widgetTree;
-    }
-
-    public void setWidgetTree(SortedSet<Widget> widgetTree) {
-        this.widgetTree = widgetTree;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public File getCarpeta() {

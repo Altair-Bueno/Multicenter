@@ -42,14 +42,4 @@ public class XMLBuddyTest {
         XMLBuddy<NotesWidget> sa  =new XMLBuddy<>();
         sa.saveToFile(new File(Preferences.getSpacesFolder(),"notas.txt"),nw);
     }
-    @Test
-    public void aksfs(){
-        Preferences.loadPreferences();
-        Preferences.setSpacesFolder(new File("/Users/compux72/Downloads/TestMulticenter"));
-        PersonalSpace personalSpace = new PersonalSpace();
-        personalSpace.setCarpeta(new File("test"));
-        personalSpace.setId("dsfasd");
-        XMLBuddy<PersonalSpace> sa  =new XMLBuddy<>();
-        sa.saveToFile(new File(Preferences.getSpacesFolder(),"notas.txt"),personalSpace);
-    }
 }
