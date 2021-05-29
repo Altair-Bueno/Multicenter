@@ -3,6 +3,7 @@ package App.Multicenter.GetStarted;
 import App.Multicenter.Preferences.Preferences;
 
 import javax.swing.*;
+import java.awt.*;
 import java.io.File;
 
 public class ChooseSpaceFolderMenu extends JPanel{
@@ -13,7 +14,9 @@ public class ChooseSpaceFolderMenu extends JPanel{
 
     public ChooseSpaceFolderMenu(){
         textField1.setText(Preferences.getSpacesFolder().getAbsolutePath());
+        textField1.setEnabled(false);
         chooseSpacesFolder.setText("Choose Spaces Folder used to store all data");
+        setLayout(new BorderLayout());
         filechooser.addActionListener(e -> {
             JFileChooser fileChooser = new JFileChooser(Preferences.getSpacesFolder());
             fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
@@ -36,8 +39,13 @@ public class ChooseSpaceFolderMenu extends JPanel{
     public static void main(String[] args) {
         Preferences.loadPreferences();
         JFrame frame = new JFrame();
+        JPanel panel = new JPanel();
         ChooseSpaceFolderMenu c = new ChooseSpaceFolderMenu();
-        frame.add(c);
+        panel.setLayout(new BorderLayout());
+        panel.add(c, BorderLayout.CENTER);
+        panel.setVisible(true);
+        frame.add(panel);
+        frame.pack();
         frame.setVisible(true);
     }
 }
