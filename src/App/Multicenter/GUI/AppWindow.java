@@ -26,6 +26,7 @@ public class AppWindow extends JFrame {
         ps = personalSpaceView;
         sb = sideBar;
 
+        setName("Multicenter");
         setLayout(new BorderLayout());
         setBounds(0, 0, 800, 800);
         //add(ps, BorderLayout.CENTER);

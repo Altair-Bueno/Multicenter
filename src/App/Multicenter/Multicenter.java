@@ -35,7 +35,7 @@ public class Multicenter {
         LoadingScreen loadingScreen = new LoadingScreen();
         boolean b = Preferences.loadPreferences();
         loadingScreen.setValue(10);
-        if(macosx) macapp.setDockIconProgress(10);
+        if(macosx) Taskbar.getTaskbar().setProgressValue(10);
         // if(b) get started gui
         if (!b) {
             Semaphore semaphore = new Semaphore(0);
@@ -50,14 +50,14 @@ public class Multicenter {
             getStartedMenu = null;
         }
         loadingScreen.setValue(40);
-        if(macosx) macapp.setDockIconProgress(40);
+        if(macosx) Taskbar.getTaskbar().setProgressValue(40);
         // Multithreading: Load necesary classes
         // Index neccesary data
         // Load GUI
         loadingScreen.setValue(100);
-        if(macosx) macapp.setDockIconProgress(100);
+        if(macosx) Taskbar.getTaskbar().setProgressValue(100);
         loadingScreen.dispose();
-        macapp.setDockIconProgress(0);
+        Taskbar.getTaskbar().setProgressValue(0);
 
         // ShowGUI
         javax.swing.SwingUtilities.invokeLater(AppWindow::createAndShowGUI);
