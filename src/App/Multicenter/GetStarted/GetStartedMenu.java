@@ -54,6 +54,7 @@ public class GetStartedMenu extends JFrame {
                 dialog.removeAll();
                 dialog.add(jpanel1);
                 previous.setEnabled(true);
+                pack();
                 break;
             default:
                 // Done
@@ -72,6 +73,7 @@ public class GetStartedMenu extends JFrame {
                 dialog.removeAll();
                 dialog.add(jpanel0);
                 previous.setEnabled(false);
+                pack();
                 break;
             default:
                 throw new IllegalStateException("IDK man something is broken");

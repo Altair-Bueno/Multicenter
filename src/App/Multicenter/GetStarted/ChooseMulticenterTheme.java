@@ -3,6 +3,7 @@ package App.Multicenter.GetStarted;
 import App.Multicenter.Preferences.Preferences;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class ChooseMulticenterTheme extends JPanel {
     private JPanel panel1;
@@ -13,6 +14,9 @@ public class ChooseMulticenterTheme extends JPanel {
     private int code = 0;
 
     public ChooseMulticenterTheme(){
+        //setLayout(new BorderLayout());
+        //panel1.setLayout(new BorderLayout());
+        //buttons.setLayout(new );
         JRadioButton first = new JRadioButton();
         first.setSelected(true);
         first.addActionListener(e-> {
@@ -48,6 +52,7 @@ public class ChooseMulticenterTheme extends JPanel {
         buttons.add(third);
         buttons.add(forth);
 
+        setVisible(true);
         //buttonGroup.setSelected((ButtonModel) first,true);
     }
 
