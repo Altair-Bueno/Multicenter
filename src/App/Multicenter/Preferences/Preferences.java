@@ -199,7 +199,7 @@ public class Preferences {
         try (OutputStream out = new FileOutputStream(propertiesFile)) {
             prop.storeToXML(out, null);
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println(e.getMessage());
             return false;
         }
         return true;

@@ -59,6 +59,11 @@ public class CountdownWidget extends AbstractWidget {
     }
 
     @Override
+    public void deleteWidget() {
+
+    }
+
+    @Override
     public void moveFilesToFolder(File folder) throws IOException {
     }
 

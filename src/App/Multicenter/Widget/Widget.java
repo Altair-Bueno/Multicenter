@@ -68,6 +68,11 @@ public interface Widget {
     void toggleEditMode();
 
     /**
+     * Borra los archivos utilizados en este Widget
+     */
+    void deleteWidget();
+
+    /**
      * Mueve el Widget a la carpeta que recibe como parámetro
      *
      * @param folder carpeta a la que mover los archivos

@@ -53,6 +53,11 @@ public class EmbeddedWidget extends AbstractWidget {
     }
 
     @Override
+    public void deleteWidget() {
+
+    }
+
+    @Override
     public void moveFilesToFolder(File folder) throws IOException {
     }
 

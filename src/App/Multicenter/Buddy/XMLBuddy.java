@@ -39,7 +39,7 @@ public class XMLBuddy<T> {
             encoder.close();
             out = true;
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            System.err.println(e.getMessage());
             out = false;
         }
         return out;

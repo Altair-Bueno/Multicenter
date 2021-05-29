@@ -22,8 +22,8 @@ import java.util.stream.Collectors;
  */
 public class PersonalSpace implements Closeable, Serializable {
 
-    private final SortedSet<Widget> widgets = new TreeSet<>();
-    private final String id;
+    private SortedSet<Widget> widgets = new TreeSet<>();
+    private String id;
     private File carpeta;
 
 
@@ -72,6 +72,26 @@ public class PersonalSpace implements Closeable, Serializable {
      */
     public void addWidget(Widget w) {
         widgets.add(w);
+    }
+
+    /**
+     * Activa el modo edición de todo el PersonalSpace
+     */
+    public void toggleEditMode(){
+        for(Widget w: widgets)
+            w.toggleEditMode();
+    }
+
+    /**
+     * Borra los archivos del PersonalSpace
+     */
+    public void deletePersonalSpace(){
+        for (Widget w:widgets)
+            w.deleteWidget();
+        carpeta.delete();
+        carpeta = null;
+        widgets = null;
+        id = null;
     }
 
     /**

@@ -49,7 +49,7 @@ public class ThemeManager {
         try {
             UIManager.setLookAndFeel(laf);
         } catch (UnsupportedLookAndFeelException e) {
-            e.printStackTrace();
+            System.err.println(e.getMessage());
             out = false;
         }
         return out;

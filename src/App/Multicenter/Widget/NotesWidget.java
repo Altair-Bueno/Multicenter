@@ -16,7 +16,7 @@ import java.io.*;
 
 public class NotesWidget extends AbstractWidget {
 
-    private final HyperlinkListener hyperlinkListener = a -> {
+    private HyperlinkListener hyperlinkListener = a -> {
         if (HyperlinkEvent.EventType.ACTIVATED.equals(a.getEventType())) {
             System.out.println(a.getURL());
             Desktop desktop = Desktop.getDesktop();
@@ -27,10 +27,10 @@ public class NotesWidget extends AbstractWidget {
             }
         }
     };
-    private final Parser parser = Parser.builder().build();
-    private final HtmlRenderer renderer = HtmlRenderer.builder().build();
-    private final JEditorPane jEditorPane = new JEditorPane();
-    private final File markdownFile;
+    private Parser parser = Parser.builder().build();
+    private HtmlRenderer renderer = HtmlRenderer.builder().build();
+    private JEditorPane jEditorPane = new JEditorPane();
+    private File markdownFile;
     private boolean edit = false;
 
     protected NotesWidget(NotesWidgetData nwd) {
@@ -80,6 +80,13 @@ public class NotesWidget extends AbstractWidget {
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
+    }
+
+    @Override
+    public void deleteWidget() {
+        markdownFile.delete();
+        markdownFile = null;
+        id = null;
     }
 
     @Override
