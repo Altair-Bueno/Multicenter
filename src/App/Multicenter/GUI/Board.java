@@ -16,9 +16,7 @@ import java.util.List;
 
 public class Board extends JDesktopPane {
     //Attributes
-    PersonalSpace widgets;
-    Widget[][] malla;
-    List<Widget> widgetList;
+    PersonalSpace personalSpace;
     int numWidgets;
     Point lastPos = new Point();
 
@@ -30,9 +28,9 @@ public class Board extends JDesktopPane {
      * @param widgets PersonalSpace
      */
     public Board(PersonalSpace widgets) {
-        this.widgets = widgets;
+        this.personalSpace = widgets;
         numWidgets = 0;
-        widgetList = new LinkedList<>();
+        //widgetList = new LinkedList<>();
         setLayout(null);
 
         JPopupMenu pm = new JPopupMenu("tools");
@@ -62,11 +60,11 @@ public class Board extends JDesktopPane {
      * @param widget Widget
      */
     public void addWidget(AbstractWidget widget) {
-        if(this == AppWindow.psDefault.board) {
+        if(personalSpace == AppWindow.psDefault.board.personalSpace) {
             JOptionPane.showMessageDialog(null,"No puedes añadir widgets a la ventana de inicio");
         } else {
-            widgetList.add(widget);
-            widgets.addWidget(widget);
+            //widgetList.add(widget);
+            personalSpace.addWidget(widget);
             add(widget);
             numWidgets++;
         }
@@ -93,7 +91,7 @@ public class Board extends JDesktopPane {
     private class addNotesListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            NotesWidget notes = new NotesWidget(numWidgets, widgets.getCarpeta());
+            NotesWidget notes = new NotesWidget(numWidgets, personalSpace.getCarpeta());
             notes.setVisible(true);
             notes.setBounds(lastPos.x, lastPos.y, 250, 250);
             addWidget(notes);

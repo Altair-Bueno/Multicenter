@@ -21,6 +21,7 @@ public class AppWindow extends JFrame {
         setBounds(0, 0, 800, 800);
         add(ps, BorderLayout.CENTER);
         add(sb, BorderLayout.WEST);
+        setLocationRelativeTo(null);
         setVisible(true);
         setMinimumSize(new Dimension(400, 400));
 

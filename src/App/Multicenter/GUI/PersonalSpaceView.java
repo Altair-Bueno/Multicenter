@@ -22,7 +22,7 @@ public class PersonalSpaceView extends Container {
         setPreferredSize(new Dimension(250, 250));
         setLayout(new BorderLayout());
 
-        //this.board.add(new NotesWidget(0, widgets.getCarpeta()));
+        //this.board.add(new NotesWidget(0, personalSpace.getCarpeta()));
         add(this.header, BorderLayout.NORTH);
         add(this.board, BorderLayout.CENTER);
 

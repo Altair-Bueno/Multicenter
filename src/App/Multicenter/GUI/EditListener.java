@@ -2,7 +2,6 @@ package App.Multicenter.GUI;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
 
 public class EditListener implements ActionListener {
     //Attributes
@@ -22,7 +21,7 @@ public class EditListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(sideBar.selected != null) {
-            sideBar.psv.get(sideBar.selected).board.widgets.toggleEditMode();
+            sideBar.psv.get(sideBar.selected).board.personalSpace.toggleEditMode();
         }
     }
 }
