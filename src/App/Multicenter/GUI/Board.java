@@ -60,14 +60,11 @@ public class Board extends JDesktopPane {
      * @param widget Widget
      */
     public void addWidget(AbstractWidget widget) {
-        if(personalSpace == AppWindow.psDefault.board.personalSpace) {
-            JOptionPane.showMessageDialog(null,"No puedes añadir widgets a la ventana de inicio");
-        } else {
+            //JOptionPane.showMessageDialog(null,"No puedes añadir widgets a la ventana de inicio");
             //widgetList.add(widget);
             personalSpace.addWidget(widget);
             add(widget);
             numWidgets++;
-        }
     }
 
     /**

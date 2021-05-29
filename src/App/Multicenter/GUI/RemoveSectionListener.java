@@ -25,7 +25,7 @@ public class RemoveSectionListener implements ActionListener {
         if (sideBar.selected != null) {
             int option = JOptionPane.showConfirmDialog(null, "¿Estás seguro de borrar el espacio " + sideBar.selected + "?\nEste cambio será permanente.");
             if (option == 0) {
-                sideBar.app.changePersonalSpace(AppWindow.psDefault);
+                sideBar.app.setDefaultPersonalSpace();
                 sideBar.delPersonalSpace(sideBar.selected);
                 sideBar.selected = null;
             }
