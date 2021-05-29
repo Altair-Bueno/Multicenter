@@ -25,6 +25,19 @@ public class ChooseSpaceFolderMenu extends JPanel{
                 textField1.setText(selectedFile.getAbsolutePath());
             }
         });
+
+        add(textField1);
+        add(panel1);
+        add(chooseSpacesFolder);
+        add(filechooser);
         setVisible(true);
+    }
+
+    public static void main(String[] args) {
+        Preferences.loadPreferences();
+        JFrame frame = new JFrame();
+        ChooseSpaceFolderMenu c = new ChooseSpaceFolderMenu();
+        frame.add(c);
+        frame.setVisible(true);
     }
 }

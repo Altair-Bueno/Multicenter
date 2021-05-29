@@ -19,7 +19,9 @@ public class GetStartedMenu extends JFrame {
     public GetStartedMenu(Semaphore semaphore){
         this.semaphore = semaphore;
         jpanel0 = new ChooseSpaceFolderMenu();
+        jpanel0.setVisible(true);
         jpanel1 = new ChooseMulticenterTheme();
+        jpanel1.setVisible(true);
         setLayout(new BorderLayout());
 
         dialog.add(jpanel0); // TODO NOT SHOWING UP
