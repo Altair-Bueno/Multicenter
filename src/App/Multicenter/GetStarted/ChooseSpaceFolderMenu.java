@@ -18,7 +18,7 @@ public class ChooseSpaceFolderMenu extends JPanel{
     public ChooseSpaceFolderMenu(){
         textField1.setText(Preferences.getSpacesFolder().getAbsolutePath());
         textField1.setEnabled(false);
-        chooseSpacesFolder.setText("Choose Spaces Folder used to store all data");
+        chooseSpacesFolder.setText("<html><h1>Choose Spaces Folder used to store all data</h1></html>");
         filechooser.addActionListener(e -> {
             JFileChooser fileChooser = new JFileChooser(Preferences.getSpacesFolder());
             fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);

@@ -8,11 +8,16 @@ import java.awt.*;
 public class ChooseMulticenterTheme extends JPanel {
     private JPanel panel1;
     private JPanel buttons;
+    private JLabel label;
 
 
     private ButtonGroup buttonGroup = new ButtonGroup();
     public ChooseMulticenterTheme(JFrame parent){
-        buttons.setLayout(new GridLayout(4, 1, 5, 5));
+        buttons.setLayout(new GridLayout(5, 1, 5, 5));
+        setLayout(new GridLayout(5,1,5,5));
+        label.setText("<html><h1>Selecciona el tema de la aplicación</h1></html>");
+        label.setVisible(true);
+
         JRadioButton first = new JRadioButton();
         first.setText("Light");
         first.setSelected(true);
@@ -20,8 +25,6 @@ public class ChooseMulticenterTheme extends JPanel {
             Preferences.setTheme(0);
             SwingUtilities.updateComponentTreeUI(parent);
             parent.pack();
-            parent.setLocationRelativeTo(null);
-
         });
         buttonGroup.add(first); // 0
 
@@ -31,7 +34,6 @@ public class ChooseMulticenterTheme extends JPanel {
             Preferences.setTheme(1);
             SwingUtilities.updateComponentTreeUI(parent);
             parent.pack();
-            parent.setLocationRelativeTo(null);
 
         });
         buttonGroup.add(second); // 1
@@ -42,7 +44,6 @@ public class ChooseMulticenterTheme extends JPanel {
             Preferences.setTheme(2);
             SwingUtilities.updateComponentTreeUI(parent);
             parent.pack();
-            parent.setLocationRelativeTo(null);
 
         });
         buttonGroup.add(third); // 2
@@ -53,10 +54,11 @@ public class ChooseMulticenterTheme extends JPanel {
             Preferences.setTheme(3);
             SwingUtilities.updateComponentTreeUI(parent);
             parent.pack();
-            parent.setLocationRelativeTo(null);
         });
         buttonGroup.add(forth); // 3
 
+
+        add(label);
         buttons.add(first);
         buttons.add(second);
         buttons.add(third);

@@ -1,5 +1,6 @@
 package App.Multicenter;
 
+import App.Multicenter.GUI.AppWindow;
 import App.Multicenter.GetStarted.GetStartedMenu;
 import App.Multicenter.GetStarted.LoadingScreen;
 import App.Multicenter.Preferences.Preferences;
@@ -25,6 +26,7 @@ public class Multicenter {
             } catch (InterruptedException e) {
                 System.err.println(e.getMessage());
             }
+            Preferences.save();
             semaphore = null;
             getStartedMenu = null;
         }
@@ -34,7 +36,9 @@ public class Multicenter {
         // Load GUI
         loadingScreen.setValue(100);
         loadingScreen.dispose();
+
         // ShowGUI
+        javax.swing.SwingUtilities.invokeLater(AppWindow::createAndShowGUI);
         // Save preferences
     }
 }
