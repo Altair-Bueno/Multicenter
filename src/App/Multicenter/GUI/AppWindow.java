@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 
 public class AppWindow extends JFrame {
     static final PersonalSpaceView psDefault = new PersonalSpaceView();
@@ -22,8 +23,12 @@ public class AppWindow extends JFrame {
         add(sb, BorderLayout.WEST);
         setVisible(true);
         setMinimumSize(new Dimension(400, 400));
+
         Image im = Toolkit.getDefaultToolkit().createImage(ClassLoader.getSystemResource("App/Multicenter/Icons/512x512.png"));
-        setIconImage(im.getScaledInstance(20, 20, Image.SCALE_SMOOTH));
+        ArrayList<Image> icons = new ArrayList<Image>();
+        icons.add(im.getScaledInstance(16, 16, Image.SCALE_SMOOTH));
+        icons.add(im.getScaledInstance(32, 32, Image.SCALE_SMOOTH));
+        setIconImages(icons);
         //setIconImage(Toolkit.getDefaultToolkit().createImage(ClassLoader.getSystemResource("App/Multicenter/Icons/512x512.png")));
     }
 
