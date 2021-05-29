@@ -68,6 +68,7 @@ public class Preferences {
                 }
             }
         } catch (Exception e) {
+            System.err.println(e.getMessage());
             out = false;
         }
         return out;
