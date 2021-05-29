@@ -21,7 +21,7 @@ public class GetStartedMenu extends JFrame {
     public GetStartedMenu(Semaphore semaphore) {
         toFront();
         this.semaphore = semaphore;
-        jpanel0 = new ChooseSpaceFolderMenu();
+        jpanel0 = new ChooseSpaceFolderMenu(this);
         jpanel1 = new ChooseMulticenterTheme(this);
         setLayout(new BorderLayout());
         dialog.setLayout(new BorderLayout());

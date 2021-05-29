@@ -14,7 +14,7 @@ public class ChooseSpaceFolderMenu extends JPanel {
     private File fileLocation = Preferences.getSpacesFolder();
 
 
-    public ChooseSpaceFolderMenu() {
+    public ChooseSpaceFolderMenu(JFrame parent) {
         // TODO GUI looks horrible
         textField1.setText(Preferences.getSpacesFolder().getAbsolutePath());
         textField1.setEnabled(false);
@@ -23,7 +23,7 @@ public class ChooseSpaceFolderMenu extends JPanel {
         filechooser.addActionListener(e -> {
             JFileChooser fileChooser = new JFileChooser(Preferences.getSpacesFolder());
             fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-            int out = fileChooser.showDialog(null, "Carpeta SpacesFolder");
+            int out = fileChooser.showDialog(parent, "Carpeta SpacesFolder");
             fileChooser.setVisible(true);
 
             if (out == JFileChooser.APPROVE_OPTION) {
