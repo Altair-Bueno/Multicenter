@@ -20,7 +20,6 @@ public class ChooseMulticenterTheme extends JPanel {
 
         JRadioButton first = new JRadioButton();
         first.setText("Light");
-        first.setSelected(true);
         first.addActionListener(e-> {
             Preferences.setTheme(0);
             SwingUtilities.updateComponentTreeUI(parent);
@@ -56,6 +55,14 @@ public class ChooseMulticenterTheme extends JPanel {
             parent.pack();
         });
         buttonGroup.add(forth); // 3
+
+        switch (Preferences.getTheme()) {
+            case 0 -> first.setSelected(true);
+            case 1 -> second.setSelected(true);
+            case 2 -> third.setSelected(true);
+            case 3 -> forth.setSelected(true);
+            default -> throw new IllegalStateException("Dude wtf");
+        }
 
 
         add(label);
