@@ -13,7 +13,7 @@ import java.util.Locale;
 public class PlatformManager {
     // Constantes de clase
     private static final String hostOS = System.getProperty("os.name").toLowerCase(Locale.ROOT);
-    private static final String MACOSX = "mac";
+    private static final String MACOSX = "Mac OS X";
     private static final int MAIN_KEYBOARD = hostOS.contains(MACOSX) ? ActionEvent.META_MASK : ActionEvent.CTRL_MASK;
 
     // Cierre de clase

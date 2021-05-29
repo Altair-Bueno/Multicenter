@@ -57,7 +57,7 @@ public class Multicenter {
         loadingScreen.setValue(100);
         if(macosx) Taskbar.getTaskbar().setProgressValue(100);
         loadingScreen.dispose();
-        Taskbar.getTaskbar().setProgressValue(0);
+        if(macosx) Taskbar.getTaskbar().setProgressValue(0);
 
         // ShowGUI
         javax.swing.SwingUtilities.invokeLater(AppWindow::createAndShowGUI);
