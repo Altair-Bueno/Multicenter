@@ -62,9 +62,9 @@ public class Preferences {
                         String[] dim = settings[1].split("-");
                         setWindowsSize(new Dimension(Integer.parseInt(dim[0]), Integer.parseInt(dim[1])));
                     }
-                    case "working_directory" -> setSpacesFolder(new File(settings[1]));
-                    case "theme" -> setTheme(Integer.parseInt(settings[1]));
-                    case "lang" -> setLanguage(settings[1]);
+                    case " working_directory" -> setSpacesFolder(new File(settings[1]));
+                    case " theme" -> setTheme(Integer.parseInt(settings[1]));
+                    case " lang" -> setLanguage(settings[1]);
                 }
             }
         } catch (Exception e) {
