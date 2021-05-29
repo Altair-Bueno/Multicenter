@@ -16,7 +16,7 @@ import java.io.*;
 
 public class NotesWidget extends AbstractWidget {
 
-    private HyperlinkListener hyperlinkListener = a -> {
+    private final HyperlinkListener hyperlinkListener = a -> {
         if (HyperlinkEvent.EventType.ACTIVATED.equals(a.getEventType())) {
             System.out.println(a.getURL());
             Desktop desktop = Desktop.getDesktop();
@@ -27,9 +27,9 @@ public class NotesWidget extends AbstractWidget {
             }
         }
     };
-    private Parser parser = Parser.builder().build();
-    private HtmlRenderer renderer = HtmlRenderer.builder().build();
-    private JEditorPane jEditorPane = new JEditorPane();
+    private final Parser parser = Parser.builder().build();
+    private final HtmlRenderer renderer = HtmlRenderer.builder().build();
+    private final JEditorPane jEditorPane = new JEditorPane();
     private File markdownFile;
     private boolean edit = false;
 
@@ -54,7 +54,8 @@ public class NotesWidget extends AbstractWidget {
         setAlignmentX(0);
         setAlignmentY(0);
         setSize(STANDARD_DIMENSION);
-        markdownFile = new File(spacesFolder, id);
+        setLayer(layer);
+        markdownFile = new File(spacesFolder, super.id);
         super.add(jEditorPane);
         try {
             renderMardownMode();
@@ -124,10 +125,10 @@ public class NotesWidget extends AbstractWidget {
     }
 
     private void editorMode() throws IOException {
+        jEditorPane.setEditable(true);
+        jEditorPane.removeHyperlinkListener(hyperlinkListener);
         jEditorPane.setContentType("text/plain");
         jEditorPane.setPage(markdownFile.toURI().toURL());
-        jEditorPane.removeHyperlinkListener(hyperlinkListener);
-        jEditorPane.setEditable(true);
     }
 
     @Override

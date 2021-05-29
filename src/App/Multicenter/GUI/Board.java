@@ -11,8 +11,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.LinkedList;
-import java.util.List;
 
 public class Board extends JDesktopPane {
     //Attributes
@@ -41,11 +39,11 @@ public class Board extends JDesktopPane {
         addWidget.add(noteWidget);
         addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
-            if(e.getButton() == MouseEvent.BUTTON3) {
-                lastPos.x = e.getX();
-                lastPos.y = e.getY();
-                pm.show(Board.this, lastPos.x, lastPos.y);
-            }
+                if (e.getButton() == MouseEvent.BUTTON3) {
+                    lastPos.x = e.getX();
+                    lastPos.y = e.getY();
+                    pm.show(Board.this, lastPos.x, lastPos.y);
+                }
             }
         });
         noteWidget.addActionListener(new addNotesListener());
@@ -60,11 +58,11 @@ public class Board extends JDesktopPane {
      * @param widget Widget
      */
     public void addWidget(AbstractWidget widget) {
-            //JOptionPane.showMessageDialog(null,"No puedes añadir widgets a la ventana de inicio");
-            //widgetList.add(widget);
-            personalSpace.addWidget(widget);
-            add(widget);
-            numWidgets++;
+        //JOptionPane.showMessageDialog(null,"No puedes añadir widgets a la ventana de inicio");
+        //widgetList.add(widget);
+        personalSpace.addWidget(widget);
+        add(widget);
+        numWidgets++;
     }
 
     /**
@@ -84,6 +82,9 @@ public class Board extends JDesktopPane {
     public void editWidget(Widget widget) {
         //TODO Edit selected widget from board
     }
+
+    // TODO Cuando se pincha sobre un widget debe traerse al frente
+    // Hay que modificar la propiedad set layer
 
     private class addNotesListener implements ActionListener {
         @Override

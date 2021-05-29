@@ -15,7 +15,7 @@ public class RenameSpace {
         Preferences.loadPreferences();
 
         System.out.println("Spaces folder " + Preferences.getSpacesFolder());
-        PersonalSpace personalSpace = new PersonalSpace(Preferences.getSpacesFolder());
+        PersonalSpace personalSpace = new PersonalSpace("Test",Preferences.getSpacesFolder());
 
         Widget widget = new NotesWidget(0,personalSpace.getCarpeta());
         personalSpace.addWidget(widget);

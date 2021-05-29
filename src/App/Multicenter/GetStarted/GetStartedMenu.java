@@ -10,17 +10,18 @@ public class GetStartedMenu extends JFrame {
     ChooseSpaceFolderMenu jpanel0;
     ChooseMulticenterTheme jpanel1;
 
-    private JPanel dialog = new JPanel();
-    private JPanel buttons = new JPanel();
-    private JButton next = new JButton();
-    private JButton previous = new JButton();
+    private final JPanel dialog = new JPanel();
+    private final JPanel buttons = new JPanel();
+    private final JButton next = new JButton();
+    private final JButton previous = new JButton();
 
     private int currentPage = 0;
-    private Semaphore semaphore;
+    private final Semaphore semaphore;
 
-    public GetStartedMenu(Semaphore semaphore){
+    public GetStartedMenu(Semaphore semaphore) {
+        toFront();
         this.semaphore = semaphore;
-        jpanel0 = new ChooseSpaceFolderMenu();
+        jpanel0 = new ChooseSpaceFolderMenu(this);
         jpanel1 = new ChooseMulticenterTheme(this);
         setLayout(new BorderLayout());
         dialog.setLayout(new BorderLayout());
@@ -33,8 +34,8 @@ public class GetStartedMenu extends JFrame {
 
         next.setText("Siguiente");
         previous.setText("Anterior");
-        next.addActionListener(e->nextPage());
-        previous.addActionListener(e->previousPage());
+        next.addActionListener(e -> nextPage());
+        previous.addActionListener(e -> previousPage());
         next.setVisible(true);
         previous.setVisible(true);
         previous.setEnabled(false);
@@ -45,9 +46,9 @@ public class GetStartedMenu extends JFrame {
         setVisible(true);
     }
 
-    private void nextPage(){
+    private void nextPage() {
         currentPage++;
-        switch (currentPage){
+        switch (currentPage) {
             case 1:
                 // Choose Theme
                 Preferences.setSpacesFolder(jpanel0.getFileLocation());
@@ -65,9 +66,9 @@ public class GetStartedMenu extends JFrame {
         pack();
     }
 
-    private void previousPage(){
+    private void previousPage() {
         currentPage--;
-        switch (currentPage){
+        switch (currentPage) {
             case 0:
                 // Choose spacefolder
                 dialog.removeAll();

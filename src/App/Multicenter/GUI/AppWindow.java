@@ -2,14 +2,13 @@ package App.Multicenter.GUI;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import com.apple.eawt.Application;
 
 public class AppWindow extends JFrame {
     static JEditorPane psDefault = null;
+
     static {
         try {
             psDefault = new JEditorPane(ClassLoader.getSystemResource("App/Multicenter/PlaceholderFiles/PersonalSpacePlaceholder.html"));
@@ -66,7 +65,7 @@ public class AppWindow extends JFrame {
      * @param newPs Espacio personal a mostrar
      */
     public void changePersonalSpace(PersonalSpaceView newPs) {
-        if(ps != null) {
+        if (ps != null) {
             remove(ps);
         } else {
             remove(psDefault);
@@ -78,7 +77,7 @@ public class AppWindow extends JFrame {
     }
 
     public void setDefaultPersonalSpace() {
-        if(ps != null) {
+        if (ps != null) {
             remove(ps);
         }
         psDefault.setEnabled(false);
