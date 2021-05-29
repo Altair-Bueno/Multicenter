@@ -37,11 +37,9 @@ public class Board extends JDesktopPane {
 
         JPopupMenu pm = new JPopupMenu("tools");
         JMenu addWidget = new JMenu("Añadir Widget");
-        JMenuItem remWidget = new JMenuItem("Eliminar Widget");
         JMenuItem noteWidget = new JMenuItem("Nota de texto");
 
         pm.add(addWidget);
-        pm.add(remWidget);
         addWidget.add(noteWidget);
         addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
