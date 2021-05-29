@@ -41,9 +41,8 @@ public class Preferences {
      */
     public static boolean loadPreferences() {
         spacesFolder = new File(System.getProperty("user.home"), "Multicenter Files");
-        if (!spacesFolder.exists()) {
-            spacesFolder.mkdir();
-        }
+        spacesFolder.mkdir();
+
         windowsSize = new Dimension(800, 800);
         prop = new Properties();
         LanguageManager.setLanguage(LanguageManager.USER_ENV);

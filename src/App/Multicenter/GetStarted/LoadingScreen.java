@@ -1,9 +1,6 @@
 package App.Multicenter.GetStarted;
 
 import javax.swing.*;
-import java.awt.*;
-import java.io.File;
-import java.net.URL;
 
 public class LoadingScreen extends JDialog {
 
@@ -13,7 +10,8 @@ public class LoadingScreen extends JDialog {
     private JProgressBar progressBar;
     private JLabel imageLabel;
 
-    public LoadingScreen(){
+    public LoadingScreen() {
+        toBack();
         progressBar.setMaximum(100);
         imageLabel.setIcon(new ImageIcon(ClassLoader.getSystemResource("App/Multicenter/LoadingScreen/loadingscreen_1024.png")));
         add(rootJPanel);
@@ -26,7 +24,7 @@ public class LoadingScreen extends JDialog {
         setVisible(true);
     }
 
-    public void setValue(int v){
+    public void setValue(int v) {
         progressBar.setValue(v);
     }
 }

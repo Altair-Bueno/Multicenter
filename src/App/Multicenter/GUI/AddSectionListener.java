@@ -28,7 +28,7 @@ public class AddSectionListener implements ActionListener {
         String nombre = JOptionPane.showInputDialog("Introduce el nombre para tu espacio personal");
         if (nombre != null) {
             Section newSec = new Section(sideBar.numSections, nombre, sideBar);
-            PersonalSpace widgets = new PersonalSpace(Preferences.getSpacesFolder());
+            PersonalSpace widgets = new PersonalSpace(nombre, Preferences.getSpacesFolder());
             Header newH = new Header(nombre);
             Board newB = new Board(widgets);
             PersonalSpaceView newPsv = new PersonalSpaceView(newH, newB, nombre);

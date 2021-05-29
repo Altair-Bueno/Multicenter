@@ -11,16 +11,18 @@ public class ChooseMulticenterTheme extends JPanel {
     private JLabel label;
 
 
-    private ButtonGroup buttonGroup = new ButtonGroup();
-    public ChooseMulticenterTheme(JFrame parent){
+    private final ButtonGroup buttonGroup = new ButtonGroup();
+
+    public ChooseMulticenterTheme(JFrame parent) {
+        // TODO Gui looks horrible
         buttons.setLayout(new GridLayout(5, 1, 5, 5));
-        setLayout(new GridLayout(5,1,5,5));
+        setLayout(new GridLayout(5, 1, 5, 5));
         label.setText("<html><h1>Selecciona el tema de la aplicación</h1></html>");
         label.setVisible(true);
 
         JRadioButton first = new JRadioButton();
         first.setText("Light");
-        first.addActionListener(e-> {
+        first.addActionListener(e -> {
             Preferences.setTheme(0);
             SwingUtilities.updateComponentTreeUI(parent);
             parent.pack();
@@ -29,7 +31,7 @@ public class ChooseMulticenterTheme extends JPanel {
 
         JRadioButton second = new JRadioButton();
         second.setText("Dark");
-        second.addActionListener(e-> {
+        second.addActionListener(e -> {
             Preferences.setTheme(1);
             SwingUtilities.updateComponentTreeUI(parent);
             parent.pack();
@@ -49,7 +51,7 @@ public class ChooseMulticenterTheme extends JPanel {
 
         JRadioButton forth = new JRadioButton();
         forth.setText("IntelliJ");
-        forth.addActionListener(e-> {
+        forth.addActionListener(e -> {
             Preferences.setTheme(3);
             SwingUtilities.updateComponentTreeUI(parent);
             parent.pack();

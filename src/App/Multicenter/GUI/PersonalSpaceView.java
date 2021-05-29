@@ -1,9 +1,5 @@
 package App.Multicenter.GUI;
 
-import App.Multicenter.Preferences.Preferences;
-import App.Multicenter.Space.PersonalSpace;
-import App.Multicenter.Widget.NotesWidget;
-
 import java.awt.*;
 
 public class PersonalSpaceView extends Container {
@@ -14,9 +10,9 @@ public class PersonalSpaceView extends Container {
 
     //Constructor
     public PersonalSpaceView(Header header, Board board, String name) {
-        PersonalSpace widgets = new PersonalSpace(Preferences.getSpacesFolder());
+        //PersonalSpace widgets = new PersonalSpace(name,Preferences.getSpacesFolder());
         this.header = header;
-        this.board = new Board(widgets);
+        this.board = board;
         this.name = name;
 
         setPreferredSize(new Dimension(250, 250));

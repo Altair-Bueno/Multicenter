@@ -20,7 +20,7 @@ public class EditListener implements ActionListener {
      */
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(sideBar.selected != null) {
+        if (sideBar.selected != null) {
             sideBar.psv.get(sideBar.selected).board.personalSpace.toggleEditMode();
         }
     }

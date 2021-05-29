@@ -17,12 +17,12 @@ public class TestPersonalSpace {
     public void testeo() throws FileNotFoundException {
         Preferences.loadPreferences();
 
-        PersonalSpace ps = new PersonalSpace(Preferences.getSpacesFolder());
+        PersonalSpace ps = new PersonalSpace("Test",Preferences.getSpacesFolder());
 
         ps.addWidget(new NotesWidget(0,ps.getCarpeta()));
         ps.addWidget(new NotesWidget(1,ps.getCarpeta()));
 
-        PersonalSpace ps2 = new PersonalSpace(Preferences.getSpacesFolder());
+        PersonalSpace ps2 = new PersonalSpace("Test",Preferences.getSpacesFolder());
         ps2.addWidget(new NotesWidget(0,ps2.getCarpeta()));
 
         Set<PersonalSpaceData> set = new HashSet<>();
