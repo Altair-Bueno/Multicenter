@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import com.apple.eawt.Application;
 
 public class AppWindow extends JFrame {
     static JEditorPane psDefault = null;
@@ -34,12 +35,15 @@ public class AppWindow extends JFrame {
         setVisible(true);
         setMinimumSize(new Dimension(400, 400));
 
+        // Iconos (Windows)
         Image im = Toolkit.getDefaultToolkit().createImage(ClassLoader.getSystemResource("App/Multicenter/Icons/512x512.png"));
         ArrayList<Image> icons = new ArrayList<Image>();
         icons.add(im.getScaledInstance(16, 16, Image.SCALE_SMOOTH));
         icons.add(im.getScaledInstance(32, 32, Image.SCALE_SMOOTH));
         setIconImages(icons);
-        //setIconImage(Toolkit.getDefaultToolkit().createImage(ClassLoader.getSystemResource("App/Multicenter/Icons/512x512.png")));
+
+        // Titulo del Jframe
+        setTitle("Multicenter");
     }
 
     //Methods
