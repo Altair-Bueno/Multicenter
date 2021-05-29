@@ -23,7 +23,7 @@ public class Multicenter {
             // MacOS: Upper Bar App Name Initialization
             System.setProperty("apple.laf.useScreenMenuBar", "true");
             System.setProperty("apple.awt.application.name", "Multicenter");
-            // MacOS: Icon
+            // MacOS: Icon Set
             macapp.setDockIconImage(
                     Toolkit.getDefaultToolkit().createImage(
                             ClassLoader.getSystemResource("App/Multicenter/Icons/512x512.png")
