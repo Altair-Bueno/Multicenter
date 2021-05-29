@@ -22,7 +22,9 @@ public class AppWindow extends JFrame {
         add(sb, BorderLayout.WEST);
         setVisible(true);
         setMinimumSize(new Dimension(400, 400));
-        setIconImage(Toolkit.getDefaultToolkit().createImage(ClassLoader.getSystemResource("App/Multicenter/Icons/512x512.png")));
+        Image im = Toolkit.getDefaultToolkit().createImage(ClassLoader.getSystemResource("App/Multicenter/Icons/512x512.png"));
+        setIconImage(im.getScaledInstance(20, 20, Image.SCALE_SMOOTH));
+        //setIconImage(Toolkit.getDefaultToolkit().createImage(ClassLoader.getSystemResource("App/Multicenter/Icons/512x512.png")));
     }
 
     //Methods
