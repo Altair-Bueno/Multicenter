@@ -21,11 +21,11 @@ public class GetStartedMenu extends JFrame {
     public GetStartedMenu(Semaphore semaphore){
         this.semaphore = semaphore;
         jpanel0 = new ChooseSpaceFolderMenu();
-        jpanel1 = new ChooseMulticenterTheme();
+        jpanel1 = new ChooseMulticenterTheme(this);
         setLayout(new BorderLayout());
         dialog.setLayout(new BorderLayout());
 
-        dialog.add(jpanel0, BorderLayout.CENTER); // TODO NOT SHOWING UP
+        dialog.add(jpanel0, BorderLayout.CENTER);
         add(dialog, BorderLayout.NORTH);
         add(buttons, BorderLayout.CENTER);
         buttons.add(previous);
@@ -55,10 +55,10 @@ public class GetStartedMenu extends JFrame {
                 dialog.add(jpanel1);
                 previous.setEnabled(true);
                 pack();
+                setLocationRelativeTo(null);
                 break;
             default:
                 // Done
-                Preferences.setTheme(jpanel1.getThemeCode());
                 semaphore.release();
                 dispose();
         }
@@ -73,7 +73,9 @@ public class GetStartedMenu extends JFrame {
                 dialog.removeAll();
                 dialog.add(jpanel0);
                 previous.setEnabled(false);
+                SwingUtilities.updateComponentTreeUI(this);
                 pack();
+                setLocationRelativeTo(null);
                 break;
             default:
                 throw new IllegalStateException("IDK man something is broken");

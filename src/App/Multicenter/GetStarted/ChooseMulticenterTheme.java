@@ -11,39 +11,49 @@ public class ChooseMulticenterTheme extends JPanel {
 
 
     private ButtonGroup buttonGroup = new ButtonGroup();
-    private int code = 0;
-
-    public ChooseMulticenterTheme(){
+    public ChooseMulticenterTheme(JFrame parent){
         buttons.setLayout(new GridLayout(4, 1, 5, 5));
         JRadioButton first = new JRadioButton();
-        first.setText("Hola");
+        first.setText("Light");
         first.setSelected(true);
         first.addActionListener(e-> {
-            code = 0;
             Preferences.setTheme(0);
-            //SwingUtilities.updateComponentTreeUI(this);
+            SwingUtilities.updateComponentTreeUI(parent);
+            parent.pack();
+            parent.setLocationRelativeTo(null);
+
         });
         buttonGroup.add(first); // 0
 
         JRadioButton second = new JRadioButton();
-        second.setText("Pito");
+        second.setText("Dark");
         second.addActionListener(e-> {
-            code = 1;
             Preferences.setTheme(1);
+            SwingUtilities.updateComponentTreeUI(parent);
+            parent.pack();
+            parent.setLocationRelativeTo(null);
+
         });
         buttonGroup.add(second); // 1
 
         JRadioButton third = new JRadioButton();
+        third.setText("Darcula");
         third.addActionListener(e -> {
-            code = 2;
             Preferences.setTheme(2);
+            SwingUtilities.updateComponentTreeUI(parent);
+            parent.pack();
+            parent.setLocationRelativeTo(null);
+
         });
         buttonGroup.add(third); // 2
 
         JRadioButton forth = new JRadioButton();
+        forth.setText("IntelliJ");
         forth.addActionListener(e-> {
-            code = 3;
             Preferences.setTheme(3);
+            SwingUtilities.updateComponentTreeUI(parent);
+            parent.pack();
+            parent.setLocationRelativeTo(null);
         });
         buttonGroup.add(forth); // 3
 
@@ -59,16 +69,5 @@ public class ChooseMulticenterTheme extends JPanel {
         //buttonGroup.setSelected((ButtonModel) first,true);
     }
 
-    public int getThemeCode(){
-        return code;
-    }
-
-    public static void main(String[] args) {
-        JFrame f = new JFrame();
-        ChooseMulticenterTheme c = new ChooseMulticenterTheme();
-        f.add(c);
-        f.pack();
-        f.setVisible(true);
-    }
 
 }
