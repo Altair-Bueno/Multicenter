@@ -11,6 +11,9 @@ public class ChooseSpaceFolderMenu extends JPanel{
     private JLabel chooseSpacesFolder;
     private JButton filechooser;
 
+    private File fileLocation = Preferences.getSpacesFolder();
+
+
     public ChooseSpaceFolderMenu(){
         textField1.setText(Preferences.getSpacesFolder().getAbsolutePath());
         chooseSpacesFolder.setText("Choose Spaces Folder used to store all data");
@@ -19,10 +22,10 @@ public class ChooseSpaceFolderMenu extends JPanel{
             fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
             int out = fileChooser.showDialog(null,"Carpeta SpacesFolder");
             fileChooser.setVisible(true);
+
             if (out == JFileChooser.APPROVE_OPTION) {
-                File selectedFile = fileChooser.getSelectedFile();
-                Preferences.setSpacesFolder(selectedFile);
-                textField1.setText(selectedFile.getAbsolutePath());
+                fileLocation = fileChooser.getSelectedFile();
+                textField1.setText(fileLocation.getAbsolutePath());
             }
         });
 
@@ -33,11 +36,7 @@ public class ChooseSpaceFolderMenu extends JPanel{
         setVisible(true);
     }
 
-    public static void main(String[] args) {
-        Preferences.loadPreferences();
-        JFrame frame = new JFrame();
-        ChooseSpaceFolderMenu c = new ChooseSpaceFolderMenu();
-        frame.add(c);
-        frame.setVisible(true);
+    public File getFileLocation() {
+        return fileLocation;
     }
 }

@@ -1,5 +1,7 @@
 package App.Multicenter.GetStarted;
 
+import App.Multicenter.Preferences.Preferences;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.concurrent.Semaphore;
@@ -49,12 +51,14 @@ public class GetStartedMenu extends JFrame {
         switch (currentPage){
             case 1:
                 // Choose Theme
+                Preferences.setSpacesFolder(jpanel0.getFileLocation());
                 dialog.removeAll();
                 dialog.add(jpanel1);
                 previous.setEnabled(true);
                 break;
             default:
                 // Done
+                Preferences.setTheme(jpanel1.getThemeCode());
                 semaphore.release();
                 dispose();
         }
