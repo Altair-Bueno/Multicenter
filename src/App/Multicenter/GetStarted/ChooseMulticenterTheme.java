@@ -14,10 +14,9 @@ public class ChooseMulticenterTheme extends JPanel {
     private int code = 0;
 
     public ChooseMulticenterTheme(){
-        //setLayout(new BorderLayout());
-        //panel1.setLayout(new BorderLayout());
-        //buttons.setLayout(new );
+        buttons.setLayout(new GridLayout(4, 1, 5, 5));
         JRadioButton first = new JRadioButton();
+        first.setText("Hola");
         first.setSelected(true);
         first.addActionListener(e-> {
             code = 0;
@@ -27,6 +26,7 @@ public class ChooseMulticenterTheme extends JPanel {
         buttonGroup.add(first); // 0
 
         JRadioButton second = new JRadioButton();
+        second.setText("Pito");
         second.addActionListener(e-> {
             code = 1;
             Preferences.setTheme(1);
@@ -52,12 +52,23 @@ public class ChooseMulticenterTheme extends JPanel {
         buttons.add(third);
         buttons.add(forth);
 
+        buttons.setVisible(true);
+        add(buttons);
+
         setVisible(true);
         //buttonGroup.setSelected((ButtonModel) first,true);
     }
 
     public int getThemeCode(){
         return code;
+    }
+
+    public static void main(String[] args) {
+        JFrame f = new JFrame();
+        ChooseMulticenterTheme c = new ChooseMulticenterTheme();
+        f.add(c);
+        f.pack();
+        f.setVisible(true);
     }
 
 }
