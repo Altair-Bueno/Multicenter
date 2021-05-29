@@ -3,6 +3,7 @@ package App.Multicenter;
 import App.Multicenter.GUI.AppWindow;
 import App.Multicenter.GetStarted.GetStartedMenu;
 import App.Multicenter.GetStarted.LoadingScreen;
+import App.Multicenter.Platform.ThemeManager;
 import App.Multicenter.Preferences.Preferences;
 
 import java.util.concurrent.Semaphore;

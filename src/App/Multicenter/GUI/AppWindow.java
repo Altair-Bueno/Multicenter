@@ -2,8 +2,9 @@ package App.Multicenter.GUI;
 
 import javax.swing.*;
 import java.awt.*;
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class AppWindow extends JFrame {
@@ -19,7 +20,7 @@ public class AppWindow extends JFrame {
 
         setLayout(new BorderLayout());
         setBounds(0, 0, 800, 800);
-        add(ps, BorderLayout.CENTER);
+        //add(ps, BorderLayout.CENTER);
         add(sb, BorderLayout.WEST);
         setLocationRelativeTo(null);
         setVisible(true);
@@ -39,10 +40,11 @@ public class AppWindow extends JFrame {
      * Crea y muestra todos los elementos visuales de la aplicación
      */
     public static void createAndShowGUI() {
-        PersonalSpaceView personalSpaceView = new PersonalSpaceView();
+        PersonalSpaceView personalSpaceView = null;
         SideBar sideBar = new SideBar();
 
         AppWindow app = new AppWindow(personalSpaceView, sideBar);
+        app.setDefaultPersonalSpace();
         sideBar.app = app;
     }
 
@@ -52,10 +54,29 @@ public class AppWindow extends JFrame {
      * @param newPs Espacio personal a mostrar
      */
     public void changePersonalSpace(PersonalSpaceView newPs) {
-        remove(ps);
+        if(ps != null) {
+            remove(ps);
+        }
         ps = newPs;
         add(ps);
         ps.header.updateUI();
         ps.board.updateUI();
+    }
+
+    public void setDefaultPersonalSpace() {
+        if(ps != null) {
+            remove(ps);
+        }
+        JEditorPane panel = null;
+        try {
+            panel = new JEditorPane(ClassLoader.getSystemResource("App/Multicenter/PlaceholderFiles/PersonalSpacePlaceholder.html"));
+            panel.setEnabled(false);
+            add(panel);
+            panel.setContentType("text/html");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        SwingUtilities.updateComponentTreeUI(this);
     }
 }
