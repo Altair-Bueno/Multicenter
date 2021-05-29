@@ -8,7 +8,15 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class AppWindow extends JFrame {
-    static final PersonalSpaceView psDefault = new PersonalSpaceView();
+    static JEditorPane psDefault = null;
+    static {
+        try {
+            psDefault = new JEditorPane(ClassLoader.getSystemResource("App/Multicenter/PlaceholderFiles/PersonalSpacePlaceholder.html"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     //Attributes
     PersonalSpaceView ps;
     SideBar sb;
@@ -56,6 +64,8 @@ public class AppWindow extends JFrame {
     public void changePersonalSpace(PersonalSpaceView newPs) {
         if(ps != null) {
             remove(ps);
+        } else {
+            remove(psDefault);
         }
         ps = newPs;
         add(ps);
@@ -67,15 +77,9 @@ public class AppWindow extends JFrame {
         if(ps != null) {
             remove(ps);
         }
-        JEditorPane panel = null;
-        try {
-            panel = new JEditorPane(ClassLoader.getSystemResource("App/Multicenter/PlaceholderFiles/PersonalSpacePlaceholder.html"));
-            panel.setEnabled(false);
-            add(panel);
-            panel.setContentType("text/html");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        psDefault.setEnabled(false);
+        add(psDefault);
+        psDefault.setContentType("text/html");
 
         SwingUtilities.updateComponentTreeUI(this);
     }
