@@ -1,6 +1,7 @@
 package App.Multicenter.Platform;
 
 
+
 import java.awt.event.ActionEvent;
 import java.util.Locale;
 
@@ -48,6 +49,13 @@ public class PlatformManager {
                 System.setProperty("apple.awt.graphics.EnableQ2DX", "true");
                 System.setProperty("apple.laf.useScreenMenuBar", "true");
                 System.setProperty("apple.awt.textantialiasing", "true");
+                // MacOS: Icon Set
+                /*
+                Application.getApplication().setDockIconImage(
+                        Toolkit.getDefaultToolkit().createImage(
+                                ClassLoader.getSystemResource("App/Multicenter/Icons/512x512.png")
+                        )
+                );*/
                 //Application.getApplication().setDockIconImage(new ImageIcon(MineSweeperResourceManager.getResourceURL(MineSweeperResourceManager.APPICON)).getImage());
                 break;
             default:

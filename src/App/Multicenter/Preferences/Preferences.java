@@ -1,6 +1,7 @@
 package App.Multicenter.Preferences;
 
 import App.Multicenter.Platform.LanguageManager;
+import App.Multicenter.Platform.PlatformManager;
 import App.Multicenter.Platform.ThemeManager;
 
 import java.awt.*;
@@ -40,6 +41,8 @@ public class Preferences {
      * no existe
      */
     public static boolean loadPreferences() {
+        PlatformManager.setJVMEnviroment();
+
         spacesFolder = new File(System.getProperty("user.home"), "Multicenter Files");
         spacesFolder.mkdir();
 
