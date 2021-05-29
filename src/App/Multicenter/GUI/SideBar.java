@@ -13,7 +13,7 @@ public class SideBar extends JPanel {
     JTextField searchBox;
     JButton addButton;
     JButton delButton;
-    JButton zoom;
+    JButton editButton;
 
     Map<Section, PersonalSpaceView> psv;
     Boolean isShown;
@@ -42,10 +42,11 @@ public class SideBar extends JPanel {
 
         addButton = createButton("ADD", addButton);
         delButton = createButton("DEL", delButton);
-        zoom = createButton("\uD83D\uDD0D +", zoom);
+        editButton = createButton("EDIT", editButton);
 
         addButton.addActionListener(new AddSectionListener(this));
         delButton.addActionListener(new RemoveSectionListener(this));
+        editButton.addActionListener(new EditListener(this));
 
         setVisible(isShown);
     }

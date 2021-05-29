@@ -61,6 +61,7 @@ public class NotesWidget extends AbstractWidget {
         } catch (IOException e) {
             System.err.println(e.getMessage());
         }
+        //setVisible(true);
     }
 
     public SearchedString<Widget> search(String cadena) {
@@ -112,13 +113,13 @@ public class NotesWidget extends AbstractWidget {
     }
 
     private void renderMardownMode() throws IOException {
+        jEditorPane.setEditable(false);
         InputStreamReader r = new InputStreamReader(new FileInputStream(markdownFile));
         Node document = parser.parseReader(r);
         jEditorPane.setContentType("text/html");
         String renderedHTML = renderer.render(document);
         jEditorPane.setText("<html>" + renderedHTML + "</html>");
         jEditorPane.addHyperlinkListener(hyperlinkListener);
-        jEditorPane.setEditable(false);
         r.close();
     }
 

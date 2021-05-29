@@ -2,6 +2,7 @@ package App.Multicenter.GUI;
 
 import App.Multicenter.Preferences.Preferences;
 import App.Multicenter.Space.PersonalSpace;
+import App.Multicenter.Widget.NotesWidget;
 
 import java.awt.*;
 
@@ -21,6 +22,7 @@ public class PersonalSpaceView extends Container {
         setPreferredSize(new Dimension(250, 250));
         setLayout(new BorderLayout());
 
+        //this.board.add(new NotesWidget(0, widgets.getCarpeta()));
         add(this.header, BorderLayout.NORTH);
         add(this.board, BorderLayout.CENTER);
 

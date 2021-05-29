@@ -2,6 +2,8 @@ package App.Multicenter.GUI;
 
 import javax.swing.*;
 import java.awt.*;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 public class AppWindow extends JFrame {
     static final PersonalSpaceView psDefault = new PersonalSpaceView();
@@ -20,6 +22,7 @@ public class AppWindow extends JFrame {
         add(sb, BorderLayout.WEST);
         setVisible(true);
         setMinimumSize(new Dimension(400, 400));
+        setIconImage(Toolkit.getDefaultToolkit().createImage(ClassLoader.getSystemResource("App/Multicenter/Icons/512x512.png")));
     }
 
     //Methods
