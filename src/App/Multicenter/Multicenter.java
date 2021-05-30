@@ -19,7 +19,8 @@ public class Multicenter {
         LoadingScreen loadingScreen = new LoadingScreen();
         boolean b = Preferences.loadPreferences();
         loadingScreen.setValue(10);
-        Taskbar.getTaskbar().setProgressValue(10);
+        if(Taskbar.getTaskbar().isSupported(Taskbar.Feature.PROGRESS_VALUE))
+            Taskbar.getTaskbar().setProgressValue(10);
         // if(b) get started gui
         if (!b) {
             Semaphore semaphore = new Semaphore(0);
@@ -34,14 +35,17 @@ public class Multicenter {
             getStartedMenu = null;
         }
         loadingScreen.setValue(40);
-        Taskbar.getTaskbar().setProgressValue(40);
+        if(Taskbar.getTaskbar().isSupported(Taskbar.Feature.PROGRESS_VALUE))
+            Taskbar.getTaskbar().setProgressValue(40);
         // Multithreading: Load necesary classes
         // Index neccesary data
         // Load GUI
         loadingScreen.setValue(100);
-        Taskbar.getTaskbar().setProgressValue(100);
+        if(Taskbar.getTaskbar().isSupported(Taskbar.Feature.PROGRESS_VALUE))
+            Taskbar.getTaskbar().setProgressValue(100);
         loadingScreen.dispose();
-        Taskbar.getTaskbar().setProgressValue(-1);
+        if(Taskbar.getTaskbar().isSupported(Taskbar.Feature.PROGRESS_VALUE))
+            Taskbar.getTaskbar().setProgressValue(-1);
 
         // ShowGUI
         javax.swing.SwingUtilities.invokeLater(AppWindow::createAndShowGUI);

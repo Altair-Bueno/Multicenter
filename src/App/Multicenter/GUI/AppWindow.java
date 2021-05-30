@@ -4,7 +4,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
-import com.apple.eawt.Application;
 
 public class AppWindow extends JFrame {
     static JEditorPane psDefault = null;
