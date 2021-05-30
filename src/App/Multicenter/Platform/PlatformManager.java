@@ -1,6 +1,7 @@
 package App.Multicenter.Platform;
 
 
+
 import java.awt.event.ActionEvent;
 import java.util.Locale;
 
@@ -13,7 +14,7 @@ import java.util.Locale;
 public class PlatformManager {
     // Constantes de clase
     private static final String hostOS = System.getProperty("os.name").toLowerCase(Locale.ROOT);
-    private static final String MACOSX = "mac";
+    private static final String MACOSX = "Mac OS X";
     private static final int MAIN_KEYBOARD = hostOS.contains(MACOSX) ? ActionEvent.META_MASK : ActionEvent.CTRL_MASK;
 
     // Cierre de clase
@@ -48,6 +49,13 @@ public class PlatformManager {
                 System.setProperty("apple.awt.graphics.EnableQ2DX", "true");
                 System.setProperty("apple.laf.useScreenMenuBar", "true");
                 System.setProperty("apple.awt.textantialiasing", "true");
+                // MacOS: Icon Set
+                /*
+                Application.getApplication().setDockIconImage(
+                        Toolkit.getDefaultToolkit().createImage(
+                                ClassLoader.getSystemResource("App/Multicenter/Icons/512x512.png")
+                        )
+                );*/
                 //Application.getApplication().setDockIconImage(new ImageIcon(MineSweeperResourceManager.getResourceURL(MineSweeperResourceManager.APPICON)).getImage());
                 break;
             default:

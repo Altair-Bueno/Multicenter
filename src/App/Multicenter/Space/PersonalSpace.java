@@ -25,6 +25,7 @@ public class PersonalSpace implements Closeable, Serializable {
     private SortedSet<Widget> widgets = new TreeSet<>();
     private String id;
     private File carpeta;
+    private final String personalSpaceName;
 
 
     /**
@@ -37,7 +38,8 @@ public class PersonalSpace implements Closeable, Serializable {
      * de widgets vacío)
      */
 
-    public PersonalSpace(File f) {
+    public PersonalSpace(String name, File f) {
+        personalSpaceName = name;
         RandomNameGenerator rng = new RandomNameGenerator();
         id = rng.generate(f);
         carpeta = new File(f, id);
@@ -46,6 +48,7 @@ public class PersonalSpace implements Closeable, Serializable {
 
     // Constructor privado utilizado para cargar el PersonalSpacesData
     private PersonalSpace(PersonalSpaceData data) {
+        personalSpaceName = data.personalSpaceName;
         id = data.id;
         carpeta = new File(data.folderPath);
 
@@ -77,16 +80,16 @@ public class PersonalSpace implements Closeable, Serializable {
     /**
      * Activa el modo edición de todo el PersonalSpace
      */
-    public void toggleEditMode(){
-        for(Widget w: widgets)
+    public void toggleEditMode() {
+        for (Widget w : widgets)
             w.toggleEditMode();
     }
 
     /**
      * Borra los archivos del PersonalSpace
      */
-    public void deletePersonalSpace(){
-        for (Widget w:widgets)
+    public void deletePersonalSpace() {
+        for (Widget w : widgets)
             w.deleteWidget();
         carpeta.delete();
         carpeta = null;
@@ -158,6 +161,7 @@ public class PersonalSpace implements Closeable, Serializable {
             set.add(w.getWidgetsDataInstance());
 
         PersonalSpaceData psd = new PersonalSpaceData();
+        psd.personalSpaceName = personalSpaceName;
         psd.widgetData = set;
         psd.id = id;
         psd.folderPath = carpeta.getAbsolutePath();

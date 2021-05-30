@@ -17,4 +17,5 @@ public class PersonalSpaceData implements Serializable {
     public Set<WidgetData> widgetData;
     public String id;
     public String folderPath;
+    public String personalSpaceName;
 }

@@ -13,7 +13,7 @@ public class SideBar extends JPanel {
     JTextField searchBox;
     JButton addButton;
     JButton delButton;
-    JButton zoom;
+    JButton editButton;
 
     Map<Section, PersonalSpaceView> psv;
     Boolean isShown;
@@ -42,10 +42,11 @@ public class SideBar extends JPanel {
 
         addButton = createButton("ADD", addButton);
         delButton = createButton("DEL", delButton);
-        zoom = createButton("\uD83D\uDD0D +", zoom);
+        editButton = createButton("EDIT", editButton);
 
         addButton.addActionListener(new AddSectionListener(this));
-        delButton.addActionListener(new RemoveSectionListener(this));
+        delButton.addActionListener(new RemoveSectionListener(this)); // TODO should call delete on personalspace
+        editButton.addActionListener(new EditListener(this)); // TODO Should disable all buttons
 
         setVisible(isShown);
     }
@@ -72,6 +73,7 @@ public class SideBar extends JPanel {
     }
 
     public void delPersonalSpace(Section s) {
+        psv.get(s).board.personalSpace.deletePersonalSpace();
         psv.remove(s);
         remove(s);
         numSections--;

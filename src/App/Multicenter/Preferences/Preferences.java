@@ -1,6 +1,7 @@
 package App.Multicenter.Preferences;
 
 import App.Multicenter.Platform.LanguageManager;
+import App.Multicenter.Platform.PlatformManager;
 import App.Multicenter.Platform.ThemeManager;
 
 import java.awt.*;
@@ -40,10 +41,11 @@ public class Preferences {
      * no existe
      */
     public static boolean loadPreferences() {
+        PlatformManager.setJVMEnviroment();
+
         spacesFolder = new File(System.getProperty("user.home"), "Multicenter Files");
-        if (!spacesFolder.exists()) {
-            spacesFolder.mkdir();
-        }
+        spacesFolder.mkdir();
+
         windowsSize = new Dimension(800, 800);
         prop = new Properties();
         LanguageManager.setLanguage(LanguageManager.USER_ENV);
@@ -62,12 +64,13 @@ public class Preferences {
                         String[] dim = settings[1].split("-");
                         setWindowsSize(new Dimension(Integer.parseInt(dim[0]), Integer.parseInt(dim[1])));
                     }
-                    case "working_directory" -> setSpacesFolder(new File(settings[1]));
-                    case "theme" -> setTheme(Integer.parseInt(settings[1]));
-                    case "lang" -> setLanguage(settings[1]);
+                    case " working_directory" -> setSpacesFolder(new File(settings[1]));
+                    case " theme" -> setTheme(Integer.parseInt(settings[1]));
+                    case " lang" -> setLanguage(settings[1]);
                 }
             }
         } catch (Exception e) {
+            System.err.println(e.getMessage());
             out = false;
         }
         return out;

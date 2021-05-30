@@ -16,7 +16,7 @@ import java.io.*;
 
 public class NotesWidget extends AbstractWidget {
 
-    private HyperlinkListener hyperlinkListener = a -> {
+    private final HyperlinkListener hyperlinkListener = a -> {
         if (HyperlinkEvent.EventType.ACTIVATED.equals(a.getEventType())) {
             System.out.println(a.getURL());
             Desktop desktop = Desktop.getDesktop();
@@ -27,9 +27,9 @@ public class NotesWidget extends AbstractWidget {
             }
         }
     };
-    private Parser parser = Parser.builder().build();
-    private HtmlRenderer renderer = HtmlRenderer.builder().build();
-    private JEditorPane jEditorPane = new JEditorPane();
+    private final Parser parser = Parser.builder().build();
+    private final HtmlRenderer renderer = HtmlRenderer.builder().build();
+    private final JEditorPane jEditorPane = new JEditorPane();
     private File markdownFile;
     private boolean edit = false;
 
@@ -50,17 +50,19 @@ public class NotesWidget extends AbstractWidget {
         // this(randomgen,layer)...
         RandomNameGenerator r = new RandomNameGenerator();
         String id = r.generate(spacesFolder);
-        super.id = id;
+        super.id = id + ".md";
         setAlignmentX(0);
         setAlignmentY(0);
         setSize(STANDARD_DIMENSION);
-        markdownFile = new File(spacesFolder, id);
+        setLayer(layer);
+        markdownFile = new File(spacesFolder, super.id);
         super.add(jEditorPane);
         try {
             renderMardownMode();
         } catch (IOException e) {
             System.err.println(e.getMessage());
         }
+        //setVisible(true);
     }
 
     public SearchedString<Widget> search(String cadena) {
@@ -112,21 +114,21 @@ public class NotesWidget extends AbstractWidget {
     }
 
     private void renderMardownMode() throws IOException {
+        jEditorPane.setEditable(false);
         InputStreamReader r = new InputStreamReader(new FileInputStream(markdownFile));
         Node document = parser.parseReader(r);
         jEditorPane.setContentType("text/html");
         String renderedHTML = renderer.render(document);
         jEditorPane.setText("<html>" + renderedHTML + "</html>");
         jEditorPane.addHyperlinkListener(hyperlinkListener);
-        jEditorPane.setEditable(false);
         r.close();
     }
 
     private void editorMode() throws IOException {
+        jEditorPane.setEditable(true);
+        jEditorPane.removeHyperlinkListener(hyperlinkListener);
         jEditorPane.setContentType("text/plain");
         jEditorPane.setPage(markdownFile.toURI().toURL());
-        jEditorPane.removeHyperlinkListener(hyperlinkListener);
-        jEditorPane.setEditable(true);
     }
 
     @Override
