@@ -1,41 +1,63 @@
 package App.Multicenter.Widget;
 
 import App.Multicenter.Space.SearchedString;
+import App.Multicenter.Widget.Data.WidgetData;
 
 import javax.swing.*;
 import java.awt.*;
 import java.io.Closeable;
-import java.io.Serializable;
-import java.util.SortedSet;
+import java.util.*;
 
 /**
  * The type Abstract widget.
  */
-public abstract class AbstractWidget extends JInternalFrame implements Widget, Serializable, Closeable {
+public abstract class AbstractWidget extends JInternalFrame
+        implements Widget, Closeable, Comparable<AbstractWidget> {
 
-    public static final Dimension STANDARD_DIMENSION = new Dimension(100, 100);
+    // Constantes de valores por defecto
+    public static final Dimension STANDARD_DIMENSION = new Dimension(200, 200);
 
-    String id;
-    int layer;
+    // Variables de clase
+    protected String id;
 
-    // Operaciones
-    public SortedSet<SearchedString<Widget>> buscar(String cadena) {
-        // TODO AbstractWidget buscar
-        return null;
+    // Constructores
+    protected AbstractWidget() {
+    }
+
+    protected AbstractWidget(WidgetData wd) {
+        setSize(wd.dimension);
+        setAlignmentX(wd.x);
+        setAlignmentY(wd.y);
+        setLayer(wd.layer);
+        id = wd.id;
     }
 
     public String getId() {
-        // TODO AbstractWidget getId
         return id;
     }
 
-    public int getLayer() {
-        // TODO AbstractWidget getLayer
-        return layer;
+
+    // Operaciones
+    protected SearchedString<Widget> bestSearchedString(String frase, String ref, Widget w) {
+        SortedSet<SearchedString<Widget>> res = new TreeSet<>(Comparator.reverseOrder());
+        Iterator<String> iter = Arrays.stream(frase.split("\\W+")).iterator();
+        while (iter.hasNext()) {
+            res.add(new SearchedString<Widget>(w, frase, ref));
+        }
+        return res.first();
     }
 
-    public void setLayer(int capa) {
-        // TODO AbstractWidget setLayer
-        layer = capa;
+    @Override
+    public int compareTo(AbstractWidget o) {
+        return this.getLayer() - o.getLayer();
+    }
+
+    protected WidgetData getWidgetsDataInstance(WidgetData wd) {
+        wd.dimension = getSize();
+        wd.id = id;
+        wd.x = getAlignmentX();
+        wd.y = getAlignmentY();
+        wd.layer = getLayer();
+        return wd;
     }
 }

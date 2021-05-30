@@ -15,7 +15,7 @@ public class PreferencesTest {
         Preferences.setLanguage(LanguageManager.DEFAULT);
         Assert.assertEquals(LanguageManager.DEFAULT,Preferences.getLanguage());
         Assert.assertEquals(ThemeManager.LIGHT,Preferences.getTheme());
-        Assert.assertEquals(new File(System.getProperty("user.dir")),Preferences.getSpacesFolder());
+        Assert.assertEquals(new File(System.getProperty("user.home"), "Multicenter Files"),Preferences.getSpacesFolder());
         Assert.assertEquals(new Dimension(800,800),Preferences.getWindowsSize());
         Preferences.save();
     }

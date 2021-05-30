@@ -1,12 +1,22 @@
 package App.Multicenter.GUI;
 
+import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 public class SectionListener implements MouseListener {
     //Atributtes
     AppWindow app;
+    SideBar parent;
+    Section section;
+    Section selected;
 
+    public SectionListener(AppWindow app, SideBar parent, Section section, Section selected) {
+        this.app = app;
+        this.parent = parent;
+        this.section = section;
+        this.selected = selected;
+    }
     //Methods
 
     /**
@@ -18,7 +28,12 @@ public class SectionListener implements MouseListener {
     @Override
     public void mouseClicked(MouseEvent e) {
         // TODO Auto-generated method stub
-
+        app.changePersonalSpace(parent.psv.get(section));
+        if (parent.selected != null) {
+            parent.selected.setBackground(section.def);
+        }
+        section.setBackground(Color.lightGray);
+        parent.selected = section;
     }
 
     /**
@@ -29,8 +44,7 @@ public class SectionListener implements MouseListener {
      */
     @Override
     public void mousePressed(MouseEvent e) {
-        // TODO Auto-generated method stub
-
+        // TODO Drag section from sidebar
     }
 
     /**
@@ -41,22 +55,22 @@ public class SectionListener implements MouseListener {
      */
     @Override
     public void mouseReleased(MouseEvent e) {
-        // TODO Auto-generated method stub
+        // TODO Drop section from sidebar
 
     }
 
     //Unused method
     @Override
     public void mouseEntered(MouseEvent e) {
-        // TODO Auto-generated method stub
-
+        section.setBackground(Color.lightGray);
     }
 
     //Unused method
     @Override
     public void mouseExited(MouseEvent e) {
-        // TODO Auto-generated method stub
-
+        if (section != parent.selected) {
+            section.setBackground(section.def);
+        }
     }
 
 }

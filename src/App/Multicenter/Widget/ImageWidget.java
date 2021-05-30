@@ -2,11 +2,10 @@ package App.Multicenter.Widget;
 
 
 import App.Multicenter.Space.SearchedString;
+import App.Multicenter.Widget.Data.WidgetData;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.SortedSet;
-import java.util.TreeSet;
 
 public class ImageWidget extends AbstractWidget {
     String nombreFoto;
@@ -17,16 +16,34 @@ public class ImageWidget extends AbstractWidget {
         img = f;
     }
 
-    public SortedSet<SearchedString<Widget>> buscar(String cadena) {
+    public SearchedString<Widget> search(String cadena) {
         SearchedString<Widget> s = new SearchedString<>(this, nombreFoto, cadena);
-        SortedSet<SearchedString<Widget>> res = new TreeSet<>();
-        res.add(s);
-        return res;
+        return s;
+    }
+
+    @Override
+    public void setLayer(int capa) {
+
     }
 
     @Override
     public void toggleEditMode() {
     }
+
+    @Override
+    public void deleteWidget() {
+
+    }
+
+    @Override
+    public void moveFilesToFolder(File folder) throws IOException {
+    }
+
+    @Override
+    public WidgetData getWidgetsDataInstance() {
+        return null;
+    }
+
 
     @Override
     public void close() throws IOException {

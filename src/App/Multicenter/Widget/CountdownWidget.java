@@ -1,11 +1,11 @@
 package App.Multicenter.Widget;
 
 import App.Multicenter.Space.SearchedString;
+import App.Multicenter.Widget.Data.WidgetData;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Date;
-import java.util.SortedSet;
-import java.util.TreeSet;
 
 public class CountdownWidget extends AbstractWidget {
     private final String titulo;
@@ -45,15 +45,33 @@ public class CountdownWidget extends AbstractWidget {
         return timetoevent;
     }
 
-    public SortedSet<SearchedString<Widget>> buscar(String cadena) {
-        SortedSet<SearchedString<Widget>> res = new TreeSet<>();
-        res.add(new SearchedString<>(this, titulo, cadena));
-        return res;
+    public SearchedString<Widget> search(String cadena) {
+        return new SearchedString<>(this, titulo, cadena);
+    }
+
+    @Override
+    public void setLayer(int capa) {
+
     }
 
     @Override
     public void toggleEditMode() {
     }
+
+    @Override
+    public void deleteWidget() {
+
+    }
+
+    @Override
+    public void moveFilesToFolder(File folder) throws IOException {
+    }
+
+    @Override
+    public WidgetData getWidgetsDataInstance() {
+        return null;
+    }
+
 
     @Override
     public void close() throws IOException {

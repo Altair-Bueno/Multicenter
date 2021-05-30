@@ -10,6 +10,7 @@ public class PersonalSpaceView extends Container {
 
     //Constructor
     public PersonalSpaceView(Header header, Board board, String name) {
+        //PersonalSpace widgets = new PersonalSpace(name,Preferences.getSpacesFolder());
         this.header = header;
         this.board = board;
         this.name = name;
@@ -17,10 +18,15 @@ public class PersonalSpaceView extends Container {
         setPreferredSize(new Dimension(250, 250));
         setLayout(new BorderLayout());
 
-        add(header, BorderLayout.NORTH);
-        add(board, BorderLayout.CENTER);
+        //this.board.add(new NotesWidget(0, personalSpace.getCarpeta()));
+        add(this.header, BorderLayout.NORTH);
+        add(this.board, BorderLayout.CENTER);
 
         setVisible(true);
+    }
+
+    public PersonalSpaceView() {
+        this(new Header("Welcome!"), null, "psDefault");
     }
 
     //Methods
@@ -59,6 +65,10 @@ public class PersonalSpaceView extends Container {
      */
     public void setBoard(Board newBoard) {
         board = newBoard;
+    }
+
+    public String toString() {
+        return "psv[" + header.title + "]";
     }
 
 }

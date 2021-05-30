@@ -1,6 +1,7 @@
 package App.Multicenter.Preferences;
 
 import App.Multicenter.Platform.LanguageManager;
+import App.Multicenter.Platform.PlatformManager;
 import App.Multicenter.Platform.ThemeManager;
 
 import java.awt.*;
@@ -14,7 +15,7 @@ import java.util.Properties;
  * "user.dir", ".mctrpreferences.xml".
  */
 public class Preferences {
-    private final static File propertiesFile = new File(System.getProperty("user.home"), ".mctrpreferences.xml");
+    private final static File propertiesFile = new File(System.getProperty("user.home"), ".mctrpreferences");
     // Variables estáticas
     private static File spacesFolder;
     private static Dimension windowsSize;
@@ -40,7 +41,11 @@ public class Preferences {
      * no existe
      */
     public static boolean loadPreferences() {
-        spacesFolder = new File(System.getProperty("user.dir") + "/");
+        PlatformManager.setJVMEnviroment();
+
+        spacesFolder = new File(System.getProperty("user.home"), "Multicenter Files");
+        spacesFolder.mkdir();
+
         windowsSize = new Dimension(800, 800);
         prop = new Properties();
         LanguageManager.setLanguage(LanguageManager.USER_ENV);
@@ -59,13 +64,13 @@ public class Preferences {
                         String[] dim = settings[1].split("-");
                         setWindowsSize(new Dimension(Integer.parseInt(dim[0]), Integer.parseInt(dim[1])));
                     }
-                    case "working_directory" -> setSpacesFolder(new File(settings[1]));
-                    case "theme" -> setTheme(Integer.parseInt(settings[1]));
-                    case "lang" -> setLanguage(settings[1]);
+                    case " working_directory" -> setSpacesFolder(new File(settings[1]));
+                    case " theme" -> setTheme(Integer.parseInt(settings[1]));
+                    case " lang" -> setLanguage(settings[1]);
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            System.err.println(e.getMessage());
             out = false;
         }
         return out;
@@ -87,6 +92,11 @@ public class Preferences {
     public static void setSpacesFolder(File spacesFolder) {
         if (prop == null) throw new IllegalStateException("Preferences not correctly initialized");
         Preferences.spacesFolder = spacesFolder;
+    }
+
+    public static File getSpacesSaveFile() {
+        if (prop == null) throw new IllegalStateException("Preferences not correctly initialized");
+        return new File(spacesFolder, "savefile.xml");
     }
 
     /**
@@ -192,7 +202,7 @@ public class Preferences {
         try (OutputStream out = new FileOutputStream(propertiesFile)) {
             prop.storeToXML(out, null);
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println(e.getMessage());
             return false;
         }
         return true;

@@ -19,7 +19,7 @@ public class XMLBuddy<T> {
      * @return Objeto reconstruido.
      * @see Serializable
      */
-    public T parseXMLFile(File file) throws FileNotFoundException {
+    public T readFromFile(File file) throws FileNotFoundException {
         XMLDecoder decoder = new XMLDecoder(new BufferedInputStream(new FileInputStream(file)));
         return (T) decoder.readObject();
     }
@@ -30,8 +30,7 @@ public class XMLBuddy<T> {
      * @param file Archivo donde almacenar el contenido
      */
 
-    public boolean parseTreeStructure(File file, T object) {
-        // TODO XMLBuddy parseTreeStructure
+    public boolean saveToFile(File file, T object) {
         boolean out;
         XMLEncoder encoder = null;
         try {
@@ -40,7 +39,7 @@ public class XMLBuddy<T> {
             encoder.close();
             out = true;
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            System.err.println(e.getMessage());
             out = false;
         }
         return out;

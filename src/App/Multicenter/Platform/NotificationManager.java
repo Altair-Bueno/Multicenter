@@ -97,7 +97,7 @@ public class NotificationManager {
                 try {
                     notifyNow(trayIcon, caption, text, messageType);
                 } catch (AWTException e) {
-                    e.printStackTrace();
+                    System.err.println(e.getMessage());
                 }
             }
         };

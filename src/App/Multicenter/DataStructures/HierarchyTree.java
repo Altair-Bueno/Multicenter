@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.function.Function;
 
+@Deprecated
 public class HierarchyTree<E> implements Tree<E>, Serializable {
     // Variables de clase
     Map<E, E> relation; // Nodo(hijo) -> Nodo(padre)

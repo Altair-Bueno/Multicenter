@@ -2,6 +2,8 @@ package App.Multicenter.Widget;
 
 import App.Multicenter.Space.RandomNameGenerator;
 import App.Multicenter.Space.SearchedString;
+import App.Multicenter.Widget.Data.NotesWidgetData;
+import App.Multicenter.Widget.Data.WidgetData;
 import org.commonmark.node.Node;
 import org.commonmark.parser.Parser;
 import org.commonmark.renderer.html.HtmlRenderer;
@@ -11,10 +13,8 @@ import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
 import java.awt.*;
 import java.io.*;
-import java.util.SortedSet;
 
 public class NotesWidget extends AbstractWidget {
-    // TODO EmbeddedWidget Constructor
 
     private final HyperlinkListener hyperlinkListener = a -> {
         if (HyperlinkEvent.EventType.ACTIVATED.equals(a.getEventType())) {
@@ -27,14 +27,22 @@ public class NotesWidget extends AbstractWidget {
             }
         }
     };
-
-    private final JEditorPane jEditorPane;
-    private final JPanel jPanel;
-    private final File markdownFile;
-
     private final Parser parser = Parser.builder().build();
     private final HtmlRenderer renderer = HtmlRenderer.builder().build();
-    private boolean edit;
+    private final JEditorPane jEditorPane = new JEditorPane();
+    private File markdownFile;
+    private boolean edit = false;
+
+    protected NotesWidget(NotesWidgetData nwd) {
+        super(nwd);
+        markdownFile = new File(nwd.markdownFile);
+        super.add(jEditorPane);
+        try {
+            renderMardownMode();
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+    }
 
     public NotesWidget(int layer, File spacesFolder) {
         // TODO Constructor
@@ -42,95 +50,103 @@ public class NotesWidget extends AbstractWidget {
         // this(randomgen,layer)...
         RandomNameGenerator r = new RandomNameGenerator();
         String id = r.generate(spacesFolder);
-
-        this.id = id;
-        this.layer = layer;
+        super.id = id + ".md";
         setAlignmentX(0);
         setAlignmentY(0);
         setSize(STANDARD_DIMENSION);
-        markdownFile = new File(spacesFolder, id);
-        edit = false;
-
-        jEditorPane = new JEditorPane();
-        jPanel = new JPanel();
-        jPanel.setLayout(new BorderLayout());
-        jPanel.add(jEditorPane);
-        add(jPanel);
-
-        renderMardown();
+        setLayer(layer);
+        markdownFile = new File(spacesFolder, super.id);
+        super.add(jEditorPane);
+        try {
+            renderMardownMode();
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
+        //setVisible(true);
     }
 
-    public NotesWidget(String id, int layer, float x, float y, Dimension dimension, File file) {
-        // TODO Constructor
-        this.id = id;
-        this.layer = layer;
-        setAlignmentX(x);
-        setAlignmentY(y);
-        setSize(dimension);
-        markdownFile = file;
-        edit = false;
-
-        jEditorPane = new JEditorPane();
-        jPanel = new JPanel();
-        jPanel.setLayout(new BorderLayout());
-        jPanel.add(jEditorPane);
-        add(jPanel);
-
-        renderMardown();
-
-        // TODO Completar GUI de noteswidget
-    }
-
-    public SortedSet<SearchedString<Widget>> buscar(String cadena) {
-        // TODO EmbeddedWidget buscar
-        return null;
+    public SearchedString<Widget> search(String cadena) {
+        if (edit) throw new IllegalStateException("Edit mode on. Please disable edit view first");
+        return super.bestSearchedString(jEditorPane.getText(), cadena, this);
     }
 
     public void toggleEditMode() {
         edit = !edit;
-        if (edit) {
-            editor();
-        } else {
-            save();
-            renderMardown();
-        }
-    }
-
-    private void save() {
-        try (FileOutputStream out = new FileOutputStream(markdownFile)) {
-            Writer writer = new OutputStreamWriter(out);
-            jEditorPane.write(writer);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void renderMardown() {
-        try (InputStreamReader r = new InputStreamReader(new FileInputStream(markdownFile))) {
-            Node document = parser.parseReader(r);
-            jEditorPane.setContentType("text/html");
-            String renderedHTML = renderer.render(document);
-            jEditorPane.setText("<html>" + renderedHTML + "</html>");
-            jEditorPane.addHyperlinkListener(hyperlinkListener);
-            jEditorPane.setEditable(false);
-        } catch (Exception ignored) {
-        }
-
-    }
-
-    private void editor() {
         try {
-            jEditorPane.setContentType("text/plain");
-            jEditorPane.setPage(markdownFile.toURI().toURL());
-            jEditorPane.removeHyperlinkListener(hyperlinkListener);
-            jEditorPane.setEditable(true);
-        } catch (Exception ignored) {
+            if (edit) {
+                editorMode();
+            } else {
+                saveIntoFile();
+                renderMardownMode();
+            }
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
         }
+    }
 
+    @Override
+    public void deleteWidget() {
+        markdownFile.delete();
+        markdownFile = null;
+        id = null;
+    }
+
+    @Override
+    public void moveFilesToFolder(File folder) throws IOException {
+        saveIntoFile();
+        folder.mkdir();
+        markdownFile.renameTo(new File(folder, id));
+    }
+
+    @Override
+    public WidgetData getWidgetsDataInstance() {
+        NotesWidgetData nwd = new NotesWidgetData();
+        nwd.classname = NOTES;
+        nwd.markdownFile = markdownFile.getAbsolutePath();
+        return super.getWidgetsDataInstance(nwd);
+    }
+
+
+    private void saveIntoFile() throws IOException {
+        FileOutputStream out = new FileOutputStream(markdownFile);
+        Writer writer = new OutputStreamWriter(out);
+        jEditorPane.write(writer);
+    }
+
+    private void renderMardownMode() throws IOException {
+        jEditorPane.setEditable(false);
+        InputStreamReader r = new InputStreamReader(new FileInputStream(markdownFile));
+        Node document = parser.parseReader(r);
+        jEditorPane.setContentType("text/html");
+        String renderedHTML = renderer.render(document);
+        jEditorPane.setText("<html>" + renderedHTML + "</html>");
+        jEditorPane.addHyperlinkListener(hyperlinkListener);
+        r.close();
+    }
+
+    private void editorMode() throws IOException {
+        jEditorPane.setEditable(true);
+        jEditorPane.removeHyperlinkListener(hyperlinkListener);
+        jEditorPane.setContentType("text/plain");
+        jEditorPane.setPage(markdownFile.toURI().toURL());
     }
 
     @Override
     public void close() throws IOException {
-        save();
+        saveIntoFile();
+    }
+
+    @Override
+    public int compareTo(AbstractWidget o) {
+        return super.compareTo(o);
+    }
+
+    @Override
+    public String toString() {
+        return "NotesWidget{" +
+                "id='" + id + '\'' +
+                ", edit=" + edit +
+                ", markdownFile=" + markdownFile +
+                '}';
     }
 }

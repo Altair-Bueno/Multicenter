@@ -17,13 +17,19 @@ public class SearchedString<E> implements Comparable<SearchedString> {
         ratio = diceCoefficientOptimizado(cadena, ref);
     }
 
+    public SearchedString(E w, String cadena, double ratio) {
+        widget = w;
+        this.cadena = cadena;
+        this.ratio = ratio;
+    }
+
     /**
      * Aquí tenemos una versión optimizada del cálculo algoritmo de Dice. Se
      * aprovecha del hecho de que un bigrama de 2 carácteres se puede guardar en
      * un entero, y aplica un algoritmo de igual funcionamiento, pero con
      * complejidad mejorada de O(n*log(n)), en vez de de O(n*n).
-     *
-     * <p>Teniendo en cuenta que, en el momento de escribir, la implementación difiere
+     * <p>
+     * Teniendo en cuenta que, en el momento de escribir, la implementación difiere
      * sobre las otras implementaciones que se pueden encontrar on-line. Mientras
      * otros algoritmos almacenan de manera incorrecta los bigramas generados en un
      * set (descartando duplicados), esta implementación trata múltiples ocurrencias
@@ -91,6 +97,7 @@ public class SearchedString<E> implements Comparable<SearchedString> {
         return (double) matches / (n + m);
     }
 
+
     // Operaciones
 
     /**
@@ -125,5 +132,14 @@ public class SearchedString<E> implements Comparable<SearchedString> {
     @Override
     public int compareTo(SearchedString o) {
         return Double.compare(ratio, o.getRatio());
+    }
+
+    @Override
+    public String toString() {
+        return "SearchedString{" +
+                "widget=" + widget +
+                ", cadena='" + cadena + '\'' +
+                ", ratio=" + ratio +
+                '}';
     }
 }

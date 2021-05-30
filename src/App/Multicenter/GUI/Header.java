@@ -18,16 +18,15 @@ public class Header extends JPanel {
     public Header(String title) {
         this.title = title;
         setPreferredSize(new Dimension(100, 80));
-        //setBackground(new Color(Color.RED.getRGB()));
-        setLayout(null);
-        setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.lightGray));
+        setLayout(new FlowLayout(FlowLayout.LEADING, 5, 10));
+        //setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.lightGray));
 
         text = new JLabel();
-        text.setText(title);
+        text.setText("   " + title);
+        text.setFont(new Font("Arial", Font.BOLD, 50));
         text.setForeground(Color.lightGray);
         text.setBounds(30, 40, 200, 50);
         add(text);
-
 
         setVisible(true);
     }
@@ -41,6 +40,7 @@ public class Header extends JPanel {
      */
     public void changeTitle(String newTitle) {
         title = newTitle;
+        text.setText("   " + title);
         updateUI();
     }
 
@@ -50,7 +50,7 @@ public class Header extends JPanel {
      * @param color Color
      */
     public void changeBackground(Color color) {
-
+        //TODO Change header background
     }
 
     /**
@@ -59,6 +59,6 @@ public class Header extends JPanel {
      * @param color Color
      */
     public void changeTitleColor(Color color) {
-
+        //TODO Change header title color
     }
 }

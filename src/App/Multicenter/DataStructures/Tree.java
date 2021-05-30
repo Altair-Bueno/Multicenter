@@ -12,6 +12,7 @@ import java.util.function.Function;
  *
  * @param <E> Tipo de los datos almacenados
  */
+@Deprecated
 public interface Tree<E> {
     /**
      * Obtiene el elemento raíz de este árbol

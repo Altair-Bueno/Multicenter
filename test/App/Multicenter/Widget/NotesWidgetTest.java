@@ -10,7 +10,7 @@ public class NotesWidgetTest {
         JDesktopPane jDesktopPane = new JDesktopPane();
         jDesktopPane.setSize(new Dimension(500,500));
         JPanel jPanel = new JPanel();
-        NotesWidget notesWidget = new NotesWidget("3242",0,10,10,new Dimension(300,300),new File(System.getProperty("user.dir"), "test/App/Multicenter/Widget/test.md"));
+        NotesWidget notesWidget = new NotesWidget(0,new File("test/App/Multicenter/Widget/test.md"));
         jFrame.add(jPanel);
         jPanel.add(jDesktopPane);
         jDesktopPane.add(notesWidget);
