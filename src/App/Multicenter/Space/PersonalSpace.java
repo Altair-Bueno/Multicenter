@@ -22,10 +22,10 @@ import java.util.stream.Collectors;
  */
 public class PersonalSpace implements Closeable, Serializable {
 
+    private final String personalSpaceName;
     private List<Widget> widgets = new ArrayList<>();
     private String id;
     private File carpeta;
-    private final String personalSpaceName;
 
 
     /**

@@ -1,7 +1,6 @@
 package App.Multicenter.Platform;
 
 
-
 import java.awt.event.ActionEvent;
 import java.util.Locale;
 
