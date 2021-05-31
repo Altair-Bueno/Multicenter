@@ -31,7 +31,7 @@ public class YoutubeWidget extends AbstractWidget {
 
     @Override
     public SearchedString<Widget> search(String cadena) {
-
+        return null;
     }
 
     @Override
