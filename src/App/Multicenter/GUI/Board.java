@@ -2,6 +2,7 @@ package App.Multicenter.GUI;
 
 import App.Multicenter.Space.PersonalSpace;
 import App.Multicenter.Widget.AbstractWidget;
+import App.Multicenter.Widget.ImageWidget;
 import App.Multicenter.Widget.NotesWidget;
 import App.Multicenter.Widget.Widget;
 
@@ -34,9 +35,11 @@ public class Board extends JDesktopPane {
         JPopupMenu pm = new JPopupMenu("tools");
         JMenu addWidget = new JMenu("Añadir Widget");
         JMenuItem noteWidget = new JMenuItem("Nota de texto");
+        JMenuItem imageWidget = new JMenuItem("Nota de imagen");
 
         pm.add(addWidget);
         addWidget.add(noteWidget);
+        addWidget.add(imageWidget);
         addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
                 if (e.getButton() == MouseEvent.BUTTON3) {
@@ -47,6 +50,7 @@ public class Board extends JDesktopPane {
             }
         });
         noteWidget.addActionListener(new addNotesListener());
+        imageWidget.addActionListener(new addImageWidgetListener());
         setVisible(true);
     }
 
@@ -79,12 +83,11 @@ public class Board extends JDesktopPane {
      *
      * @param widget Widget
      */
+    @Deprecated // Los widget se editan todos a la vez y a chuparla
     public void editWidget(Widget widget) {
-        //TODO Edit selected widget from board
+
     }
 
-    // TODO Cuando se pincha sobre un widget debe traerse al frente
-    // Hay que modificar la propiedad set layer
 
     private class addNotesListener implements ActionListener {
         @Override
@@ -93,6 +96,17 @@ public class Board extends JDesktopPane {
             notes.setVisible(true);
             notes.setBounds(lastPos.x, lastPos.y, 250, 250);
             addWidget(notes);
+        }
+    }
+
+    private class addImageWidgetListener implements ActionListener{
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            ImageWidget imageWidget = new ImageWidget(personalSpace.getCarpeta());
+            imageWidget.setVisible(true);
+            imageWidget.setBounds(lastPos.x, lastPos.y,250,250);
+            addWidget(imageWidget);
         }
     }
 }
