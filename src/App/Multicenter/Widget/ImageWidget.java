@@ -115,7 +115,7 @@ public class ImageWidget extends AbstractWidget {
     }
 
     @Override
-    public WidgetData getWidgetsDataInstance() {
+    public WidgetData getWidgetsDataInstance() { // TODO Exception when empty
         ImageWidgetData data = new ImageWidgetData();
         data.classname = IMAGE;
         data.position = carrouselLocation;

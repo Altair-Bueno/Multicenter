@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.List;
 
 public class Board extends JDesktopPane {
     //Attributes
@@ -25,7 +26,13 @@ public class Board extends JDesktopPane {
      */
     public Board(PersonalSpace widgets) {
         this.personalSpace = widgets;
-        numWidgets = 0;
+        List<Widget> widgetList = widgets.getWidgets();
+
+        for (Widget w : widgets.getWidgets()) {
+            add((Component) w);
+            ((Component) w).setVisible(true);
+        }
+        numWidgets = widgetList.size();
         //widgetList = new LinkedList<>();
         setLayout(null);
 

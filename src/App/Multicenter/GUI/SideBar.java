@@ -1,9 +1,13 @@
 package App.Multicenter.GUI;
 
+import App.Multicenter.Space.PersonalSpace;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class SideBar extends JPanel {
     //Attributes
@@ -88,6 +92,10 @@ public class SideBar extends JPanel {
         button.setFocusPainted(false);
         add(button);
         return button;
+    }
+
+    public List<PersonalSpace> getPersonalSpaces(){
+        return psv.values().stream().map(e->e.getBoard().personalSpace).collect(Collectors.toList());
     }
 
 
