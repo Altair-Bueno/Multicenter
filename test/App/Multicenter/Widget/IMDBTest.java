@@ -7,7 +7,8 @@ import java.io.*;
 public class IMDBTest {
 
     public static void main(String[] args) {
-        MovieWidget mw = new MovieWidget("Zootopia");
+        MovieWidget mw = new MovieWidget();
+        mw.searchandSet("Zootopia");
 
         System.out.println("Title: " + mw.getTitle() + ", Rating: " + mw.getRating());
 

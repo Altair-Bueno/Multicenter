@@ -120,7 +120,7 @@ public class Board extends JDesktopPane {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            MovieWidget movieWidget = new MovieWidget(); // TODO Constructor no terminado
+            MovieWidget movieWidget = new MovieWidget();
             movieWidget.setVisible(true);
             movieWidget.setLocation(lastPos.x,lastPos.y);
             movieWidget.setResizable(true);

@@ -10,6 +10,8 @@ import kong.unirest.Unirest;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,9 +27,11 @@ import java.util.List;
  */
 public class MovieWidget extends AbstractWidget {
 
-    private final JPanel jPanel = new JPanel();
+    private final JPanel PanelError = new JPanel();
     private final JButton busc = new JButton();
     private final JTextField errorMessage = new JTextField();
+    private final JEditorPane Editor = new JEditorPane();
+    private final JPanel Panel = new JPanel();
     private String title;
     private Double rating;
     private String URLImage;
@@ -35,17 +39,11 @@ public class MovieWidget extends AbstractWidget {
 
     protected MovieWidget(MovieWidgetData mwd){
         super(mwd);
-        super.add(jPanel);
+        super.add(Editor);
     }
 
-    public MovieWidget(String title){
-
-        try{
-            searchandSet(title);
-        } catch(IllegalArgumentException e) {
-            showErrorPopUp("Película no encontrada en la base de datos");
-        }
-
+    public MovieWidget(){
+        super.add(Editor);
     }
 
     public void showErrorPopUp(String text){
@@ -61,14 +59,26 @@ public class MovieWidget extends AbstractWidget {
 
         busc.setText("Buscar de nuevo");
         busc.setPreferredSize(new Dimension(100,20));
-        panelt.setLayout(new GridLayout(1,1));
-        panelb.setLayout(new GridLayout(1,1));
+        busc.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                botonPulsado();
+            }
+        } );;
         panelt.add(errorMessage);
         panelb.add(busc);
 
+        PanelError.setLayout(new GridLayout(2,1));
 
-        super.add(panelt);
-        super.add(panelb);
+        PanelError.add(panelt);
+        PanelError.add(panelb);
+        super.remove(Editor);
+        super.add(PanelError);
+    }
+
+    public void botonPulsado(){
+        Editor.setEditable(true);
+        super.remove(PanelError);
+        super.add(Editor);
     }
 
     public void searchandSet(String title) throws IllegalArgumentException{
@@ -87,8 +97,6 @@ public class MovieWidget extends AbstractWidget {
             throw new IllegalArgumentException("Not found similar titles");
         }else{
             RandomNameGenerator r = new RandomNameGenerator();
-
-            super.add(jPanel);
 
             String result = gson.toJson(gson.fromJson(response.getBody(), SearchResult.class).getTitles().get(0));
             SearchedTitle movie = gson.fromJson(result, SearchedTitle.class);
@@ -136,8 +144,30 @@ public class MovieWidget extends AbstractWidget {
     public void toggleEditMode() {
         edit = !edit;
         if(edit){
-
+            Editor.setEditable(true);
+            super.remove(Panel);
+            super.add(Editor);
+        }else{
+            String search = Editor.getText();
+            Editor.setEditable(false);
+            try{
+                searchandSet(search);
+                setView();
+            } catch(IllegalArgumentException e) {
+                showErrorPopUp("Película no encontrada en la base de datos");
+            }
         }
+    }
+
+    public void setView(){
+        Panel.setSize(500, 200);
+        JTextPane titleandrating = new JTextPane();
+        titleandrating.setEditable(false);
+        titleandrating.setText(this.getTitle() + " Valoración: " + this.getRating());
+
+        Panel.add(titleandrating);
+        super.remove(Editor);
+        super.add(Panel);
     }
 
     @Override
