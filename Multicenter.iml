@@ -50,5 +50,6 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="com.konghq:unirest-java:3.11.11" level="project" />
   </component>
 </module>

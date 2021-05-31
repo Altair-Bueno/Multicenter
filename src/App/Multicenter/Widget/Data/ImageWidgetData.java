@@ -14,4 +14,5 @@ public class ImageWidgetData extends WidgetData implements Serializable {
     public String imagesFolder;
     public String [] images;
     public String [] footer;
+    public int position;
 }

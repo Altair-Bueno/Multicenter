@@ -5,6 +5,7 @@
       <element id="module-output" name="Multicenter" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/commonmark/commonmark/0.17.2/commonmark-0.17.2.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/formdev/flatlaf/1.1.2/flatlaf-1.1.2.jar" path-in-jar="/" />
+      <element id="library" level="project" name="com.konghq:unirest-java:3.11.11" />
     </root>
   </artifact>
 </component>

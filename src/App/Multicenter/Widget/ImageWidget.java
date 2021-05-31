@@ -6,6 +6,7 @@ import App.Multicenter.Space.SearchedString;
 import App.Multicenter.Widget.Data.ImageWidgetData;
 import App.Multicenter.Widget.Data.WidgetData;
 
+import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
@@ -16,15 +17,21 @@ import java.util.stream.Collectors;
 
 public class ImageWidget extends AbstractWidget {
 
-    File imagesFolder; // Spacesfolder > Imagesfolder > Imagenes
-    List<File> img; // Las imagenes mantienen el nombre original
-    List<String> footer;
+    private File imagesFolder; // Spacesfolder > Imagesfolder > Imagenes
+    private List<File> img; // Las imagenes mantienen el nombre original
+    private List<String> footer;
+
+    private int carrouselLocation = 0;
+    private JPanel contentPanel = new JPanel();
 
     protected ImageWidget (ImageWidgetData iwd){
         super(iwd);
         imagesFolder = new File(iwd.imagesFolder);
         img = Arrays.stream(iwd.images).map(File::new).collect(Collectors.toList());
         footer = Arrays.asList(iwd.footer);
+        showPanel(iwd.position);
+
+        add(contentPanel);
         // TODO set view mode
     }
 
@@ -34,6 +41,9 @@ public class ImageWidget extends AbstractWidget {
         imagesFolder = new File(f,id);
         img = new ArrayList<>();
         footer = new ArrayList<>();
+        showPanel(0);
+
+        add(contentPanel);
         // TODO set view mode
     }
 
@@ -45,9 +55,46 @@ public class ImageWidget extends AbstractWidget {
                 get();
     }
 
+    private void moveleft(){
+        carrouselLocation = carrouselLocation == 0 ?
+                (carrouselLocation = img.size()-1) :
+                (carrouselLocation -1);
+        showPanel(carrouselLocation);
+    }
+
+    private void moveRight(){
+        carrouselLocation = (1+carrouselLocation) % img.size();
+        showPanel(carrouselLocation);
+    }
+
+    private void showPanel(int position){
+        JLabel image;
+        if (img.isEmpty()) {
+            // Placeholder
+            image = new JLabel("Add photos using edit mode",
+                    new ImageIcon(ClassLoader.getSystemResource("App/Multicenter/Placeholder/Photos/placeholderImagewidget.png")),
+            SwingConstants.LEADING);
+        } else {
+            image = new JLabel(footer.get(position),
+                    new ImageIcon(ClassLoader.getSystemResource(img.get(position).getAbsolutePath())),
+                    SwingConstants.LEADING);
+        }
+        JPanel panel = new JPanel();
+        panel.add(image);
+        contentPanel.removeAll();
+        contentPanel.add(panel);
+    }
+
     @Override
     public void toggleEditMode() {
         // TODO
+        edit =!edit;
+        if (edit){
+            // Editmode
+        } else {
+            // Save changes
+            // View mode
+        }
     }
 
     @Override
@@ -70,6 +117,7 @@ public class ImageWidget extends AbstractWidget {
     public WidgetData getWidgetsDataInstance() {
         ImageWidgetData data = new ImageWidgetData();
         data.classname = IMAGE;
+        data.position = carrouselLocation;
         data.imagesFolder = imagesFolder.getAbsolutePath();
         data.images = (String[]) img.stream().map(File::getAbsolutePath).toArray();
         data.footer = footer.toArray(new String[0]);
