@@ -7,6 +7,15 @@ import kong.unirest.Unirest;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Clase encargada de operar con la información
+ * necesaria para crear un widget de películas.
+ * Este widget en principio solo nos enseñará el
+ * título oficial y la valoración general de la
+ * película que el usuario busque al crear el
+ * widget.
+ *
+ */
 public class MovieWidget {
     private String title;
     private Double rating;
@@ -44,9 +53,6 @@ public class MovieWidget {
                 this.rating = 0.0;
                 this.title = movie.getTitle();
             }
-
-
-
 
         }
 
