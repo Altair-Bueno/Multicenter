@@ -28,8 +28,7 @@ public abstract class AbstractWidget extends JInternalFrame
 
     protected AbstractWidget(WidgetData wd) {
         setSize(wd.dimension);
-        setAlignmentX(wd.x);
-        setAlignmentY(wd.y);
+        setLocation(wd.postion);
         setLayer(wd.layer);
         id = wd.id;
     }
@@ -57,8 +56,7 @@ public abstract class AbstractWidget extends JInternalFrame
     protected WidgetData getWidgetsDataInstance(WidgetData wd) {
         wd.dimension = getSize();
         wd.id = id;
-        wd.x = getAlignmentX();
-        wd.y = getAlignmentY();
+        wd.postion = getLocation();
         wd.layer = getLayer();
         return wd;
     }
