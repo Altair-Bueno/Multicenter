@@ -7,11 +7,12 @@ import App.Multicenter.Widget.Data.ImageWidgetData;
 import App.Multicenter.Widget.Data.WidgetData;
 
 import javax.swing.*;
-import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,12 +20,12 @@ public class ImageWidget extends AbstractWidget {
 
     private File imagesFolder; // Spacesfolder > Imagesfolder > Imagenes
     private List<File> img; // Las imagenes mantienen el nombre original
-    private List<String> footer;
+    private final List<String> footer;
 
     private int carrouselLocation = 0;
-    private JPanel contentPanel = new JPanel();
+    private final JPanel contentPanel = new JPanel();
 
-    protected ImageWidget (ImageWidgetData iwd){
+    protected ImageWidget(ImageWidgetData iwd) {
         super(iwd);
         imagesFolder = new File(iwd.imagesFolder);
         img = Arrays.stream(iwd.images).map(File::new).collect(Collectors.toList());
@@ -38,7 +39,7 @@ public class ImageWidget extends AbstractWidget {
     public ImageWidget(File f) {
         RandomNameGenerator r = new RandomNameGenerator();
         id = r.generate(f);
-        imagesFolder = new File(f,id);
+        imagesFolder = new File(f, id);
         img = new ArrayList<>();
         footer = new ArrayList<>();
         showPanel(0);
@@ -48,32 +49,32 @@ public class ImageWidget extends AbstractWidget {
     }
 
     public SearchedString<Widget> search(String cadena) {
-        if (footer.isEmpty()) return new SearchedString<>(this,"",cadena);
+        if (footer.isEmpty()) return new SearchedString<>(this, "", cadena);
         return footer.stream().
-                map(e -> bestSearchedString(e,cadena,this)).
+                map(e -> bestSearchedString(e, cadena, this)).
                 max(Comparator.naturalOrder()).
                 get();
     }
 
-    private void moveleft(){
+    private void moveleft() {
         carrouselLocation = carrouselLocation == 0 ?
-                (carrouselLocation = img.size()-1) :
-                (carrouselLocation -1);
+                (carrouselLocation = img.size() - 1) :
+                (carrouselLocation - 1);
         showPanel(carrouselLocation);
     }
 
-    private void moveRight(){
-        carrouselLocation = (1+carrouselLocation) % img.size();
+    private void moveRight() {
+        carrouselLocation = (1 + carrouselLocation) % img.size();
         showPanel(carrouselLocation);
     }
 
-    private void showPanel(int position){
+    private void showPanel(int position) {
         JLabel image;
         if (img.isEmpty()) {
             // Placeholder
             image = new JLabel("Add photos using edit mode",
                     new ImageIcon(ClassLoader.getSystemResource("App/Multicenter/Placeholder/Photos/placeholderImagewidget.png")),
-            SwingConstants.LEADING);
+                    SwingConstants.LEADING);
         } else {
             image = new JLabel(footer.get(position),
                     new ImageIcon(ClassLoader.getSystemResource(img.get(position).getAbsolutePath())),
@@ -88,8 +89,8 @@ public class ImageWidget extends AbstractWidget {
     @Override
     public void toggleEditMode() {
         // TODO
-        edit =!edit;
-        if (edit){
+        edit = !edit;
+        if (edit) {
             // Editmode
         } else {
             // Save changes
@@ -106,8 +107,8 @@ public class ImageWidget extends AbstractWidget {
 
     @Override
     public void moveFilesToFolder(File folder) throws IOException {
-        Files.move(imagesFolder.toPath(),new File(folder,id).toPath());
-        imagesFolder = new File(folder,id);
+        Files.move(imagesFolder.toPath(), new File(folder, id).toPath());
+        imagesFolder = new File(folder, id);
         File[] array = imagesFolder.listFiles();
         if (array == null) throw new IOException("Something went wrong");
         img = Arrays.asList(array);

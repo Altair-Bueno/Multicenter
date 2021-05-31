@@ -2,8 +2,8 @@ package App.Multicenter;
 
 import App.Multicenter.DataStructures.HierarchyTree;
 import App.Multicenter.DataStructures.Tree;
-
-import org.junit.*;
+import org.junit.Assert;
+import org.junit.Before;
 
 /**
  * Test basico intelliJ y JUnit
@@ -11,14 +11,15 @@ import org.junit.*;
 public class Test {
 
     Tree<Integer> tree;
+
     @Before
-    public void b(){
+    public void b() {
         tree = new HierarchyTree<>();
     }
 
     @org.junit.Test
     public void test() {
-        Assert.assertNotEquals("Fallo",tree,null);
+        Assert.assertNotEquals("Fallo", tree, null);
     }
 
 }

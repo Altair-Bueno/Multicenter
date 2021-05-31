@@ -5,10 +5,10 @@ import java.awt.*;
 import java.io.File;
 
 public class ImageWidgetTest {
-    public static void main(String [] args){
+    public static void main(String[] args) {
         JFrame jFrame = new JFrame();
         JDesktopPane jDesktopPane = new JDesktopPane();
-        jDesktopPane.setSize(new Dimension(500,500));
+        jDesktopPane.setSize(new Dimension(500, 500));
         JPanel jPanel = new JPanel();
         NotesWidget notesWidget = new NotesWidget(new File("test/App/Multicenter/Widget/test.md"));
         jFrame.add(jPanel);

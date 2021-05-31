@@ -3,7 +3,6 @@ package App.Multicenter.Space;
 import App.Multicenter.Buddy.XMLBuddy;
 import App.Multicenter.Preferences.Preferences;
 import App.Multicenter.Widget.NotesWidget;
-import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.FileNotFoundException;
@@ -17,12 +16,12 @@ public class TestPersonalSpace {
     public void testeo() throws FileNotFoundException {
         Preferences.loadPreferences();
 
-        PersonalSpace ps = new PersonalSpace("Test",Preferences.getSpacesFolder());
+        PersonalSpace ps = new PersonalSpace("Test", Preferences.getSpacesFolder());
 
         ps.addWidget(new NotesWidget(ps.getCarpeta()));
         ps.addWidget(new NotesWidget(ps.getCarpeta()));
 
-        PersonalSpace ps2 = new PersonalSpace("Test",Preferences.getSpacesFolder());
+        PersonalSpace ps2 = new PersonalSpace("Test", Preferences.getSpacesFolder());
         ps2.addWidget(new NotesWidget(ps2.getCarpeta()));
 
         Set<PersonalSpaceData> set = new HashSet<>();
@@ -33,10 +32,10 @@ public class TestPersonalSpace {
 
         XMLBuddy<Set<PersonalSpaceData>> xml = new XMLBuddy<>();
 
-        xml.saveToFile(Preferences.getSpacesSaveFile(),set);
+        xml.saveToFile(Preferences.getSpacesSaveFile(), set);
 
 
-        Set<PersonalSpaceData> personalSpaceData =xml.readFromFile(Preferences.getSpacesSaveFile());
+        Set<PersonalSpaceData> personalSpaceData = xml.readFromFile(Preferences.getSpacesSaveFile());
 
         Set<PersonalSpace> nuevo = personalSpaceData.stream().map(PersonalSpace::loadPersonalSpaces).collect(Collectors.toSet());
         System.out.println(nuevo);

@@ -10,7 +10,7 @@ public class ThemeManagerTest {
     JFrame jFrame = new JFrame();
 
     @Before
-    public void loadGUI(){
+    public void loadGUI() {
         jFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         JButton jButton = new JButton();
         JCheckBox jCheckBox = new JCheckBox();
@@ -18,8 +18,8 @@ public class ThemeManagerTest {
         jFrame.add(jButton);
         jFrame.add(jCheckBox);
         jFrame.add(jLabel);
-        jButton.setSize(new Dimension(100,100));
-        jFrame.setSize(300,300);
+        jButton.setSize(new Dimension(100, 100));
+        jFrame.setSize(300, 300);
         jFrame.setVisible(true);
     }
 

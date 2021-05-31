@@ -10,19 +10,18 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
-public class YoutubeWidget extends AbstractWidget{
-    private Image thumbnail = null;
+public class YoutubeWidget extends AbstractWidget {
+    private final Image thumbnail = null;
     private String title;
 
-    protected YoutubeWidget(){
+    protected YoutubeWidget() {
 
     }
 
-    public YoutubeWidget(String url){
+    public YoutubeWidget(String url) {
         HttpResponse<String> response = Unirest.get("https://www.youtube.com/oembed?url=" + url + "&format=json").header("Accept", "application/json").asString();
         Gson g = new Gson();
     }
-
 
 
     @Override
