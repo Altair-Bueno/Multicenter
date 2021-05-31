@@ -2,7 +2,11 @@ package App.Multicenter.Widget;
 
 import App.Multicenter.Space.SearchedString;
 import App.Multicenter.Widget.Data.WidgetData;
+import kong.unirest.Unirest;
 
+import javax.swing.*;
+import javax.swing.border.Border;
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.SortedSet;
@@ -68,7 +72,6 @@ public class EmbeddedWidget extends AbstractWidget {
 
 
     @Override
-    public void close() throws IOException {
+    public void close() throws IOException {}
 
-    }
 }
