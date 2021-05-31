@@ -8,11 +8,14 @@ import com.google.gson.Gson;
 import kong.unirest.HttpResponse;
 import kong.unirest.Unirest;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,7 +34,7 @@ public class MovieWidget extends AbstractWidget {
     private final JButton busc = new JButton();
     private final JTextField errorMessage = new JTextField();
     private final JEditorPane Editor = new JEditorPane();
-    private final JPanel Panel = new JPanel();
+    private JPanel Panel = new JPanel();
     private String title;
     private Double rating;
     private String URLImage;
@@ -43,7 +46,21 @@ public class MovieWidget extends AbstractWidget {
     }
 
     public MovieWidget(){
+        Editor.setEditable(false);
         super.add(Editor);
+    }
+
+    public String getURLImage() {
+        return URLImage;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+
+    public Double getRating() {
+        return rating;
     }
 
     public void showErrorPopUp(String text){
@@ -111,21 +128,13 @@ public class MovieWidget extends AbstractWidget {
                 Film f = gson.fromJson(response2.getBody(), Film.class);
                 this.rating = f.getRating();
                 this.title = f.getTitle();
+                this.URLImage = f.getPoster();
             } catch (NumberFormatException e){
                 this.rating = 0.0;
                 this.title = movie.getTitle();
             }
 
         }
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-
-    public Double getRating() {
-        return rating;
     }
 
     @Override
@@ -155,17 +164,32 @@ public class MovieWidget extends AbstractWidget {
                 setView();
             } catch(IllegalArgumentException e) {
                 showErrorPopUp("Película no encontrada en la base de datos");
+            } catch (IOException e) {
+                showErrorPopUp("La información no se ha recibido correctamente");
             }
         }
     }
 
-    public void setView(){
-        Panel.setSize(500, 200);
+    public void setView() throws IOException {
+        Panel = new JPanel(); // Delete previous panel versions
+        Panel.setLayout(new GridLayout(1, 1));
+
+        Image im = ImageIO.read(new URL(getURLImage()));
+        im = im.getScaledInstance(im.getWidth(null) / 10, im.getHeight(null) / 10, Image.SCALE_SMOOTH);
+        JLabel poster = new JLabel();
+        poster.setIcon(new ImageIcon(im));
+        poster.setText(this.getTitle() + " Valoración: " + this.getRating());
+        poster.setVerticalTextPosition(JLabel.BOTTOM);
+        poster.setHorizontalTextPosition(JLabel.CENTER);
+
         JTextPane titleandrating = new JTextPane();
+
         titleandrating.setEditable(false);
         titleandrating.setText(this.getTitle() + " Valoración: " + this.getRating());
+        titleandrating.setPreferredSize(new Dimension(super.getPreferredSize().height, 10));
 
-        Panel.add(titleandrating);
+        //Panel.add(titleandrating, BorderLayout.WEST);
+        Panel.add(poster);
         super.remove(Editor);
         super.add(Panel);
     }
@@ -188,6 +212,17 @@ public class MovieWidget extends AbstractWidget {
     private class Film{
         String title;
         Double rating;
+
+        public String getPoster() {
+            return poster;
+        }
+
+        public void setPoster(String poster) {
+            this.poster = poster;
+        }
+
+        String poster;
+
 
         public void setTitle(String title) {
             this.title = title;
