@@ -1,6 +1,7 @@
 package App.Multicenter.Widget;
 
 import App.Multicenter.Space.SearchedString;
+import App.Multicenter.Widget.Data.ImageWidgetData;
 import App.Multicenter.Widget.Data.NotesWidgetData;
 import App.Multicenter.Widget.Data.WidgetData;
 
@@ -25,8 +26,9 @@ public interface Widget {
      */
     static Widget instanciateWidgetsFromData(WidgetData wd) {
         // TODO No todos los widgets están listos para ser instanciados
+        // Patrón de factoría abstracta :D
         Widget w = null;
-        switch (wd.classname) {
+        switch (wd.getClass().getName()) {
             case NOTES:
                 w = new NotesWidget((NotesWidgetData) wd);
                 break;
@@ -35,6 +37,7 @@ public interface Widget {
             case EMBEDDED:
                 break;
             case IMAGE:
+                w = new ImageWidget((ImageWidgetData) wd);
                 break;
         }
         return w;

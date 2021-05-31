@@ -31,7 +31,6 @@ public class NotesWidget extends AbstractWidget {
     private final HtmlRenderer renderer = HtmlRenderer.builder().build();
     private final JEditorPane jEditorPane = new JEditorPane();
     private File markdownFile;
-    private boolean edit = false;
 
     protected NotesWidget(NotesWidgetData nwd) {
         super(nwd);

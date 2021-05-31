@@ -20,6 +20,8 @@ public abstract class AbstractWidget extends JInternalFrame
     // Variables de clase
     protected String id;
 
+    protected boolean edit = false;
+
     // Constructores
     protected AbstractWidget() {
     }
