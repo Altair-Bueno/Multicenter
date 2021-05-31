@@ -9,7 +9,8 @@ import java.util.List;
 
 public class MovieWidget {
     private String title;
-    private Double Rating;
+    private Double rating;
+    // Si el rating es "0.0", es porque la película está en la base de datos pero no tiene rating (No ha salido aún, por ejemplo)
 
     protected MovieWidget(String title){
         // Búsqueda de title en la DB
@@ -35,11 +36,17 @@ public class MovieWidget {
                     .header("x-rapidapi-key", "abd2447dc9msh86d9476225f947bp1e9a90jsn1e5f6f17f5b1")
                     .header("x-rapidapi-host", "imdb-internet-movie-database-unofficial.p.rapidapi.com")
                     .asString();
+            try{
+                Film f = gson.fromJson(response2.getBody(), Film.class);
+                this.rating = f.getRating();
+                this.title = f.getTitle();
+            } catch (NumberFormatException e){
+                this.rating = 0.0;
+                this.title = movie.getTitle();
+            }
 
-            Film f = gson.fromJson(response2.getBody(), Film.class);
 
-            Rating = f.getRating();
-            this.title = f.getTitle();
+
 
         }
 
@@ -51,7 +58,7 @@ public class MovieWidget {
 
 
     public Double getRating() {
-        return Rating;
+        return rating;
     }
 
     // AUX CLASSES
