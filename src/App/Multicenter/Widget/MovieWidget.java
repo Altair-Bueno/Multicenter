@@ -1,9 +1,16 @@
 package App.Multicenter.Widget;
 
+import App.Multicenter.Space.RandomNameGenerator;
+import App.Multicenter.Space.SearchedString;
+import App.Multicenter.Widget.Data.MovieWidgetData;
+import App.Multicenter.Widget.Data.WidgetData;
 import com.google.gson.Gson;
 import kong.unirest.HttpResponse;
 import kong.unirest.Unirest;
 
+import javax.swing.*;
+import java.awt.*;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,12 +23,55 @@ import java.util.List;
  * widget.
  *
  */
-public class MovieWidget {
+public class MovieWidget extends AbstractWidget {
+
+    private final JPanel jPanel = new JPanel();
+    private final JButton busc = new JButton();
+    private final JTextField errorMessage = new JTextField();
     private String title;
     private Double rating;
+    private String URLImage;
     // Si el rating es "0.0", es porque la película está en la base de datos pero no tiene rating (No ha salido aún, por ejemplo)
 
-    protected MovieWidget(String title){
+    protected MovieWidget(MovieWidgetData mwd){
+        super(mwd);
+        super.add(jPanel);
+    }
+
+    public MovieWidget(String title){
+
+        try{
+            searchandSet(title);
+        } catch(IllegalArgumentException e) {
+            showErrorPopUp("Película no encontrada en la base de datos");
+        }
+
+    }
+
+    public void showErrorPopUp(String text){
+        JPanel panelt = new JPanel();
+        JPanel panelb = new JPanel();
+
+        errorMessage.setText(text);
+        errorMessage.setHorizontalAlignment(0);
+        errorMessage.setEditable(false);
+        errorMessage.setForeground(Color.RED);
+        errorMessage.setFont(errorMessage.getFont().deriveFont(Font.BOLD, 14f)); // Bold
+        errorMessage.setOpaque(false);
+
+        busc.setText("Buscar de nuevo");
+        busc.setPreferredSize(new Dimension(100,20));
+        panelt.setLayout(new GridLayout(1,1));
+        panelb.setLayout(new GridLayout(1,1));
+        panelt.add(errorMessage);
+        panelb.add(busc);
+
+
+        super.add(panelt);
+        super.add(panelb);
+    }
+
+    public void searchandSet(String title) throws IllegalArgumentException{
         // Búsqueda de title en la DB
 
         String searchUrl = "https://imdb-internet-movie-database-unofficial.p.rapidapi.com/search/" + title;
@@ -36,6 +86,10 @@ public class MovieWidget {
         if(sr.getTitles().size() == 0){
             throw new IllegalArgumentException("Not found similar titles");
         }else{
+            RandomNameGenerator r = new RandomNameGenerator();
+
+            super.add(jPanel);
+
             String result = gson.toJson(gson.fromJson(response.getBody(), SearchResult.class).getTitles().get(0));
             SearchedTitle movie = gson.fromJson(result, SearchedTitle.class);
 
@@ -55,7 +109,6 @@ public class MovieWidget {
             }
 
         }
-
     }
 
     public String getTitle() {
@@ -65,6 +118,39 @@ public class MovieWidget {
 
     public Double getRating() {
         return rating;
+    }
+
+    @Override
+    public WidgetData getWidgetsDataInstance() {
+        MovieWidgetData mwd = new MovieWidgetData();
+        mwd.classname = EMBEDDEDMOVIE;
+        return super.getWidgetsDataInstance(mwd);
+    }
+
+    @Override
+    public SearchedString<Widget> search(String cadena) {
+        return null;
+    }
+
+    @Override
+    public void toggleEditMode() {
+        edit = !edit;
+        if(edit){
+
+        }
+    }
+
+    @Override
+    public void deleteWidget() {
+        id = null;
+    }
+
+    @Override
+    public void moveFilesToFolder(File folder) throws IOException {
+    }
+
+    @Override
+    public void close() throws IOException {
     }
 
     // AUX CLASSES

@@ -143,6 +143,7 @@ public class NotesWidget extends AbstractWidget {
         FileOutputStream out = new FileOutputStream(markdownFile);
         Writer writer = new OutputStreamWriter(out);
         jEditorPane.write(writer);
+        writer.close();
     }
 
     /**

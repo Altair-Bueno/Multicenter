@@ -2,6 +2,7 @@ package App.Multicenter.Widget;
 
 import App.Multicenter.Space.SearchedString;
 import App.Multicenter.Widget.Data.ImageWidgetData;
+import App.Multicenter.Widget.Data.MovieWidgetData;
 import App.Multicenter.Widget.Data.NotesWidgetData;
 import App.Multicenter.Widget.Data.WidgetData;
 
@@ -14,7 +15,8 @@ public interface Widget {
 
     String NOTES = "NotesWidget";
     String COUNTDOWN = "CountdownWidget";
-    String EMBEDDED = "EmbeddedWidget";
+    String EMBEDDEDMOVIE = "MovieWidget";
+    String EMBEDDEDYT = "YoutubeWidget";
     String IMAGE = "ImageWidget";
 
     /**
@@ -34,7 +36,10 @@ public interface Widget {
                 break;
             case COUNTDOWN:
                 break;
-            case EMBEDDED:
+            case EMBEDDEDMOVIE:
+                w = new MovieWidget((MovieWidgetData) wd);
+                break;
+            case EMBEDDEDYT:
                 break;
             case IMAGE:
                 w = new ImageWidget((ImageWidgetData) wd);
