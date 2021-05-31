@@ -12,10 +12,24 @@ public class EmbeddedWidget extends AbstractWidget {
     String URL;
     String nombre;
 
+    /**
+     * Crea un Widget del tipo Embedded, siendo este capaz de mostrar contenido
+     * de cualquier tipo de página web dentro del proio widget.
+     * @param url
+     * @param nombreRecurso
+     */
+
     public EmbeddedWidget(String url, String nombreRecurso) {
         URL = url;
         this.nombre = nombreRecurso;
     }
+
+    /**
+     * Método search del Embedded. Comparará la cadena recibida por parámetro
+     * con todas las partes separadas de la URL obtenida en el constructor.
+     * @param cadena La cadena a buscar.
+     * @return
+     */
 
     public SearchedString<Widget> search(String cadena) {
         SortedSet<SearchedString<Widget>> res = new TreeSet<>();
