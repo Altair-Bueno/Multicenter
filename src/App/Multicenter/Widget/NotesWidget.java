@@ -44,7 +44,7 @@ public class NotesWidget extends AbstractWidget {
         }
     }
 
-    public NotesWidget(int layer, File spacesFolder) {
+    public NotesWidget(File spacesFolder) {
         // TODO Constructor
         // Crea una clase vacía de cero
         // this(randomgen,layer)...
@@ -54,7 +54,6 @@ public class NotesWidget extends AbstractWidget {
         setAlignmentX(0);
         setAlignmentY(0);
         setSize(STANDARD_DIMENSION);
-        setLayer(layer);
         markdownFile = new File(spacesFolder, super.id);
         super.add(jEditorPane);
         try {

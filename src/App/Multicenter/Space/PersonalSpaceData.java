@@ -3,6 +3,7 @@ package App.Multicenter.Space;
 import App.Multicenter.Widget.Data.WidgetData;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -14,7 +15,7 @@ import java.util.Set;
  * @see PersonalSpace#loadPersonalSpaces(PersonalSpaceData)
  */
 public class PersonalSpaceData implements Serializable {
-    public Set<WidgetData> widgetData;
+    public List<WidgetData> widgetData;
     public String id;
     public String folderPath;
     public String personalSpaceName;

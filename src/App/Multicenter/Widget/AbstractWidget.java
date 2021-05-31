@@ -49,7 +49,7 @@ public abstract class AbstractWidget extends JInternalFrame
 
     @Override
     public int compareTo(AbstractWidget o) {
-        return this.getLayer() - o.getLayer();
+        return id.compareTo(o.id);
     }
 
     protected WidgetData getWidgetsDataInstance(WidgetData wd) {

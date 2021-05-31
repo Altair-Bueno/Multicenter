@@ -10,7 +10,7 @@ public class AppWindow extends JFrame {
 
     static {
         try {
-            psDefault = new JEditorPane(ClassLoader.getSystemResource("App/Multicenter/PlaceholderFiles/PersonalSpacePlaceholder.html"));
+            psDefault = new JEditorPane(ClassLoader.getSystemResource("App/Multicenter/Placeholder/Files/PersonalSpacePlaceholder.html"));
         } catch (IOException e) {
             e.printStackTrace();
         }

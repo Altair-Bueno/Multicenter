@@ -89,7 +89,7 @@ public class Board extends JDesktopPane {
     private class addNotesListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            NotesWidget notes = new NotesWidget(numWidgets, personalSpace.getCarpeta());
+            NotesWidget notes = new NotesWidget(personalSpace.getCarpeta());
             notes.setVisible(true);
             notes.setBounds(lastPos.x, lastPos.y, 250, 250);
             addWidget(notes);
