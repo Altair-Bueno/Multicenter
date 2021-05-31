@@ -1,10 +1,7 @@
 package App.Multicenter.GUI;
 
 import App.Multicenter.Space.PersonalSpace;
-import App.Multicenter.Widget.AbstractWidget;
-import App.Multicenter.Widget.ImageWidget;
-import App.Multicenter.Widget.NotesWidget;
-import App.Multicenter.Widget.Widget;
+import App.Multicenter.Widget.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -36,10 +33,12 @@ public class Board extends JDesktopPane {
         JMenu addWidget = new JMenu("Añadir Widget");
         JMenuItem noteWidget = new JMenuItem("Nota de texto");
         JMenuItem imageWidget = new JMenuItem("Nota de imagen");
+        JMenuItem filmWidget = new JMenuItem("Nota de película");
 
         pm.add(addWidget);
         addWidget.add(noteWidget);
         addWidget.add(imageWidget);
+        addWidget.add(filmWidget);
         addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
                 if (e.getButton() == MouseEvent.BUTTON3) {
@@ -51,6 +50,7 @@ public class Board extends JDesktopPane {
         });
         noteWidget.addActionListener(new addNotesListener());
         imageWidget.addActionListener(new addImageWidgetListener());
+        filmWidget.addActionListener(new addfilmWidgetListener());
         setVisible(true);
     }
 
@@ -94,7 +94,10 @@ public class Board extends JDesktopPane {
         public void actionPerformed(ActionEvent e) {
             NotesWidget notes = new NotesWidget(personalSpace.getCarpeta());
             notes.setVisible(true);
-            notes.setBounds(lastPos.x, lastPos.y, 250, 250);
+            notes.setLocation(lastPos.x,lastPos.y);
+            notes.setResizable(true);
+            notes.setSize(250,250);
+            //notes.setBounds(lastPos.x, lastPos.y, 250, 250);
             addWidget(notes);
         }
     }
@@ -105,8 +108,24 @@ public class Board extends JDesktopPane {
         public void actionPerformed(ActionEvent e) {
             ImageWidget imageWidget = new ImageWidget(personalSpace.getCarpeta());
             imageWidget.setVisible(true);
-            imageWidget.setBounds(lastPos.x, lastPos.y, 250, 250);
+            imageWidget.setLocation(lastPos.x,lastPos.y);
+            imageWidget.setResizable(true);
+            imageWidget.setSize(250,250);
+            //imageWidget.setBounds(lastPos.x, lastPos.y, 250, 250);
             addWidget(imageWidget);
+        }
+    }
+
+    private class addfilmWidgetListener implements ActionListener{
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            MovieWidget movieWidget = new MovieWidget(); // TODO Constructor no terminado
+            movieWidget.setVisible(true);
+            movieWidget.setLocation(lastPos.x,lastPos.y);
+            movieWidget.setResizable(true);
+            movieWidget.setSize(250,250);
+            addWidget(movieWidget);
         }
     }
 }
