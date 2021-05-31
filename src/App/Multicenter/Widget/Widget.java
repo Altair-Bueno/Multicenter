@@ -30,7 +30,7 @@ public interface Widget {
         // TODO No todos los widgets están listos para ser instanciados
         // Patrón de factoría abstracta :D
         Widget w = null;
-        switch (wd.getClass().getName()) {
+        switch (wd.classname) {
             case NOTES:
                 w = new NotesWidget((NotesWidgetData) wd);
                 break;

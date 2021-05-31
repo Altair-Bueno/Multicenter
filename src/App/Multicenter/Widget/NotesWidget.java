@@ -72,6 +72,11 @@ public class NotesWidget extends AbstractWidget {
         setAlignmentY(0);
         setSize(STANDARD_DIMENSION);
         markdownFile = new File(spacesFolder, super.id);
+        try {
+            markdownFile.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         super.add(jEditorPane);
         try {
             renderMardownMode();
