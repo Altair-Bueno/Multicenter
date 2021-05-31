@@ -17,12 +17,15 @@ import java.util.stream.Collectors;
 
 public class ImageWidget extends AbstractWidget {
 
+
     private File imagesFolder; // Spacesfolder > Imagesfolder > Imagenes
     private List<File> img; // Las imagenes mantienen el nombre original
     private List<String> footer;
 
     private int carrouselLocation = 0;
     private JPanel contentPanel = new JPanel();
+
+
 
     protected ImageWidget (ImageWidgetData iwd){
         super(iwd);

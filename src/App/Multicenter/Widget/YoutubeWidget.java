@@ -10,6 +10,12 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * Youtube Widget, en su parte de lógica accede a la URL de un vídeo de youtube
+ * y obtiene su contenido en formato JSON, posteriormente es tratado y parseado para
+ * poder obtener datos tales como el título del vídeo, su miniatura, su autor o su fecha de creación.
+ */
+
 public class YoutubeWidget extends AbstractWidget{
     private Image thumbnail = null;
     private String title;

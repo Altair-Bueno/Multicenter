@@ -14,6 +14,10 @@ import javax.swing.event.HyperlinkListener;
 import java.awt.*;
 import java.io.*;
 
+/**
+ * Widget para escribir notas, basado en Markdown.
+ */
+
 public class NotesWidget extends AbstractWidget {
 
     private final HyperlinkListener hyperlinkListener = a -> {
@@ -32,6 +36,13 @@ public class NotesWidget extends AbstractWidget {
     private final JEditorPane jEditorPane = new JEditorPane();
     private File markdownFile;
 
+    /**
+     * Constructor de la clase que recibe el parámetro
+     * @param nwd
+     * del tipo NotesWidgetData, que a su vez contiene un String
+     * del texto que se quiere escribir en el propio widget.
+     */
+
     protected NotesWidget(NotesWidgetData nwd) {
         super(nwd);
         markdownFile = new File(nwd.markdownFile);
@@ -42,6 +53,13 @@ public class NotesWidget extends AbstractWidget {
             System.err.println(e.getMessage());
         }
     }
+
+    /**
+     * Constructor de la clase, recibe como parámetro el archivo
+     * @param spacesFolder
+     * Y se encarga tanto de setear la gui, como de
+     * renderizar el texto a Markdown.
+     */
 
     public NotesWidget(File spacesFolder) {
         // TODO Constructor
@@ -63,10 +81,22 @@ public class NotesWidget extends AbstractWidget {
         //setVisible(true);
     }
 
+    /**
+     * Método buscar:
+     * @param cadena La cadena a buscar.
+     * @return la cadena que más se parezca basada en el ratio a la que se le ha pasado por parámetro
+     */
+
     public SearchedString<Widget> search(String cadena) {
         if (edit) throw new IllegalStateException("Edit mode on. Please disable edit view first");
         return super.bestSearchedString(jEditorPane.getText(), cadena, this);
     }
+
+    /**
+     * Activar o desactivar el modo edición dentro del Widget.
+     * Si no está activo, no se podrá editar el texto que contiene.
+     * Si está activo, se podrá editar.
+     */
 
     public void toggleEditMode() {
         edit = !edit;
@@ -104,12 +134,22 @@ public class NotesWidget extends AbstractWidget {
         return super.getWidgetsDataInstance(nwd);
     }
 
+    /**
+     * Guarda el markdownFile en un archivo.
+     * @throws IOException
+     */
 
     private void saveIntoFile() throws IOException {
         FileOutputStream out = new FileOutputStream(markdownFile);
         Writer writer = new OutputStreamWriter(out);
         jEditorPane.write(writer);
     }
+
+    /**
+     * Método que primero, deja el widget en non-editable mode.
+     * Y que posterioremente renderiza el texto plano a Markdown.
+     * @throws IOException
+     */
 
     private void renderMardownMode() throws IOException {
         jEditorPane.setEditable(false);
@@ -121,6 +161,11 @@ public class NotesWidget extends AbstractWidget {
         jEditorPane.addHyperlinkListener(hyperlinkListener);
         r.close();
     }
+
+    /**
+     * Modo editor, para añadir más texto plano para un posterior renderizado.
+     * @throws IOException
+     */
 
     private void editorMode() throws IOException {
         jEditorPane.setEditable(true);
