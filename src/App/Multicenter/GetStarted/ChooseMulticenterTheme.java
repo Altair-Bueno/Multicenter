@@ -6,12 +6,10 @@ import javax.swing.*;
 import java.awt.*;
 
 public class ChooseMulticenterTheme extends JPanel {
+    private final ButtonGroup buttonGroup = new ButtonGroup();
     private JPanel panel1;
     private JPanel buttons;
     private JLabel label;
-
-
-    private final ButtonGroup buttonGroup = new ButtonGroup();
 
     public ChooseMulticenterTheme(JFrame parent) {
         // TODO Gui looks horrible

@@ -69,6 +69,6 @@ public class EmbeddedWidget extends AbstractWidget {
 
     @Override
     public void close() throws IOException {
-
     }
+
 }

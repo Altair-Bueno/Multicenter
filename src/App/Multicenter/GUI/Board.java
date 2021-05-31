@@ -99,13 +99,13 @@ public class Board extends JDesktopPane {
         }
     }
 
-    private class addImageWidgetListener implements ActionListener{
+    private class addImageWidgetListener implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
             ImageWidget imageWidget = new ImageWidget(personalSpace.getCarpeta());
             imageWidget.setVisible(true);
-            imageWidget.setBounds(lastPos.x, lastPos.y,250,250);
+            imageWidget.setBounds(lastPos.x, lastPos.y, 250, 250);
             addWidget(imageWidget);
         }
     }

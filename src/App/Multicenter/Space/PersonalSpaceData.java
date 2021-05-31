@@ -4,7 +4,6 @@ import App.Multicenter.Widget.Data.WidgetData;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Clase serializable intermedia utilizada para almacenar

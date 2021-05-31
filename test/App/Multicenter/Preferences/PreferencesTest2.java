@@ -12,7 +12,7 @@ public class PreferencesTest2 {
         System.out.println("IDIOMA CARGADO: " + idioma);
 
 
-        if(idioma.equals("es-ES")){
+        if (idioma.equals("es-ES")) {
             Preferences.setLanguage("en");
             System.out.println("CHANGED LANGUAGE TO ENGLISH: " + Preferences.getPropObject().toString());
         } else {

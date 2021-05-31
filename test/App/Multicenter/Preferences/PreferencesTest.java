@@ -10,13 +10,13 @@ import java.io.File;
 
 public class PreferencesTest {
     @Test
-    public void def(){
+    public void def() {
         Preferences.loadPreferences();
         Preferences.setLanguage(LanguageManager.DEFAULT);
-        Assert.assertEquals(LanguageManager.DEFAULT,Preferences.getLanguage());
-        Assert.assertEquals(ThemeManager.LIGHT,Preferences.getTheme());
-        Assert.assertEquals(new File(System.getProperty("user.home"), "Multicenter Files"),Preferences.getSpacesFolder());
-        Assert.assertEquals(new Dimension(800,800),Preferences.getWindowsSize());
+        Assert.assertEquals(LanguageManager.DEFAULT, Preferences.getLanguage());
+        Assert.assertEquals(ThemeManager.LIGHT, Preferences.getTheme());
+        Assert.assertEquals(new File(System.getProperty("user.home"), "Multicenter Files"), Preferences.getSpacesFolder());
+        Assert.assertEquals(new Dimension(800, 800), Preferences.getWindowsSize());
         Preferences.save();
     }
 }
