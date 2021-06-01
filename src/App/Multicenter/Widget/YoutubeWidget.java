@@ -44,7 +44,8 @@ public class YoutubeWidget extends AbstractWidget {
     protected YoutubeWidget(YoutubeWidgetData ywd) {
         super(ywd);
         super.setFrameIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(ClassLoader.getSystemResource("App/Multicenter/Icons/WidgetIcons/youtube.png"))));
-        super.setSize(new Dimension(550,550));
+        super.setSize(new Dimension(440,400));
+        pack();
         super.setTitle("YouTube");
         super.setResizable(true);
         this.video_url = ywd.video_url;
@@ -64,7 +65,7 @@ public class YoutubeWidget extends AbstractWidget {
 
     public YoutubeWidget() {
         super.setFrameIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(ClassLoader.getSystemResource("App/Multicenter/Icons/WidgetIcons/youtube.png"))));
-        super.setSize(new Dimension(550,550));
+        super.setSize(new Dimension(440,400));
         super.setTitle("YouTube");
         super.repaint();
         Editor.setEditable(false);
@@ -224,27 +225,27 @@ public class YoutubeWidget extends AbstractWidget {
         //System.out.println("W: " + w + " H: " + h);R
 
         //im = im.getScaledInstance(im.getWidth(null) / 10, im.getHeight(null) / 10, Image.SCALE_SMOOTH);
-        im = im.getScaledInstance(480, 360, Image.SCALE_SMOOTH);
+        im = im.getScaledInstance(350, 195, Image.SCALE_SMOOTH);
         JLabel poster = new JLabel();
         poster.setIcon(new ImageIcon(im));
         poster.setText(
                 "<html>" +
                         "<head>" +
                         "<style>" +
-                        "h2 {text-align: center;} span {color: yellow;}" +
+                        "h2 {text-align: center;} span {color: yellow;} h1 {text-align: center}" +
                         "</style>" +
                         "</head>" +
                         "<h1>" +
-                        "&nbsp;&nbsp;&nbsp;&nbsp;" + this.getTitle() +
+                            this.getTitle() +
                         "</h1>" +
                         "<h2>" +
-                        "&nbsp;&nbsp;&nbsp;&nbsp;" + "by: " +  this.getAuthor_name() +
+                            "Canal: " +  this.getAuthor_name() +
                         "</h2>" +
                 "</html>"
         );
         poster.setVerticalTextPosition(JLabel.TOP);
         poster.setHorizontalTextPosition(JLabel.CENTER);
-        poster.setIconTextGap(30);
+        poster.setIconTextGap(15);
 
         Border border = poster.getBorder();
         Border margin = new EmptyBorder(10,30,20,10);

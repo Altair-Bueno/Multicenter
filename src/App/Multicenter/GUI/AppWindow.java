@@ -129,8 +129,6 @@ public class AppWindow extends JFrame {
         ps = newPs;
         add(ps);
         SwingUtilities.updateComponentTreeUI(this);
-        //ps.header.updateUI();
-        //ps.board.updateUI();
     }
 
     public void setDefaultPersonalSpace() {
