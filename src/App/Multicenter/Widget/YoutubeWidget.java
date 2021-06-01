@@ -196,6 +196,9 @@ public class YoutubeWidget extends AbstractWidget {
             Editor.setEditable(false);
             try{
                 if(search.isBlank()){
+                    this.video_url = null;
+                    this.title = null;
+                    this.thumbnail_url = null;
                     showErrorPopUp(BLANKINPUTERROR);
                 } else{
                     loading();

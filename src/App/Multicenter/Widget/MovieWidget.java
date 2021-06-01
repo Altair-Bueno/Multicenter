@@ -53,7 +53,7 @@ public class MovieWidget extends AbstractWidget {
     private JLabel loadingIconText;
 
     // Fields
-    private String title;
+    private String movietitle;
     private Double rating;
     private String URLImage;
     private String filmid;
@@ -97,7 +97,7 @@ public class MovieWidget extends AbstractWidget {
     }
 
     public synchronized String getMovieTitle() {
-        return title;
+        return movietitle;
     }
 
     public synchronized String getFilmId() {
@@ -178,7 +178,7 @@ public class MovieWidget extends AbstractWidget {
         try{
             Film f = gson.fromJson(response2.getBody(), Film.class);
             this.rating = f.getRating();
-            this.title = f.getTitle().substring(0,f.getTitle().length()-1);
+            this.movietitle = f.getTitle().substring(0,f.getTitle().length()-1);
             this.URLImage = f.getPoster();
         } catch (NumberFormatException ignored){ // already set by default on calling methods
         }
@@ -213,6 +213,10 @@ public class MovieWidget extends AbstractWidget {
             Thread thread  = new Thread(()->{
                 try {
                     if(search.isBlank()){
+                        this.filmid = null;
+                        this.movietitle = null;
+                        this.rating = null;
+                        this.URLImage = null;
                         showErrorPopUp(BLANKINPUTERROR);
                     }else {
                         loading();
