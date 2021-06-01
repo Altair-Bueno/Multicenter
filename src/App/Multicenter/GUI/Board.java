@@ -39,8 +39,8 @@ public class Board extends JDesktopPane {
         JPopupMenu pm = new JPopupMenu("tools");
         JMenu addWidget = new JMenu("Añadir Widget");
         JMenuItem noteWidget = new JMenuItem("Nota de texto");
-        JMenuItem imageWidget = new JMenuItem("Nota de imagen");
-        JMenuItem filmWidget = new JMenuItem("Nota de película");
+        JMenuItem imageWidget = new JMenuItem("Imagen(es)");
+        JMenuItem filmWidget = new JMenuItem("Pelicula");
 
         pm.add(addWidget);
         addWidget.add(noteWidget);

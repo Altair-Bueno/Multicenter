@@ -13,11 +13,13 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyledDocument;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,9 +37,11 @@ public class MovieWidget extends AbstractWidget {
 
     private final JPanel PanelError = new JPanel();
     private final JButton busc = new JButton();
-    private final JTextField errorMessage = new JTextField();
+    private final JTextPane errorMessage = new JTextPane();
     private final JEditorPane Editor = new JEditorPane();
     private JPanel Panel = new JPanel();
+    private JPanel loadingPanel = new JPanel();
+    private final JLabel loadingIconText = new JLabel();
     private String title;
     private Double rating;
     private String URLImage;
@@ -45,7 +49,15 @@ public class MovieWidget extends AbstractWidget {
 
     protected MovieWidget(MovieWidgetData mwd){
         super(mwd);
-        super.add(Editor);
+        this.rating = 0.0;
+        loading();
+        searchAndSetById(mwd.filmid);
+        try {
+            setView();
+        } catch (IOException e) {
+            Editor.setEditable(false);
+            super.add(Editor);
+        }
     }
 
     public MovieWidget(){
@@ -71,34 +83,46 @@ public class MovieWidget extends AbstractWidget {
         JPanel panelb = new JPanel();
 
         errorMessage.setText(text);
-        errorMessage.setHorizontalAlignment(0);
         errorMessage.setEditable(false);
         errorMessage.setForeground(Color.RED);
         errorMessage.setFont(errorMessage.getFont().deriveFont(Font.BOLD, 14f)); // Bold
         errorMessage.setOpaque(false);
+        errorMessage.setPreferredSize(new Dimension(super.getWidth()-10, super.getHeight()-25));
+        StyledDocument doc = errorMessage.getStyledDocument();
+        SimpleAttributeSet center = new SimpleAttributeSet();
+        StyleConstants.setAlignment(center, StyleConstants.ALIGN_CENTER);
+        doc.setParagraphAttributes(0, doc.getLength(), center, false);
+        errorMessage.setAlignmentX(JTextPane.CENTER_ALIGNMENT);
+        errorMessage.setAlignmentY(JTextPane.CENTER_ALIGNMENT);
+
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridwidth = GridBagConstraints.REMAINDER;
+        gbc.weightx = 1;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
 
         busc.setText("Buscar de nuevo");
-        busc.setPreferredSize(new Dimension(100,20));
+        busc.setPreferredSize(new Dimension(super.getWidth()-10, 20));
         busc.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 botonPulsado();
             }
         } );;
+
         panelt.add(errorMessage);
         panelb.add(busc);
 
-        PanelError.setLayout(new GridLayout(2,1));
-
-        PanelError.add(panelt);
+        PanelError.setLayout(new GridBagLayout());
+        PanelError.setPreferredSize(super.getPreferredSize());
+        PanelError.add(panelt, gbc);
         PanelError.add(panelb);
-        super.remove(Editor);
+        super.getContentPane().removeAll();
+        super.revalidate();
         super.add(PanelError);
+        //super.pack();
     }
 
     public void botonPulsado(){
-        Editor.setEditable(true);
-        super.remove(PanelError);
-        super.add(Editor);
+        toggleEditMode();
     }
 
     public void searchandSet(String title) throws IllegalArgumentException{
@@ -116,27 +140,31 @@ public class MovieWidget extends AbstractWidget {
         if(sr.getTitles().size() == 0){
             throw new IllegalArgumentException("Not found similar titles");
         }else{
-            RandomNameGenerator r = new RandomNameGenerator();
 
             String result = gson.toJson(gson.fromJson(response.getBody(), SearchResult.class).getTitles().get(0));
             SearchedTitle movie = gson.fromJson(result, SearchedTitle.class);
+            this.title = movie.title;
+            this.rating = 0.0;
 
-            // Coger rating con el id de la película
+            searchAndSetById(movie.getId());
 
-            HttpResponse<String> response2 = Unirest.get("https://imdb-internet-movie-database-unofficial.p.rapidapi.com/film/" + movie.getId())
-                    .header("x-rapidapi-key", "abd2447dc9msh86d9476225f947bp1e9a90jsn1e5f6f17f5b1")
-                    .header("x-rapidapi-host", "imdb-internet-movie-database-unofficial.p.rapidapi.com")
-                    .asString();
-            try{
-                Film f = gson.fromJson(response2.getBody(), Film.class);
-                this.rating = f.getRating();
-                this.title = f.getTitle();
-                this.URLImage = f.getPoster();
-            } catch (NumberFormatException e){
-                this.rating = 0.0;
-                this.title = movie.getTitle();
-            }
+        }
+    }
 
+    public void searchAndSetById(String id){
+        // Coger rating con el id de la película
+        Gson gson = new Gson();
+
+        HttpResponse<String> response2 = Unirest.get("https://imdb-internet-movie-database-unofficial.p.rapidapi.com/film/" + id)
+                .header("x-rapidapi-key", "abd2447dc9msh86d9476225f947bp1e9a90jsn1e5f6f17f5b1")
+                .header("x-rapidapi-host", "imdb-internet-movie-database-unofficial.p.rapidapi.com")
+                .asString();
+        try{
+            Film f = gson.fromJson(response2.getBody(), Film.class);
+            this.rating = f.getRating();
+            this.title = f.getTitle();
+            this.URLImage = f.getPoster();
+        } catch (NumberFormatException ignored){ // already set by default on calling methods
         }
     }
 
@@ -144,6 +172,7 @@ public class MovieWidget extends AbstractWidget {
     public WidgetData getWidgetsDataInstance() {
         MovieWidgetData mwd = new MovieWidgetData();
         mwd.classname = EMBEDDEDMOVIE;
+        mwd.filmid = this.getId();
         return super.getWidgetsDataInstance(mwd);
     }
 
@@ -157,11 +186,11 @@ public class MovieWidget extends AbstractWidget {
         edit = !edit;
         if(edit){
             Editor.setEditable(true);
-            super.remove(Panel);
             super.add(Editor);
         }else{
             String search = Editor.getText();
             Editor.setEditable(false);
+            loading();
             try{
                 searchandSet(search);
                 setView();
@@ -171,6 +200,20 @@ public class MovieWidget extends AbstractWidget {
                 showErrorPopUp("La información no se ha recibido correctamente");
             }
         }
+    }
+
+    public void loading(){
+        BoxLayout layoutMgr = new BoxLayout(loadingPanel, BoxLayout.PAGE_AXIS);
+        loadingPanel.setLayout(layoutMgr);
+
+        loadingIconText.setIcon(new ImageIcon(ClassLoader.getSystemResource("App/Multicenter/Gifs/loadingWheel.gif")));
+        loadingIconText.setText("Cargando...");
+
+        loadingPanel.add(loadingIconText);
+        super.getContentPane().removeAll();
+        super.validate();
+        super.add(loadingPanel);
+
     }
 
     public void setView() throws IOException {
@@ -186,11 +229,12 @@ public class MovieWidget extends AbstractWidget {
         poster.setHorizontalTextPosition(JLabel.CENTER);
 
         Border border = poster.getBorder();
-        Border margin = new EmptyBorder(10,40,10,10);
+        Border margin = new EmptyBorder(10,30,20,10);
 
         poster.setBorder(new CompoundBorder(border, margin));
         Panel.add(poster);
-        super.remove(Editor);
+        super.getContentPane().removeAll();
+        super.revalidate();
         super.add(Panel);
     }
 
