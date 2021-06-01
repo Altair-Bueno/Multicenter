@@ -28,8 +28,11 @@ public class Board extends JDesktopPane {
         List<Widget> widgetList = widgets.getWidgets();
 
         for (Widget w : widgets.getWidgets()) {
-            add((Component) w);
-            ((Component) w).setVisible(true);
+            AbstractWidget wAux = (AbstractWidget) w;
+            wAux.setDefaultCloseOperation(JInternalFrame.DO_NOTHING_ON_CLOSE);
+            wAux.addInternalFrameListener(new CloseWidgetListener(wAux, this));
+            add(wAux);
+            wAux.setVisible(true);
         }
         numWidgets = widgetList.size();
         setLayout(null);
@@ -71,44 +74,7 @@ public class Board extends JDesktopPane {
      */
     public void addWidget(AbstractWidget widget) {
         widget.setDefaultCloseOperation(JInternalFrame.DO_NOTHING_ON_CLOSE);
-        widget.addInternalFrameListener(new InternalFrameListener() {
-            @Override
-            public void internalFrameOpened(InternalFrameEvent e) {
-
-            }
-
-            @Override
-            public void internalFrameClosing(InternalFrameEvent e) {
-                System.out.println("ok");
-            }
-
-            @Override
-            public void internalFrameClosed(InternalFrameEvent e) {
-                System.out.println("ok");
-                System.out.println("ok");
-                deleteWidget(widget);
-            }
-
-            @Override
-            public void internalFrameIconified(InternalFrameEvent e) {
-
-            }
-
-            @Override
-            public void internalFrameDeiconified(InternalFrameEvent e) {
-
-            }
-
-            @Override
-            public void internalFrameActivated(InternalFrameEvent e) {
-
-            }
-
-            @Override
-            public void internalFrameDeactivated(InternalFrameEvent e) {
-
-            }
-        });
+        widget.addInternalFrameListener(new CloseWidgetListener(widget, this));
         personalSpace.addWidget(widget);
         add(widget);
         numWidgets++;

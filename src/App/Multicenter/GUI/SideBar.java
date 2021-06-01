@@ -50,7 +50,7 @@ public class SideBar extends JPanel {
 
         addButton.addActionListener(new AddSectionListener(this));
         delButton.addActionListener(new RemoveSectionListener(this));
-        editButton.addActionListener(new EditListener(this)); // TODO Should disable all buttons
+        editButton.addActionListener(new EditListener(this));
 
         setVisible(isShown);
     }
