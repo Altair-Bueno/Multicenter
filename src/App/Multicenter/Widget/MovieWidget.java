@@ -78,7 +78,7 @@ public class MovieWidget extends AbstractWidget {
         return URLImage;
     }
 
-    public String getTitle() {
+    public String getMovieTitle() {
         return title;
     }
 
@@ -134,6 +134,7 @@ public class MovieWidget extends AbstractWidget {
     }
 
     public void botonPulsado(){
+        super.remove(PanelError);
         toggleEditMode();
     }
 
@@ -245,15 +246,21 @@ public class MovieWidget extends AbstractWidget {
 
     public void setView() throws IOException {
         Panel = new JPanel(); // Delete previous panel versions
-        Panel.setLayout(new GridLayout(1, 1));
+        Panel.setLayout(new BorderLayout());
 
         Image im = ImageIO.read(new URL(getURLImage()));
-        im = im.getScaledInstance(im.getWidth(null) / 10, im.getHeight(null) / 10, Image.SCALE_SMOOTH);
+        int w = im.getWidth(null);
+        int h = im.getHeight(null);
+        System.out.println("W: " + w + " H: " + h);
+
+        //im = im.getScaledInstance(im.getWidth(null) / 10, im.getHeight(null) / 10, Image.SCALE_SMOOTH);
+        im = im.getScaledInstance(170, 250, Image.SCALE_SMOOTH);
         JLabel poster = new JLabel();
         poster.setIcon(new ImageIcon(im));
-        poster.setText(this.getTitle() + " Valoración: " + this.getRating());
-        poster.setVerticalTextPosition(JLabel.BOTTOM);
-        poster.setHorizontalTextPosition(JLabel.CENTER);
+        poster.setText("<html><head>" + "<style>h2 {text-align: center;} span {color: yellow;}</style>" + "</head><h2>" + this.getMovieTitle() + "</h2>" + "<h2><span>&#11088</span>Valoración: " + this.getRating() + "</h2></html>");
+        poster.setVerticalTextPosition(JLabel.CENTER);
+        poster.setHorizontalTextPosition(JLabel.LEFT);
+        poster.setIconTextGap(30);
 
         Border border = poster.getBorder();
         Border margin = new EmptyBorder(10,30,20,10);
@@ -279,14 +286,18 @@ public class MovieWidget extends AbstractWidget {
             }
         });
 
-        Panel.add(poster);
+        Panel.add(poster, BorderLayout.CENTER);
         super.getContentPane().removeAll();
         super.revalidate();
+        setSize(new Dimension(400, 350));
         super.add(Panel);
+        setTitle("Película - " + this.getMovieTitle());
+        repaint();
     }
 
     public void remView() {
         remove(Panel);
+        setTitle("Película");
     }
 
     @Override
