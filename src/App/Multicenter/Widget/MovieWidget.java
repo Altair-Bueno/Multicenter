@@ -187,6 +187,7 @@ public class MovieWidget extends AbstractWidget {
         if(edit){
             Editor.setEditable(true);
             super.add(Editor);
+            remView();
         }else{
             String search = Editor.getText();
             Editor.setEditable(false);
@@ -200,6 +201,7 @@ public class MovieWidget extends AbstractWidget {
                 showErrorPopUp("La información no se ha recibido correctamente");
             }
         }
+        updateUI();
     }
 
     public void loading(){
@@ -236,6 +238,10 @@ public class MovieWidget extends AbstractWidget {
         super.getContentPane().removeAll();
         super.revalidate();
         super.add(Panel);
+    }
+
+    public void remView() {
+        remove(Panel);
     }
 
     @Override

@@ -33,7 +33,6 @@ public class Board extends JDesktopPane {
             ((Component) w).setVisible(true);
         }
         numWidgets = widgetList.size();
-        //widgetList = new LinkedList<>();
         setLayout(null);
 
         JPopupMenu pm = new JPopupMenu("tools");
@@ -69,8 +68,6 @@ public class Board extends JDesktopPane {
      * @param widget Widget
      */
     public void addWidget(AbstractWidget widget) {
-        //JOptionPane.showMessageDialog(null,"No puedes añadir widgets a la ventana de inicio");
-        //widgetList.add(widget);
         personalSpace.addWidget(widget);
         add(widget);
         numWidgets++;

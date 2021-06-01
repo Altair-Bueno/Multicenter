@@ -97,6 +97,4 @@ public class SideBar extends JPanel {
     public List<PersonalSpace> getPersonalSpaces() {
         return psv.values().stream().map(e -> e.getBoard().personalSpace).collect(Collectors.toList());
     }
-
-
 }
