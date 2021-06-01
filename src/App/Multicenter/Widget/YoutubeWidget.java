@@ -47,6 +47,7 @@ public class YoutubeWidget extends AbstractWidget {
         super.setSize(new Dimension(440,400));
         super.setTitle("YouTube");
         super.setResizable(true);
+        super.setClosable(true);
         this.video_url = ywd.video_url;
         Thread thread = new Thread(()->{
             try {
@@ -66,6 +67,7 @@ public class YoutubeWidget extends AbstractWidget {
         super.setFrameIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(ClassLoader.getSystemResource("App/Multicenter/Icons/WidgetIcons/youtube.png"))));
         super.setSize(new Dimension(440,400));
         super.setTitle("YouTube");
+        super.setClosable(true);
         super.repaint();
         Editor.setEditable(false);
         super.add(Editor);

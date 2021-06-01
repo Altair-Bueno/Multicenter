@@ -4,6 +4,8 @@ import App.Multicenter.Space.SearchedString;
 import App.Multicenter.Widget.Data.WidgetData;
 
 import javax.swing.*;
+import javax.swing.event.InternalFrameEvent;
+import javax.swing.event.InternalFrameListener;
 import java.awt.*;
 import java.io.Closeable;
 import java.util.*;

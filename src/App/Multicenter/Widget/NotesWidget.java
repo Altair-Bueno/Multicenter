@@ -50,6 +50,7 @@ public class NotesWidget extends AbstractWidget {
         super.add(jEditorPane);
         super.setFrameIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(ClassLoader.getSystemResource("App/Multicenter/Icons/WidgetIcons/notas.png"))));
         super.setTitle("Nota de texto");
+        super.setClosable(true);
         super.repaint();
         try {
             renderMardownMode();
@@ -76,6 +77,7 @@ public class NotesWidget extends AbstractWidget {
         setResizable(true);
         super.add(jEditorPane);
         super.setFrameIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(ClassLoader.getSystemResource("App/Multicenter/Icons/WidgetIcons/notas.png"))));
+        super.setClosable(true);
         try {
             renderMardownMode();
         } catch (IOException e) {
