@@ -48,6 +48,8 @@ public class NotesWidget extends AbstractWidget {
         markdownFile = new File(nwd.markdownFile);
         setResizable(true);
         super.add(jEditorPane);
+        super.setTitle("Nota de texto");
+        super.repaint();
         try {
             renderMardownMode();
         } catch (Exception e) {
