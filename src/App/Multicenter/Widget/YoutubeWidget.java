@@ -45,13 +45,13 @@ public class YoutubeWidget extends AbstractWidget {
         super(ywd);
         super.setFrameIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(ClassLoader.getSystemResource("App/Multicenter/Icons/WidgetIcons/youtube.png"))));
         super.setSize(new Dimension(400,350));
-        super.setTitle("Youtube");
+        super.setTitle("YouTube");
+        super.setResizable(true);
         this.video_url = ywd.video_url;
         Thread thread = new Thread(()->{
             try {
                 loading();
                 loadYTdata(this.video_url);
-                super.setResizable(true);
                 setView();
             } catch (IOException ignored) {
                 Editor.setEditable(false);
@@ -65,7 +65,7 @@ public class YoutubeWidget extends AbstractWidget {
     public YoutubeWidget() {
         super.setFrameIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(ClassLoader.getSystemResource("App/Multicenter/Icons/WidgetIcons/youtube.png"))));
         super.setSize(new Dimension(400,350));
-        super.setTitle("Youtube");
+        super.setTitle("YouTube");
         super.repaint();
         Editor.setEditable(false);
         super.add(Editor);
@@ -189,7 +189,7 @@ public class YoutubeWidget extends AbstractWidget {
     @Override
     public SearchedString<Widget> search(String cadena) {
         if (video_url == null) return new SearchedString<>(this, "", cadena);
-        else return new SearchedString<>(this, getTitle(),cadena);
+        return new SearchedString<>(this, getTitle(),cadena);
     }
 
     @Override
@@ -274,15 +274,14 @@ public class YoutubeWidget extends AbstractWidget {
         Panel.add(poster, BorderLayout.CENTER);
         super.getContentPane().removeAll();
         super.revalidate();
-        setSize(new Dimension(400, 350));
         super.add(Panel);
-        setTitle(this.getTitle());
+        setTitle("YouTube - " + this.getTitle());
         repaint();
     }
 
     public void remView() {
         remove(Panel);
-        setTitle("Youtube");
+        setTitle("YouTube");
     }
 
     @Override

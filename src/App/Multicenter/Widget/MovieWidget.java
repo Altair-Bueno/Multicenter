@@ -204,7 +204,8 @@ public class MovieWidget extends AbstractWidget {
 
     @Override
     public SearchedString<Widget> search(String cadena) {
-        return null;
+        if(getFilmId() == null) return new SearchedString<Widget>(this, "", cadena);
+        return new SearchedString<Widget>(this, getMovieTitle(), cadena);
     }
 
     @Override
