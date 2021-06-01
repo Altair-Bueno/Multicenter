@@ -25,6 +25,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.Comparator;
 import java.util.Locale;
 
 public class YoutubeWidget extends AbstractWidget {
@@ -189,7 +190,8 @@ public class YoutubeWidget extends AbstractWidget {
 
     @Override
     public SearchedString<Widget> search(String cadena) {
-        return null;
+        if (video_url == null) return new SearchedString<>(this, "", cadena);
+        else return new SearchedString<>(this, getTitle(),cadena);
     }
 
     @Override
