@@ -1,6 +1,5 @@
 package App.Multicenter.Widget;
 
-import App.Multicenter.Space.RandomNameGenerator;
 import App.Multicenter.Space.SearchedString;
 import App.Multicenter.Widget.Data.MovieWidgetData;
 import App.Multicenter.Widget.Data.WidgetData;
@@ -19,7 +18,12 @@ import javax.swing.text.StyledDocument;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,17 +44,22 @@ public class MovieWidget extends AbstractWidget {
     private final JTextPane errorMessage = new JTextPane();
     private final JEditorPane Editor = new JEditorPane();
     private JPanel Panel = new JPanel();
-    private JPanel loadingPanel = new JPanel();
+    private final JPanel loadingPanel = new JPanel();
     private final JLabel loadingIconText = new JLabel();
+
     private String title;
     private Double rating;
     private String URLImage;
+    private String id;
     // Si el rating es "0.0", es porque la película está en la base de datos pero no tiene rating (No ha salido aún, por ejemplo)
 
     protected MovieWidget(MovieWidgetData mwd){
         super(mwd);
         this.rating = 0.0;
-        loading();
+        try {
+            loading();
+        } catch (IOException ignored) {
+        }
         searchAndSetById(mwd.filmid);
         try {
             setView();
@@ -73,6 +82,9 @@ public class MovieWidget extends AbstractWidget {
         return title;
     }
 
+    public String getFilmId() {
+        return id;
+    }
 
     public Double getRating() {
         return rating;
@@ -126,6 +138,11 @@ public class MovieWidget extends AbstractWidget {
     }
 
     public void searchandSet(String title) throws IllegalArgumentException{
+        try {
+            loading();
+        } catch (IOException ignored) {
+        }
+
         // Búsqueda de title en la DB
 
         String searchUrl = "https://imdb-internet-movie-database-unofficial.p.rapidapi.com/search/" + title;
@@ -145,6 +162,7 @@ public class MovieWidget extends AbstractWidget {
             SearchedTitle movie = gson.fromJson(result, SearchedTitle.class);
             this.title = movie.title;
             this.rating = 0.0;
+            this.id = movie.getId();
 
             searchAndSetById(movie.getId());
 
@@ -190,7 +208,6 @@ public class MovieWidget extends AbstractWidget {
         }else{
             String search = Editor.getText();
             Editor.setEditable(false);
-            loading();
             try{
                 searchandSet(search);
                 setView();
@@ -202,12 +219,21 @@ public class MovieWidget extends AbstractWidget {
         }
     }
 
-    public void loading(){
-        BoxLayout layoutMgr = new BoxLayout(loadingPanel, BoxLayout.PAGE_AXIS);
-        loadingPanel.setLayout(layoutMgr);
+    public void loading() throws IOException {
+        loadingPanel.setLayout(new GridLayout(1, 1));
 
-        loadingIconText.setIcon(new ImageIcon(ClassLoader.getSystemResource("App/Multicenter/Gifs/loadingWheel.gif")));
+        ImageIcon gif = new ImageIcon(ClassLoader.getSystemResource("App/Multicenter/Gifs/loadingWheel.gif"));
+        gif = new ImageIcon(gif.getImage().getScaledInstance(super.getWidth() / 5, super.getHeight() / 5, Image.SCALE_DEFAULT));
+
+        loadingIconText.setIcon(gif);
         loadingIconText.setText("Cargando...");
+        loadingIconText.setVerticalTextPosition(JLabel.BOTTOM);
+        loadingIconText.setHorizontalTextPosition(JLabel.CENTER);
+
+        Border border = loadingIconText.getBorder();
+        Border margin = new EmptyBorder(10,30,20,10);
+
+        loadingIconText.setBorder(new CompoundBorder(border, margin));
 
         loadingPanel.add(loadingIconText);
         super.getContentPane().removeAll();
@@ -230,8 +256,30 @@ public class MovieWidget extends AbstractWidget {
 
         Border border = poster.getBorder();
         Border margin = new EmptyBorder(10,30,20,10);
-
         poster.setBorder(new CompoundBorder(border, margin));
+
+        poster.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() > 0) {
+                    if (Desktop.isDesktopSupported()) {
+                        Desktop desktop = Desktop.getDesktop();
+                        try {
+                            URI uri = new URI("https://www.imdb.com/title/" + getFilmId() + "/");
+                            desktop.browse(uri);
+                        } catch (IOException ex) {
+                            // do nothing
+                        } catch (URISyntaxException ex) {
+                            //do nothing
+                        }
+                    } else {
+                        //do nothing
+                    }
+
+                }
+            }
+        });
+
         Panel.add(poster);
         super.getContentPane().removeAll();
         super.revalidate();
