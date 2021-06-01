@@ -10,6 +10,9 @@ import kong.unirest.Unirest;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -182,13 +185,10 @@ public class MovieWidget extends AbstractWidget {
         poster.setVerticalTextPosition(JLabel.BOTTOM);
         poster.setHorizontalTextPosition(JLabel.CENTER);
 
-        JTextPane titleandrating = new JTextPane();
+        Border border = poster.getBorder();
+        Border margin = new EmptyBorder(10,40,10,10);
 
-        titleandrating.setEditable(false);
-        titleandrating.setText(this.getTitle() + " Valoración: " + this.getRating());
-        titleandrating.setPreferredSize(new Dimension(super.getPreferredSize().height, 10));
-
-        //Panel.add(titleandrating, BorderLayout.WEST);
+        poster.setBorder(new CompoundBorder(border, margin));
         Panel.add(poster);
         super.remove(Editor);
         super.add(Panel);
