@@ -40,18 +40,17 @@ import java.util.List;
 public class MovieWidget extends AbstractWidget {
 
     // Constants
-    private final String EDIT = "Pulsa EDITAR e introduce algo.";
+    private final String EDIT = "Pulsa EDITAR e introduce algo de nuevo.";
     private final String BLANKINPUTERROR = "No has introducido nada. " + EDIT;
     private final String NOTFOUNDERROR = "Película no encontrada en la base de datos. " + EDIT;
     private final String LOADINGERROR = "Error obteniendo la información. " + EDIT;
-    private final JPanel PanelError = new JPanel();
     private final JTextField Editor = new JTextField();
 
     // Vars
     private boolean isClickable = false;
-    private JPanel Panel = new JPanel();
-    private JLabel loadingIconText = new JLabel();
-    private JTextPane errorMessage = new JTextPane();
+    private JPanel PanelError;
+    private JPanel Panel;
+    private JLabel loadingIconText;
 
     // Fields
     private String title;
@@ -110,7 +109,8 @@ public class MovieWidget extends AbstractWidget {
     }
 
     public synchronized void showErrorPopUp(String text){
-        errorMessage = new JTextPane();
+        PanelError = new JPanel();
+        JTextPane errorMessage = new JTextPane();
 
         errorMessage.setText(text);
         errorMessage.setEditable(false);
@@ -141,7 +141,7 @@ public class MovieWidget extends AbstractWidget {
     }
 
 
-    public synchronized void searchandSet(String title) throws IllegalArgumentException{
+    public synchronized void searchandSet(String title){
         // Búsqueda de title en la DB
 
         String searchUrl = "https://imdb-internet-movie-database-unofficial.p.rapidapi.com/search/" + title;
@@ -154,7 +154,7 @@ public class MovieWidget extends AbstractWidget {
         Gson gson = new Gson();
         SearchResult sr = gson.fromJson(response.getBody(), SearchResult.class);
         if (sr.getTitles().size() == 0) {
-            throw new IllegalArgumentException("Not found similar titles");
+            showErrorPopUp(NOTFOUNDERROR);
         } else {
             String result = gson.toJson(gson.fromJson(response.getBody(), SearchResult.class).getTitles().get(0));
             SearchedTitle movie = gson.fromJson(result, SearchedTitle.class);
@@ -194,8 +194,8 @@ public class MovieWidget extends AbstractWidget {
 
     @Override
     public SearchedString<Widget> search(String cadena) {
-        if(getFilmId() == null) return new SearchedString<Widget>(this, "", cadena);
-        return new SearchedString<Widget>(this, getMovieTitle(), cadena);
+        if(getFilmId() == null) return new SearchedString<>(this, "", cadena);
+        return new SearchedString<>(this, getMovieTitle(), cadena);
     }
 
     @Override
@@ -204,7 +204,7 @@ public class MovieWidget extends AbstractWidget {
         if(edit){
             isClickable = false;
             Editor.setEditable(true);
-            Editor.setText(title);
+            if(getMovieTitle() != null) Editor.setText(getMovieTitle());
             super.add(Editor);
             remView();
         }else{
@@ -212,10 +212,10 @@ public class MovieWidget extends AbstractWidget {
             Editor.setEditable(false);
             Thread thread  = new Thread(()->{
                 try {
-                    loading();
                     if(search.isBlank()){
                         showErrorPopUp(BLANKINPUTERROR);
                     }else {
+                        loading();
                         if (!search.equals(this.getMovieTitle())) { // Evita volver a buscar si no has cambiado nada
                             searchandSet(search);
                         }
@@ -223,8 +223,6 @@ public class MovieWidget extends AbstractWidget {
                     }
                 } catch (IOException e) {
                     showErrorPopUp(LOADINGERROR);
-                } catch(IllegalArgumentException e) {
-                    showErrorPopUp(NOTFOUNDERROR);
                 }
             });
             thread.start();
@@ -331,7 +329,7 @@ public class MovieWidget extends AbstractWidget {
     }
 
     @Override
-    public void moveFilesToFolder(File folder) throws IOException {
+    public void moveFilesToFolder(File folder) {
     }
 
     @Override
