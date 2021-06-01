@@ -45,7 +45,6 @@ public class YoutubeWidget extends AbstractWidget {
         super(ywd);
         super.setFrameIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(ClassLoader.getSystemResource("App/Multicenter/Icons/WidgetIcons/youtube.png"))));
         super.setSize(new Dimension(440,400));
-        pack();
         super.setTitle("YouTube");
         super.setResizable(true);
         this.video_url = ywd.video_url;
@@ -128,7 +127,6 @@ public class YoutubeWidget extends AbstractWidget {
         super.getContentPane().removeAll();
         super.revalidate();
         super.add(PanelError);
-        //super.pack();
     }
 
     public void botonPulsado(){
