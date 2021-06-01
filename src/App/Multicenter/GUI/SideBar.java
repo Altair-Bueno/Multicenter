@@ -49,7 +49,7 @@ public class SideBar extends JPanel {
         editButton = createButton("EDIT", editButton);
 
         addButton.addActionListener(new AddSectionListener(this));
-        delButton.addActionListener(new RemoveSectionListener(this)); // TODO should call delete on personalspace
+        delButton.addActionListener(new RemoveSectionListener(this));
         editButton.addActionListener(new EditListener(this)); // TODO Should disable all buttons
 
         setVisible(isShown);
@@ -94,8 +94,8 @@ public class SideBar extends JPanel {
         return button;
     }
 
-    public List<PersonalSpace> getPersonalSpaces(){
-        return psv.values().stream().map(e->e.getBoard().personalSpace).collect(Collectors.toList());
+    public List<PersonalSpace> getPersonalSpaces() {
+        return psv.values().stream().map(e -> e.getBoard().personalSpace).collect(Collectors.toList());
     }
 
 

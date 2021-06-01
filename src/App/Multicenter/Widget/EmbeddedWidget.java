@@ -15,6 +15,7 @@ public class EmbeddedWidget extends AbstractWidget {
     /**
      * Crea un Widget del tipo Embedded, siendo este capaz de mostrar contenido
      * de cualquier tipo de página web dentro del proio widget.
+     *
      * @param url
      * @param nombreRecurso
      */
@@ -27,6 +28,7 @@ public class EmbeddedWidget extends AbstractWidget {
     /**
      * Método search del Embedded. Comparará la cadena recibida por parámetro
      * con todas las partes separadas de la URL obtenida en el constructor.
+     *
      * @param cadena La cadena a buscar.
      * @return
      */

@@ -78,7 +78,7 @@ public class PersonalSpace implements Closeable, Serializable {
     }
 
     /**
-     * Activa el modo edición de todo el PersonalSpace
+     * Activa el modo edición de para todos los widgets
      */
     public void toggleEditMode() {
         for (Widget w : widgets)

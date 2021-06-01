@@ -20,6 +20,7 @@ public class ChooseSpaceFolderMenu extends JPanel {
 
     /**
      * Método para setear el spaceFolder.
+     *
      * @param parent
      */
 
@@ -51,6 +52,7 @@ public class ChooseSpaceFolderMenu extends JPanel {
 
     /**
      * Método que devuelve la localización del archivo.
+     *
      * @return localización actual.
      */
 

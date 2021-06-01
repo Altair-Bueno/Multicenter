@@ -35,11 +35,12 @@ public class CountdownWidget extends AbstractWidget {
 
     /**
      * Método que se encarga de calcular el tiempoo restante que queda para el evento
+     *
      * @return un array donde:
-     *  timetoevent[0] = dias restantes para el evento.
-     *  timetoevent[1] = horas restantes para el evento.
-     *  timetoevent[2] = minutos restantes para el evento.
-     *  timetoevent[3] = segundos restantes para el evento.
+     * timetoevent[0] = dias restantes para el evento.
+     * timetoevent[1] = horas restantes para el evento.
+     * timetoevent[2] = minutos restantes para el evento.
+     * timetoevent[3] = segundos restantes para el evento.
      */
 
     public int[] check() {
@@ -57,6 +58,7 @@ public class CountdownWidget extends AbstractWidget {
     /**
      * Método buscar del Widget, comparará la cadena recibida por parámetro
      * con el único String del widget: su título.
+     *
      * @param cadena La cadena a buscar.
      * @return
      */
