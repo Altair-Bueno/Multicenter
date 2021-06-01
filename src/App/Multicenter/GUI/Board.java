@@ -138,7 +138,7 @@ public class Board extends JDesktopPane {
             ytWidget.setVisible(true);
             ytWidget.setLocation(lastPos.x, lastPos.y);
             ytWidget.setResizable(true);
-            ytWidget.setSize(400, 350);
+            ytWidget.setSize(350, 400);
             addWidget(ytWidget);
         }
     }
