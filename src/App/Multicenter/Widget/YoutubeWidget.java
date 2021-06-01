@@ -34,8 +34,7 @@ public class YoutubeWidget extends AbstractWidget {
     private final JTextPane errorMessage = new JTextPane();
     private final JEditorPane Editor = new JEditorPane();
     private JPanel Panel = new JPanel();
-    private final JPanel loadingPanel = new JPanel();
-    private final JLabel loadingIconText = new JLabel();
+    private JLabel loadingIconText = new JLabel();
 
     private String thumbnail_url;
     private String title;
@@ -46,14 +45,13 @@ public class YoutubeWidget extends AbstractWidget {
         super(ywd);
         super.setFrameIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(ClassLoader.getSystemResource("App/Multicenter/Icons/WidgetIcons/youtube.png"))));
         super.setSize(new Dimension(400,350));
-        super.setTitle("Youtube");
-        //super.repaint();
+        super.setTitle("YouTube");
+        super.setResizable(true);
         this.video_url = ywd.video_url;
         Thread thread = new Thread(()->{
             try {
                 loading();
                 loadYTdata(this.video_url);
-                super.setResizable(true);
                 setView();
             } catch (IOException ignored) {
                 Editor.setEditable(false);
@@ -67,7 +65,7 @@ public class YoutubeWidget extends AbstractWidget {
     public YoutubeWidget() {
         super.setFrameIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(ClassLoader.getSystemResource("App/Multicenter/Icons/WidgetIcons/youtube.png"))));
         super.setSize(new Dimension(400,350));
-        super.setTitle("Youtube");
+        super.setTitle("YouTube");
         super.repaint();
         Editor.setEditable(false);
         super.add(Editor);
@@ -158,25 +156,25 @@ public class YoutubeWidget extends AbstractWidget {
     }
 
     public void loading() throws IOException {
-        loadingPanel.setLayout(new GridLayout(1, 1));
+        loadingIconText = new JLabel("Cargando...", SwingConstants.CENTER);
 
         ImageIcon gif = new ImageIcon(ClassLoader.getSystemResource("App/Multicenter/Gifs/loadingWheel.gif"));
-        gif = new ImageIcon(gif.getImage().getScaledInstance(super.getWidth() / 5, super.getHeight() / 5, Image.SCALE_DEFAULT));
+        gif = new ImageIcon(gif.getImage().getScaledInstance(super.getWidth() / 3, super.getHeight() / 3, Image.SCALE_DEFAULT));
 
         loadingIconText.setIcon(gif);
-        loadingIconText.setText("Cargando...");
+
+        loadingIconText.setFont(loadingIconText.getFont().deriveFont(50.0f));
+
+
         loadingIconText.setVerticalTextPosition(JLabel.BOTTOM);
         loadingIconText.setHorizontalTextPosition(JLabel.CENTER);
+        loadingIconText.setHorizontalAlignment(SwingConstants.CENTER);
+        loadingIconText.setVerticalAlignment(SwingConstants.CENTER);
 
-        Border border = loadingIconText.getBorder();
-        Border margin = new EmptyBorder(10,30,20,10);
 
-        loadingIconText.setBorder(new CompoundBorder(border, margin));
-
-        loadingPanel.add(loadingIconText);
         super.getContentPane().removeAll();
         super.validate();
-        super.add(loadingPanel);
+        super.add(loadingIconText);
         SwingUtilities.updateComponentTreeUI(this);
     }
 
@@ -191,7 +189,7 @@ public class YoutubeWidget extends AbstractWidget {
     @Override
     public SearchedString<Widget> search(String cadena) {
         if (video_url == null) return new SearchedString<>(this, "", cadena);
-        else return new SearchedString<>(this, getTitle(),cadena);
+        return new SearchedString<>(this, getTitle(),cadena);
     }
 
     @Override
@@ -276,15 +274,14 @@ public class YoutubeWidget extends AbstractWidget {
         Panel.add(poster, BorderLayout.CENTER);
         super.getContentPane().removeAll();
         super.revalidate();
-        setSize(new Dimension(400, 350));
         super.add(Panel);
-        setTitle(this.getTitle());
+        setTitle("YouTube - " + this.getTitle());
         repaint();
     }
 
     public void remView() {
         remove(Panel);
-        setTitle("Youtube");
+        setTitle("YouTube");
     }
 
     @Override
