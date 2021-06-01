@@ -46,6 +46,7 @@ public class NotesWidget extends AbstractWidget {
     protected NotesWidget(NotesWidgetData nwd) {
         super(nwd);
         markdownFile = new File(nwd.markdownFile);
+        setResizable(true);
         super.add(jEditorPane);
         try {
             renderMardownMode();
@@ -69,6 +70,7 @@ public class NotesWidget extends AbstractWidget {
         setAlignmentY(0);
         setSize(STANDARD_DIMENSION);
         markdownFile = new File(spacesFolder, super.id);
+        setResizable(true);
         super.add(jEditorPane);
         try {
             renderMardownMode();

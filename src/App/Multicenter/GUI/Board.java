@@ -99,7 +99,7 @@ public class Board extends JDesktopPane {
             NotesWidget notes = new NotesWidget(personalSpace.getCarpeta());
             notes.setVisible(true);
             notes.setLocation(lastPos.x, lastPos.y);
-            notes.setResizable(true);
+            //notes.setResizable(true);
             notes.setSize(250, 250);
             //notes.setBounds(lastPos.x, lastPos.y, 250, 250);
             addWidget(notes);

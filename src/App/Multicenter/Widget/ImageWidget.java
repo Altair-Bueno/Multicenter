@@ -119,8 +119,14 @@ public class ImageWidget extends AbstractWidget {
         data.classname = IMAGE;
         data.position = carrouselLocation;
         data.imagesFolder = imagesFolder.getAbsolutePath();
-        data.images = (String[]) img.stream().map(File::getAbsolutePath).toArray();
-        data.footer = footer.toArray(new String[0]);
+        data.images = new String[img.size()];
+        data.footer = new String[img.size()];
+        for (int i = 0; i< img.size();i++){
+            data.images[i] = img.get(i).getAbsolutePath();
+            data.footer[i] = footer.get(i);
+        }
+        //data.images = (String[]) img.stream().map(File::getAbsolutePath).toArray();
+        //data.footer = footer.toArray(new String[0]);
         return super.getWidgetsDataInstance(data);
     }
 
