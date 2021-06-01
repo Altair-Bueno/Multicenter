@@ -218,7 +218,7 @@ public class YoutubeWidget extends AbstractWidget {
         //System.out.println("W: " + w + " H: " + h);R
 
         //im = im.getScaledInstance(im.getWidth(null) / 10, im.getHeight(null) / 10, Image.SCALE_SMOOTH);
-        im = im.getScaledInstance(170, 250, Image.SCALE_SMOOTH);
+        im = im.getScaledInstance(480, 360, Image.SCALE_SMOOTH);
         JLabel poster = new JLabel();
         poster.setIcon(new ImageIcon(im));
         poster.setText(
