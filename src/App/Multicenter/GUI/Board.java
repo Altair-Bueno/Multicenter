@@ -5,10 +5,7 @@ import App.Multicenter.Widget.*;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.util.List;
 
 public class Board extends JDesktopPane {
@@ -99,9 +96,7 @@ public class Board extends JDesktopPane {
             NotesWidget notes = new NotesWidget(personalSpace.getCarpeta());
             notes.setVisible(true);
             notes.setLocation(lastPos.x, lastPos.y);
-            //notes.setResizable(true);
             notes.setSize(250, 250);
-            //notes.setBounds(lastPos.x, lastPos.y, 250, 250);
             addWidget(notes);
         }
     }
@@ -115,7 +110,6 @@ public class Board extends JDesktopPane {
             imageWidget.setLocation(lastPos.x, lastPos.y);
             imageWidget.setResizable(true);
             imageWidget.setSize(250, 250);
-            //imageWidget.setBounds(lastPos.x, lastPos.y, 250, 250);
             addWidget(imageWidget);
         }
     }

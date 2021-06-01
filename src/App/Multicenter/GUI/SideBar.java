@@ -87,7 +87,7 @@ public class SideBar extends JPanel {
     private JButton createButton(String type, JButton button) {
         button = new JButton();
         button.setText(type);
-        button.setPreferredSize(new Dimension(77, 25));
+        button.setPreferredSize(new Dimension(78, 25));
         button.setBorderPainted(false);
         button.setFocusPainted(false);
         add(button);
