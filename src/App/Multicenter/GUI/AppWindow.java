@@ -7,7 +7,6 @@ import App.Multicenter.Space.PersonalSpaceData;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -63,15 +62,11 @@ public class AppWindow extends JFrame {
     public static void createAndShowGUI() {
         PersonalSpaceView personalSpaceView = null;
         SideBar sideBar = new SideBar();
-        //SideBar sideBar = loadSidebarFrom(Preferences.getSpacesSaveFile());
-
         AppWindow app = new AppWindow(personalSpaceView, sideBar);
         app.setDefaultPersonalSpace();
         sideBar.app = app;
 
-
-        // TODO Doesnt load position correctly
-        if (Preferences.getSpacesSaveFile().exists()){
+        if (Preferences.getSpacesSaveFile().exists()) {
             XMLBuddy<List<PersonalSpaceData>> x = new XMLBuddy<>();
             List<PersonalSpaceData> data = new ArrayList<>();
 
@@ -81,14 +76,14 @@ public class AppWindow extends JFrame {
                 e.printStackTrace();
             }
 
-            for (PersonalSpaceData d : data){
+            for (PersonalSpaceData d : data) {
                 PersonalSpace personalSpace = PersonalSpace.loadPersonalSpaces(d);
                 PersonalSpaceView psv = new PersonalSpaceView(
                         new Header(d.personalSpaceName),
                         new Board(personalSpace),
                         d.personalSpaceName);
-                Section section = new Section(sideBar.numSections,d.personalSpaceName,sideBar);
-                sideBar.addPersonalSpace(section,psv);
+                Section section = new Section(sideBar.numSections, d.personalSpaceName, sideBar);
+                sideBar.addPersonalSpace(section, psv);
             }
         }
     }
@@ -96,14 +91,16 @@ public class AppWindow extends JFrame {
 
     @Override
     public void dispose() {
+        // Save settings
+        Preferences.save();
         // Save personalSpace
-        List<PersonalSpaceData> personalSpaceData =sb.getPersonalSpaces().
+        List<PersonalSpaceData> personalSpaceData = sb.getPersonalSpaces().
                 parallelStream().
                 map(PersonalSpace::getPersonalSpaceDataInstance).
                 collect(Collectors.toList());
 
         XMLBuddy<List<PersonalSpaceData>> x = new XMLBuddy<>();
-        x.saveToFile(Preferences.getSpacesSaveFile(),personalSpaceData);
+        x.saveToFile(Preferences.getSpacesSaveFile(), personalSpaceData);
 
         super.dispose();
 

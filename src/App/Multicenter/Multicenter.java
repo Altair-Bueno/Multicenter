@@ -15,7 +15,6 @@ import java.util.concurrent.Semaphore;
 public class Multicenter {
 
     public static void main(String[] args) {
-        // TODO: Main method
         LoadingScreen loadingScreen = new LoadingScreen();
         boolean b = Preferences.loadPreferences();
         loadingScreen.setValue(10);

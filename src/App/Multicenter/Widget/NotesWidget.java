@@ -27,7 +27,7 @@ public class NotesWidget extends AbstractWidget {
             try {
                 desktop.browse(a.getURL().toURI());
             } catch (Exception ex) {
-                ex.printStackTrace();
+                System.err.println(ex.getMessage());
             }
         }
     };
@@ -38,9 +38,9 @@ public class NotesWidget extends AbstractWidget {
 
     /**
      * Constructor de la clase que recibe el parámetro
-     * @param nwd
-     * del tipo NotesWidgetData, que a su vez contiene un String
-     * del texto que se quiere escribir en el propio widget.
+     *
+     * @param nwd del tipo NotesWidgetData, que a su vez contiene un String
+     *            del texto que se quiere escribir en el propio widget.
      */
 
     protected NotesWidget(NotesWidgetData nwd) {
@@ -56,15 +56,12 @@ public class NotesWidget extends AbstractWidget {
 
     /**
      * Constructor de la clase, recibe como parámetro el archivo
-     * @param spacesFolder
-     * Y se encarga tanto de setear la gui, como de
-     * renderizar el texto a Markdown.
+     *
+     * @param spacesFolder Y se encarga tanto de setear la gui, como de
+     *                     renderizar el texto a Markdown.
      */
 
     public NotesWidget(File spacesFolder) {
-        // TODO Constructor
-        // Crea una clase vacía de cero
-        // this(randomgen,layer)...
         RandomNameGenerator r = new RandomNameGenerator();
         String id = r.generate(spacesFolder);
         super.id = id + ".md";
@@ -72,11 +69,6 @@ public class NotesWidget extends AbstractWidget {
         setAlignmentY(0);
         setSize(STANDARD_DIMENSION);
         markdownFile = new File(spacesFolder, super.id);
-        try {
-            markdownFile.createNewFile();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         super.add(jEditorPane);
         try {
             renderMardownMode();
@@ -88,6 +80,7 @@ public class NotesWidget extends AbstractWidget {
 
     /**
      * Método buscar:
+     *
      * @param cadena La cadena a buscar.
      * @return la cadena que más se parezca basada en el ratio a la que se le ha pasado por parámetro
      */
@@ -141,6 +134,7 @@ public class NotesWidget extends AbstractWidget {
 
     /**
      * Guarda el markdownFile en un archivo.
+     *
      * @throws IOException
      */
 
@@ -154,6 +148,7 @@ public class NotesWidget extends AbstractWidget {
     /**
      * Método que primero, deja el widget en non-editable mode.
      * Y que posterioremente renderiza el texto plano a Markdown.
+     *
      * @throws IOException
      */
 
@@ -170,6 +165,7 @@ public class NotesWidget extends AbstractWidget {
 
     /**
      * Modo editor, para añadir más texto plano para un posterior renderizado.
+     *
      * @throws IOException
      */
 

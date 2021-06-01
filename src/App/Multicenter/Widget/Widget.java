@@ -44,6 +44,8 @@ public interface Widget {
             case IMAGE:
                 w = new ImageWidget((ImageWidgetData) wd);
                 break;
+            default:
+                throw new IllegalArgumentException("Mi pana la has cagado cargando los widgets de disco");
         }
         return w;
     }

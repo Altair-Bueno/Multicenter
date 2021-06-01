@@ -101,9 +101,9 @@ public class Board extends JDesktopPane {
         public void actionPerformed(ActionEvent e) {
             NotesWidget notes = new NotesWidget(personalSpace.getCarpeta());
             notes.setVisible(true);
-            notes.setLocation(lastPos.x,lastPos.y);
+            notes.setLocation(lastPos.x, lastPos.y);
             notes.setResizable(true);
-            notes.setSize(250,250);
+            notes.setSize(250, 250);
             //notes.setBounds(lastPos.x, lastPos.y, 250, 250);
             addWidget(notes);
         }
@@ -115,23 +115,23 @@ public class Board extends JDesktopPane {
         public void actionPerformed(ActionEvent e) {
             ImageWidget imageWidget = new ImageWidget(personalSpace.getCarpeta());
             imageWidget.setVisible(true);
-            imageWidget.setLocation(lastPos.x,lastPos.y);
+            imageWidget.setLocation(lastPos.x, lastPos.y);
             imageWidget.setResizable(true);
-            imageWidget.setSize(250,250);
+            imageWidget.setSize(250, 250);
             //imageWidget.setBounds(lastPos.x, lastPos.y, 250, 250);
             addWidget(imageWidget);
         }
     }
 
-    private class addfilmWidgetListener implements ActionListener{
+    private class addfilmWidgetListener implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
             MovieWidget movieWidget = new MovieWidget();
             movieWidget.setVisible(true);
-            movieWidget.setLocation(lastPos.x,lastPos.y);
+            movieWidget.setLocation(lastPos.x, lastPos.y);
             movieWidget.setResizable(true);
-            movieWidget.setSize(250,250);
+            movieWidget.setSize(250, 250);
             addWidget(movieWidget);
         }
     }

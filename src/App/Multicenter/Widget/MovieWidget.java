@@ -16,8 +16,8 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.*;
-import java.net.MalformedURLException;
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +29,6 @@ import java.util.List;
  * título oficial y la valoración general de la
  * película que el usuario busque al crear el
  * widget.
- *
  */
 public class MovieWidget extends AbstractWidget {
 
@@ -43,12 +42,12 @@ public class MovieWidget extends AbstractWidget {
     private String URLImage;
     // Si el rating es "0.0", es porque la película está en la base de datos pero no tiene rating (No ha salido aún, por ejemplo)
 
-    protected MovieWidget(MovieWidgetData mwd){
+    protected MovieWidget(MovieWidgetData mwd) {
         super(mwd);
         super.add(Editor);
     }
 
-    public MovieWidget(){
+    public MovieWidget() {
         Editor.setEditable(false);
         super.add(Editor);
     }
@@ -66,7 +65,7 @@ public class MovieWidget extends AbstractWidget {
         return rating;
     }
 
-    public void showErrorPopUp(String text){
+    public void showErrorPopUp(String text) {
         JPanel panelt = new JPanel();
         JPanel panelb = new JPanel();
 
@@ -78,16 +77,16 @@ public class MovieWidget extends AbstractWidget {
         errorMessage.setOpaque(false);
 
         busc.setText("Buscar de nuevo");
-        busc.setPreferredSize(new Dimension(100,20));
+        busc.setPreferredSize(new Dimension(100, 20));
         busc.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 botonPulsado();
             }
-        } );;
+        });
         panelt.add(errorMessage);
         panelb.add(busc);
 
-        PanelError.setLayout(new GridLayout(2,1));
+        PanelError.setLayout(new GridLayout(2, 1));
 
         PanelError.add(panelt);
         PanelError.add(panelb);
@@ -95,13 +94,13 @@ public class MovieWidget extends AbstractWidget {
         super.add(PanelError);
     }
 
-    public void botonPulsado(){
+    public void botonPulsado() {
         Editor.setEditable(true);
         super.remove(PanelError);
         super.add(Editor);
     }
 
-    public void searchandSet(String title) throws IllegalArgumentException{
+    public void searchandSet(String title) throws IllegalArgumentException {
         // Búsqueda de title en la DB
 
         String searchUrl = "https://imdb-internet-movie-database-unofficial.p.rapidapi.com/search/" + title;
@@ -113,9 +112,9 @@ public class MovieWidget extends AbstractWidget {
 
         Gson gson = new Gson();
         SearchResult sr = gson.fromJson(response.getBody(), SearchResult.class);
-        if(sr.getTitles().size() == 0){
+        if (sr.getTitles().size() == 0) {
             throw new IllegalArgumentException("Not found similar titles");
-        }else{
+        } else {
             RandomNameGenerator r = new RandomNameGenerator();
 
             String result = gson.toJson(gson.fromJson(response.getBody(), SearchResult.class).getTitles().get(0));
@@ -127,12 +126,12 @@ public class MovieWidget extends AbstractWidget {
                     .header("x-rapidapi-key", "abd2447dc9msh86d9476225f947bp1e9a90jsn1e5f6f17f5b1")
                     .header("x-rapidapi-host", "imdb-internet-movie-database-unofficial.p.rapidapi.com")
                     .asString();
-            try{
+            try {
                 Film f = gson.fromJson(response2.getBody(), Film.class);
                 this.rating = f.getRating();
                 this.title = f.getTitle();
                 this.URLImage = f.getPoster();
-            } catch (NumberFormatException e){
+            } catch (NumberFormatException e) {
                 this.rating = 0.0;
                 this.title = movie.getTitle();
             }
@@ -155,17 +154,17 @@ public class MovieWidget extends AbstractWidget {
     @Override
     public void toggleEditMode() {
         edit = !edit;
-        if(edit){
+        if (edit) {
             Editor.setEditable(true);
             super.remove(Panel);
             super.add(Editor);
-        }else{
+        } else {
             String search = Editor.getText();
             Editor.setEditable(false);
-            try{
+            try {
                 searchandSet(search);
                 setView();
-            } catch(IllegalArgumentException e) {
+            } catch (IllegalArgumentException e) {
                 showErrorPopUp("Película no encontrada en la base de datos");
             } catch (IOException e) {
                 showErrorPopUp("La información no se ha recibido correctamente");
@@ -186,7 +185,7 @@ public class MovieWidget extends AbstractWidget {
         poster.setHorizontalTextPosition(JLabel.CENTER);
 
         Border border = poster.getBorder();
-        Border margin = new EmptyBorder(10,40,10,10);
+        Border margin = new EmptyBorder(10, 40, 10, 10);
 
         poster.setBorder(new CompoundBorder(border, margin));
         Panel.add(poster);
@@ -209,9 +208,10 @@ public class MovieWidget extends AbstractWidget {
 
     // AUX CLASSES
 
-    private class Film{
+    private class Film {
         String title;
         Double rating;
+        String poster;
 
         public String getPoster() {
             return poster;
@@ -221,26 +221,23 @@ public class MovieWidget extends AbstractWidget {
             this.poster = poster;
         }
 
-        String poster;
-
-
-        public void setTitle(String title) {
-            this.title = title;
+        public Double getRating() {
+            return rating;
         }
 
         public void setRating(Double rating) {
             this.rating = rating;
         }
 
-        public Double getRating() {
-            return rating;
-        }
-
         public String getTitle() {
             return title;
         }
 
-        public String toString(){
+        public void setTitle(String title) {
+            this.title = title;
+        }
+
+        public String toString() {
             return "Title: " + getTitle() + "; Rating: " + getRating();
         }
     }
@@ -252,12 +249,12 @@ public class MovieWidget extends AbstractWidget {
             return title;
         }
 
-        public String getId() {
-            return id;
-        }
-
         public void setTitle(String title) {
             this.title = title;
+        }
+
+        public String getId() {
+            return id;
         }
 
         public void setId(String id) {
@@ -266,15 +263,15 @@ public class MovieWidget extends AbstractWidget {
 
     }
 
-    private class SearchResult{
+    private class SearchResult {
         List<Object> titles = new ArrayList<>();
-
-        public void setTitles(List<Object> titles) {
-            this.titles = titles;
-        }
 
         public List<Object> getTitles() {
             return titles;
+        }
+
+        public void setTitles(List<Object> titles) {
+            this.titles = titles;
         }
     }
 
