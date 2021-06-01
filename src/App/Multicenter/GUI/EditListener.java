@@ -1,5 +1,9 @@
 package App.Multicenter.GUI;
 
+import App.Multicenter.Widget.AbstractWidget;
+import App.Multicenter.Widget.Widget;
+
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
