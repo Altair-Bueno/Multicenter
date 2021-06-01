@@ -44,8 +44,7 @@ public class MovieWidget extends AbstractWidget {
     private final JTextPane errorMessage = new JTextPane();
     private final JTextField Editor = new JTextField();
     private JPanel Panel = new JPanel();
-    private final JPanel loadingPanel = new JPanel();
-    private final JLabel loadingIconText = new JLabel();
+    private JLabel loadingIconText = new JLabel();
 
     private String title;
     private Double rating;
@@ -60,7 +59,6 @@ public class MovieWidget extends AbstractWidget {
         super.setSize(new Dimension(400, 350));
         super.setTitle("Película");
         super.setResizable(false);
-        //super.repaint();
         this.filmid = mwd.filmid;
         Thread thread = new Thread(()->{
             try {
@@ -77,7 +75,6 @@ public class MovieWidget extends AbstractWidget {
 
     public MovieWidget(){
         super.setFrameIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(ClassLoader.getSystemResource("App/Multicenter/Icons/WidgetIcons/claqueta.png"))));
-        super.setSize(new Dimension(200, 100));
         super.setTitle("Película");
         super.setResizable(false);
         super.repaint();
@@ -240,25 +237,25 @@ public class MovieWidget extends AbstractWidget {
     }
 
     public synchronized void loading() throws IOException {
-        loadingPanel.setLayout(new GridLayout(1, 1));
+        loadingIconText = new JLabel("Cargando...", SwingConstants.CENTER);
 
         ImageIcon gif = new ImageIcon(ClassLoader.getSystemResource("App/Multicenter/Gifs/loadingWheel.gif"));
-        gif = new ImageIcon(gif.getImage().getScaledInstance(super.getWidth() / 5, super.getHeight() / 5, Image.SCALE_DEFAULT));
+        gif = new ImageIcon(gif.getImage().getScaledInstance(super.getWidth() / 3, super.getHeight() / 3, Image.SCALE_DEFAULT));
 
         loadingIconText.setIcon(gif);
-        loadingIconText.setText("Cargando...");
+
+        loadingIconText.setFont(loadingIconText.getFont().deriveFont(50.0f));
+
+
         loadingIconText.setVerticalTextPosition(JLabel.BOTTOM);
         loadingIconText.setHorizontalTextPosition(JLabel.CENTER);
+        loadingIconText.setHorizontalAlignment(SwingConstants.CENTER);
+        loadingIconText.setVerticalAlignment(SwingConstants.CENTER);
 
-        Border border = loadingIconText.getBorder();
-        Border margin = new EmptyBorder(10,30,20,10);
 
-        loadingIconText.setBorder(new CompoundBorder(border, margin));
-
-        loadingPanel.add(loadingIconText);
         super.getContentPane().removeAll();
         super.validate();
-        super.add(loadingPanel);
+        super.add(loadingIconText);
         SwingUtilities.updateComponentTreeUI(this);
     }
 
@@ -315,7 +312,6 @@ public class MovieWidget extends AbstractWidget {
         Panel.add(poster, BorderLayout.CENTER);
         super.getContentPane().removeAll();
         super.revalidate();
-        setSize(new Dimension(400, 350));
         super.add(Panel);
         setTitle("Película - " + this.getMovieTitle());
         repaint();

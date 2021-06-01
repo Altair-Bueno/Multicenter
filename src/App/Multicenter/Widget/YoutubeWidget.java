@@ -33,8 +33,7 @@ public class YoutubeWidget extends AbstractWidget {
     private final JTextPane errorMessage = new JTextPane();
     private final JEditorPane Editor = new JEditorPane();
     private JPanel Panel = new JPanel();
-    private final JPanel loadingPanel = new JPanel();
-    private final JLabel loadingIconText = new JLabel();
+    private JLabel loadingIconText = new JLabel();
 
     private String thumbnail_url;
     private String title;
@@ -45,7 +44,6 @@ public class YoutubeWidget extends AbstractWidget {
         //super.setFrameIcon(null);
         super.setSize(new Dimension(400,350));
         super.setTitle("Youtube");
-        //super.repaint();
         this.video_url = ywd.video_url;
         Thread thread = new Thread(()->{
             try {
@@ -151,25 +149,25 @@ public class YoutubeWidget extends AbstractWidget {
     }
 
     public void loading() throws IOException {
-        loadingPanel.setLayout(new GridLayout(1, 1));
+        loadingIconText = new JLabel("Cargando...", SwingConstants.CENTER);
 
         ImageIcon gif = new ImageIcon(ClassLoader.getSystemResource("App/Multicenter/Gifs/loadingWheel.gif"));
-        gif = new ImageIcon(gif.getImage().getScaledInstance(super.getWidth() / 5, super.getHeight() / 5, Image.SCALE_DEFAULT));
+        gif = new ImageIcon(gif.getImage().getScaledInstance(super.getWidth() / 3, super.getHeight() / 3, Image.SCALE_DEFAULT));
 
         loadingIconText.setIcon(gif);
-        loadingIconText.setText("Cargando...");
+
+        loadingIconText.setFont(loadingIconText.getFont().deriveFont(50.0f));
+
+
         loadingIconText.setVerticalTextPosition(JLabel.BOTTOM);
         loadingIconText.setHorizontalTextPosition(JLabel.CENTER);
+        loadingIconText.setHorizontalAlignment(SwingConstants.CENTER);
+        loadingIconText.setVerticalAlignment(SwingConstants.CENTER);
 
-        Border border = loadingIconText.getBorder();
-        Border margin = new EmptyBorder(10,30,20,10);
 
-        loadingIconText.setBorder(new CompoundBorder(border, margin));
-
-        loadingPanel.add(loadingIconText);
         super.getContentPane().removeAll();
         super.validate();
-        super.add(loadingPanel);
+        super.add(loadingIconText);
         SwingUtilities.updateComponentTreeUI(this);
     }
 

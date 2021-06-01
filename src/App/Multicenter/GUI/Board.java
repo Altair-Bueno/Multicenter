@@ -125,7 +125,7 @@ public class Board extends JDesktopPane {
             movieWidget.setVisible(true);
             movieWidget.setLocation(lastPos.x, lastPos.y);
             movieWidget.setResizable(true);
-            movieWidget.setSize(250, 250);
+            movieWidget.setSize(400, 350);
             addWidget(movieWidget);
         }
     }
@@ -138,7 +138,7 @@ public class Board extends JDesktopPane {
             ytWidget.setVisible(true);
             ytWidget.setLocation(lastPos.x, lastPos.y);
             ytWidget.setResizable(true);
-            ytWidget.setSize(250, 250);
+            ytWidget.setSize(400, 350);
             addWidget(ytWidget);
         }
     }
