@@ -197,6 +197,7 @@ public class YoutubeWidget extends AbstractWidget {
         edit = !edit;
         if(edit){
             Editor.setEditable(true);
+            Editor.setText(this.getVideo_url());
             super.add(Editor);
             remView();
         }else{
