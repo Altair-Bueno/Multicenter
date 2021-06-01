@@ -157,7 +157,6 @@ public class MovieWidget extends AbstractWidget {
         if(sr.getTitles().size() == 0){
             throw new IllegalArgumentException("Not found similar titles");
         }else{
-
             String result = gson.toJson(gson.fromJson(response.getBody(), SearchResult.class).getTitles().get(0));
             SearchedTitle movie = gson.fromJson(result, SearchedTitle.class);
             this.title = movie.title;
@@ -190,7 +189,7 @@ public class MovieWidget extends AbstractWidget {
     public WidgetData getWidgetsDataInstance() {
         MovieWidgetData mwd = new MovieWidgetData();
         mwd.classname = EMBEDDEDMOVIE;
-        mwd.filmid = this.getId();
+        mwd.filmid = getFilmId();
         return super.getWidgetsDataInstance(mwd);
     }
 
@@ -274,8 +273,6 @@ public class MovieWidget extends AbstractWidget {
                         } catch (URISyntaxException ex) {
                             //do nothing
                         }
-                    } else {
-                        //do nothing
                     }
 
                 }
