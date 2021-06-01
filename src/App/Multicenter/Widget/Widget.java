@@ -1,10 +1,7 @@
 package App.Multicenter.Widget;
 
 import App.Multicenter.Space.SearchedString;
-import App.Multicenter.Widget.Data.ImageWidgetData;
-import App.Multicenter.Widget.Data.MovieWidgetData;
-import App.Multicenter.Widget.Data.NotesWidgetData;
-import App.Multicenter.Widget.Data.WidgetData;
+import App.Multicenter.Widget.Data.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -40,6 +37,7 @@ public interface Widget {
                 w = new MovieWidget((MovieWidgetData) wd);
                 break;
             case EMBEDDEDYT:
+                w = new YoutubeWidget((YoutubeWidgetData) wd);
                 break;
             case IMAGE:
                 w = new ImageWidget((ImageWidgetData) wd);

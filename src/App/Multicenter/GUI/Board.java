@@ -37,11 +37,13 @@ public class Board extends JDesktopPane {
         JMenuItem noteWidget = new JMenuItem("Nota de texto");
         JMenuItem imageWidget = new JMenuItem("Imagen(es)");
         JMenuItem filmWidget = new JMenuItem("Pelicula");
+        JMenuItem ytWidget = new JMenuItem("Video de YouTube");
 
         pm.add(addWidget);
         addWidget.add(noteWidget);
         addWidget.add(imageWidget);
         addWidget.add(filmWidget);
+        addWidget.add(ytWidget);
         addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
                 if (e.getButton() == MouseEvent.BUTTON3) {
@@ -54,6 +56,7 @@ public class Board extends JDesktopPane {
         noteWidget.addActionListener(new addNotesListener());
         imageWidget.addActionListener(new addImageWidgetListener());
         filmWidget.addActionListener(new addfilmWidgetListener());
+        ytWidget.addActionListener(new addytWidgetListener());
         setVisible(true);
     }
 
@@ -124,6 +127,19 @@ public class Board extends JDesktopPane {
             movieWidget.setResizable(true);
             movieWidget.setSize(250, 250);
             addWidget(movieWidget);
+        }
+    }
+
+    private class addytWidgetListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            YoutubeWidget ytWidget = new YoutubeWidget();
+            ytWidget.setVisible(true);
+            ytWidget.setLocation(lastPos.x, lastPos.y);
+            ytWidget.setResizable(true);
+            ytWidget.setSize(250, 250);
+            addWidget(ytWidget);
         }
     }
 }
