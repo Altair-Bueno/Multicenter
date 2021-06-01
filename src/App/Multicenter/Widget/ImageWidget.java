@@ -7,6 +7,7 @@ import App.Multicenter.Widget.Data.ImageWidgetData;
 import App.Multicenter.Widget.Data.WidgetData;
 
 import javax.swing.*;
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -26,6 +27,7 @@ public class ImageWidget extends AbstractWidget {
 
     protected ImageWidget(ImageWidgetData iwd) {
         super(iwd);
+        super.setFrameIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(ClassLoader.getSystemResource("App/Multicenter/Icons/WidgetIcons/imagen.png"))));
         imagesFolder = new File(iwd.imagesFolder);
         img = Arrays.stream(iwd.images).map(File::new).collect(Collectors.toList());
         footer = Arrays.asList(iwd.footer);
@@ -36,6 +38,7 @@ public class ImageWidget extends AbstractWidget {
     }
 
     public ImageWidget(File f) {
+        super.setFrameIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(ClassLoader.getSystemResource("App/Multicenter/Icons/WidgetIcons/imagen.png"))));
         RandomNameGenerator r = new RandomNameGenerator();
         id = r.generate(f);
         imagesFolder = new File(f, id);

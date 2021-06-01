@@ -269,11 +269,11 @@ public class MovieWidget extends AbstractWidget {
                 "<html>" +
                         "<head>" +
                             "<style>" +
-                                "h2 {text-align: center;} span {color: yellow;}" +
+                                "h2 {text-align: center;} span {color: yellow;} h1 {text-align: center;}" +
                             "</style>" +
                         "</head>" +
                         "<h1>" +
-                            "&nbsp;&nbsp;&nbsp;&nbsp;" + this.getMovieTitle() +
+                            this.getMovieTitle() +
                         "</h1>" +
                         "<h2>" +
                             "<span>&#11088</span>Valoración: " + this.getRating() +

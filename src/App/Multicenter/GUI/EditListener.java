@@ -26,7 +26,17 @@ public class EditListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (sideBar.selected != null) {
+            editMode = !editMode;
             sideBar.psv.get(sideBar.selected).board.personalSpace.toggleEditMode();
+            if(editMode) {
+                sideBar.delButton.setEnabled(false);
+                sideBar.addButton.setEnabled(false);
+                sideBar.editButton.setText("Edit: ON");
+            } else {
+                sideBar.delButton.setEnabled(true);
+                sideBar.addButton.setEnabled(true);
+                sideBar.editButton.setText("Edit: OFF");
+            }
         }
     }
 }
