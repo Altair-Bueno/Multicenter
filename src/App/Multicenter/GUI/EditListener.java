@@ -11,7 +11,6 @@ import java.awt.event.ActionListener;
 public class EditListener implements ActionListener {
     //Attributes
     SideBar sideBar;
-    boolean editMode = false;
 
     public EditListener(SideBar sideBar) {
         this.sideBar = sideBar;
@@ -27,10 +26,10 @@ public class EditListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (sideBar.selected != null) {
-            editMode = !editMode;
+            sideBar.editMode = !sideBar.editMode;
             sideBar.psv.get(sideBar.selected).board.personalSpace.toggleEditMode();
             // TODO colours
-            if(editMode) {
+            if(sideBar.editMode) {
                 sideBar.delButton.setEnabled(false);
                 sideBar.addButton.setEnabled(false);
                 sideBar.editButton.setText("Edit: ON");

@@ -22,6 +22,7 @@ public class SideBar extends JPanel {
     Map<Section, PersonalSpaceView> psv;
     Boolean isShown;
     int numSections;
+    boolean editMode = false;
 
     //Constructor
 
