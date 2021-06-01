@@ -39,6 +39,7 @@ public class YoutubeWidget extends AbstractWidget {
     private String thumbnail_url;
     private String title;
     private String video_url;
+    private String author_name;
 
     protected YoutubeWidget(YoutubeWidgetData ywd) {
         super(ywd);
@@ -77,6 +78,10 @@ public class YoutubeWidget extends AbstractWidget {
 
     public String getTitle() {
         return title;
+    }
+
+    public String getAuthor_name() {
+        return author_name;
     }
 
     public String getVideo_url() {
@@ -143,6 +148,7 @@ public class YoutubeWidget extends AbstractWidget {
             HttpResponse<String> response = Unirest.get("https://www.youtube.com/oembed?url=" + url + "&format=json").header("Accept", "application/json").asString();
             Gson g = new Gson();
             ytInfo a = g.fromJson(response.getBody(), ytInfo.class);
+            author_name = a.getAuthor_name();
             video_url = "https://"+url;
             title = a.getTitle();
             thumbnail_url = a.getThumbnail_url();
@@ -231,6 +237,9 @@ public class YoutubeWidget extends AbstractWidget {
                         "<h1>" +
                         "&nbsp;&nbsp;&nbsp;&nbsp;" + this.getTitle() +
                         "</h1>" +
+                        "<h2>" +
+                        "&nbsp;&nbsp;&nbsp;&nbsp;" + "by: " +  this.getAuthor_name() +
+                        "</h2>" +
                 "</html>"
         );
         poster.setVerticalTextPosition(JLabel.TOP);
@@ -294,6 +303,11 @@ public class YoutubeWidget extends AbstractWidget {
     private class ytInfo{
         protected String title;
         protected String thumbnail_url;
+        protected String author_name;
+
+        public void setAuthor_name(String author_name) {
+            this.author_name = author_name;
+        }
 
         public void setTitle(String title) {
             this.title = title;
@@ -301,6 +315,10 @@ public class YoutubeWidget extends AbstractWidget {
 
         public void setThumbnail_url(String thumnail_url) {
             this.thumbnail_url = thumbnail_url;
+        }
+
+        public String getAuthor_name() {
+            return author_name;
         }
 
         public String getTitle() {
