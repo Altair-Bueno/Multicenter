@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 
-public class NotesWidgetTest {
+public class ImageWidgetTest {
     public static void main(String[] args) {
         JFrame jFrame = new JFrame();
         JDesktopPane jDesktopPane = new JDesktopPane();

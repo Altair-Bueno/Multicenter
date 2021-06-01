@@ -1,9 +1,13 @@
 package App.Multicenter.GUI;
 
+import App.Multicenter.Space.PersonalSpace;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class SideBar extends JPanel {
     //Attributes
@@ -32,7 +36,7 @@ public class SideBar extends JPanel {
         psv = new HashMap<>();
 
         setPreferredSize(new Dimension(250, 100));
-        setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
+        setLayout(new FlowLayout(FlowLayout.CENTER, 5, 10));
         setBorder(BorderFactory.createMatteBorder(0, 0, 0, 1, Color.lightGray));
 
         searchBox = new JTextField(" \uD83D\uDD0D SearchBox");
@@ -40,12 +44,12 @@ public class SideBar extends JPanel {
         searchBox.setBorder(BorderFactory.createEmptyBorder());
         add(searchBox);
 
-        addButton = createButton("ADD", addButton);
-        delButton = createButton("DEL", delButton);
-        editButton = createButton("EDIT", editButton);
+        addButton = createButton("Añadir", addButton);
+        delButton = createButton("Borrar", delButton);
+        editButton = createButton("Edit: OFF", editButton);
 
         addButton.addActionListener(new AddSectionListener(this));
-        delButton.addActionListener(new RemoveSectionListener(this)); // TODO should call delete on personalspace
+        delButton.addActionListener(new RemoveSectionListener(this));
         editButton.addActionListener(new EditListener(this)); // TODO Should disable all buttons
 
         setVisible(isShown);
@@ -83,12 +87,14 @@ public class SideBar extends JPanel {
     private JButton createButton(String type, JButton button) {
         button = new JButton();
         button.setText(type);
-        button.setPreferredSize(new Dimension(70, 25));
+        button.setPreferredSize(new Dimension(78, 25));
         button.setBorderPainted(false);
         button.setFocusPainted(false);
         add(button);
         return button;
     }
 
-
+    public List<PersonalSpace> getPersonalSpaces() {
+        return psv.values().stream().map(e -> e.getBoard().personalSpace).collect(Collectors.toList());
+    }
 }

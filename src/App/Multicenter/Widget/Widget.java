@@ -1,8 +1,7 @@
 package App.Multicenter.Widget;
 
 import App.Multicenter.Space.SearchedString;
-import App.Multicenter.Widget.Data.NotesWidgetData;
-import App.Multicenter.Widget.Data.WidgetData;
+import App.Multicenter.Widget.Data.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,7 +12,8 @@ public interface Widget {
 
     String NOTES = "NotesWidget";
     String COUNTDOWN = "CountdownWidget";
-    String EMBEDDED = "EmbeddedWidget";
+    String EMBEDDEDMOVIE = "MovieWidget";
+    String EMBEDDEDYT = "YoutubeWidget";
     String IMAGE = "ImageWidget";
 
     /**
@@ -25,6 +25,7 @@ public interface Widget {
      */
     static Widget instanciateWidgetsFromData(WidgetData wd) {
         // TODO No todos los widgets están listos para ser instanciados
+        // Patrón de factoría abstracta :D
         Widget w = null;
         switch (wd.classname) {
             case NOTES:
@@ -32,10 +33,17 @@ public interface Widget {
                 break;
             case COUNTDOWN:
                 break;
-            case EMBEDDED:
+            case EMBEDDEDMOVIE:
+                w = new MovieWidget((MovieWidgetData) wd);
+                break;
+            case EMBEDDEDYT:
+                w = new YoutubeWidget((YoutubeWidgetData) wd);
                 break;
             case IMAGE:
+                w = new ImageWidget((ImageWidgetData) wd);
                 break;
+            default:
+                throw new IllegalArgumentException("Mi pana la has cagado cargando los widgets de disco");
         }
         return w;
     }

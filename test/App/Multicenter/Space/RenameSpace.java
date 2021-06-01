@@ -15,9 +15,9 @@ public class RenameSpace {
         Preferences.loadPreferences();
 
         System.out.println("Spaces folder " + Preferences.getSpacesFolder());
-        PersonalSpace personalSpace = new PersonalSpace("Test",Preferences.getSpacesFolder());
+        PersonalSpace personalSpace = new PersonalSpace("Test", Preferences.getSpacesFolder());
 
-        Widget widget = new NotesWidget(0,personalSpace.getCarpeta());
+        Widget widget = new NotesWidget(personalSpace.getCarpeta());
         personalSpace.addWidget(widget);
         personalSpace.movePersonalSpacesToFolder(new File("/Users/compux72/Downloads/TestMulticenter"));
         ((AbstractWidget) widget).close();

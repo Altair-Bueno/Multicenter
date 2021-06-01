@@ -7,16 +7,14 @@ import java.awt.*;
 import java.util.concurrent.Semaphore;
 
 public class GetStartedMenu extends JFrame {
-    ChooseSpaceFolderMenu jpanel0;
-    ChooseMulticenterTheme jpanel1;
-
     private final JPanel dialog = new JPanel();
     private final JPanel buttons = new JPanel();
     private final JButton next = new JButton();
     private final JButton previous = new JButton();
-
-    private int currentPage = 0;
     private final Semaphore semaphore;
+    ChooseSpaceFolderMenu jpanel0;
+    ChooseMulticenterTheme jpanel1;
+    private int currentPage = 0;
 
     public GetStartedMenu(Semaphore semaphore) {
         toFront();

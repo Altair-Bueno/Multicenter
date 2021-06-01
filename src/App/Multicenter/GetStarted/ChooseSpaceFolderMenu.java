@@ -5,6 +5,11 @@ import App.Multicenter.Preferences.Preferences;
 import javax.swing.*;
 import java.io.File;
 
+/**
+ * Clase para preguntar al usuario qué carpeta desea que sea en la que
+ * se guarden sus espacios personales.
+ */
+
 public class ChooseSpaceFolderMenu extends JPanel {
     private final JTextField textField1 = new JTextField();
     private final JPanel panel1 = new JPanel();
@@ -12,6 +17,12 @@ public class ChooseSpaceFolderMenu extends JPanel {
     private final JButton filechooser = new JButton();
 
     private File fileLocation = Preferences.getSpacesFolder();
+
+    /**
+     * Método para setear el spaceFolder.
+     *
+     * @param parent
+     */
 
 
     public ChooseSpaceFolderMenu(JFrame parent) {
@@ -38,6 +49,12 @@ public class ChooseSpaceFolderMenu extends JPanel {
         add(filechooser);
         setVisible(true);
     }
+
+    /**
+     * Método que devuelve la localización del archivo.
+     *
+     * @return localización actual.
+     */
 
     public File getFileLocation() {
         return fileLocation;

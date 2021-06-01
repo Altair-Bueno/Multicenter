@@ -1,16 +1,12 @@
 package App.Multicenter.GUI;
 
 import App.Multicenter.Space.PersonalSpace;
-import App.Multicenter.Widget.AbstractWidget;
-import App.Multicenter.Widget.NotesWidget;
-import App.Multicenter.Widget.Widget;
+import App.Multicenter.Widget.*;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
+import java.util.List;
 
 public class Board extends JDesktopPane {
     //Attributes
@@ -27,16 +23,27 @@ public class Board extends JDesktopPane {
      */
     public Board(PersonalSpace widgets) {
         this.personalSpace = widgets;
-        numWidgets = 0;
-        //widgetList = new LinkedList<>();
+        List<Widget> widgetList = widgets.getWidgets();
+
+        for (Widget w : widgets.getWidgets()) {
+            add((Component) w);
+            ((Component) w).setVisible(true);
+        }
+        numWidgets = widgetList.size();
         setLayout(null);
 
         JPopupMenu pm = new JPopupMenu("tools");
         JMenu addWidget = new JMenu("Añadir Widget");
         JMenuItem noteWidget = new JMenuItem("Nota de texto");
+        JMenuItem imageWidget = new JMenuItem("Imagen(es)");
+        JMenuItem filmWidget = new JMenuItem("Pelicula");
+        JMenuItem ytWidget = new JMenuItem("Video de YouTube");
 
         pm.add(addWidget);
         addWidget.add(noteWidget);
+        addWidget.add(imageWidget);
+        addWidget.add(filmWidget);
+        addWidget.add(ytWidget);
         addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
                 if (e.getButton() == MouseEvent.BUTTON3) {
@@ -47,6 +54,9 @@ public class Board extends JDesktopPane {
             }
         });
         noteWidget.addActionListener(new addNotesListener());
+        imageWidget.addActionListener(new addImageWidgetListener());
+        filmWidget.addActionListener(new addfilmWidgetListener());
+        ytWidget.addActionListener(new addytWidgetListener());
         setVisible(true);
     }
 
@@ -58,8 +68,6 @@ public class Board extends JDesktopPane {
      * @param widget Widget
      */
     public void addWidget(AbstractWidget widget) {
-        //JOptionPane.showMessageDialog(null,"No puedes añadir widgets a la ventana de inicio");
-        //widgetList.add(widget);
         personalSpace.addWidget(widget);
         add(widget);
         numWidgets++;
@@ -79,20 +87,59 @@ public class Board extends JDesktopPane {
      *
      * @param widget Widget
      */
+    @Deprecated // Los widget se editan todos a la vez y a chuparla
     public void editWidget(Widget widget) {
-        //TODO Edit selected widget from board
+
     }
 
-    // TODO Cuando se pincha sobre un widget debe traerse al frente
-    // Hay que modificar la propiedad set layer
 
     private class addNotesListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            NotesWidget notes = new NotesWidget(numWidgets, personalSpace.getCarpeta());
+            NotesWidget notes = new NotesWidget(personalSpace.getCarpeta());
             notes.setVisible(true);
-            notes.setBounds(lastPos.x, lastPos.y, 250, 250);
+            notes.setLocation(lastPos.x, lastPos.y);
+            notes.setSize(250, 250);
             addWidget(notes);
+        }
+    }
+
+    private class addImageWidgetListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            ImageWidget imageWidget = new ImageWidget(personalSpace.getCarpeta());
+            imageWidget.setVisible(true);
+            imageWidget.setLocation(lastPos.x, lastPos.y);
+            imageWidget.setResizable(true);
+            imageWidget.setSize(250, 250);
+            addWidget(imageWidget);
+        }
+    }
+
+    private class addfilmWidgetListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            MovieWidget movieWidget = new MovieWidget();
+            movieWidget.setVisible(true);
+            movieWidget.setLocation(lastPos.x, lastPos.y);
+            movieWidget.setResizable(true);
+            movieWidget.setSize(400, 350);
+            addWidget(movieWidget);
+        }
+    }
+
+    private class addytWidgetListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            YoutubeWidget ytWidget = new YoutubeWidget();
+            ytWidget.setVisible(true);
+            ytWidget.setLocation(lastPos.x, lastPos.y);
+            ytWidget.setResizable(true);
+            ytWidget.setSize(400, 350);
+            addWidget(ytWidget);
         }
     }
 }

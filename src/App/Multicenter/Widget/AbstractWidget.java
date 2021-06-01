@@ -20,14 +20,15 @@ public abstract class AbstractWidget extends JInternalFrame
     // Variables de clase
     protected String id;
 
+    protected boolean edit = false;
+
     // Constructores
     protected AbstractWidget() {
     }
 
     protected AbstractWidget(WidgetData wd) {
         setSize(wd.dimension);
-        setAlignmentX(wd.x);
-        setAlignmentY(wd.y);
+        setLocation(wd.postion);
         setLayer(wd.layer);
         id = wd.id;
     }
@@ -49,14 +50,13 @@ public abstract class AbstractWidget extends JInternalFrame
 
     @Override
     public int compareTo(AbstractWidget o) {
-        return this.getLayer() - o.getLayer();
+        return id.compareTo(o.id);
     }
 
     protected WidgetData getWidgetsDataInstance(WidgetData wd) {
         wd.dimension = getSize();
         wd.id = id;
-        wd.x = getAlignmentX();
-        wd.y = getAlignmentY();
+        wd.postion = getLocation();
         wd.layer = getLayer();
         return wd;
     }

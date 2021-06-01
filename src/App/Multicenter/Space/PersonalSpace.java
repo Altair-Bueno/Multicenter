@@ -22,10 +22,10 @@ import java.util.stream.Collectors;
  */
 public class PersonalSpace implements Closeable, Serializable {
 
-    private SortedSet<Widget> widgets = new TreeSet<>();
+    private final String personalSpaceName;
+    private List<Widget> widgets = new ArrayList<>();
     private String id;
     private File carpeta;
-    private final String personalSpaceName;
 
 
     /**
@@ -78,7 +78,7 @@ public class PersonalSpace implements Closeable, Serializable {
     }
 
     /**
-     * Activa el modo edición de todo el PersonalSpace
+     * Activa el modo edición de para todos los widgets
      */
     public void toggleEditMode() {
         for (Widget w : widgets)
@@ -156,13 +156,13 @@ public class PersonalSpace implements Closeable, Serializable {
      * @see Serializable
      */
     public PersonalSpaceData getPersonalSpaceDataInstance() {
-        Set<WidgetData> set = new HashSet<>();
+        List<WidgetData> list = new ArrayList<>();
         for (Widget w : widgets)
-            set.add(w.getWidgetsDataInstance());
+            list.add(w.getWidgetsDataInstance());
 
         PersonalSpaceData psd = new PersonalSpaceData();
         psd.personalSpaceName = personalSpaceName;
-        psd.widgetData = set;
+        psd.widgetData = list;
         psd.id = id;
         psd.folderPath = carpeta.getAbsolutePath();
 
@@ -184,7 +184,7 @@ public class PersonalSpace implements Closeable, Serializable {
 
     }
 
-    public SortedSet<Widget> getWidgets() {
+    public List<Widget> getWidgets() {
         return widgets;
     }
 
