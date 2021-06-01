@@ -257,7 +257,21 @@ public class MovieWidget extends AbstractWidget {
         im = im.getScaledInstance(170, 250, Image.SCALE_SMOOTH);
         JLabel poster = new JLabel();
         poster.setIcon(new ImageIcon(im));
-        poster.setText("<html><head>" + "<style>h2 {text-align: center;} span {color: yellow;}</style>" + "</head><h2>" + this.getMovieTitle() + "</h2>" + "<h2><span>&#11088</span>Valoración: " + this.getRating() + "</h2></html>");
+        poster.setText(
+                "<html>" +
+                        "<head>" +
+                            "<style>" +
+                                "h2 {text-align: center;} span {color: yellow;}" +
+                            "</style>" +
+                        "</head>" +
+                        "<h1>" +
+                            "&nbsp;&nbsp;&nbsp;&nbsp;" + this.getMovieTitle() +
+                        "</h1>" +
+                        "<h2>" +
+                            "<span>&#11088</span>Valoración: " + this.getRating() +
+                        "</h2>" +
+                "</html>"
+        );
         poster.setVerticalTextPosition(JLabel.CENTER);
         poster.setHorizontalTextPosition(JLabel.LEFT);
         poster.setIconTextGap(30);
