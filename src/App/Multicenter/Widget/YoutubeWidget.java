@@ -44,7 +44,7 @@ public class YoutubeWidget extends AbstractWidget {
     protected YoutubeWidget(YoutubeWidgetData ywd) {
         super(ywd);
         super.setFrameIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(ClassLoader.getSystemResource("App/Multicenter/Icons/WidgetIcons/youtube.png"))));
-        super.setSize(new Dimension(400,350));
+        super.setSize(new Dimension(350,400));
         super.setTitle("YouTube");
         super.setResizable(true);
         this.video_url = ywd.video_url;
@@ -64,7 +64,7 @@ public class YoutubeWidget extends AbstractWidget {
 
     public YoutubeWidget() {
         super.setFrameIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(ClassLoader.getSystemResource("App/Multicenter/Icons/WidgetIcons/youtube.png"))));
-        super.setSize(new Dimension(400,350));
+        super.setSize(new Dimension(350,400));
         super.setTitle("YouTube");
         super.repaint();
         Editor.setEditable(false);
@@ -219,26 +219,22 @@ public class YoutubeWidget extends AbstractWidget {
         Panel.setLayout(new BorderLayout());
 
         Image im = ImageIO.read(new URL(getThumbnail_url()));
-        //int w = im.getWidth(null);
-        //int h = im.getHeight(null);
-        //System.out.println("W: " + w + " H: " + h);R
 
-        //im = im.getScaledInstance(im.getWidth(null) / 10, im.getHeight(null) / 10, Image.SCALE_SMOOTH);
         im = im.getScaledInstance(240, 180, Image.SCALE_SMOOTH);
         JLabel poster = new JLabel();
         poster.setIcon(new ImageIcon(im));
         poster.setText(
                 "<html>" +
                         "<head>" +
-                        "<style>" +
-                        "h2 {text-align: center;} span {color: yellow;}" +
-                        "</style>" +
+                            "<style>" +
+                                "h1 {text-align: center;} h2 {text-align: center;} span {color: yellow;}" +
+                            "</style>" +
                         "</head>" +
                         "<h1>" +
-                        "&nbsp;&nbsp;&nbsp;&nbsp;" + this.getTitle() +
+                            this.getTitle() +
                         "</h1>" +
                         "<h2>" +
-                        "&nbsp;&nbsp;&nbsp;&nbsp;" + "by: " +  this.getAuthor_name() +
+                            "by: " +  this.getAuthor_name() +
                         "</h2>" +
                 "</html>"
         );
