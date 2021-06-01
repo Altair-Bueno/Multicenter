@@ -73,15 +73,15 @@ public class SideBar extends JPanel {
         psv.put(s, ps);
         add(s);
         numSections++;
-        updateUI();
+        SwingUtilities.updateComponentTreeUI(this);
     }
 
     public void delPersonalSpace(Section s) {
         psv.get(s).board.personalSpace.deletePersonalSpace();
-        psv.remove(s);
         remove(s);
+        psv.remove(s);
         numSections--;
-        updateUI();
+        SwingUtilities.updateComponentTreeUI(this);
     }
 
     private JButton createButton(String type, JButton button) {

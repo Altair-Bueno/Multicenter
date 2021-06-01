@@ -44,7 +44,7 @@ public class YoutubeWidget extends AbstractWidget {
     protected YoutubeWidget(YoutubeWidgetData ywd) {
         super(ywd);
         super.setFrameIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(ClassLoader.getSystemResource("App/Multicenter/Icons/WidgetIcons/youtube.png"))));
-        super.setSize(new Dimension(400,350));
+        super.setSize(new Dimension(550,550));
         super.setTitle("YouTube");
         super.setResizable(true);
         this.video_url = ywd.video_url;
@@ -64,7 +64,7 @@ public class YoutubeWidget extends AbstractWidget {
 
     public YoutubeWidget() {
         super.setFrameIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(ClassLoader.getSystemResource("App/Multicenter/Icons/WidgetIcons/youtube.png"))));
-        super.setSize(new Dimension(400,350));
+        super.setSize(new Dimension(550,550));
         super.setTitle("YouTube");
         super.repaint();
         Editor.setEditable(false);
