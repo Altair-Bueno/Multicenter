@@ -59,12 +59,13 @@ public class MovieWidget extends AbstractWidget {
         super.setFrameIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(ClassLoader.getSystemResource("App/Multicenter/Icons/WidgetIcons/claqueta.png"))));
         super.setSize(new Dimension(400, 350));
         super.setTitle("Película");
+        super.setResizable(false);
         //super.repaint();
         this.filmid = mwd.filmid;
         Thread thread = new Thread(()->{
             try {
                 loading();
-                searchAndSetById(mwd.filmid);
+                searchAndSetById(this.filmid);
                 setView();
             } catch (IOException ignored) {
                 Editor.setEditable(false);
@@ -76,9 +77,11 @@ public class MovieWidget extends AbstractWidget {
 
     public MovieWidget(){
         super.setFrameIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(ClassLoader.getSystemResource("App/Multicenter/Icons/WidgetIcons/claqueta.png"))));
-        super.setSize(new Dimension(400, 350));
+        super.setSize(new Dimension(200, 100));
         super.setTitle("Película");
+        super.setResizable(false);
         super.repaint();
+
         Editor.setEditable(false);
         super.add(Editor);
     }
@@ -151,10 +154,6 @@ public class MovieWidget extends AbstractWidget {
         if (title.equals("")){
             // TODO show error screen. Null pointer exception on http response
         }else {
-            try {
-                loading();
-            } catch (IOException ignored) {
-            }
             // Búsqueda de title en la DB
 
             String searchUrl = "https://imdb-internet-movie-database-unofficial.p.rapidapi.com/search/" + title;
@@ -220,11 +219,14 @@ public class MovieWidget extends AbstractWidget {
             super.add(Editor);
             remView();
         }else{
-            String search = Editor.getText().replaceAll("[^a-zA-Z]+", "");
+            String search = Editor.getText().replaceAll("[^a-zA-Z0-9: -]+", "");
             Editor.setEditable(false);
             Thread thread  = new Thread(()->{
                 try {
-                    searchandSet(search);
+                    loading();
+                    if (!search.equals(this.getMovieTitle())) { // Evita volver a buscar si no has cambiado nada
+                        searchandSet(search);
+                    }
                     setView();
                 } catch (IOException e) {
                     showErrorPopUp("Error obteniendo la información");
@@ -265,11 +267,7 @@ public class MovieWidget extends AbstractWidget {
         Panel.setLayout(new BorderLayout());
 
         Image im = ImageIO.read(new URL(getURLImage()));
-        int w = im.getWidth(null);
-        int h = im.getHeight(null);
-        System.out.println("W: " + w + " H: " + h);
 
-        //im = im.getScaledInstance(im.getWidth(null) / 10, im.getHeight(null) / 10, Image.SCALE_SMOOTH);
         im = im.getScaledInstance(170, 250, Image.SCALE_SMOOTH);
         JLabel poster = new JLabel();
         poster.setIcon(new ImageIcon(im));
