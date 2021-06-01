@@ -42,7 +42,7 @@ public class YoutubeWidget extends AbstractWidget {
 
     protected YoutubeWidget(YoutubeWidgetData ywd) {
         super(ywd);
-        //super.setFrameIcon(null);
+        super.setFrameIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(ClassLoader.getSystemResource("App/Multicenter/Icons/WidgetIcons/youtube.png"))));
         super.setSize(new Dimension(400,350));
         super.setTitle("Youtube");
         //super.repaint();
@@ -63,7 +63,7 @@ public class YoutubeWidget extends AbstractWidget {
 
 
     public YoutubeWidget() {
-        //super.setFrameIcon(null);
+        super.setFrameIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(ClassLoader.getSystemResource("App/Multicenter/Icons/WidgetIcons/youtube.png"))));
         super.setSize(new Dimension(400,350));
         super.setTitle("Youtube");
         super.repaint();
@@ -215,7 +215,7 @@ public class YoutubeWidget extends AbstractWidget {
         Image im = ImageIO.read(new URL(getThumbnail_url()));
         //int w = im.getWidth(null);
         //int h = im.getHeight(null);
-        //System.out.println("W: " + w + " H: " + h);
+        //System.out.println("W: " + w + " H: " + h);R
 
         //im = im.getScaledInstance(im.getWidth(null) / 10, im.getHeight(null) / 10, Image.SCALE_SMOOTH);
         im = im.getScaledInstance(170, 250, Image.SCALE_SMOOTH);
