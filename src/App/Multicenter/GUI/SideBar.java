@@ -50,7 +50,7 @@ public class SideBar extends JPanel {
 
         addButton.addActionListener(new AddSectionListener(this));
         delButton.addActionListener(new RemoveSectionListener(this));
-        editButton.addActionListener(new EditListener(this)); // TODO Should disable all buttons
+        editButton.addActionListener(new EditListener(this));
 
         setVisible(isShown);
     }
@@ -73,15 +73,15 @@ public class SideBar extends JPanel {
         psv.put(s, ps);
         add(s);
         numSections++;
-        updateUI();
+        SwingUtilities.updateComponentTreeUI(this);
     }
 
     public void delPersonalSpace(Section s) {
         psv.get(s).board.personalSpace.deletePersonalSpace();
-        psv.remove(s);
         remove(s);
+        psv.remove(s);
         numSections--;
-        updateUI();
+        SwingUtilities.updateComponentTreeUI(this);
     }
 
     private JButton createButton(String type, JButton button) {

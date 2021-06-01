@@ -4,6 +4,8 @@ import App.Multicenter.Space.PersonalSpace;
 import App.Multicenter.Widget.*;
 
 import javax.swing.*;
+import javax.swing.event.InternalFrameEvent;
+import javax.swing.event.InternalFrameListener;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.List;
@@ -26,8 +28,11 @@ public class Board extends JDesktopPane {
         List<Widget> widgetList = widgets.getWidgets();
 
         for (Widget w : widgets.getWidgets()) {
-            add((Component) w);
-            ((Component) w).setVisible(true);
+            AbstractWidget wAux = (AbstractWidget) w;
+            wAux.setDefaultCloseOperation(JInternalFrame.DO_NOTHING_ON_CLOSE);
+            wAux.addInternalFrameListener(new CloseWidgetListener(wAux, this));
+            add(wAux);
+            wAux.setVisible(true);
         }
         numWidgets = widgetList.size();
         setLayout(null);
@@ -68,6 +73,8 @@ public class Board extends JDesktopPane {
      * @param widget Widget
      */
     public void addWidget(AbstractWidget widget) {
+        widget.setDefaultCloseOperation(JInternalFrame.DO_NOTHING_ON_CLOSE);
+        widget.addInternalFrameListener(new CloseWidgetListener(widget, this));
         personalSpace.addWidget(widget);
         add(widget);
         numWidgets++;
@@ -79,7 +86,8 @@ public class Board extends JDesktopPane {
      * @param widget Widget
      */
     public void deleteWidget(Widget widget) {
-        //TODO Delete selected widget from board
+        personalSpace.deleteWidget(widget);
+        numWidgets--;
     }
 
     /**
@@ -138,7 +146,6 @@ public class Board extends JDesktopPane {
             ytWidget.setVisible(true);
             ytWidget.setLocation(lastPos.x, lastPos.y);
             ytWidget.setResizable(true);
-            ytWidget.setSize(400, 350);
             addWidget(ytWidget);
         }
     }

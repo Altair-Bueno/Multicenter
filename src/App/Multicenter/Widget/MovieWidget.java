@@ -58,6 +58,7 @@ public class MovieWidget extends AbstractWidget {
         super.setFrameIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(ClassLoader.getSystemResource("App/Multicenter/Icons/WidgetIcons/claqueta.png"))));
         super.setSize(new Dimension(400, 350));
         super.setTitle("Película");
+        super.setClosable(true);
         super.setResizable(false);
         this.filmid = mwd.filmid;
         Thread thread = new Thread(()->{
@@ -76,6 +77,7 @@ public class MovieWidget extends AbstractWidget {
     public MovieWidget(){
         super.setFrameIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(ClassLoader.getSystemResource("App/Multicenter/Icons/WidgetIcons/claqueta.png"))));
         super.setTitle("Película");
+        super.setClosable(true);
         super.setResizable(false);
         super.repaint();
 
