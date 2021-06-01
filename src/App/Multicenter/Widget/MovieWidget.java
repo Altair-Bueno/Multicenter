@@ -42,7 +42,7 @@ public class MovieWidget extends AbstractWidget {
     private final JPanel PanelError = new JPanel();
     private final JButton busc = new JButton();
     private final JTextPane errorMessage = new JTextPane();
-    private final JEditorPane Editor = new JEditorPane();
+    private final JTextField Editor = new JTextField();
     private JPanel Panel = new JPanel();
     private final JPanel loadingPanel = new JPanel();
     private final JLabel loadingIconText = new JLabel();
@@ -50,7 +50,7 @@ public class MovieWidget extends AbstractWidget {
     private String title;
     private Double rating;
     private String URLImage;
-    private String id;
+    private String filmid;
     // Si el rating es "0.0", es porque la película está en la base de datos pero no tiene rating (No ha salido aún, por ejemplo)
 
     protected MovieWidget(MovieWidgetData mwd){
@@ -59,18 +59,19 @@ public class MovieWidget extends AbstractWidget {
         super.setFrameIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(ClassLoader.getSystemResource("App/Multicenter/Icons/WidgetIcons/claqueta.png"))));
         super.setSize(new Dimension(400, 350));
         super.setTitle("Película");
-        super.repaint();
-        try {
-            loading();
-        } catch (IOException ignored) {
-        }
-        searchAndSetById(mwd.filmid);
-        try {
-            setView();
-        } catch (IOException e) {
-            Editor.setEditable(false);
-            super.add(Editor);
-        }
+        //super.repaint();
+        this.filmid = mwd.filmid;
+        Thread thread = new Thread(()->{
+            try {
+                loading();
+                searchAndSetById(mwd.filmid);
+                setView();
+            } catch (IOException ignored) {
+                Editor.setEditable(false);
+                super.add(Editor);
+            }
+        });
+        thread.start();
     }
 
     public MovieWidget(){
@@ -91,7 +92,7 @@ public class MovieWidget extends AbstractWidget {
     }
 
     public String getFilmId() {
-        return id;
+        return filmid;
     }
 
     public Double getRating() {
@@ -147,33 +148,36 @@ public class MovieWidget extends AbstractWidget {
     }
 
     public void searchandSet(String title) throws IllegalArgumentException{
-        try {
-            loading();
-        } catch (IOException ignored) {
-        }
+        if (title.equals("")){
+            // TODO show error screen. Null pointer exception on http response
+        }else {
+            try {
+                loading();
+            } catch (IOException ignored) {
+            }
+            // Búsqueda de title en la DB
 
-        // Búsqueda de title en la DB
+            String searchUrl = "https://imdb-internet-movie-database-unofficial.p.rapidapi.com/search/" + title;
 
-        String searchUrl = "https://imdb-internet-movie-database-unofficial.p.rapidapi.com/search/" + title;
+            HttpResponse<String> response = Unirest.get(searchUrl)
+                    .header("x-rapidapi-key", "abd2447dc9msh86d9476225f947bp1e9a90jsn1e5f6f17f5b1")
+                    .header("x-rapidapi-host", "imdb-internet-movie-database-unofficial.p.rapidapi.com")
+                    .asString();
 
-        HttpResponse<String> response = Unirest.get(searchUrl)
-                .header("x-rapidapi-key", "abd2447dc9msh86d9476225f947bp1e9a90jsn1e5f6f17f5b1")
-                .header("x-rapidapi-host", "imdb-internet-movie-database-unofficial.p.rapidapi.com")
-                .asString();
+            Gson gson = new Gson();
+            SearchResult sr = gson.fromJson(response.getBody(), SearchResult.class);
+            if (sr.getTitles().size() == 0) {
+                throw new IllegalArgumentException("Not found similar titles");
+            } else {
+                String result = gson.toJson(gson.fromJson(response.getBody(), SearchResult.class).getTitles().get(0));
+                SearchedTitle movie = gson.fromJson(result, SearchedTitle.class);
 
-        Gson gson = new Gson();
-        SearchResult sr = gson.fromJson(response.getBody(), SearchResult.class);
-        if(sr.getTitles().size() == 0){
-            throw new IllegalArgumentException("Not found similar titles");
-        }else{
-            String result = gson.toJson(gson.fromJson(response.getBody(), SearchResult.class).getTitles().get(0));
-            SearchedTitle movie = gson.fromJson(result, SearchedTitle.class);
-            this.title = movie.title;
-            this.rating = 0.0;
-            this.id = movie.getId();
+                this.rating = 0.0;
+                this.filmid = movie.getId();
 
-            searchAndSetById(movie.getId());
+                searchAndSetById(movie.getId());
 
+            }
         }
     }
 
@@ -188,7 +192,7 @@ public class MovieWidget extends AbstractWidget {
         try{
             Film f = gson.fromJson(response2.getBody(), Film.class);
             this.rating = f.getRating();
-            this.title = f.getTitle();
+            this.title = f.getTitle().substring(0,f.getTitle().length()-1);
             this.URLImage = f.getPoster();
         } catch (NumberFormatException ignored){ // already set by default on calling methods
         }
@@ -212,21 +216,25 @@ public class MovieWidget extends AbstractWidget {
         edit = !edit;
         if(edit){
             Editor.setEditable(true);
+            Editor.setText(title);
             super.add(Editor);
             remView();
         }else{
-            String search = Editor.getText();
+            String search = Editor.getText().replaceAll("[^a-zA-Z]+", "");
             Editor.setEditable(false);
-            try{
-                searchandSet(search);
-                setView();
-            } catch(IllegalArgumentException e) {
-                showErrorPopUp("Película no encontrada en la base de datos");
-            } catch (IOException e) {
-                showErrorPopUp("La información no se ha recibido correctamente");
-            }
+            Thread thread  = new Thread(()->{
+                try {
+                    searchandSet(search);
+                    setView();
+                } catch (IOException e) {
+                    showErrorPopUp("Error obteniendo la información");
+                } catch(IllegalArgumentException e) {
+                    showErrorPopUp("Película no encontrada en la base de datos");
+                }
+            });
+            thread.start();
         }
-        updateUI();
+        SwingUtilities.updateComponentTreeUI(this);
     }
 
     public void loading() throws IOException {
@@ -249,7 +257,7 @@ public class MovieWidget extends AbstractWidget {
         super.getContentPane().removeAll();
         super.validate();
         super.add(loadingPanel);
-
+        SwingUtilities.updateComponentTreeUI(this);
     }
 
     public void setView() throws IOException {
@@ -297,10 +305,8 @@ public class MovieWidget extends AbstractWidget {
                         try {
                             URI uri = new URI("https://www.imdb.com/title/" + getFilmId() + "/");
                             desktop.browse(uri);
-                        } catch (IOException ex) {
+                        } catch (IOException | URISyntaxException ex) {
                             // do nothing
-                        } catch (URISyntaxException ex) {
-                            //do nothing
                         }
                     }
 
