@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class ImageWidget extends AbstractWidget {
-
+// TODO Mejor usamos un widget unico en vez de un carrousel
     private final List<String> footer;
     private final JPanel contentPanel = new JPanel();
     private File imagesFolder; // Spacesfolder > Imagesfolder > Imagenes

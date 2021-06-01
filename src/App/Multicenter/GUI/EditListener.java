@@ -4,6 +4,7 @@ import App.Multicenter.Widget.AbstractWidget;
 import App.Multicenter.Widget.Widget;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -28,14 +29,17 @@ public class EditListener implements ActionListener {
         if (sideBar.selected != null) {
             editMode = !editMode;
             sideBar.psv.get(sideBar.selected).board.personalSpace.toggleEditMode();
+            // TODO colours
             if(editMode) {
                 sideBar.delButton.setEnabled(false);
                 sideBar.addButton.setEnabled(false);
                 sideBar.editButton.setText("Edit: ON");
+                //sideBar.editButton.setBackground(new Color(51, 208, 1, 255));
             } else {
                 sideBar.delButton.setEnabled(true);
                 sideBar.addButton.setEnabled(true);
                 sideBar.editButton.setText("Edit: OFF");
+                //sideBar.editButton.setBackground(new Color(215, 0, 0,255));
             }
         }
     }
