@@ -83,23 +83,23 @@ public class MovieWidget extends AbstractWidget {
         super.add(Editor);
     }
 
-    public String getURLImage() {
+    public synchronized String getURLImage() {
         return URLImage;
     }
 
-    public String getMovieTitle() {
+    public synchronized String getMovieTitle() {
         return title;
     }
 
-    public String getFilmId() {
+    public synchronized String getFilmId() {
         return filmid;
     }
 
-    public Double getRating() {
+    public synchronized Double getRating() {
         return rating;
     }
 
-    public void showErrorPopUp(String text){
+    public synchronized void showErrorPopUp(String text){
         JPanel panelt = new JPanel();
         JPanel panelb = new JPanel();
 
@@ -130,7 +130,7 @@ public class MovieWidget extends AbstractWidget {
         } );;
 
         panelt.add(errorMessage);
-        panelb.add(busc);
+        //panelb.add(busc);
 
         PanelError.setLayout(new GridBagLayout());
         PanelError.setPreferredSize(super.getPreferredSize());
@@ -142,12 +142,12 @@ public class MovieWidget extends AbstractWidget {
         //super.pack();
     }
 
-    public void botonPulsado(){
+    public synchronized void botonPulsado(){
         super.remove(PanelError);
         toggleEditMode();
     }
 
-    public void searchandSet(String title) throws IllegalArgumentException{
+    public synchronized void searchandSet(String title) throws IllegalArgumentException{
         if (title.equals("")){
             // TODO show error screen. Null pointer exception on http response
         }else {
@@ -181,7 +181,7 @@ public class MovieWidget extends AbstractWidget {
         }
     }
 
-    public void searchAndSetById(String id){
+    public synchronized void searchAndSetById(String id){
         // Coger rating con el id de la película
         Gson gson = new Gson();
 
@@ -199,7 +199,7 @@ public class MovieWidget extends AbstractWidget {
     }
 
     @Override
-    public WidgetData getWidgetsDataInstance() {
+    public synchronized WidgetData getWidgetsDataInstance() {
         MovieWidgetData mwd = new MovieWidgetData();
         mwd.classname = EMBEDDEDMOVIE;
         mwd.filmid = getFilmId();
@@ -212,7 +212,7 @@ public class MovieWidget extends AbstractWidget {
     }
 
     @Override
-    public void toggleEditMode() {
+    public synchronized void toggleEditMode() {
         edit = !edit;
         if(edit){
             Editor.setEditable(true);
@@ -237,7 +237,7 @@ public class MovieWidget extends AbstractWidget {
         SwingUtilities.updateComponentTreeUI(this);
     }
 
-    public void loading() throws IOException {
+    public synchronized void loading() throws IOException {
         loadingPanel.setLayout(new GridLayout(1, 1));
 
         ImageIcon gif = new ImageIcon(ClassLoader.getSystemResource("App/Multicenter/Gifs/loadingWheel.gif"));
@@ -260,7 +260,7 @@ public class MovieWidget extends AbstractWidget {
         SwingUtilities.updateComponentTreeUI(this);
     }
 
-    public void setView() throws IOException {
+    public synchronized void setView() throws IOException {
         Panel = new JPanel(); // Delete previous panel versions
         Panel.setLayout(new BorderLayout());
 
@@ -323,7 +323,7 @@ public class MovieWidget extends AbstractWidget {
         repaint();
     }
 
-    public void remView() {
+    public synchronized void remView() {
         remove(Panel);
         setTitle("Película");
     }
