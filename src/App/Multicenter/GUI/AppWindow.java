@@ -11,6 +11,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Semaphore;
 import java.util.stream.Collectors;
 
 public class AppWindow extends JFrame {
@@ -40,7 +41,7 @@ public class AppWindow extends JFrame {
         //add(ps, BorderLayout.CENTER);
         add(sb, BorderLayout.WEST);
         setLocationRelativeTo(null);
-        setVisible(true);
+        //setVisible(true); // Set visible disable until app completely loaded
         setMinimumSize(new Dimension(400, 400));
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
@@ -56,6 +57,11 @@ public class AppWindow extends JFrame {
     }
 
     //Methods
+
+    public static void createAndShowGUI(Semaphore semaphore){
+        createAndShowGUI();
+        semaphore.release();
+    }
 
     /**
      * Crea y muestra todos los elementos visuales de la aplicación
@@ -87,6 +93,7 @@ public class AppWindow extends JFrame {
                 sideBar.addPersonalSpace(section, psv);
             }
         }
+        app.setVisible(true);
     }
 
 
