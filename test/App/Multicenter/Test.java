@@ -14,7 +14,7 @@ public class Test {
 
     @Before
     public void b() {
-        tree = new HierarchyTree<>();
+       // tree = new HierarchyTree<>();
     }
 
     @org.junit.Test
