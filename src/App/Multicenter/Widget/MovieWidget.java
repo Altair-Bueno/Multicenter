@@ -56,6 +56,10 @@ public class MovieWidget extends AbstractWidget {
     protected MovieWidget(MovieWidgetData mwd){
         super(mwd);
         this.rating = 0.0;
+        super.setFrameIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(ClassLoader.getSystemResource("App/Multicenter/Icons/WidgetIcons/claqueta.png"))));
+        super.setSize(new Dimension(400, 350));
+        super.setTitle("Película");
+        super.repaint();
         try {
             loading();
         } catch (IOException ignored) {
@@ -70,6 +74,10 @@ public class MovieWidget extends AbstractWidget {
     }
 
     public MovieWidget(){
+        super.setFrameIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(ClassLoader.getSystemResource("App/Multicenter/Icons/WidgetIcons/claqueta.png"))));
+        super.setSize(new Dimension(400, 350));
+        super.setTitle("Película");
+        super.repaint();
         Editor.setEditable(false);
         super.add(Editor);
     }

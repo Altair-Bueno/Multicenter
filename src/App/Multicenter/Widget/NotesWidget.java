@@ -48,6 +48,7 @@ public class NotesWidget extends AbstractWidget {
         markdownFile = new File(nwd.markdownFile);
         setResizable(true);
         super.add(jEditorPane);
+        super.setFrameIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(ClassLoader.getSystemResource("App/Multicenter/Icons/WidgetIcons/notas.png"))));
         super.setTitle("Nota de texto");
         super.repaint();
         try {
@@ -74,6 +75,7 @@ public class NotesWidget extends AbstractWidget {
         markdownFile = new File(spacesFolder, super.id);
         setResizable(true);
         super.add(jEditorPane);
+        super.setFrameIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(ClassLoader.getSystemResource("App/Multicenter/Icons/WidgetIcons/notas.png"))));
         try {
             renderMardownMode();
         } catch (IOException e) {

@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 public class EditListener implements ActionListener {
     //Attributes
     SideBar sideBar;
+    boolean editMode = false;
 
     public EditListener(SideBar sideBar) {
         this.sideBar = sideBar;
