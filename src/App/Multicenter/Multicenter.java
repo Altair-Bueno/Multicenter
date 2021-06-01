@@ -43,12 +43,18 @@ public class Multicenter {
         loadingScreen.setValue(100);
         if (Taskbar.getTaskbar().isSupported(Taskbar.Feature.PROGRESS_VALUE))
             Taskbar.getTaskbar().setProgressValue(100);
+        // ShowGUI
+        Semaphore semaphore = new Semaphore(0);
+        javax.swing.SwingUtilities.invokeLater(()->AppWindow.createAndShowGUI(semaphore));
+
+        try {
+            semaphore.acquire();
+        } catch (InterruptedException e) {
+            System.err.println(e.getMessage());
+        }
+        // Remove loading screen
         loadingScreen.dispose();
         if (Taskbar.getTaskbar().isSupported(Taskbar.Feature.PROGRESS_VALUE))
             Taskbar.getTaskbar().setProgressValue(-1);
-
-        // ShowGUI
-        javax.swing.SwingUtilities.invokeLater(AppWindow::createAndShowGUI);
-        // Save preferences
     }
 }
