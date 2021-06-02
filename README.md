@@ -15,6 +15,10 @@ Librerías y recursos utilizados para la realización de este proyecto
 - [Image icon](https://www.flaticon.es/icono-gratis/imagen_685681?term=image&page=1&position=15&page=1&position=15&related_id=685681&origin=search)
 - [Claqueta icon](https://www.flaticon.es/icono-gratis/claqueta_4812530?term=film&page=1&position=91&page=1&position=91&related_id=4812530&origin=search)
 - [Notes icon](https://www.flaticon.es/icono-gratis/publicalo_889648?term=notes&page=1&position=4&page=1&position=4&related_id=889648&origin=search)
+- [Temas FlatLaf](https://github.com/JFormDesigner/FlatLaf)
+- [Unirest API](https://github.com/Kong/unirest-java)
+- [JUnit](https://junit.org/junit5/)
+- [Mockito](https://site.mockito.org/)
 
 # About
 
@@ -28,3 +32,4 @@ Proyecto para la asignatura de Introdución a la Ingeniería del Software de la 
 - [Lopez Ranilla, Rubén](https://github.com/rubenlopran)
 - [Marín Corbera, Carlos](https://github.com/CTMarin)
 - [Sepúlveda Zorrilla, Antonio](https://github.com/antoniosep)
+
