@@ -41,7 +41,7 @@ public class YoutubeWidget extends AbstractWidget {
 
     // Fields
     private String thumbnail_url;
-    private String title;
+    private String vidtitle;
     private String video_url;
     private String author_name;
 
@@ -81,8 +81,8 @@ public class YoutubeWidget extends AbstractWidget {
         return thumbnail_url;
     }
 
-    public String getTitle() {
-        return title;
+    public String getVidTitle() {
+        return vidtitle;
     }
 
     public String getAuthor_name() {
@@ -137,9 +137,11 @@ public class YoutubeWidget extends AbstractWidget {
                 ytInfo a = g.fromJson(response.getBody(), ytInfo.class);
                 author_name = a.getAuthor_name();
                 video_url = "https://" + url;
-                title = a.getTitle();
+                vidtitle = a.getTitle();
                 thumbnail_url = a.getThumbnail_url();
-            } catch (JsonSyntaxException e){ }
+            } catch (JsonSyntaxException e){
+                emptydata();
+            }
 
         }
 
@@ -196,9 +198,7 @@ public class YoutubeWidget extends AbstractWidget {
             Editor.setEditable(false);
             try {
                 if (search.isBlank()) {
-                    this.video_url = null;
-                    this.title = null;
-                    this.thumbnail_url = null;
+                    emptydata();
                     showErrorPopUp(BLANKINPUTERROR);
                 } else {
                     loading();
@@ -208,12 +208,20 @@ public class YoutubeWidget extends AbstractWidget {
                     setView();
                 }
             } catch (IllegalArgumentException e) {
+                emptydata();
                 showErrorPopUp(NOTFOUNDERROR);
             } catch (IOException e) {
+                emptydata();
                 showErrorPopUp(LOADINGERROR);
             }
         }
         updateUI();
+    }
+
+    public void emptydata(){
+        this.video_url = null;
+        this.vidtitle = null;
+        this.thumbnail_url = null;
     }
 
     public void setView() throws IOException {
@@ -232,7 +240,7 @@ public class YoutubeWidget extends AbstractWidget {
                         "</style>" +
                         "</head>" +
                         "<h1>" +
-                        this.getTitle() +
+                        this.getVidTitle() +
                         "</h1>" +
                         "<h2>" +
                         "by: " + this.getAuthor_name() +
@@ -272,7 +280,7 @@ public class YoutubeWidget extends AbstractWidget {
         super.getContentPane().removeAll();
         super.revalidate();
         super.add(Panel);
-        setTitle("YouTube - " + this.getTitle());
+        setTitle("YouTube - " + this.getVidTitle());
         repaint();
     }
 
