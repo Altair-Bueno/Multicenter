@@ -5,7 +5,6 @@ import App.Multicenter.GetStarted.GetStartedMenu;
 import App.Multicenter.GetStarted.LoadingScreen;
 import App.Multicenter.Preferences.Preferences;
 
-import java.awt.Taskbar;
 import java.awt.*;
 import java.util.concurrent.Semaphore;
 
@@ -45,7 +44,7 @@ public class Multicenter {
             Taskbar.getTaskbar().setProgressValue(100);
         // ShowGUI
         Semaphore semaphore = new Semaphore(0);
-        javax.swing.SwingUtilities.invokeLater(()->AppWindow.createAndShowGUI(semaphore));
+        javax.swing.SwingUtilities.invokeLater(() -> AppWindow.createAndShowGUI(semaphore));
 
         try {
             semaphore.acquire();

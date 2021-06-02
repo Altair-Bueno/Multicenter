@@ -21,7 +21,7 @@ public class AppWindow extends JFrame {
         try {
             psDefault = new JEditorPane(ClassLoader.getSystemResource("App/Multicenter/Placeholder/Files/PersonalSpacePlaceholder.html"));
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println(e.getMessage());
         }
     }
 
@@ -37,7 +37,7 @@ public class AppWindow extends JFrame {
         setName("Multicenter");
         setLayout(new BorderLayout());
 
-        setBounds(0, 0, (int) (Toolkit.getDefaultToolkit().getScreenSize().width*0.75), (int) (Toolkit.getDefaultToolkit().getScreenSize().height*0.75));
+        setBounds(0, 0, (int) (Toolkit.getDefaultToolkit().getScreenSize().width * 0.75), (int) (Toolkit.getDefaultToolkit().getScreenSize().height * 0.75));
         //add(ps, BorderLayout.CENTER);
         add(sb, BorderLayout.WEST);
         setLocationRelativeTo(null);
@@ -58,7 +58,7 @@ public class AppWindow extends JFrame {
 
     //Methods
 
-    public static void createAndShowGUI(Semaphore semaphore){
+    public static void createAndShowGUI(Semaphore semaphore) {
         createAndShowGUI();
         semaphore.release();
     }
@@ -80,7 +80,7 @@ public class AppWindow extends JFrame {
             try {
                 data = x.readFromFile(Preferences.getSpacesSaveFile());
             } catch (FileNotFoundException e) {
-                e.printStackTrace();
+                System.err.println(e.getMessage());
             }
 
             for (PersonalSpaceData d : data) {

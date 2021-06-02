@@ -22,6 +22,7 @@ public class SideBar extends JPanel {
     Map<Section, PersonalSpaceView> psv;
     Boolean isShown;
     int numSections;
+    boolean editMode = false;
 
     //Constructor
 
@@ -70,9 +71,13 @@ public class SideBar extends JPanel {
      * @param ps PersonalSpaceView a añadir
      */
     public void addPersonalSpace(Section s, PersonalSpaceView ps) {
+        if (!psv.containsKey(s)) {
+            numSections++;
+        }
         psv.put(s, ps);
+        //System.out.println(psv);
+        ps.header.text.addMouseListener(new HeaderListener(this));
         add(s);
-        numSections++;
         SwingUtilities.updateComponentTreeUI(this);
     }
 

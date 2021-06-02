@@ -4,6 +4,7 @@ import App.Multicenter.Space.SearchedString;
 import App.Multicenter.Widget.Data.WidgetData;
 import App.Multicenter.Widget.Data.YoutubeWidgetData;
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 import kong.unirest.HttpResponse;
 import kong.unirest.Unirest;
 
@@ -16,8 +17,6 @@ import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
@@ -25,17 +24,22 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.Comparator;
-import java.util.Locale;
 
 public class YoutubeWidget extends AbstractWidget {
-    private final JPanel PanelError = new JPanel();
-    private final JButton busc = new JButton();
-    private final JTextPane errorMessage = new JTextPane();
-    private final JEditorPane Editor = new JEditorPane();
-    private JPanel Panel = new JPanel();
-    private JLabel loadingIconText = new JLabel();
+    // Constants
+    private final String EDIT = "Pulsa EDITAR e introduce el link de nuevo.";
+    private final String BLANKINPUTERROR = "No has introducido nada. " + EDIT;
+    private final String NOTFOUNDERROR = "No se ha encontrado el vídeo dada esa URL. " + EDIT;
+    private final String LOADINGERROR = "La información no se ha recibido correctamente. " + EDIT;
+    private final JTextField Editor = new JTextField();
 
+    // Vars
+    private boolean isClickable = false;
+    private JPanel PanelError;
+    private JPanel Panel;
+    private JLabel loadingIconText;
+
+    // Fields
     private String thumbnail_url;
     private String title;
     private String video_url;
@@ -44,15 +48,15 @@ public class YoutubeWidget extends AbstractWidget {
     protected YoutubeWidget(YoutubeWidgetData ywd) {
         super(ywd);
         super.setFrameIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(ClassLoader.getSystemResource("App/Multicenter/Icons/WidgetIcons/youtube.png"))));
-        super.setSize(new Dimension(440,400));
+        super.setSize(new Dimension(440, 400));
         super.setTitle("YouTube");
         super.setResizable(true);
         super.setClosable(true);
         this.video_url = ywd.video_url;
-        Thread thread = new Thread(()->{
+        Thread thread = new Thread(() -> {
             try {
                 loading();
-                loadYTdata(this.video_url);
+                loadYTdata(this.getVideo_url());
                 setView();
             } catch (IOException ignored) {
                 Editor.setEditable(false);
@@ -65,7 +69,7 @@ public class YoutubeWidget extends AbstractWidget {
 
     public YoutubeWidget() {
         super.setFrameIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(ClassLoader.getSystemResource("App/Multicenter/Icons/WidgetIcons/youtube.png"))));
-        super.setSize(new Dimension(440,400));
+        super.setSize(new Dimension(440, 400));
         super.setTitle("YouTube");
         super.setClosable(true);
         super.repaint();
@@ -89,16 +93,16 @@ public class YoutubeWidget extends AbstractWidget {
         return video_url;
     }
 
-    public void showErrorPopUp(String text){
-        JPanel panelt = new JPanel();
-        JPanel panelb = new JPanel();
+    public void showErrorPopUp(String text) {
+        PanelError = new JPanel();
+        JTextPane errorMessage = new JTextPane();
 
         errorMessage.setText(text);
         errorMessage.setEditable(false);
         errorMessage.setForeground(Color.RED);
         errorMessage.setFont(errorMessage.getFont().deriveFont(Font.BOLD, 14f)); // Bold
         errorMessage.setOpaque(false);
-        errorMessage.setPreferredSize(new Dimension(super.getWidth()-10, super.getHeight()-25));
+        errorMessage.setPreferredSize(new Dimension(super.getWidth() - 10, super.getHeight() - 25));
         StyledDocument doc = errorMessage.getStyledDocument();
         SimpleAttributeSet center = new SimpleAttributeSet();
         StyleConstants.setAlignment(center, StyleConstants.ALIGN_CENTER);
@@ -111,47 +115,32 @@ public class YoutubeWidget extends AbstractWidget {
         gbc.weightx = 1;
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
-        busc.setText("Buscar de nuevo");
-        busc.setPreferredSize(new Dimension(super.getWidth()-10, 20));
-        busc.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                botonPulsado();
-            }
-        } );
-
-        panelt.add(errorMessage);
-        panelb.add(busc);
-
         PanelError.setLayout(new GridBagLayout());
         PanelError.setPreferredSize(super.getPreferredSize());
-        PanelError.add(panelt, gbc);
-        PanelError.add(panelb);
+        PanelError.add(errorMessage, gbc);
+
         super.getContentPane().removeAll();
         super.revalidate();
         super.add(PanelError);
+        repaint();
     }
 
-    public void botonPulsado(){
-        super.remove(PanelError);
-        toggleEditMode();
-    }
-
-    public void loadYTdata(String url){
-        if(!url.equals("")){
-            if(url.substring(0,8).equals("https://")){
+    public void loadYTdata(String url) {
+        if (!url.equals("")) {
+            if (url.startsWith("https://")) {
                 url = url.replace("https://", "");
             }
-            try{
-                loading();
-            } catch (IOException ign){}
 
-            HttpResponse<String> response = Unirest.get("https://www.youtube.com/oembed?url=" + url + "&format=json").header("Accept", "application/json").asString();
-            Gson g = new Gson();
-            ytInfo a = g.fromJson(response.getBody(), ytInfo.class);
-            author_name = a.getAuthor_name();
-            video_url = "https://"+url;
-            title = a.getTitle();
-            thumbnail_url = a.getThumbnail_url();
+            try{
+                HttpResponse<String> response = Unirest.get("https://www.youtube.com/oembed?url=" + url + "&format=json").header("Accept", "application/json").asString();
+                Gson g = new Gson();
+                ytInfo a = g.fromJson(response.getBody(), ytInfo.class);
+                author_name = a.getAuthor_name();
+                video_url = "https://" + url;
+                title = a.getTitle();
+                thumbnail_url = a.getThumbnail_url();
+            } catch (JsonSyntaxException e){ }
+
         }
 
     }
@@ -190,26 +179,38 @@ public class YoutubeWidget extends AbstractWidget {
     @Override
     public SearchedString<Widget> search(String cadena) {
         if (video_url == null) return new SearchedString<>(this, "", cadena);
-        return new SearchedString<>(this, getTitle(),cadena);
+        return new SearchedString<>(this, getTitle(), cadena);
     }
 
     @Override
     public void toggleEditMode() {
         edit = !edit;
-        if(edit){
+        if (edit) {
+            isClickable = false;
             Editor.setEditable(true);
+            if (getVideo_url() != null) Editor.setText(getVideo_url());
             super.add(Editor);
             remView();
-        }else{
+        } else {
             String search = Editor.getText();
             Editor.setEditable(false);
-            try{
-                loadYTdata(search);
-                setView();
-            } catch(IllegalArgumentException e) {
-                showErrorPopUp("No se ha encontrado el vídeo dada esa URL");
+            try {
+                if (search.isBlank()) {
+                    this.video_url = null;
+                    this.title = null;
+                    this.thumbnail_url = null;
+                    showErrorPopUp(BLANKINPUTERROR);
+                } else {
+                    loading();
+                    if (!search.equals(getVideo_url())) {
+                        loadYTdata(search);
+                    }
+                    setView();
+                }
+            } catch (IllegalArgumentException e) {
+                showErrorPopUp(NOTFOUNDERROR);
             } catch (IOException e) {
-                showErrorPopUp("La información no se ha recibido correctamente");
+                showErrorPopUp(LOADINGERROR);
             }
         }
         updateUI();
@@ -220,11 +221,6 @@ public class YoutubeWidget extends AbstractWidget {
         Panel.setLayout(new BorderLayout());
 
         Image im = ImageIO.read(new URL(getThumbnail_url()));
-        //int w = im.getWidth(null);
-        //int h = im.getHeight(null);
-        //System.out.println("W: " + w + " H: " + h);R
-
-        //im = im.getScaledInstance(im.getWidth(null) / 10, im.getHeight(null) / 10, Image.SCALE_SMOOTH);
         im = im.getScaledInstance(350, 195, Image.SCALE_SMOOTH);
         JLabel poster = new JLabel();
         poster.setIcon(new ImageIcon(im));
@@ -236,38 +232,38 @@ public class YoutubeWidget extends AbstractWidget {
                         "</style>" +
                         "</head>" +
                         "<h1>" +
-                            this.getTitle() +
+                        this.getTitle() +
                         "</h1>" +
                         "<h2>" +
-                            "Canal: " +  this.getAuthor_name() +
+                        "by: " + this.getAuthor_name() +
                         "</h2>" +
-                "</html>"
+                        "</html>"
         );
         poster.setVerticalTextPosition(JLabel.TOP);
         poster.setHorizontalTextPosition(JLabel.CENTER);
         poster.setIconTextGap(15);
 
         Border border = poster.getBorder();
-        Border margin = new EmptyBorder(10,30,20,10);
+        Border margin = new EmptyBorder(10, 30, 20, 10);
         poster.setBorder(new CompoundBorder(border, margin));
 
         poster.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
         addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
-                if (e.getClickCount() > 0) {
-                    if (Desktop.isDesktopSupported()) {
-                        Desktop desktop = Desktop.getDesktop();
-                        try {
-                            URI uri = new URI(video_url);
-                            desktop.browse(uri);
-                        } catch (IOException ex) {
-                            // do nothing
-                        } catch (URISyntaxException ex) {
-                            //do nothing
+                if (isClickable) {
+                    if (e.getClickCount() > 0) {
+                        if (Desktop.isDesktopSupported()) {
+                            Desktop desktop = Desktop.getDesktop();
+                            try {
+                                URI uri = new URI(video_url);
+                                desktop.browse(uri);
+                            } catch (IOException | URISyntaxException ex) {
+                                // do nothing
+                            }
                         }
-                    }
 
+                    }
                 }
             }
         });
@@ -281,7 +277,9 @@ public class YoutubeWidget extends AbstractWidget {
     }
 
     public void remView() {
-        remove(Panel);
+        if (isAncestorOf(Panel)) remove(Panel);
+        if (isAncestorOf(PanelError)) remove(PanelError);
+        if (isAncestorOf(loadingIconText)) remove(loadingIconText);
         setTitle("YouTube");
     }
 
@@ -292,41 +290,43 @@ public class YoutubeWidget extends AbstractWidget {
     }
 
     @Override
-    public void moveFilesToFolder(File folder) throws IOException { }
+    public void moveFilesToFolder(File folder) throws IOException {
+    }
 
     @Override
-    public void close() throws IOException { }
+    public void close() throws IOException {
+    }
 
 
 //CLASES EXTRA PARA ALMACENAR INFORMACION GSON:
 
-    private class ytInfo{
+    private class ytInfo {
         protected String title;
         protected String thumbnail_url;
         protected String author_name;
 
-        public void setAuthor_name(String author_name) {
-            this.author_name = author_name;
-        }
-
-        public void setTitle(String title) {
-            this.title = title;
-        }
-
-        public void setThumbnail_url(String thumnail_url) {
-            this.thumbnail_url = thumbnail_url;
-        }
-
         public String getAuthor_name() {
             return author_name;
+        }
+
+        public void setAuthor_name(String author_name) {
+            this.author_name = author_name;
         }
 
         public String getTitle() {
             return title;
         }
 
+        public void setTitle(String title) {
+            this.title = title;
+        }
+
         public String getThumbnail_url() {
             return thumbnail_url;
+        }
+
+        public void setThumbnail_url(String thumnail_url) {
+            this.thumbnail_url = thumbnail_url;
         }
 
         @Override

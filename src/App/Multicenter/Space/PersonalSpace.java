@@ -105,6 +105,7 @@ public class PersonalSpace implements Closeable, Serializable {
      */
     public void deleteWidget(Widget w) {
         widgets.remove(w);
+        w.deleteWidget();
     }
 
 

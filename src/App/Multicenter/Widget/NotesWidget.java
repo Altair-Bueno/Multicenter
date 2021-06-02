@@ -22,7 +22,7 @@ public class NotesWidget extends AbstractWidget {
 
     private final HyperlinkListener hyperlinkListener = a -> {
         if (HyperlinkEvent.EventType.ACTIVATED.equals(a.getEventType())) {
-            System.out.println(a.getURL());
+            //System.out.println(a.getURL());
             Desktop desktop = Desktop.getDesktop();
             try {
                 desktop.browse(a.getURL().toURI());

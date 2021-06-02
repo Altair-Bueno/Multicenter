@@ -27,13 +27,14 @@ public class SectionListener implements MouseListener {
      */
     @Override
     public void mouseClicked(MouseEvent e) {
-        // TODO Auto-generated method stub
-        app.changePersonalSpace(parent.psv.get(section));
-        if (parent.selected != null) {
-            parent.selected.setBackground(section.def);
+        if (!parent.editMode) {
+            app.changePersonalSpace(parent.psv.get(section));
+            if (parent.selected != null) {
+                parent.selected.setBackground(section.def);
+            }
+            section.setBackground(Color.lightGray);
+            parent.selected = section;
         }
-        section.setBackground(Color.lightGray);
-        parent.selected = section;
     }
 
     /**
@@ -62,15 +63,16 @@ public class SectionListener implements MouseListener {
     //Unused method
     @Override
     public void mouseEntered(MouseEvent e) {
-        section.setBackground(Color.lightGray);
+        if (!parent.editMode) {
+            section.setBackground(Color.lightGray);
+        }
     }
 
     //Unused method
     @Override
     public void mouseExited(MouseEvent e) {
-        if (section != parent.selected) {
+        if (section != parent.selected && !parent.editMode) {
             section.setBackground(section.def);
         }
     }
-
 }

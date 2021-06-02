@@ -30,6 +30,15 @@ public class Section extends JPanel {
     }
 
     //Methods
+    public void changeTitle(String title) {
+        PersonalSpaceView old = parent.psv.get(parent.selected);
+        parent.psv.remove(this);
+        label.setText(title);
+        this.title = title;
+        parent.addPersonalSpace(this, old);
+        updateUI();
+    }
+
     public String toString() {
         return title;
     }
