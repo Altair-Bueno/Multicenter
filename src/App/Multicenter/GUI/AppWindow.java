@@ -6,6 +6,7 @@ import App.Multicenter.Space.PersonalSpace;
 import App.Multicenter.Space.PersonalSpaceData;
 
 import javax.swing.*;
+import javax.swing.event.HyperlinkEvent;
 import java.awt.*;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -31,6 +32,19 @@ public class AppWindow extends JFrame {
 
     //Constructor
     public AppWindow(PersonalSpaceView personalSpaceView, SideBar sideBar) {
+        psDefault.setEditable(false);
+        psDefault.setFocusable(false);
+        psDefault.addHyperlinkListener(a -> {
+            if(HyperlinkEvent.EventType.ACTIVATED.equals(a.getEventType())){
+                Desktop desktop = Desktop.getDesktop();
+                try{
+                    desktop.browse(a.getURL().toURI());
+                }catch(Exception e){
+                    System.err.println(e.getMessage());
+                }
+            }
+        });
+
         ps = personalSpaceView;
         sb = sideBar;
 
@@ -135,7 +149,7 @@ public class AppWindow extends JFrame {
         if (ps != null) {
             remove(ps);
         }
-        psDefault.setEnabled(false);
+        //psDefault.setEnabled(false);
         add(psDefault);
         psDefault.setContentType("text/html");
 
