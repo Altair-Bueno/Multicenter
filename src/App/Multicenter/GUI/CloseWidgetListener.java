@@ -1,7 +1,6 @@
 package App.Multicenter.GUI;
 
 import App.Multicenter.Widget.AbstractWidget;
-import App.Multicenter.Widget.Widget;
 
 import javax.swing.*;
 import javax.swing.event.InternalFrameEvent;
@@ -26,7 +25,7 @@ public class CloseWidgetListener implements InternalFrameListener {
     @Override
     public void internalFrameClosing(InternalFrameEvent e) {
         int res = JOptionPane.showConfirmDialog(board, "¿Estás seguro de borrar este widget?\nLos cambios serán permanentes.");
-        if(res == 0) {
+        if (res == 0) {
             board.deleteWidget(widget);
             widget.dispose();
         }

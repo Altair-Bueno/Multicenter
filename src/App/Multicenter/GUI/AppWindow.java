@@ -37,7 +37,7 @@ public class AppWindow extends JFrame {
         setName("Multicenter");
         setLayout(new BorderLayout());
 
-        setBounds(0, 0, (int) (Toolkit.getDefaultToolkit().getScreenSize().width*0.75), (int) (Toolkit.getDefaultToolkit().getScreenSize().height*0.75));
+        setBounds(0, 0, (int) (Toolkit.getDefaultToolkit().getScreenSize().width * 0.75), (int) (Toolkit.getDefaultToolkit().getScreenSize().height * 0.75));
         //add(ps, BorderLayout.CENTER);
         add(sb, BorderLayout.WEST);
         setLocationRelativeTo(null);
@@ -58,7 +58,7 @@ public class AppWindow extends JFrame {
 
     //Methods
 
-    public static void createAndShowGUI(Semaphore semaphore){
+    public static void createAndShowGUI(Semaphore semaphore) {
         createAndShowGUI();
         semaphore.release();
     }

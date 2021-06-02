@@ -71,7 +71,7 @@ public class SideBar extends JPanel {
      * @param ps PersonalSpaceView a añadir
      */
     public void addPersonalSpace(Section s, PersonalSpaceView ps) {
-        if(!psv.containsKey(s)) {
+        if (!psv.containsKey(s)) {
             numSections++;
         }
         psv.put(s, ps);

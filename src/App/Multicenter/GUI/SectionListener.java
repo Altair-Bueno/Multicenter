@@ -27,7 +27,7 @@ public class SectionListener implements MouseListener {
      */
     @Override
     public void mouseClicked(MouseEvent e) {
-        if(!parent.editMode) {
+        if (!parent.editMode) {
             app.changePersonalSpace(parent.psv.get(section));
             if (parent.selected != null) {
                 parent.selected.setBackground(section.def);
@@ -63,7 +63,7 @@ public class SectionListener implements MouseListener {
     //Unused method
     @Override
     public void mouseEntered(MouseEvent e) {
-        if(!parent.editMode) {
+        if (!parent.editMode) {
             section.setBackground(Color.lightGray);
         }
     }

@@ -1,25 +1,25 @@
 package App.Multicenter.DataStructures;
 
-import App.Multicenter.DataStructures.Tree;
-import org.w3c.dom.Node;
-
-import java.util.*;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Set;
 import java.util.function.Function;
 
 @Deprecated
-public class HierarchyTree <E> implements Tree<E> {
+public class HierarchyTree<E> implements Tree<E> {
 
     // Variables de clase
-    HashMap<E,Object[]> relation; // hijo -> padre Object[0] padre Object[1] Set hijos
+    HashMap<E, Object[]> relation; // hijo -> padre Object[0] padre Object[1] Set hijos
     E root;
 
     // TODO Constructores
-    public HierarchyTree(HashMap<E,Object[]> r,E root){
+    public HierarchyTree(HashMap<E, Object[]> r, E root) {
         relation = r;
         this.root = root;
 
     }
-    public HierarchyTree(E root){
+
+    public HierarchyTree(E root) {
         relation = new HashMap<>();
         this.root = root;
     }
@@ -38,22 +38,24 @@ public class HierarchyTree <E> implements Tree<E> {
      * @return Sub-árbol nuevo. Los cambios <b>no</b> afectarán al árbol original
      */
     public Tree<E> getSubTree(E elem) {
-        HashMap<E,Object[]> nmap = new HashMap<>();
-        for (E child: getChildren(elem)) {
-            nmap = ampliarMap(nmap,child);
+        HashMap<E, Object[]> nmap = new HashMap<>();
+        for (E child : getChildren(elem)) {
+            nmap = ampliarMap(nmap, child);
         }
         nmap.put(elem, relation.get(elem));
-        HierarchyTree arbol = new HierarchyTree(nmap,5);
+        HierarchyTree arbol = new HierarchyTree(nmap, 5);
 
         return arbol;
     }
-    public HashMap<E,Object[]> ampliarMap (HashMap<E,Object[]> map,E child){
+
+    public HashMap<E, Object[]> ampliarMap(HashMap<E, Object[]> map, E child) {
         map.put(child, relation.get(child));
-        for (E ch: getChildren(child)) {
-            map = ampliarMap(map,ch);
+        for (E ch : getChildren(child)) {
+            map = ampliarMap(map, ch);
         }
         return map;
     }
+
     /**
      * Devuelve un conjunto con los elementos que mantienen una relación de hijos
      * con el elemento padre
@@ -64,7 +66,7 @@ public class HierarchyTree <E> implements Tree<E> {
     public Set<E> getChildren(E father) {
         Set<E> hijos = null;
         Object[] objetos;
-        if(contains(father)){
+        if (contains(father)) {
             objetos = relation.get(father);
             hijos = (Set<E>) objetos[1];
         }
@@ -88,17 +90,17 @@ public class HierarchyTree <E> implements Tree<E> {
      * existía dicho elemento, se sobreescribirá su contenido con el del elemento recibido
      * Aquellos elementos hijos del elemento father serán eliminados utilizando removeAllChildren
      *
-     * @see Tree removeAllChildren(Collection <E> element)
      * @param children Colección de nuevos hijos
-     * @param father Elemento padre destino
+     * @param father   Elemento padre destino
      * @return true si la operación es satisfactoria en todos los elementos, false en cualquier otro caso
+     * @see Tree removeAllChildren(Collection <E> element)
      */
     public boolean setChildren(Collection<E> children, E father) {
-        if (relation.containsKey(father)){
+        if (relation.containsKey(father)) {
             removeAllChildren(father);
         }
-        for(E child : children){
-            addChildren(child,father);
+        for (E child : children) {
+            addChildren(child, father);
         }
         return true;
     }
@@ -109,27 +111,27 @@ public class HierarchyTree <E> implements Tree<E> {
      * del elemento recibido
      *
      * @param children Elemento a añadir
-     * @param father Elemento padre
+     * @param father   Elemento padre
      * @return true si la operación es satisfactoria, false en cualquier otro caso
      */
     public boolean addChildren(E children, E father) {
         Object[] objects = new Object[2];
         E elem = null;
-        if(contains(children)){
+        if (contains(children)) {
             objects[0] = father;
             objects[1] = children;
-            elem = (E) relation.put(children,objects);
-        }else{
+            elem = (E) relation.put(children, objects);
+        } else {
             objects[0] = father;
             objects[1] = null;
-            elem = (E) relation.put(children,objects);
+            elem = (E) relation.put(children, objects);
         }
         Object[] objF = new Object[2];
         objF[0] = getFather(father);
         objF[1] = getChildren(father).add(children);
-        relation.replace(father,objF);
+        relation.replace(father, objF);
 
-        return elem !=null;
+        return elem != null;
     }
 
     /**
@@ -138,14 +140,14 @@ public class HierarchyTree <E> implements Tree<E> {
      * el del elemento recibido
      *
      * @param children Collección de elementos a añadir
-     * @param father Elemento padre
+     * @param father   Elemento padre
      * @return true si la operación es satisfactoria en todos los elementos, false en cualquier otro caso
      */
     public boolean addChildren(Collection<E> children, E father) {
         Object[] objects = new Object[2];
         E elem = null;
-        for (E child:children) {
-            addChildren(child,father);
+        for (E child : children) {
+            addChildren(child, father);
         }
 
 
@@ -160,9 +162,9 @@ public class HierarchyTree <E> implements Tree<E> {
      * @return true si la operación es satisfactoria, false en cualquier otro caso
      */
     public boolean removeElement(E element) {
-        if(contains(element)){
-            addChildren(getChildren(element),getFather(element));
-        }else{
+        if (contains(element)) {
+            addChildren(getChildren(element), getFather(element));
+        } else {
             return false;
         }
         return true;
@@ -176,7 +178,7 @@ public class HierarchyTree <E> implements Tree<E> {
      * @return true si la operación es satisfactoria en todos los elementos, false en cualquier otro caso
      */
     public boolean removeElement(Collection<E> element) {
-        for (E elem: element) {
+        for (E elem : element) {
             removeElement(elem);
         }
         return false;
@@ -191,12 +193,12 @@ public class HierarchyTree <E> implements Tree<E> {
      */
     public boolean removeAllChildren(E element) {
         Set<E> hijos = getChildren(element);
-        if(hijos != null){
-            for (E child:hijos) {
+        if (hijos != null) {
+            for (E child : hijos) {
                 removeAllChildren(child);
-             //   removeElement();
+                //   removeElement();
             }
-        }else {
+        } else {
             return false;
         }
         return true;
@@ -220,10 +222,11 @@ public class HierarchyTree <E> implements Tree<E> {
     /**
      * Aplica una función a todos los elementos del árbol, almacenando
      * el resultado en otro árbol que mantiene la misma estructura que el árbol
-     *
+     * <p>
      * original. Esta operación NO modifica el árbol original
+     *
      * @param function Función de dos entradas
-     * @param <R> Tipo de salida para el nuevo árbol
+     * @param <R>      Tipo de salida para el nuevo árbol
      * @return Árbol de tipo R que conserva la estructura del árbol original
      */
     public <R> Tree<R> map(Function<E, R> function) {
@@ -233,6 +236,7 @@ public class HierarchyTree <E> implements Tree<E> {
 
     /**
      * Devuelve el número de elementos almacenados en el árbol
+     *
      * @return Nº de elementos almacenados
      */
     public int getSize() {

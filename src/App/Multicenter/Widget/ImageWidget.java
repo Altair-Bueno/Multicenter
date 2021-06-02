@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class ImageWidget extends AbstractWidget {
-// TODO Mejor usamos un widget unico en vez de un carrousel
+    // TODO Mejor usamos un widget unico en vez de un carrousel
     private final List<String> footer;
     private final JPanel contentPanel = new JPanel();
     private File imagesFolder; // Spacesfolder > Imagesfolder > Imagenes
@@ -126,7 +126,7 @@ public class ImageWidget extends AbstractWidget {
         data.imagesFolder = imagesFolder.getAbsolutePath();
         data.images = new String[img.size()];
         data.footer = new String[img.size()];
-        for (int i = 0; i< img.size();i++){
+        for (int i = 0; i < img.size(); i++) {
             data.images[i] = img.get(i).getAbsolutePath();
             data.footer[i] = footer.get(i);
         }
