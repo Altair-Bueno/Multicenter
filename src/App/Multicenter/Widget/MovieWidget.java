@@ -16,10 +16,9 @@ import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
@@ -63,7 +62,7 @@ public class MovieWidget extends AbstractWidget {
         super(mwd);
         this.rating = 0.0;
         super.setFrameIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(ClassLoader.getSystemResource("App/Multicenter/Icons/WidgetIcons/claqueta.png"))));
-        super.setSize(new Dimension(400, 350));
+        super.setSize(new Dimension(500, 350));
         super.setTitle("Película");
         super.setClosable(true);
         super.setResizable(false);
@@ -257,6 +256,24 @@ public class MovieWidget extends AbstractWidget {
         SwingUtilities.updateComponentTreeUI(this);
     }
 
+    public static BufferedImage convertToBufferedImage(Image image)
+    {
+        BufferedImage newImage = new BufferedImage(
+                1, 1,
+                BufferedImage.TYPE_INT_RGB);
+        Graphics2D g = newImage.createGraphics();
+        g.drawImage(image.getScaledInstance(1, 1, Image.SCALE_SMOOTH), 0, 0, null);
+        g.dispose();
+        return newImage;
+    }
+
+    public String dominantcolor(BufferedImage bfi){
+        int rgb = bfi.getRGB(0,0);
+        int b = (rgb)&0xFF;
+        int g = (rgb>>8)&0xFF;
+        int r = (rgb>>16)&0xFF;
+        return String.format("#%02X%02X%02X", r, g, b);
+    }
     public synchronized void setView() throws IOException {
         Panel = new JPanel(); // Delete previous panel versions
         isClickable = true;
@@ -268,19 +285,26 @@ public class MovieWidget extends AbstractWidget {
         im = im.getScaledInstance(170, 250, Image.SCALE_SMOOTH);
         JLabel poster = new JLabel();
         poster.setIcon(new ImageIcon(im));
+        String color = dominantcolor(convertToBufferedImage(im));
+
         poster.setText(
                 "<html>" +
                         "<head>" +
                             "<style>" +
-                                "h2 {text-align: center;} span {color: yellow;} h1 {text-align: center;}" +
+                                "h2 {text-align: center;} " +
+                                "span {color: yellow;} " +
+                                "h1 {text-align: center;} " +
+                                "#corners {border: 2px solid " + color +  ";padding: 20px;width: 150px;height: 200px;}" +
                             "</style>" +
                         "</head>" +
-                        "<h1>" +
-                            this.getMovieTitle() +
-                        "</h1>" +
-                        "<h2>" +
-                            "<span>&#11088</span>Valoración: " + this.getRating() +
-                        "</h2>" +
+                            "<h1 id=\"corners\">" +
+                                this.getMovieTitle() +
+                                "<div>" +
+                                    "<h2>" +
+                                        "<span>&#11088</span>Valoración: " + this.getRating() +
+                                    "</h2>" +
+                                "</div>" +
+                            "</h1>" +
                 "</html>"
         );
         poster.setVerticalTextPosition(JLabel.CENTER);
