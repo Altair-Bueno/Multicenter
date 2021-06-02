@@ -6,6 +6,11 @@ Multicenter es un espacio de trabajo diseñado para optimizar la organización d
 
 ![Diagrama de clases](Model.png)
 
+## Workflows
+
+- [default-project-board-action](https://github.com/skeet70/default-project-board-action): GitHub action para añadir los issues automaticamente al tablero Kanban de la pestaña "proyectos"
+- [todo-to-issue-action](https://github.com/alstr/todo-to-issue-action): GitHub action para crear issues a partir de comentarios TODO en el código
+
 ## Contributing
 
 Ver [contributing](./CONTRIBUTING)
