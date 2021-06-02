@@ -1,3 +1,29 @@
 p{
-    font-size: 1.5em;
+    font-size: 150%;
+}
+
+h1{
+    font-size: 170%;
+    margin-top: 30px;
+    margin-bottom: 0px;
+}
+
+h2{
+    position:absolute;
+    bottom:1px;
+    width:100%;
+    margin-top:29px;
+}
+
+.intro{
+    margin-top: 25px;
+    margin-left: 25px;
+}
+ol{
+    margin-top: 15px;
+    font-size: 110%;
+    margin-bottom: 1px;
+}
+ul{
+    font-size: 100%;
 }
