@@ -256,19 +256,15 @@ public class MovieWidget extends AbstractWidget {
         SwingUtilities.updateComponentTreeUI(this);
     }
 
-    public static BufferedImage convertToBufferedImage(Image image)
-    {
+    public String dominantcolor(Image image){
         BufferedImage newImage = new BufferedImage(
                 1, 1,
                 BufferedImage.TYPE_INT_RGB);
-        Graphics2D g = newImage.createGraphics();
-        g.drawImage(image.getScaledInstance(1, 1, Image.SCALE_SMOOTH), 0, 0, null);
-        g.dispose();
-        return newImage;
-    }
+        Graphics2D gr = newImage.createGraphics();
+        gr.drawImage(image.getScaledInstance(1, 1, Image.SCALE_SMOOTH), 0, 0, null);
+        gr.dispose();
 
-    public String dominantcolor(BufferedImage bfi){
-        int rgb = bfi.getRGB(0,0);
+        int rgb = newImage.getRGB(0,0);
         int b = (rgb)&0xFF;
         int g = (rgb>>8)&0xFF;
         int r = (rgb>>16)&0xFF;
@@ -285,7 +281,7 @@ public class MovieWidget extends AbstractWidget {
         im = im.getScaledInstance(170, 250, Image.SCALE_SMOOTH);
         JLabel poster = new JLabel();
         poster.setIcon(new ImageIcon(im));
-        String color = dominantcolor(convertToBufferedImage(im));
+        String color = dominantcolor(im);
 
         poster.setText(
                 "<html>" +
