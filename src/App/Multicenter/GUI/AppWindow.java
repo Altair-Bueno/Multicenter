@@ -21,7 +21,7 @@ public class AppWindow extends JFrame {
         try {
             psDefault = new JEditorPane(ClassLoader.getSystemResource("App/Multicenter/Placeholder/Files/PersonalSpacePlaceholder.html"));
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println(e.getMessage());
         }
     }
 
@@ -80,7 +80,7 @@ public class AppWindow extends JFrame {
             try {
                 data = x.readFromFile(Preferences.getSpacesSaveFile());
             } catch (FileNotFoundException e) {
-                e.printStackTrace();
+                System.err.println(e.getMessage());
             }
 
             for (PersonalSpaceData d : data) {

@@ -75,7 +75,7 @@ public class SideBar extends JPanel {
             numSections++;
         }
         psv.put(s, ps);
-        System.out.println(psv);
+        //System.out.println(psv);
         ps.header.text.addMouseListener(new HeaderListener(this));
         add(s);
         SwingUtilities.updateComponentTreeUI(this);
