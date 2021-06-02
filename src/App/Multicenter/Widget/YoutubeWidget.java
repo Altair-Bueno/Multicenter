@@ -231,7 +231,7 @@ public class YoutubeWidget extends AbstractWidget {
                         this.getTitle() +
                         "</h1>" +
                         "<h2>" +
-                        "Canal: " + this.getAuthor_name() +
+                        "by: " + this.getAuthor_name() +
                         "</h2>" +
                         "</html>"
         );
