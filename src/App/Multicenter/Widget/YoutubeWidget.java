@@ -4,6 +4,7 @@ import App.Multicenter.Space.SearchedString;
 import App.Multicenter.Widget.Data.WidgetData;
 import App.Multicenter.Widget.Data.YoutubeWidgetData;
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 import kong.unirest.HttpResponse;
 import kong.unirest.Unirest;
 
@@ -26,7 +27,7 @@ import java.net.URL;
 
 public class YoutubeWidget extends AbstractWidget {
     // Constants
-    private final String EDIT = "Pulsa EDITAR e introduce algo de nuevo.";
+    private final String EDIT = "Pulsa EDITAR e introduce el link de nuevo.";
     private final String BLANKINPUTERROR = "No has introducido nada. " + EDIT;
     private final String NOTFOUNDERROR = "No se ha encontrado el vídeo dada esa URL. " + EDIT;
     private final String LOADINGERROR = "La información no se ha recibido correctamente. " + EDIT;
@@ -130,13 +131,16 @@ public class YoutubeWidget extends AbstractWidget {
                 url = url.replace("https://", "");
             }
 
-            HttpResponse<String> response = Unirest.get("https://www.youtube.com/oembed?url=" + url + "&format=json").header("Accept", "application/json").asString();
-            Gson g = new Gson();
-            ytInfo a = g.fromJson(response.getBody(), ytInfo.class);
-            author_name = a.getAuthor_name();
-            video_url = "https://" + url;
-            title = a.getTitle();
-            thumbnail_url = a.getThumbnail_url();
+            try{
+                HttpResponse<String> response = Unirest.get("https://www.youtube.com/oembed?url=" + url + "&format=json").header("Accept", "application/json").asString();
+                Gson g = new Gson();
+                ytInfo a = g.fromJson(response.getBody(), ytInfo.class);
+                author_name = a.getAuthor_name();
+                video_url = "https://" + url;
+                title = a.getTitle();
+                thumbnail_url = a.getThumbnail_url();
+            } catch (JsonSyntaxException e){ }
+
         }
 
     }
