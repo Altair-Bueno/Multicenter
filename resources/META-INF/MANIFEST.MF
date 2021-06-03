@@ -1,3 +1,6 @@
 Manifest-Version: 1.0
+Name: Multicenter
+Created-By: 0.2.1 (Universidad de Málaga Grupo E IIS)
 Main-Class: App.Multicenter.Multicenter
+Sealed: true
 
