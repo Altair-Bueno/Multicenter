@@ -12,6 +12,7 @@ import java.awt.event.MouseEvent;
 import java.util.List;
 
 public class Board extends JDesktopPane {
+    public static boolean addable = true;
     //Attributes
     PersonalSpace personalSpace;
     int numWidgets;
@@ -28,7 +29,7 @@ public class Board extends JDesktopPane {
         this.personalSpace = widgets;
         List<Widget> widgetList = widgets.getWidgets();
 
-        for (Widget w : widgets.getWidgets()) {
+        for (Widget w : widgetList) {
             AbstractWidget wAux = (AbstractWidget) w;
             wAux.setDefaultCloseOperation(JInternalFrame.DO_NOTHING_ON_CLOSE);
             wAux.addInternalFrameListener(new CloseWidgetListener(wAux, this));
@@ -41,26 +42,30 @@ public class Board extends JDesktopPane {
         JPopupMenu pm = new JPopupMenu("tools");
         JMenu addWidget = new JMenu("Añadir Widget");
         JMenuItem noteWidget = new JMenuItem("Nota de texto");
-        JMenuItem imageWidget = new JMenuItem("Imagen(es)");
+        //JMenuItem imageWidget = new JMenuItem("Imagen(es)");
         JMenuItem filmWidget = new JMenuItem("Pelicula");
         JMenuItem ytWidget = new JMenuItem("Video de YouTube");
 
         pm.add(addWidget);
         addWidget.add(noteWidget);
-        addWidget.add(imageWidget);
+        //addWidget.add(imageWidget);
         addWidget.add(filmWidget);
         addWidget.add(ytWidget);
+
+
         addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
-                if (e.getButton() == MouseEvent.BUTTON3) {
-                    lastPos.x = e.getX();
-                    lastPos.y = e.getY();
-                    pm.show(Board.this, lastPos.x, lastPos.y);
+                if(addable){
+                    if (e.getButton() == MouseEvent.BUTTON3) {
+                        lastPos.x = e.getX();
+                        lastPos.y = e.getY();
+                        pm.show(Board.this, lastPos.x, lastPos.y);
+                    }
                 }
             }
         });
         noteWidget.addActionListener(new addNotesListener());
-        imageWidget.addActionListener(new addImageWidgetListener());
+        //imageWidget.addActionListener(new addImageWidgetListener());
         filmWidget.addActionListener(new addfilmWidgetListener());
         ytWidget.addActionListener(new addytWidgetListener());
         setVisible(true);

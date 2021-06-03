@@ -25,11 +25,13 @@ public class EditListener implements ActionListener {
             sideBar.psv.get(sideBar.selected).board.personalSpace.toggleEditMode();
             // TODO colours
             if (sideBar.editMode) {
+                Board.addable = false;
                 sideBar.delButton.setEnabled(false);
                 sideBar.addButton.setEnabled(false);
                 sideBar.editButton.setText("Edit: ON");
                 //sideBar.editButton.setBackground(new Color(51, 208, 1, 255));
             } else {
+                Board.addable = true;
                 sideBar.delButton.setEnabled(true);
                 sideBar.addButton.setEnabled(true);
                 sideBar.editButton.setText("Edit: OFF");
