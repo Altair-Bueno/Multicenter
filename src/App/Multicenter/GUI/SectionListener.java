@@ -1,5 +1,9 @@
 package App.Multicenter.GUI;
 
+import com.formdev.flatlaf.FlatLaf;
+import com.formdev.flatlaf.FlatLightLaf;
+
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -30,9 +34,8 @@ public class SectionListener implements MouseListener {
         if (!parent.editMode) {
             app.changePersonalSpace(parent.psv.get(section));
             if (parent.selected != null) {
-                parent.selected.setBackground(section.def);
+                parent.selected.setBackground(Color.getColor(parent.addButton.getColorModel().toString()));
             }
-            section.setBackground(Color.lightGray);
             parent.selected = section;
         }
     }
@@ -72,7 +75,7 @@ public class SectionListener implements MouseListener {
     @Override
     public void mouseExited(MouseEvent e) {
         if (section != parent.selected && !parent.editMode) {
-            section.setBackground(section.def);
+            section.setBackground(Color.getColor(parent.addButton.getColorModel().toString()));
         }
     }
 }
