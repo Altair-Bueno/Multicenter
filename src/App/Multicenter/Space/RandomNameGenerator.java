@@ -14,32 +14,32 @@ public class RandomNameGenerator {
         RiR.addRange(97, 122);
 
     }
+    public String generate (File folder , String extension){
 
-    public String generate(File folder) {
-
-        String id = "";
+        StringBuilder id = new StringBuilder();
 
         if (folder.exists() && folder.isDirectory()) {
 
             List<String> filesinfolder = Arrays.asList(folder.list());
 
-            for (int i = 0; i < 8; i++) {
-                id += (char) RiR.getRandom();
-            }
-
-            while (filesinfolder.contains(id)) {
-                id = "";
+             do{
+                id = new StringBuilder();
 
                 for (int i = 0; i < 8; i++) {
-                    id += (char) RiR.getRandom();
+                    id.append((char) RiR.getRandom());
                 }
+                id.append(extension);
 
-            }
+            }while (filesinfolder.contains(id.toString()));
 
         }
 
-        return id;
+        return id.toString();
 
+    }
+
+    public String generate(File folder) {
+        return generate(folder,"");
     }
 
     private class RandomInRanges {

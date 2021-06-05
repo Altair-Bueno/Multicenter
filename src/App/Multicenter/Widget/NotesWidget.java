@@ -70,8 +70,7 @@ public class NotesWidget extends AbstractWidget {
 
     public NotesWidget(File spacesFolder) {
         RandomNameGenerator r = new RandomNameGenerator();
-        String id = r.generate(spacesFolder);
-        super.id = id + ".md";
+        super.id = r.generate(spacesFolder,".md");
         setAlignmentX(0);
         setAlignmentY(0);
         setSize(STANDARD_DIMENSION);
