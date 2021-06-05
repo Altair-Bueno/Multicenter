@@ -1,5 +1,7 @@
 package App.Multicenter.GUI;
 
+import App.Multicenter.Preferences.Preferences;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -37,6 +39,7 @@ public class Section extends JPanel {
         this.title = title;
         parent.addPersonalSpace(this, old);
         updateUI();
+
     }
 
     public String toString() {

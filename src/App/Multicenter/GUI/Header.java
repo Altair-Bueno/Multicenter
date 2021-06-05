@@ -28,6 +28,7 @@ public class Header extends JPanel {
         text.setBounds(30, 40, 200, 50);
         add(text);
 
+
         setVisible(true);
     }
 

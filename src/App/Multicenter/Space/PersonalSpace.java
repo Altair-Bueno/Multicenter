@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
  */
 public class PersonalSpace implements Closeable, Serializable {
 
-    private final String personalSpaceName;
+    private String personalSpaceName;
     private List<Widget> widgets = new ArrayList<>();
     private String id;
     private File carpeta;
@@ -229,5 +229,9 @@ public class PersonalSpace implements Closeable, Serializable {
                 ", id='" + id + '\'' +
                 ", carpeta=" + carpeta +
                 '}';
+    }
+
+    public void setPersonalSpaceName(String name){
+        personalSpaceName = name;
     }
 }

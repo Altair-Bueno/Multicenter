@@ -19,6 +19,7 @@ public class HeaderListener extends MouseAdapter {
         if (e.getClickCount() == 2) {
             String title = JOptionPane.showInputDialog(sideBar.psv.get(sideBar.selected), "Introduce el nombre para el espacio personal.");
             if (title != null) {
+                sideBar.psv.get(sideBar.selected).board.personalSpace.setPersonalSpaceName(title);
                 sideBar.psv.get(sideBar.selected).header.changeTitle(title);
                 sideBar.selected.changeTitle(title);
             }
