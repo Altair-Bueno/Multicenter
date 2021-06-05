@@ -3,6 +3,7 @@ package App.Multicenter.GetStarted;
 import App.Multicenter.Preferences.Preferences;
 
 import javax.swing.*;
+import java.awt.*;
 import java.io.File;
 
 /**
@@ -11,10 +12,9 @@ import java.io.File;
  */
 
 public class ChooseSpaceFolderMenu extends JPanel {
-    private final JTextField textField1 = new JTextField();
-    private final JPanel panel1 = new JPanel();
+    private final JTextField dir = new JTextField();
     private final JLabel chooseSpacesFolder = new JLabel();
-    private final JButton filechooser = new JButton();
+    private final JButton fileChooser = new JButton();
 
     private File fileLocation = Preferences.getSpacesFolder();
 
@@ -27,11 +27,18 @@ public class ChooseSpaceFolderMenu extends JPanel {
 
     public ChooseSpaceFolderMenu(JFrame parent) {
         // TODO GUI looks horrible
-        textField1.setText(Preferences.getSpacesFolder().getAbsolutePath());
-        textField1.setEnabled(false);
-        chooseSpacesFolder.setText("<html><h1>Choose Spaces Folder used to store all data</h1></html>");
-        filechooser.setText("Choose folder");
-        filechooser.addActionListener(e -> {
+        setLayout(new BorderLayout());
+        JPanel center = new JPanel();
+        JPanel north = new JPanel();
+
+        chooseSpacesFolder.setText("<html><h2 style=\"text-align:center;font-family:verdana;\">Elige un directorio para almacenar los datos de la aplicación</h2></html>");
+
+        dir.setText(Preferences.getSpacesFolder().getAbsolutePath());
+        dir.setEnabled(false);
+        center.add(dir);
+
+        fileChooser.setText("Choose folder");
+        fileChooser.addActionListener(e -> {
             JFileChooser fileChooser = new JFileChooser(Preferences.getSpacesFolder());
             fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
             int out = fileChooser.showDialog(parent, "Carpeta SpacesFolder");
@@ -39,14 +46,13 @@ public class ChooseSpaceFolderMenu extends JPanel {
 
             if (out == JFileChooser.APPROVE_OPTION) {
                 fileLocation = fileChooser.getSelectedFile();
-                textField1.setText(fileLocation.getAbsolutePath());
+                dir.setText(fileLocation.getAbsolutePath());
             }
         });
+        center.add(fileChooser);
 
-        add(textField1);
-        add(panel1);
-        add(chooseSpacesFolder);
-        add(filechooser);
+        add(chooseSpacesFolder, BorderLayout.NORTH);
+        add(center, BorderLayout.CENTER);
         setVisible(true);
     }
 

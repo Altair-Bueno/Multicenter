@@ -26,7 +26,7 @@ public class GetStartedMenu extends JFrame {
 
         dialog.add(jpanel0, BorderLayout.CENTER);
         add(dialog, BorderLayout.NORTH);
-        add(buttons, BorderLayout.CENTER);
+        add(buttons, BorderLayout.PAGE_END);
         buttons.add(previous);
         buttons.add(next);
 
@@ -39,8 +39,9 @@ public class GetStartedMenu extends JFrame {
         previous.setEnabled(false);
 
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-        pack();
+        setSize(new Dimension(350, 190));
         setLocationRelativeTo(null);
+        setResizable(false);
         setVisible(true);
     }
 
@@ -53,15 +54,14 @@ public class GetStartedMenu extends JFrame {
                 dialog.removeAll();
                 dialog.add(jpanel1);
                 previous.setEnabled(true);
-                pack();
-                setLocationRelativeTo(null);
+                //setLocationRelativeTo(null);
+                SwingUtilities.updateComponentTreeUI(this);
                 break;
             default:
                 // Done
                 semaphore.release();
                 dispose();
         }
-        pack();
     }
 
     private void previousPage() {
@@ -73,12 +73,10 @@ public class GetStartedMenu extends JFrame {
                 dialog.add(jpanel0);
                 previous.setEnabled(false);
                 SwingUtilities.updateComponentTreeUI(this);
-                pack();
-                setLocationRelativeTo(null);
+                //setLocationRelativeTo(null);
                 break;
             default:
                 throw new IllegalStateException("IDK man something is broken");
         }
-        pack();
     }
 }

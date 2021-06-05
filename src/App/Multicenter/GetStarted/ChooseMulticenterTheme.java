@@ -3,19 +3,19 @@ package App.Multicenter.GetStarted;
 import App.Multicenter.Preferences.Preferences;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 
 public class ChooseMulticenterTheme extends JPanel {
     private final ButtonGroup buttonGroup = new ButtonGroup();
-    private JPanel panel1;
-    private JPanel buttons;
-    private JLabel label;
+    private JPanel buttons = new JPanel();
+    private JLabel label = new JLabel();
 
     public ChooseMulticenterTheme(JFrame parent) {
         // TODO Gui looks horrible
-        buttons.setLayout(new GridLayout(5, 1, 5, 5));
-        setLayout(new GridLayout(5, 1, 5, 5));
-        label.setText("<html><h1>Selecciona el tema de la aplicación</h1></html>");
+        buttons.setLayout(new GridLayout(2, 2, 5, 5));
+        setLayout(new BorderLayout(10,0));
+        label.setText("<html><h2 style=\"text-align:center;font-family:verdana;\">Selecciona el tema de la aplicación, podrás cambiarlo más adelante</h2></html>");
         label.setVisible(true);
 
         JRadioButton first = new JRadioButton();
@@ -23,7 +23,6 @@ public class ChooseMulticenterTheme extends JPanel {
         first.addActionListener(e -> {
             Preferences.setTheme(0);
             SwingUtilities.updateComponentTreeUI(parent);
-            parent.pack();
         });
         buttonGroup.add(first); // 0
 
@@ -32,8 +31,6 @@ public class ChooseMulticenterTheme extends JPanel {
         second.addActionListener(e -> {
             Preferences.setTheme(1);
             SwingUtilities.updateComponentTreeUI(parent);
-            parent.pack();
-
         });
         buttonGroup.add(second); // 1
 
@@ -42,37 +39,37 @@ public class ChooseMulticenterTheme extends JPanel {
         third.addActionListener(e -> {
             Preferences.setTheme(2);
             SwingUtilities.updateComponentTreeUI(parent);
-            parent.pack();
-
         });
         buttonGroup.add(third); // 2
 
-        JRadioButton forth = new JRadioButton();
-        forth.setText("IntelliJ");
-        forth.addActionListener(e -> {
+        JRadioButton fourth = new JRadioButton();
+        fourth.setText("IntelliJ");
+        fourth.addActionListener(e -> {
             Preferences.setTheme(3);
             SwingUtilities.updateComponentTreeUI(parent);
-            parent.pack();
         });
-        buttonGroup.add(forth); // 3
+        buttonGroup.add(fourth); // 3
 
         switch (Preferences.getTheme()) {
             case 0 -> first.setSelected(true);
             case 1 -> second.setSelected(true);
             case 2 -> third.setSelected(true);
-            case 3 -> forth.setSelected(true);
+            case 3 -> fourth.setSelected(true);
             default -> throw new IllegalStateException("Dude wtf");
         }
 
 
-        add(label);
+        add(label, BorderLayout.NORTH);
         buttons.add(first);
         buttons.add(second);
         buttons.add(third);
-        buttons.add(forth);
+        buttons.add(fourth);
 
         buttons.setVisible(true);
-        add(buttons);
+        JPanel left = new JPanel();
+        left.setPreferredSize(new Dimension(60, 20));
+        add(left, BorderLayout.LINE_START);
+        add(buttons, BorderLayout.CENTER);
 
         setVisible(true);
         //buttonGroup.setSelected((ButtonModel) first,true);
