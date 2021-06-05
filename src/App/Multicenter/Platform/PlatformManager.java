@@ -1,8 +1,6 @@
 package App.Multicenter.Platform;
 
-
 import java.awt.event.ActionEvent;
-import java.util.Locale;
 
 /**
  * Proporciona métodos y variables útiles para adaptar
@@ -12,7 +10,7 @@ import java.util.Locale;
  */
 public class PlatformManager {
     // Constantes de clase
-    private static final String hostOS = System.getProperty("os.name").toLowerCase(Locale.ROOT);
+    private static final String hostOS = System.getProperty("os.name");
     private static final String MACOSX = "Mac OS X";
     private static final int MAIN_KEYBOARD = hostOS.contains(MACOSX) ? ActionEvent.META_MASK : ActionEvent.CTRL_MASK;
 
@@ -44,7 +42,7 @@ public class PlatformManager {
         // TODO Complementar propiedades para cada SO
         switch (hostOS) {
             case MACOSX:
-                System.setProperty("com.apple.mrj.application.apple.menu.about.name", LanguageManager.getString("app_name"));
+                System.setProperty("com.apple.mrj.application.apple.menu.about.name", "Multicenter");
                 System.setProperty("apple.awt.graphics.EnableQ2DX", "true");
                 System.setProperty("apple.laf.useScreenMenuBar", "true");
                 System.setProperty("apple.awt.textantialiasing", "true");
