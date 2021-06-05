@@ -26,7 +26,6 @@ public class ChooseSpaceFolderMenu extends JPanel {
 
 
     public ChooseSpaceFolderMenu(JFrame parent) {
-        // TODO GUI looks horrible
         setLayout(new BorderLayout(0, 10));
         JPanel center = new JPanel();
 

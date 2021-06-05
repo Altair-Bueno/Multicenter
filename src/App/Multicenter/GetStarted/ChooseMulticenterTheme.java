@@ -12,7 +12,6 @@ public class ChooseMulticenterTheme extends JPanel {
     private JLabel label = new JLabel();
 
     public ChooseMulticenterTheme(JFrame parent) {
-        // TODO Gui looks horrible
         buttons.setLayout(new GridLayout(2, 2, 5, 5));
         setLayout(new BorderLayout(10,0));
         label.setText("<html><h2 style=\"text-align:center;font-family:verdana;\">Selecciona el tema de la aplicación, podrás cambiarlo más adelante</h2></html>");

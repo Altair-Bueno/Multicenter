@@ -77,6 +77,46 @@ public class AppWindow extends JFrame {
         semaphore.release();
     }
 
+    public void createMenu() {
+        JMenuBar menuBar = new JMenuBar();
+
+        JMenu view = new JMenu("View");
+        menuBar.add(view);
+
+        JMenu appareance = new JMenu("Appareance");
+        view.add(appareance);
+
+        JMenu theme = new JMenu("Theme");
+        appareance.add(theme);
+        JMenuItem ligth = new JMenuItem("Light");
+        JMenuItem dark = new JMenuItem("Dark");
+        JMenuItem dracula = new JMenuItem("Dracula");
+        JMenuItem intellij = new JMenuItem("IntelliJ");
+        ligth.addActionListener(e -> {
+            Preferences.setTheme(0);
+            SwingUtilities.updateComponentTreeUI(this);
+        });
+        dark.addActionListener(e -> {
+            Preferences.setTheme(1);
+            SwingUtilities.updateComponentTreeUI(this);
+        });
+        dracula.addActionListener(e -> {
+            Preferences.setTheme(2);
+            SwingUtilities.updateComponentTreeUI(this);
+        });
+        intellij.addActionListener(e -> {
+            Preferences.setTheme(3);
+            SwingUtilities.updateComponentTreeUI(this);
+        });
+
+        theme.add(ligth);
+        theme.add(dark);
+        theme.add(dracula);
+        theme.add(intellij);
+
+        this.setJMenuBar(menuBar);
+    }
+
     /**
      * Crea y muestra todos los elementos visuales de la aplicación
      */
@@ -86,6 +126,7 @@ public class AppWindow extends JFrame {
         AppWindow app = new AppWindow(personalSpaceView, sideBar);
         app.setDefaultPersonalSpace();
         sideBar.app = app;
+        app.createMenu();
 
         if (Preferences.getSpacesSaveFile().exists()) {
             XMLBuddy<List<PersonalSpaceData>> x = new XMLBuddy<>();
