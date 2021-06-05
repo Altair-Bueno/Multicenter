@@ -1,10 +1,11 @@
 package App.Multicenter.GUI;
 
 import javax.swing.*;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-public class HeaderListener implements MouseListener {
+public class HeaderListener extends MouseAdapter {
     //Atributtes
     SideBar sideBar;
 
@@ -22,25 +23,5 @@ public class HeaderListener implements MouseListener {
                 sideBar.selected.changeTitle(title);
             }
         }
-    }
-
-    @Override
-    public void mousePressed(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-
     }
 }
