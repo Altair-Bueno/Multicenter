@@ -3,17 +3,16 @@ package App.Multicenter.GetStarted;
 import App.Multicenter.Preferences.Preferences;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 
 public class ChooseMulticenterTheme extends JPanel {
     private final ButtonGroup buttonGroup = new ButtonGroup();
-    private JPanel buttons = new JPanel();
-    private JLabel label = new JLabel();
+    private final JPanel buttons = new JPanel();
+    private final JLabel label = new JLabel();
 
     public ChooseMulticenterTheme(JFrame parent) {
         buttons.setLayout(new GridLayout(2, 2, 5, 5));
-        setLayout(new BorderLayout(10,0));
+        setLayout(new BorderLayout(10, 0));
         label.setText("<html><h2 style=\"text-align:center;font-family:verdana;\">Selecciona el tema de la aplicación, podrás cambiarlo más adelante</h2></html>");
         label.setVisible(true);
 

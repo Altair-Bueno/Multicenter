@@ -1,7 +1,5 @@
 package App.Multicenter.GUI;
 
-import App.Multicenter.Preferences.Preferences;
-
 import javax.swing.*;
 import java.awt.*;
 

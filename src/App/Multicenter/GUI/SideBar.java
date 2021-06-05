@@ -92,7 +92,7 @@ public class SideBar extends JPanel {
     private JButton createButton(String type, JButton button) {
         button = new JButton();
         button.setText(type);
-        if(button.getText().equals("Añadir") || button.getText().equals("Borrar") ) {
+        if (button.getText().equals("Añadir") || button.getText().equals("Borrar")) {
             button.setPreferredSize(new Dimension(70, 25));
         } else {
             button.setPreferredSize(new Dimension(85, 25));

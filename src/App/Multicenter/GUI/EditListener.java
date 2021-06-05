@@ -1,19 +1,22 @@
 package App.Multicenter.GUI;
 
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class EditListener implements ActionListener {
+    static Board board;
     //Attributes
     SideBar sideBar;
-    static Board board;
 
     public EditListener(SideBar sideBar) {
         this.sideBar = sideBar;
     }
 
     //Methods
+
+    public static void setBoard(Board b) {
+        board = b;
+    }
 
     /**
      * Al pulsar el boton se entrará en modo edición
@@ -42,9 +45,5 @@ public class EditListener implements ActionListener {
                 //sideBar.editButton.setBackground(new Color(215, 0, 0,255));
             }
         }
-    }
-
-    public static void setBoard(Board b){
-        board = b;
     }
 }

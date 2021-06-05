@@ -5,7 +5,6 @@ import App.Multicenter.Widget.AbstractWidget;
 import javax.swing.*;
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
-import javax.swing.event.InternalFrameListener;
 
 public class CloseWidgetListener extends InternalFrameAdapter {
     //Atributtes

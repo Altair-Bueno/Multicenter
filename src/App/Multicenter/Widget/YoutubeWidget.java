@@ -131,7 +131,7 @@ public class YoutubeWidget extends AbstractWidget {
                 url = url.replace("https://", "");
             }
 
-            try{
+            try {
                 HttpResponse<String> response = Unirest.get("https://www.youtube.com/oembed?url=" + url + "&format=json").header("Accept", "application/json").asString();
                 Gson g = new Gson();
                 ytInfo a = g.fromJson(response.getBody(), ytInfo.class);
@@ -139,7 +139,7 @@ public class YoutubeWidget extends AbstractWidget {
                 video_url = "https://" + url;
                 vidtitle = a.getTitle();
                 thumbnail_url = a.getThumbnail_url();
-            } catch (JsonSyntaxException e){
+            } catch (JsonSyntaxException e) {
                 emptydata();
             }
 
@@ -218,7 +218,7 @@ public class YoutubeWidget extends AbstractWidget {
         updateUI();
     }
 
-    public void emptydata(){
+    public void emptydata() {
         this.video_url = null;
         this.vidtitle = null;
         this.thumbnail_url = null;
