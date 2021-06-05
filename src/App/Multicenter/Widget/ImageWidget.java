@@ -1,10 +1,13 @@
 package App.Multicenter.Widget;
 
 
+import App.Multicenter.Preferences.Preferences;
 import App.Multicenter.Space.RandomNameGenerator;
 import App.Multicenter.Space.SearchedString;
 import App.Multicenter.Widget.Data.ImageWidgetData;
 import App.Multicenter.Widget.Data.WidgetData;
+import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.io.comparator.ExtensionFileComparator;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -41,11 +44,15 @@ public class ImageWidget extends AbstractWidget {
     private final List<String> footer;
     private File imagesFolder; // Spacesfolder > Imagesfolder > Imagenes
     private List<File> img; // Las imagenes mantienen el nombre original
-    private int carrouselLocation = 0;
+    private int carrouselLocation;
+    private File[] imgselected;
+    private JButton button = new JButton("Examinar");
+    private JButton derecha = new JButton("<<");
+    private JButton izquierda = new JButton(">>");
 
     /**
      * Constructor del widget al que le llega por
-     * parámetro un objeto tipo ImageWidgetData
+     * parámetro un objeto tipo ImageWidgetData.
      *
      * @param iwd
      */
@@ -63,7 +70,7 @@ public class ImageWidget extends AbstractWidget {
 
     /**
      * Constructor del widget al que le llega por
-     * parámetro un archivo tipo File
+     * parámetro un archivo tipo File.
      *
      * @param f
      */
@@ -264,7 +271,11 @@ public class ImageWidget extends AbstractWidget {
             panelexaminar();
         } else {
             // Save changes
+            if(imgselected!=null){
+                moveimages();
+            }
             // View mode
+            showPanel();
         }
     }
 
