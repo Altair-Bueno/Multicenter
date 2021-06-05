@@ -34,11 +34,10 @@ import java.util.List;
  * título oficial y la valoración general de la
  * película que el usuario busque al crear el
  * widget.
+ *
+ * @see AbstractWidget
  */
 public class MovieWidget extends AbstractWidget {
-
-    // Multithreading
-    private Thread thread = null;
 
     // Constants
     private final String EDIT = "Pulsa EDITAR e introduce algo de nuevo.";
@@ -46,7 +45,8 @@ public class MovieWidget extends AbstractWidget {
     private final String NOTFOUNDERROR = "Película no encontrada en la base de datos. " + EDIT;
     private final String LOADINGERROR = "Error obteniendo la información. " + EDIT;
     private final JTextField Editor = new JTextField();
-
+    // Multithreading
+    private Thread thread = null;
     // Vars
     private boolean isClickable = false;
     private JPanel PanelError;
@@ -204,7 +204,7 @@ public class MovieWidget extends AbstractWidget {
         edit = !edit;
         try {
             thread.interrupt();
-        }catch (Exception e) {
+        } catch (Exception e) {
             System.err.println(e.getMessage());
         }
         if (edit) {

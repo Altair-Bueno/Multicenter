@@ -57,7 +57,7 @@ public class Board extends JDesktopPane {
 
         addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
-                if(addable){
+                if (addable) {
                     if (e.getButton() == MouseEvent.BUTTON3) {
                         lastPos.x = e.getX();
                         lastPos.y = e.getY();
@@ -88,7 +88,7 @@ public class Board extends JDesktopPane {
         numWidgets++;
     }
 
-    public void addClose(){
+    public void addClose() {
         List<Widget> widgetList = this.personalSpace.getWidgets();
 
         for (Widget w : widgetList) {
@@ -97,7 +97,7 @@ public class Board extends JDesktopPane {
         }
     }
 
-    public void remClose(){
+    public void remClose() {
         List<Widget> widgetList = this.personalSpace.getWidgets();
 
         for (Widget w : widgetList) {

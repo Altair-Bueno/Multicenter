@@ -231,7 +231,7 @@ public class PersonalSpace implements Closeable, Serializable {
                 '}';
     }
 
-    public void setPersonalSpaceName(String name){
+    public void setPersonalSpaceName(String name) {
         personalSpaceName = name;
     }
 }

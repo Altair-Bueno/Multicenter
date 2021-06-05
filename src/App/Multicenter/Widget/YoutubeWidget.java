@@ -25,6 +25,18 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 
+
+/**
+ * Clase encargada de operar con la información
+ * necesaria para crear un widget de
+ * previsualización de vídeos de Youtube.
+ * Se introducirá el link correspondiente y
+ * se mostrará al usuario en un formato sencillo
+ * la portada del vídeo, la cual le llevará al
+ * link del mismo.
+ *
+ * @see AbstractWidget
+ */
 public class YoutubeWidget extends AbstractWidget {
     // Constants
     private final String EDIT = "Pulsa EDITAR e introduce el link de nuevo.";
@@ -131,7 +143,7 @@ public class YoutubeWidget extends AbstractWidget {
                 url = url.replace("https://", "");
             }
 
-            try{
+            try {
                 HttpResponse<String> response = Unirest.get("https://www.youtube.com/oembed?url=" + url + "&format=json").header("Accept", "application/json").asString();
                 Gson g = new Gson();
                 ytInfo a = g.fromJson(response.getBody(), ytInfo.class);
@@ -139,7 +151,7 @@ public class YoutubeWidget extends AbstractWidget {
                 video_url = "https://" + url;
                 vidtitle = a.getTitle();
                 thumbnail_url = a.getThumbnail_url();
-            } catch (JsonSyntaxException e){
+            } catch (JsonSyntaxException e) {
                 emptydata();
             }
 
@@ -218,7 +230,7 @@ public class YoutubeWidget extends AbstractWidget {
         updateUI();
     }
 
-    public void emptydata(){
+    public void emptydata() {
         this.video_url = null;
         this.vidtitle = null;
         this.thumbnail_url = null;

@@ -35,11 +35,11 @@ public class AppWindow extends JFrame {
         psDefault.setEditable(false);
         psDefault.setFocusable(false);
         psDefault.addHyperlinkListener(a -> {
-            if(HyperlinkEvent.EventType.ACTIVATED.equals(a.getEventType())){
+            if (HyperlinkEvent.EventType.ACTIVATED.equals(a.getEventType())) {
                 Desktop desktop = Desktop.getDesktop();
-                try{
+                try {
                     desktop.browse(a.getURL().toURI());
-                }catch(Exception e){
+                } catch (Exception e) {
                     System.err.println(e.getMessage());
                 }
             }
@@ -75,6 +75,40 @@ public class AppWindow extends JFrame {
     public static void createAndShowGUI(Semaphore semaphore) {
         createAndShowGUI();
         semaphore.release();
+    }
+
+    /**
+     * Crea y muestra todos los elementos visuales de la aplicación
+     */
+    public static void createAndShowGUI() {
+        PersonalSpaceView personalSpaceView = null;
+        SideBar sideBar = new SideBar();
+        AppWindow app = new AppWindow(personalSpaceView, sideBar);
+        app.setDefaultPersonalSpace();
+        sideBar.app = app;
+        app.createMenu();
+
+        if (Preferences.getSpacesSaveFile().exists()) {
+            XMLBuddy<List<PersonalSpaceData>> x = new XMLBuddy<>();
+            List<PersonalSpaceData> data = new ArrayList<>();
+
+            try {
+                data = x.readFromFile(Preferences.getSpacesSaveFile());
+            } catch (FileNotFoundException e) {
+                System.err.println(e.getMessage());
+            }
+
+            for (PersonalSpaceData d : data) {
+                PersonalSpace personalSpace = PersonalSpace.loadPersonalSpaces(d);
+                PersonalSpaceView psv = new PersonalSpaceView(
+                        new Header(d.personalSpaceName),
+                        new Board(personalSpace),
+                        d.personalSpaceName);
+                Section section = new Section(sideBar.numSections, d.personalSpaceName, sideBar);
+                sideBar.addPersonalSpace(section, psv);
+            }
+        }
+        app.setVisible(true);
     }
 
     public void createMenu() {
@@ -116,41 +150,6 @@ public class AppWindow extends JFrame {
 
         this.setJMenuBar(menuBar);
     }
-
-    /**
-     * Crea y muestra todos los elementos visuales de la aplicación
-     */
-    public static void createAndShowGUI() {
-        PersonalSpaceView personalSpaceView = null;
-        SideBar sideBar = new SideBar();
-        AppWindow app = new AppWindow(personalSpaceView, sideBar);
-        app.setDefaultPersonalSpace();
-        sideBar.app = app;
-        app.createMenu();
-
-        if (Preferences.getSpacesSaveFile().exists()) {
-            XMLBuddy<List<PersonalSpaceData>> x = new XMLBuddy<>();
-            List<PersonalSpaceData> data = new ArrayList<>();
-
-            try {
-                data = x.readFromFile(Preferences.getSpacesSaveFile());
-            } catch (FileNotFoundException e) {
-                System.err.println(e.getMessage());
-            }
-
-            for (PersonalSpaceData d : data) {
-                PersonalSpace personalSpace = PersonalSpace.loadPersonalSpaces(d);
-                PersonalSpaceView psv = new PersonalSpaceView(
-                        new Header(d.personalSpaceName),
-                        new Board(personalSpace),
-                        d.personalSpaceName);
-                Section section = new Section(sideBar.numSections, d.personalSpaceName, sideBar);
-                sideBar.addPersonalSpace(section, psv);
-            }
-        }
-        app.setVisible(true);
-    }
-
 
     @Override
     public void dispose() {
