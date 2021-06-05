@@ -42,6 +42,8 @@ public class GetStartedMenu extends JFrame {
         setSize(new Dimension(350, 190));
         setLocationRelativeTo(null);
         setResizable(false);
+        Preferences.setTheme(0);
+        SwingUtilities.updateComponentTreeUI(this);
         setVisible(true);
     }
 

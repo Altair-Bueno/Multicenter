@@ -27,9 +27,8 @@ public class ChooseSpaceFolderMenu extends JPanel {
 
     public ChooseSpaceFolderMenu(JFrame parent) {
         // TODO GUI looks horrible
-        setLayout(new BorderLayout());
+        setLayout(new BorderLayout(0, 10));
         JPanel center = new JPanel();
-        JPanel north = new JPanel();
 
         chooseSpacesFolder.setText("<html><h2 style=\"text-align:center;font-family:verdana;\">Elige un directorio para almacenar los datos de la aplicación</h2></html>");
 
