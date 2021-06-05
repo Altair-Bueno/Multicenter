@@ -6,11 +6,20 @@ import App.Multicenter.Space.SearchedString;
 import App.Multicenter.Widget.Data.ImageWidgetData;
 import App.Multicenter.Widget.Data.WidgetData;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.image.ImageFilter;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.URL;
 import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -30,7 +39,6 @@ import java.util.stream.Collectors;
 public class ImageWidget extends AbstractWidget {
     // TODO Mejor usamos un widget unico en vez de un carrousel
     private final List<String> footer;
-    private final JPanel contentPanel = new JPanel();
     private File imagesFolder; // Spacesfolder > Imagesfolder > Imagenes
     private List<File> img; // Las imagenes mantienen el nombre original
     private int carrouselLocation = 0;
@@ -43,15 +51,14 @@ public class ImageWidget extends AbstractWidget {
      */
     protected ImageWidget(ImageWidgetData iwd) {
         super(iwd);
+        super.setSize(new Dimension(500, 450));
         super.setFrameIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(ClassLoader.getSystemResource("App/Multicenter/Icons/WidgetIcons/imagen.png"))));
         super.setClosable(true);
         imagesFolder = new File(iwd.imagesFolder);
-        img = Arrays.stream(iwd.images).map(File::new).collect(Collectors.toList());
-        footer = Arrays.asList(iwd.footer);
-        showPanel(iwd.position);
-
-        add(contentPanel);
-        // TODO set view mode
+        img = new ArrayList<>(Arrays.stream(iwd.images).map(File::new).collect(Collectors.toList()));
+        footer = new ArrayList<>(Arrays.asList(iwd.footer));
+        carrouselLocation = 0;
+        showPanel();
     }
 
     /**
@@ -64,14 +71,14 @@ public class ImageWidget extends AbstractWidget {
         super.setFrameIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(ClassLoader.getSystemResource("App/Multicenter/Icons/WidgetIcons/imagen.png"))));
         super.setClosable(true);
         RandomNameGenerator r = new RandomNameGenerator();
-        id = r.generate(f);
+        id = "Imagenes_" + r.generate(f);
         imagesFolder = new File(f, id);
         img = new ArrayList<>();
         footer = new ArrayList<>();
-        showPanel(0);
+        imagesFolder.mkdir();
+        carrouselLocation = 0;
+        showPanel();
 
-        add(contentPanel);
-        // TODO set view mode
     }
 
     public SearchedString<Widget> search(String cadena) {
@@ -87,11 +94,11 @@ public class ImageWidget extends AbstractWidget {
      * a la de la izquierda al accionar el botón
      * correspondiente (izquierdo).
      */
-    private void moveleft() {
+    private void moveLeft() {
         carrouselLocation = carrouselLocation == 0 ?
                 (carrouselLocation = img.size() - 1) :
                 (carrouselLocation - 1);
-        showPanel(carrouselLocation);
+        //showPanel(carrouselLocation);
     }
 
     /**
@@ -101,31 +108,147 @@ public class ImageWidget extends AbstractWidget {
      */
     private void moveRight() {
         carrouselLocation = (1 + carrouselLocation) % img.size();
-        showPanel(carrouselLocation);
     }
 
     /**
      * Método que hace visible el panel del widget
      * al usuario.
      *
-     * @param position
      */
-    private void showPanel(int position) {
+    private void showPanel() {
         JLabel image;
+
         if (img.isEmpty()) {
             // Placeholder
             image = new JLabel("Add photos using edit mode",
                     new ImageIcon(ClassLoader.getSystemResource("App/Multicenter/Placeholder/Photos/placeholderImagewidget.png")),
                     SwingConstants.LEADING);
+
+            image.setHorizontalTextPosition(JLabel.CENTER);
+            image.setVerticalTextPosition(JLabel.BOTTOM);
+
+            super.getContentPane().removeAll();
+            super.validate();
+            super.add(image);
+            SwingUtilities.updateComponentTreeUI(this);
         } else {
-            image = new JLabel(footer.get(position),
-                    new ImageIcon(ClassLoader.getSystemResource(img.get(position).getAbsolutePath())),
+            JPanel panel = new JPanel();
+
+            ImageIcon temp = new ImageIcon(
+                    new ImageIcon(
+                            img.get(carrouselLocation).getAbsolutePath())
+                            .getImage()
+                            .getScaledInstance(711, 400, Image.SCALE_SMOOTH)
+            );
+
+            image = new JLabel(footer.get(carrouselLocation),
+                    temp,
                     SwingConstants.LEADING);
+
+            izquierda.addActionListener(e -> {
+                moveLeft();
+                image.setIcon(new ImageIcon(
+                        new ImageIcon(
+                                img.get(carrouselLocation).getAbsolutePath())
+                                .getImage()
+                                .getScaledInstance(711, 400, Image.SCALE_SMOOTH)
+                ));
+                image.setText(footer.get(carrouselLocation));
+            });
+
+            derecha.addActionListener(e -> {
+                moveRight();
+                image.setIcon(new ImageIcon(
+                        new ImageIcon(
+                                img.get(carrouselLocation).getAbsolutePath())
+                                .getImage()
+                                .getScaledInstance(711, 400, Image.SCALE_SMOOTH)
+                ));
+                image.setText(footer.get(carrouselLocation));
+            });
+
+            image.setHorizontalTextPosition(JLabel.CENTER);
+            image.setVerticalTextPosition(JLabel.BOTTOM);
+
+            panel.add(derecha);
+            panel.add(image);
+            panel.add(izquierda);
+
+            super.getContentPane().removeAll();
+            super.validate();
+            super.add(panel);
+            super.pack();
+            SwingUtilities.updateComponentTreeUI(this);
         }
-        JPanel panel = new JPanel();
-        panel.add(image);
-        contentPanel.removeAll();
-        contentPanel.add(panel);
+
+    }
+
+    /**
+     * Método que visualiza el botón de
+     * examinar para seleccionar el archivo
+     * o archivos de imagen.
+     */
+    public void panelexaminar(){
+        JPanel panelAñadir = new JPanel();
+        JTextField dir = new JTextField();
+
+        button.addActionListener(e -> {
+
+            FileFilter imageFilter = new FileNameExtensionFilter(
+                    "Image files", ImageIO.getReaderFileSuffixes());
+
+            JFileChooser fc = new JFileChooser();
+
+
+            fc.addChoosableFileFilter(imageFilter);
+            fc.setAcceptAllFileFilterUsed(false);
+            fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+            fc.setMultiSelectionEnabled(true);
+            int out = fc.showDialog(getParent(), "Seleccionar imagen");
+            fc.setVisible(true);
+
+            if (out == JFileChooser.APPROVE_OPTION) {
+                imgselected = fc.getSelectedFiles();
+            }
+
+        });
+
+        panelAñadir.add(button);
+
+        // Actualizar
+        super.getContentPane().removeAll();
+        super.validate();
+        super.add(panelAñadir);
+        SwingUtilities.updateComponentTreeUI(this);
+    }
+
+    /**
+     * Método que copia la imagen seleccionada
+     * del PC del usuario en la carpeta que se
+     * crea de la aplicación destinada a
+     * almacenar las imágenes del widget.
+     */
+    public void moveimages(){ //TODO añadir extension de imagen
+        RandomNameGenerator rng = new RandomNameGenerator();
+
+
+        for(int i = 0; i < imgselected.length; i++){
+            File f = imgselected[i];
+            String ext = FilenameUtils.getExtension(f.getName());
+            String imagename = rng.generate(imagesFolder, "." + ext);
+
+            try {
+                File temp = new File(imagesFolder, imagename);
+                Files.copy(f.toPath(), temp.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                img.add(temp);
+                String[] pie = f.getName().split("\\.");
+                footer.add(pie[0]);
+            } catch (IOException e) {
+                System.err.println(e.getMessage());
+            }
+
+        }
+
     }
 
     /**
@@ -138,6 +261,7 @@ public class ImageWidget extends AbstractWidget {
         edit = !edit;
         if (edit) {
             // Editmode
+            panelexaminar();
         } else {
             // Save changes
             // View mode
@@ -178,7 +302,7 @@ public class ImageWidget extends AbstractWidget {
      * @return DataInstance del widget
      */
     @Override
-    public WidgetData getWidgetsDataInstance() { // TODO Exception when empty
+    public WidgetData getWidgetsDataInstance() {
         ImageWidgetData data = new ImageWidgetData();
         data.classname = IMAGE;
         data.position = carrouselLocation;

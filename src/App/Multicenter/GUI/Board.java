@@ -44,13 +44,13 @@ public class Board extends JDesktopPane {
         JPopupMenu pm = new JPopupMenu("tools");
         JMenu addWidget = new JMenu("Añadir Widget");
         JMenuItem noteWidget = new JMenuItem("Nota de texto");
-        //JMenuItem imageWidget = new JMenuItem("Imagen(es)");
+        JMenuItem imageWidget = new JMenuItem("Imagen(es)");
         JMenuItem filmWidget = new JMenuItem("Pelicula");
         JMenuItem ytWidget = new JMenuItem("Video de YouTube");
 
         pm.add(addWidget);
         addWidget.add(noteWidget);
-        //addWidget.add(imageWidget);
+        addWidget.add(imageWidget);
         addWidget.add(filmWidget);
         addWidget.add(ytWidget);
 
@@ -67,7 +67,7 @@ public class Board extends JDesktopPane {
             }
         });
         noteWidget.addActionListener(new addNotesListener());
-        //imageWidget.addActionListener(new addImageWidgetListener());
+        imageWidget.addActionListener(new addImageWidgetListener());
         filmWidget.addActionListener(new addfilmWidgetListener());
         ytWidget.addActionListener(new addytWidgetListener());
         setVisible(true);
@@ -148,7 +148,7 @@ public class Board extends JDesktopPane {
             imageWidget.setClosable(false);
             imageWidget.setLocation(lastPos.x, lastPos.y);
             imageWidget.setResizable(true);
-            imageWidget.setSize(250, 250);
+            imageWidget.setSize(500, 450);
             addWidget(imageWidget);
         }
     }
