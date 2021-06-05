@@ -25,6 +25,18 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 
+
+/**
+ * Clase encargada de operar con la información
+ * necesaria para crear un widget de
+ * previsualización de vídeos de Youtube.
+ * Se introducirá el link correspondiente y
+ * se mostrará al usuario en un formato sencillo
+ * la portada del vídeo, la cual le llevará al
+ * link del mismo.
+ *
+ * @see AbstractWidget
+ */
 public class YoutubeWidget extends AbstractWidget {
     // Constants
     private final String EDIT = "Pulsa EDITAR e introduce el link de nuevo.";

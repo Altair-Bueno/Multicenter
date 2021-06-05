@@ -16,6 +16,8 @@ import java.io.*;
 
 /**
  * Widget para escribir notas, basado en Markdown.
+ *
+ * @see AbstractWidget
  */
 
 public class NotesWidget extends AbstractWidget {

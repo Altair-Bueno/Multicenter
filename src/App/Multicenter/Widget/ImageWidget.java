@@ -18,6 +18,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
+ * Clase encargada de operar con la información
+ * necesaria para crear un widget de imágenes.
+ * Este widget nos enseñará un carrusel de
+ * imágenes en la cual el usuario podrá ir
+ * cambiando de imagen visualizada con dos
+ * botones de desplazamiento.
  *
  * @see AbstractWidget
  */
@@ -29,6 +35,12 @@ public class ImageWidget extends AbstractWidget {
     private List<File> img; // Las imagenes mantienen el nombre original
     private int carrouselLocation = 0;
 
+    /**
+     * Constructor del widget al que le llega por
+     * parámetro un objeto tipo ImageWidgetData
+     *
+     * @param iwd
+     */
     protected ImageWidget(ImageWidgetData iwd) {
         super(iwd);
         super.setFrameIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(ClassLoader.getSystemResource("App/Multicenter/Icons/WidgetIcons/imagen.png"))));
@@ -42,6 +54,12 @@ public class ImageWidget extends AbstractWidget {
         // TODO set view mode
     }
 
+    /**
+     * Constructor del widget al que le llega por
+     * parámetro un archivo tipo File
+     *
+     * @param f
+     */
     public ImageWidget(File f) {
         super.setFrameIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(ClassLoader.getSystemResource("App/Multicenter/Icons/WidgetIcons/imagen.png"))));
         super.setClosable(true);
@@ -64,6 +82,11 @@ public class ImageWidget extends AbstractWidget {
                 get();
     }
 
+    /**
+     * Método que desplaza la imagen visualizada
+     * a la de la izquierda al accionar el botón
+     * correspondiente (izquierdo).
+     */
     private void moveleft() {
         carrouselLocation = carrouselLocation == 0 ?
                 (carrouselLocation = img.size() - 1) :
@@ -71,11 +94,22 @@ public class ImageWidget extends AbstractWidget {
         showPanel(carrouselLocation);
     }
 
+    /**
+     * Método que desplaza la imagen visualizada
+     * a la de la derecha al accionar el botón
+     * correspondiente (derecho).
+     */
     private void moveRight() {
         carrouselLocation = (1 + carrouselLocation) % img.size();
         showPanel(carrouselLocation);
     }
 
+    /**
+     * Método que hace visible el panel del widget
+     * al usuario.
+     *
+     * @param position
+     */
     private void showPanel(int position) {
         JLabel image;
         if (img.isEmpty()) {
@@ -94,6 +128,10 @@ public class ImageWidget extends AbstractWidget {
         contentPanel.add(panel);
     }
 
+    /**
+     * Método toggle que determina el modo de
+     * visualización del widget.
+     */
     @Override
     public void toggleEditMode() {
         // TODO
@@ -106,6 +144,9 @@ public class ImageWidget extends AbstractWidget {
         }
     }
 
+    /**
+     * Método que borra el widget.
+     */
     @Override
     public void deleteWidget() {
         for (File i : img)
@@ -113,6 +154,13 @@ public class ImageWidget extends AbstractWidget {
         imagesFolder.delete();
     }
 
+    /**
+     * Método que mueve los archivos a la carpeta
+     * que le corresponde.
+     *
+     * @param folder carpeta a la que mover los archivos
+     * @throws IOException
+     */
     @Override
     public void moveFilesToFolder(File folder) throws IOException {
         Files.move(imagesFolder.toPath(), new File(folder, id).toPath());
@@ -122,6 +170,13 @@ public class ImageWidget extends AbstractWidget {
         img = Arrays.asList(array);
     }
 
+    /**
+     * Método que utiliza la clase ImageWidgetData
+     * que implementa la clase Serializable y
+     * recoge sus atributos.
+     *
+     * @return DataInstance del widget
+     */
     @Override
     public WidgetData getWidgetsDataInstance() { // TODO Exception when empty
         ImageWidgetData data = new ImageWidgetData();
