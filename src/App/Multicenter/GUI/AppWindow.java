@@ -124,7 +124,7 @@ public class AppWindow extends JFrame {
         appareance.add(theme);
         JMenuItem ligth = new JMenuItem("Light");
         JMenuItem dark = new JMenuItem("Dark");
-        JMenuItem dracula = new JMenuItem("Dracula");
+        JMenuItem darcula = new JMenuItem("Darcula");
         JMenuItem intellij = new JMenuItem("IntelliJ");
         ligth.addActionListener(e -> {
             Preferences.setTheme(0);
@@ -134,7 +134,7 @@ public class AppWindow extends JFrame {
             Preferences.setTheme(1);
             SwingUtilities.updateComponentTreeUI(this);
         });
-        dracula.addActionListener(e -> {
+        darcula.addActionListener(e -> {
             Preferences.setTheme(2);
             SwingUtilities.updateComponentTreeUI(this);
         });
@@ -145,7 +145,7 @@ public class AppWindow extends JFrame {
 
         theme.add(ligth);
         theme.add(dark);
-        theme.add(dracula);
+        theme.add(darcula);
         theme.add(intellij);
 
         this.setJMenuBar(menuBar);
