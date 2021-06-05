@@ -17,6 +17,10 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ *
+ * @see AbstractWidget
+ */
 public class ImageWidget extends AbstractWidget {
     // TODO Mejor usamos un widget unico en vez de un carrousel
     private final List<String> footer;
