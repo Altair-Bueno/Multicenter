@@ -37,6 +37,9 @@ import java.util.List;
  */
 public class MovieWidget extends AbstractWidget {
 
+    // Multithreading
+    private Thread thread = null;
+
     // Constants
     private final String EDIT = "Pulsa EDITAR e introduce algo de nuevo.";
     private final String BLANKINPUTERROR = "No has introducido nada. " + EDIT;
@@ -66,7 +69,7 @@ public class MovieWidget extends AbstractWidget {
         super.setClosable(true);
         super.setResizable(false);
         this.filmid = mwd.filmid;
-        Thread thread = new Thread(() -> {
+        thread = new Thread(() -> {
             try {
                 loading();
                 searchAndSetById(this.filmid);
@@ -199,6 +202,11 @@ public class MovieWidget extends AbstractWidget {
     @Override
     public synchronized void toggleEditMode() {
         edit = !edit;
+        try {
+            thread.interrupt();
+        }catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
         if (edit) {
             isClickable = false;
             Editor.setEditable(true);
@@ -208,7 +216,7 @@ public class MovieWidget extends AbstractWidget {
         } else {
             String search = Editor.getText().replaceAll("[^a-zA-Z0-9: -]+", "");
             Editor.setEditable(false);
-            Thread thread = new Thread(() -> {
+            thread = new Thread(() -> {
                 try {
                     if (search.isBlank()) {
                         this.filmid = null;
