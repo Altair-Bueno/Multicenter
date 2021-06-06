@@ -1,26 +1,19 @@
 package App.Multicenter.Widget;
 
 
-import App.Multicenter.Preferences.Preferences;
 import App.Multicenter.Space.RandomNameGenerator;
 import App.Multicenter.Space.SearchedString;
 import App.Multicenter.Widget.Data.ImageWidgetData;
 import App.Multicenter.Widget.Data.WidgetData;
 import org.apache.commons.io.FilenameUtils;
-import org.apache.commons.io.comparator.ExtensionFileComparator;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.image.ImageFilter;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
@@ -42,13 +35,13 @@ import java.util.stream.Collectors;
 public class ImageWidget extends AbstractWidget {
     // TODO Mejor usamos un widget unico en vez de un carrousel
     private final List<String> footer;
-    private File imagesFolder; // Spacesfolder > Imagesfolder > Imagenes
-    private List<File> img; // Las imagenes mantienen el nombre original
+    private final File imagesFolder; // Spacesfolder > Imagesfolder > Imagenes
+    private final List<File> img; // Las imagenes mantienen el nombre original
     private int carrouselLocation;
     private File[] imgselected;
-    private JButton button = new JButton("Examinar");
-    private JButton izquierda = new JButton("<<");
-    private JButton derecha = new JButton(">>");
+    private final JButton button = new JButton("Examinar");
+    private final JButton izquierda = new JButton("<<");
+    private final JButton derecha = new JButton(">>");
 
     /**
      * Constructor del widget al que le llega por
@@ -120,7 +113,6 @@ public class ImageWidget extends AbstractWidget {
     /**
      * Método que hace visible el panel del widget
      * al usuario.
-     *
      */
     private void showPanel() {
         JLabel image;
@@ -199,7 +191,7 @@ public class ImageWidget extends AbstractWidget {
      * examinar para seleccionar el archivo
      * o archivos de imagen.
      */
-    public void panelexaminar(){
+    public void panelexaminar() {
         JPanel panelAñadir = new JPanel();
         JTextField dir = new JTextField();
 
@@ -247,7 +239,7 @@ public class ImageWidget extends AbstractWidget {
             panelexaminar();
         } else {
             // Save changes
-            if(imgselected!=null){
+            if (imgselected != null) {
                 moveFilesToFolder(imagesFolder);
             }
             // View mode
@@ -275,11 +267,11 @@ public class ImageWidget extends AbstractWidget {
      * @throws IOException
      */
     @Override
-    public void moveFilesToFolder(File folder){
+    public void moveFilesToFolder(File folder) {
         RandomNameGenerator rng = new RandomNameGenerator();
 
 
-        for(int i = 0; i < imgselected.length; i++){
+        for (int i = 0; i < imgselected.length; i++) {
             File f = imgselected[i];
             String ext = FilenameUtils.getExtension(f.getName());
             String imagename = img.size() + "_" + rng.generate(folder, "." + ext);

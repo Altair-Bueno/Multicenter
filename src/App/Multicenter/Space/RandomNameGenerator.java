@@ -14,7 +14,8 @@ public class RandomNameGenerator {
         RiR.addRange(97, 122);
 
     }
-    public String generate (File folder , String extension){
+
+    public String generate(File folder, String extension) {
 
         StringBuilder id = new StringBuilder();
 
@@ -22,7 +23,7 @@ public class RandomNameGenerator {
 
             List<String> filesinfolder = Arrays.asList(folder.list());
 
-             do{
+            do {
                 id = new StringBuilder();
 
                 for (int i = 0; i < 8; i++) {
@@ -30,7 +31,7 @@ public class RandomNameGenerator {
                 }
                 id.append(extension);
 
-            }while (filesinfolder.contains(id.toString()));
+            } while (filesinfolder.contains(id.toString()));
 
         }
 
@@ -39,7 +40,7 @@ public class RandomNameGenerator {
     }
 
     public String generate(File folder) {
-        return generate(folder,"");
+        return generate(folder, "");
     }
 
     private class RandomInRanges {
