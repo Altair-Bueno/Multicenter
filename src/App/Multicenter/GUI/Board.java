@@ -32,7 +32,7 @@ public class Board extends JDesktopPane {
 
         for (Widget w : widgetList) {
             AbstractWidget wAux = (AbstractWidget) w;
-            wAux.setClosable(true);
+            wAux.setClosable(false);
             wAux.addInternalFrameListener(new CloseWidgetListener(wAux, this));
             add(wAux);
             wAux.setVisible(true);
@@ -132,7 +132,7 @@ public class Board extends JDesktopPane {
         public void actionPerformed(ActionEvent e) {
             NotesWidget notes = new NotesWidget(personalSpace.getCarpeta());
             notes.setVisible(true);
-            notes.setClosable(true);
+            notes.setClosable(false);
             notes.setLocation(lastPos.x, lastPos.y);
             notes.setSize(250, 250);
             addWidget(notes);
@@ -145,7 +145,7 @@ public class Board extends JDesktopPane {
         public void actionPerformed(ActionEvent e) {
             ImageWidget imageWidget = new ImageWidget(personalSpace.getCarpeta());
             imageWidget.setVisible(true);
-            imageWidget.setClosable(true);
+            imageWidget.setClosable(false);
             imageWidget.setLocation(lastPos.x, lastPos.y);
             imageWidget.setResizable(true);
             imageWidget.setSize(500, 450);
@@ -159,7 +159,7 @@ public class Board extends JDesktopPane {
         public void actionPerformed(ActionEvent e) {
             MovieWidget movieWidget = new MovieWidget();
             movieWidget.setVisible(true);
-            movieWidget.setClosable(true);
+            movieWidget.setClosable(false);
             movieWidget.setLocation(lastPos.x, lastPos.y);
             movieWidget.setResizable(true);
             movieWidget.setSize(500, 350);
@@ -172,7 +172,7 @@ public class Board extends JDesktopPane {
         @Override
         public void actionPerformed(ActionEvent e) {
             YoutubeWidget ytWidget = new YoutubeWidget();
-            ytWidget.setClosable(true);
+            ytWidget.setClosable(false);
             ytWidget.setVisible(true);
             ytWidget.setLocation(lastPos.x, lastPos.y);
             ytWidget.setResizable(true);
