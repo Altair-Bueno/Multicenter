@@ -146,7 +146,7 @@ public class ImageWidget extends AbstractWidget {
                     new ImageIcon(
                             img.get(carrouselLocation).getAbsolutePath())
                             .getImage()
-                            .getScaledInstance(450, 250, Image.SCALE_SMOOTH)
+                            .getScaledInstance(225, 225, Image.SCALE_SMOOTH)
             );
 
             image = new JLabel(footer.get(carrouselLocation),
@@ -160,7 +160,7 @@ public class ImageWidget extends AbstractWidget {
                         new ImageIcon(
                                 img.get(carrouselLocation).getAbsolutePath())
                                 .getImage()
-                                .getScaledInstance(450, 250, Image.SCALE_SMOOTH)
+                                .getScaledInstance(225, 225, Image.SCALE_SMOOTH)
                 ));
                 image.setText(footer.get(carrouselLocation));
                 image.setFont(new Font("Verdana", Font.BOLD, 15));
@@ -172,7 +172,7 @@ public class ImageWidget extends AbstractWidget {
                         new ImageIcon(
                                 img.get(carrouselLocation).getAbsolutePath())
                                 .getImage()
-                                .getScaledInstance(450, 250, Image.SCALE_SMOOTH)
+                                .getScaledInstance(225, 225, Image.SCALE_SMOOTH)
                 ));
                 image.setText(footer.get(carrouselLocation));
                 image.setFont(new Font("Verdana", Font.BOLD, 15));
