@@ -60,7 +60,6 @@ public class ImageWidget extends AbstractWidget {
         super(iwd);
         super.setSize(new Dimension(500, 450));
         super.setFrameIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(ClassLoader.getSystemResource("App/Multicenter/Icons/WidgetIcons/imagen.png"))));
-        super.setClosable(true);
         imagesFolder = new File(iwd.imagesFolder);
         img = new ArrayList<>(Arrays.stream(iwd.images).map(File::new).collect(Collectors.toList()));
         footer = new ArrayList<>(Arrays.asList(iwd.footer));
@@ -76,7 +75,6 @@ public class ImageWidget extends AbstractWidget {
      */
     public ImageWidget(File f) {
         super.setFrameIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(ClassLoader.getSystemResource("App/Multicenter/Icons/WidgetIcons/imagen.png"))));
-        super.setClosable(true);
         RandomNameGenerator r = new RandomNameGenerator();
         id = "Imagenes_" + r.generate(f);
         imagesFolder = new File(f, id);
@@ -127,10 +125,11 @@ public class ImageWidget extends AbstractWidget {
 
         if (img.isEmpty()) {
             // Placeholder
-            image = new JLabel("Add photos using edit mode",
+            image = new JLabel("Añade fotos desde el modo edición",
                     new ImageIcon(ClassLoader.getSystemResource("App/Multicenter/Placeholder/Photos/placeholderImagewidget.png")),
                     SwingConstants.LEADING);
 
+            image.setFont(new Font("Verdana", Font.BOLD, 15));
             image.setHorizontalTextPosition(JLabel.CENTER);
             image.setVerticalTextPosition(JLabel.BOTTOM);
 
@@ -145,22 +144,24 @@ public class ImageWidget extends AbstractWidget {
                     new ImageIcon(
                             img.get(carrouselLocation).getAbsolutePath())
                             .getImage()
-                            .getScaledInstance(711, 400, Image.SCALE_SMOOTH)
+                            .getScaledInstance(450, 250, Image.SCALE_SMOOTH)
             );
 
             image = new JLabel(footer.get(carrouselLocation),
                     temp,
                     SwingConstants.LEADING);
 
+            image.setFont(new Font("Verdana", Font.BOLD, 15));
             izquierda.addActionListener(e -> {
                 moveLeft();
                 image.setIcon(new ImageIcon(
                         new ImageIcon(
                                 img.get(carrouselLocation).getAbsolutePath())
                                 .getImage()
-                                .getScaledInstance(711, 400, Image.SCALE_SMOOTH)
+                                .getScaledInstance(450, 250, Image.SCALE_SMOOTH)
                 ));
                 image.setText(footer.get(carrouselLocation));
+                image.setFont(new Font("Verdana", Font.BOLD, 15));
             });
 
             derecha.addActionListener(e -> {
@@ -169,9 +170,10 @@ public class ImageWidget extends AbstractWidget {
                         new ImageIcon(
                                 img.get(carrouselLocation).getAbsolutePath())
                                 .getImage()
-                                .getScaledInstance(711, 400, Image.SCALE_SMOOTH)
+                                .getScaledInstance(450, 250, Image.SCALE_SMOOTH)
                 ));
                 image.setText(footer.get(carrouselLocation));
+                image.setFont(new Font("Verdana", Font.PLAIN, 15));
             });
 
             image.setHorizontalTextPosition(JLabel.CENTER);

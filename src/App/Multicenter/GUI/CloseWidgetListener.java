@@ -19,6 +19,7 @@ public class CloseWidgetListener extends InternalFrameAdapter {
 
     @Override
     public void internalFrameClosing(InternalFrameEvent e) {
+        widget.setDefaultCloseOperation(JInternalFrame.DO_NOTHING_ON_CLOSE);
         int res = JOptionPane.showConfirmDialog(board, "¿Estás seguro de borrar este widget?\nLos cambios serán permanentes.");
         if (res == 0) {
             board.deleteWidget(widget);
