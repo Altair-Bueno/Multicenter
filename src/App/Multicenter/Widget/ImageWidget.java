@@ -47,8 +47,8 @@ public class ImageWidget extends AbstractWidget {
     private int carrouselLocation;
     private File[] imgselected;
     private JButton button = new JButton("Examinar");
-    private JButton derecha = new JButton("<<");
-    private JButton izquierda = new JButton(">>");
+    private JButton izquierda = new JButton("<<");
+    private JButton derecha = new JButton(">>");
 
     /**
      * Constructor del widget al que le llega por
@@ -103,7 +103,7 @@ public class ImageWidget extends AbstractWidget {
         carrouselLocation = carrouselLocation == 0 ?
                 (carrouselLocation = img.size() - 1) :
                 (carrouselLocation - 1);
-        System.out.println("Left 1: " + carrouselLocation);
+        //System.out.println("Left 1: " + carrouselLocation);
         //showPanel(carrouselLocation);
     }
 
@@ -114,7 +114,7 @@ public class ImageWidget extends AbstractWidget {
      */
     private void moveRight() {
         carrouselLocation = (1 + carrouselLocation) % img.size();
-        System.out.println("Right 1: " + carrouselLocation);
+        //System.out.println("Right 1: " + carrouselLocation);
     }
 
     /**
@@ -175,15 +175,15 @@ public class ImageWidget extends AbstractWidget {
                                 .getScaledInstance(450, 250, Image.SCALE_SMOOTH)
                 ));
                 image.setText(footer.get(carrouselLocation));
-                image.setFont(new Font("Verdana", Font.PLAIN, 15));
+                image.setFont(new Font("Verdana", Font.BOLD, 15));
             });
 
             image.setHorizontalTextPosition(JLabel.CENTER);
             image.setVerticalTextPosition(JLabel.BOTTOM);
 
-            panel.add(derecha);
-            panel.add(image);
             panel.add(izquierda);
+            panel.add(image);
+            panel.add(derecha);
 
             super.getContentPane().removeAll();
             super.validate();
