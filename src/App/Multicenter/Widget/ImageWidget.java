@@ -76,7 +76,7 @@ public class ImageWidget extends AbstractWidget {
     public ImageWidget(File f) {
         super.setFrameIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(ClassLoader.getSystemResource("App/Multicenter/Icons/WidgetIcons/imagen.png"))));
         RandomNameGenerator r = new RandomNameGenerator();
-        id = "Imagenes_" + r.generate(f);
+        id = r.generate(f);
         imagesFolder = new File(f, id);
         img = new ArrayList<>();
         footer = new ArrayList<>();
@@ -103,6 +103,7 @@ public class ImageWidget extends AbstractWidget {
         carrouselLocation = carrouselLocation == 0 ?
                 (carrouselLocation = img.size() - 1) :
                 (carrouselLocation - 1);
+        System.out.println("Left 1: " + carrouselLocation);
         //showPanel(carrouselLocation);
     }
 
@@ -113,6 +114,7 @@ public class ImageWidget extends AbstractWidget {
      */
     private void moveRight() {
         carrouselLocation = (1 + carrouselLocation) % img.size();
+        System.out.println("Right 1: " + carrouselLocation);
     }
 
     /**
@@ -231,34 +233,6 @@ public class ImageWidget extends AbstractWidget {
         SwingUtilities.updateComponentTreeUI(this);
     }
 
-    /**
-     * Método que copia la imagen seleccionada
-     * del PC del usuario en la carpeta que se
-     * crea de la aplicación destinada a
-     * almacenar las imágenes del widget.
-     */
-    public void moveimages(){ //TODO añadir extension de imagen
-        RandomNameGenerator rng = new RandomNameGenerator();
-
-
-        for(int i = 0; i < imgselected.length; i++){
-            File f = imgselected[i];
-            String ext = FilenameUtils.getExtension(f.getName());
-            String imagename = rng.generate(imagesFolder, "." + ext);
-
-            try {
-                File temp = new File(imagesFolder, imagename);
-                Files.copy(f.toPath(), temp.toPath(), StandardCopyOption.REPLACE_EXISTING);
-                img.add(temp);
-                String[] pie = f.getName().split("\\.");
-                footer.add(pie[0]);
-            } catch (IOException e) {
-                System.err.println(e.getMessage());
-            }
-
-        }
-
-    }
 
     /**
      * Método toggle que determina el modo de
@@ -274,7 +248,7 @@ public class ImageWidget extends AbstractWidget {
         } else {
             // Save changes
             if(imgselected!=null){
-                moveimages();
+                moveFilesToFolder(imagesFolder);
             }
             // View mode
             showPanel();
@@ -292,19 +266,35 @@ public class ImageWidget extends AbstractWidget {
     }
 
     /**
-     * Método que mueve los archivos a la carpeta
-     * que le corresponde.
+     * Método que copia la imagen seleccionada
+     * del PC del usuario en la carpeta que se
+     * crea de la aplicación destinada a
+     * almacenar las imágenes del widget.
      *
      * @param folder carpeta a la que mover los archivos
      * @throws IOException
      */
     @Override
-    public void moveFilesToFolder(File folder) throws IOException {
-        Files.move(imagesFolder.toPath(), new File(folder, id).toPath());
-        imagesFolder = new File(folder, id);
-        File[] array = imagesFolder.listFiles();
-        if (array == null) throw new IOException("Something went wrong");
-        img = Arrays.asList(array);
+    public void moveFilesToFolder(File folder){
+        RandomNameGenerator rng = new RandomNameGenerator();
+
+
+        for(int i = 0; i < imgselected.length; i++){
+            File f = imgselected[i];
+            String ext = FilenameUtils.getExtension(f.getName());
+            String imagename = img.size() + "_" + rng.generate(folder, "." + ext);
+
+            try {
+                File temp = new File(folder, imagename);
+                Files.copy(f.toPath(), temp.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                img.add(temp);
+                String[] pie = f.getName().split("\\.");
+                footer.add(pie[0]);
+            } catch (IOException e) {
+                System.err.println(e.getMessage());
+            }
+
+        }
     }
 
     /**
