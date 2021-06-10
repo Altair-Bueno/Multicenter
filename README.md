@@ -1,4 +1,4 @@
-<h3 align="center"><img src="resources/App/Multicenter/Icons/180x180.png" alt="Multicenter Logo" width="180" height="auto"></h3>
+<h3 align="center"><img src="src/main/resources/app/multicenter/Icons/180x180.png" alt="Multicenter Logo" width="180" height="auto"></h3>
 
 # Bienvenido a Multicenter
 
