@@ -1,8 +1,8 @@
-package app.multicenter.Widget;
+package app.multicenter.widget;
 
-import app.multicenter.Space.SearchedString;
-import app.multicenter.Widget.Data.MovieWidgetData;
-import app.multicenter.Widget.Data.WidgetData;
+import app.multicenter.space.SearchedString;
+import app.multicenter.widget.data.MovieWidgetData;
+import app.multicenter.widget.data.WidgetData;
 import com.google.gson.Gson;
 import kong.unirest.HttpResponse;
 import kong.unirest.Unirest;

@@ -1,11 +1,10 @@
-package app.multicenter.GUI;
+package app.multicenter.gui;
 
-import app.multicenter.Space.PersonalSpace;
+import app.multicenter.space.PersonalSpace;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -103,7 +102,10 @@ public class SideBar extends JPanel {
         return button;
     }
 
-    public List<PersonalSpace> getPersonalSpaces() {
-        return psv.values().stream().map(e -> e.getBoard().personalSpace).collect(Collectors.toList());
+    public java.util.List<PersonalSpace> getPersonalSpaces() {
+        return psv.values()
+                .stream()
+                .map(e -> e.getBoard().personalSpace)
+                .collect(Collectors.toList());
     }
 }

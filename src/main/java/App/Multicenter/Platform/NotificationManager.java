@@ -1,4 +1,4 @@
-package app.multicenter.Platform;
+package app.multicenter.platform;
 
 import java.awt.*;
 import java.util.Date;

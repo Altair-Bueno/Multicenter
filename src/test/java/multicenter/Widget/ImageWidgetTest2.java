@@ -1,6 +1,6 @@
-package multicenter.Widget;
+package multicenter.widget;
 
-import app.multicenter.Preferences.Preferences;
+import app.multicenter.preferences.Preferences;
 
 import javax.swing.*;
 import java.awt.*;

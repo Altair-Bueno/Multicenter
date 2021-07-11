@@ -1,4 +1,4 @@
-package app.multicenter.Widget.Data;
+package app.multicenter.widget.data;
 
 import java.io.Serializable;
 

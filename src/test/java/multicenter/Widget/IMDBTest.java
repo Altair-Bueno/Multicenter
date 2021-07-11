@@ -1,6 +1,6 @@
-package multicenter.Widget;
+package multicenter.widget;
 
-import app.multicenter.Widget.MovieWidget;
+import app.multicenter.widget.MovieWidget;
 
 import javax.swing.*;
 import java.awt.*;

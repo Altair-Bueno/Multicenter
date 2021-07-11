@@ -1,7 +1,7 @@
-package app.multicenter.GUI;
+package app.multicenter.gui;
 
-import app.multicenter.Preferences.Preferences;
-import app.multicenter.Space.PersonalSpace;
+import app.multicenter.preferences.Preferences;
+import app.multicenter.space.PersonalSpace;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

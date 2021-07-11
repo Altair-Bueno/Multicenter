@@ -1,8 +1,8 @@
-package app.multicenter.Space;
+package app.multicenter.space;
 
-import app.multicenter.Widget.AbstractWidget;
-import app.multicenter.Widget.Data.WidgetData;
-import app.multicenter.Widget.Widget;
+import app.multicenter.widget.AbstractWidget;
+import app.multicenter.widget.data.WidgetData;
+import app.multicenter.widget.Widget;
 
 import java.io.Closeable;
 import java.io.File;

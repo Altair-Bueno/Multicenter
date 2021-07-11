@@ -1,4 +1,4 @@
-package app.multicenter.Buddy;
+package app.multicenter.buddy;
 
 import java.beans.XMLDecoder;
 import java.beans.XMLEncoder;

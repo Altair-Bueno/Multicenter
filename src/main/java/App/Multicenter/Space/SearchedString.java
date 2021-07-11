@@ -1,4 +1,4 @@
-package app.multicenter.Space;
+package app.multicenter.space;
 
 import java.util.Arrays;
 

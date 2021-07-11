@@ -1,6 +1,6 @@
-package multicenter.Platform;
+package multicenter.platform;
 
-import app.multicenter.Platform.LanguageManager;
+import app.multicenter.platform.LanguageManager;
 import org.junit.Assert;
 import org.junit.Test;
 

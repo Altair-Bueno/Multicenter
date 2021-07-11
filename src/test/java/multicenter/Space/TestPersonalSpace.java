@@ -1,10 +1,10 @@
 package multicenter.Space;
 
-import app.multicenter.Buddy.XMLBuddy;
-import app.multicenter.Preferences.Preferences;
-import app.multicenter.Space.PersonalSpace;
-import app.multicenter.Space.PersonalSpaceData;
-import app.multicenter.Widget.NotesWidget;
+import app.multicenter.buddy.XMLBuddy;
+import app.multicenter.preferences.Preferences;
+import app.multicenter.space.PersonalSpace;
+import app.multicenter.space.PersonalSpaceData;
+import app.multicenter.widget.NotesWidget;
 import org.junit.Test;
 
 import java.io.FileNotFoundException;

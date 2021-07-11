@@ -1,8 +1,8 @@
-package app.multicenter.Preferences;
+package app.multicenter.preferences;
 
-import app.multicenter.Platform.LanguageManager;
-import app.multicenter.Platform.PlatformManager;
-import app.multicenter.Platform.ThemeManager;
+import app.multicenter.platform.LanguageManager;
+import app.multicenter.platform.PlatformManager;
+import app.multicenter.platform.ThemeManager;
 
 import java.awt.*;
 import java.io.*;

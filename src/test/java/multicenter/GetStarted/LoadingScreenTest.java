@@ -1,6 +1,6 @@
-package multicenter.GetStarted;
+package multicenter.getstarted;
 
-import app.multicenter.GetStarted.LoadingScreen;
+import app.multicenter.getstarted.LoadingScreen;
 
 public class LoadingScreenTest {
 

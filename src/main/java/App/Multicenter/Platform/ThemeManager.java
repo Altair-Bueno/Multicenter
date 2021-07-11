@@ -1,4 +1,4 @@
-package app.multicenter.Platform;
+package app.multicenter.platform;
 
 import com.formdev.flatlaf.FlatDarculaLaf;
 import com.formdev.flatlaf.FlatDarkLaf;

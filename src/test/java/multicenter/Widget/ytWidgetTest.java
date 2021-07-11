@@ -1,6 +1,6 @@
-package multicenter.Widget;
+package multicenter.widget;
 
-import app.multicenter.Widget.YoutubeWidget;
+import app.multicenter.widget.YoutubeWidget;
 
 public class ytWidgetTest {
     public static void main(String[] args) {

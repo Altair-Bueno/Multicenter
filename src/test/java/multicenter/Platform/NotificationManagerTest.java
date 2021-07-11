@@ -1,6 +1,6 @@
-package multicenter.Platform;
+package multicenter.platform;
 
-import app.multicenter.Platform.NotificationManager;
+import app.multicenter.platform.NotificationManager;
 import org.junit.Ignore;
 import org.junit.Test;
 

@@ -1,6 +1,6 @@
-package multicenter.Widget;
+package multicenter.widget;
 
-import app.multicenter.Widget.NotesWidget;
+import app.multicenter.widget.NotesWidget;
 
 import javax.swing.*;
 import java.awt.*;

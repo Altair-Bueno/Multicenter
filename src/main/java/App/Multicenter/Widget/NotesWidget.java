@@ -1,9 +1,9 @@
-package app.multicenter.Widget;
+package app.multicenter.widget;
 
-import app.multicenter.Space.RandomNameGenerator;
-import app.multicenter.Space.SearchedString;
-import app.multicenter.Widget.Data.NotesWidgetData;
-import app.multicenter.Widget.Data.WidgetData;
+import app.multicenter.space.RandomNameGenerator;
+import app.multicenter.space.SearchedString;
+import app.multicenter.widget.data.NotesWidgetData;
+import app.multicenter.widget.data.WidgetData;
 import org.commonmark.node.Node;
 import org.commonmark.parser.Parser;
 import org.commonmark.renderer.html.HtmlRenderer;

@@ -1,6 +1,6 @@
-package multicenter.Preferences;
+package multicenter.preferences;
 
-import app.multicenter.Preferences.Preferences;
+import app.multicenter.preferences.Preferences;
 
 public class PreferencesTest2 {
     public static void main(String[] args) {

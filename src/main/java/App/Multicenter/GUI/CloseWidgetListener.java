@@ -1,6 +1,6 @@
-package app.multicenter.GUI;
+package app.multicenter.gui;
 
-import app.multicenter.Widget.AbstractWidget;
+import app.multicenter.widget.AbstractWidget;
 
 import javax.swing.*;
 import javax.swing.event.InternalFrameAdapter;

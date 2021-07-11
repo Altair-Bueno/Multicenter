@@ -1,7 +1,7 @@
-package app.multicenter.Widget;
+package app.multicenter.widget;
 
-import app.multicenter.Space.SearchedString;
-import app.multicenter.Widget.Data.WidgetData;
+import app.multicenter.space.SearchedString;
+import app.multicenter.widget.data.WidgetData;
 
 import java.io.File;
 import java.io.IOException;

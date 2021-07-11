@@ -1,9 +1,9 @@
-package app.multicenter.GUI;
+package app.multicenter.gui;
 
-import app.multicenter.Buddy.XMLBuddy;
-import app.multicenter.Preferences.Preferences;
-import app.multicenter.Space.PersonalSpace;
-import app.multicenter.Space.PersonalSpaceData;
+import app.multicenter.buddy.XMLBuddy;
+import app.multicenter.preferences.Preferences;
+import app.multicenter.space.PersonalSpace;
+import app.multicenter.space.PersonalSpaceData;
 
 import javax.swing.*;
 import javax.swing.event.HyperlinkEvent;
@@ -156,10 +156,10 @@ public class AppWindow extends JFrame {
         // Save settings
         Preferences.save();
         // Save personalSpace
-        List<PersonalSpaceData> personalSpaceData = sb.getPersonalSpaces().
-                parallelStream().
-                map(PersonalSpace::getPersonalSpaceDataInstance).
-                collect(Collectors.toList());
+        List<PersonalSpaceData> personalSpaceData = sb.getPersonalSpaces()
+                .parallelStream()
+                .map(PersonalSpace::getPersonalSpaceDataInstance)
+                .collect(Collectors.toList());
 
         XMLBuddy<List<PersonalSpaceData>> x = new XMLBuddy<>();
         x.saveToFile(Preferences.getSpacesSaveFile(), personalSpaceData);

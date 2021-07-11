@@ -1,4 +1,4 @@
-package app.multicenter.GUI;
+package app.multicenter.gui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

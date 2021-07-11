@@ -1,6 +1,6 @@
-package multicenter.Platform;
+package multicenter.platform;
 
-import app.multicenter.Platform.ThemeManager;
+import app.multicenter.platform.ThemeManager;
 import org.junit.Before;
 import org.junit.Test;
 

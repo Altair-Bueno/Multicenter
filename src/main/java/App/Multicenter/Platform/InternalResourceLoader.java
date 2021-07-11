@@ -1,4 +1,4 @@
-package app.multicenter.Platform;
+package app.multicenter.platform;
 
 /**
  * Depricated: Para más información visitar <a href="https://www.jetbrains.com/help/idea/add-items-to-project.html#import-image-to-project">documentación de intelliJ</a>

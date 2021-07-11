@@ -1,10 +1,10 @@
-package multicenter.Space;
+package multicenter.space;
 
-import app.multicenter.Preferences.Preferences;
-import app.multicenter.Space.PersonalSpace;
-import app.multicenter.Widget.AbstractWidget;
-import app.multicenter.Widget.NotesWidget;
-import app.multicenter.Widget.Widget;
+import app.multicenter.preferences.Preferences;
+import app.multicenter.space.PersonalSpace;
+import app.multicenter.widget.AbstractWidget;
+import app.multicenter.widget.NotesWidget;
+import app.multicenter.widget.Widget;
 import org.junit.Test;
 
 import java.io.File;

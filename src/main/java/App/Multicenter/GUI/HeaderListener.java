@@ -1,4 +1,4 @@
-package app.multicenter.GUI;
+package app.multicenter.gui;
 
 import javax.swing.*;
 import java.awt.event.MouseAdapter;

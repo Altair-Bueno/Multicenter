@@ -1,4 +1,4 @@
-package app.multicenter.Platform;
+package app.multicenter.platform;
 
 import java.util.Locale;
 import java.util.ResourceBundle;

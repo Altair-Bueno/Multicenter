@@ -1,6 +1,6 @@
-package app.multicenter.GetStarted;
+package app.multicenter.getstarted;
 
-import app.multicenter.Preferences.Preferences;
+import app.multicenter.preferences.Preferences;
 
 import javax.swing.*;
 import java.awt.*;

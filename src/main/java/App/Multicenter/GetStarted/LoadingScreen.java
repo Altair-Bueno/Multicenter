@@ -1,4 +1,4 @@
-package app.multicenter.GetStarted;
+package app.multicenter.getstarted;
 
 import javax.swing.*;
 

@@ -1,8 +1,8 @@
-package app.multicenter.Widget;
+package app.multicenter.widget;
 
-import app.multicenter.Space.SearchedString;
-import app.multicenter.Widget.Data.WidgetData;
-import app.multicenter.Widget.Data.YoutubeWidgetData;
+import app.multicenter.space.SearchedString;
+import app.multicenter.widget.data.WidgetData;
+import app.multicenter.widget.data.YoutubeWidgetData;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import kong.unirest.HttpResponse;

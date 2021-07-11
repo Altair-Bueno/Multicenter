@@ -1,4 +1,4 @@
-package multicenter.Widget;
+package multicenter.widget;
 
 import com.google.gson.Gson;
 import kong.unirest.HttpResponse;

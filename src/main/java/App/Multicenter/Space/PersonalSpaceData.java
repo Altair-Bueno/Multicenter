@@ -1,6 +1,6 @@
-package app.multicenter.Space;
+package app.multicenter.space;
 
-import app.multicenter.Widget.Data.WidgetData;
+import app.multicenter.widget.data.WidgetData;
 
 import java.io.Serializable;
 import java.util.List;

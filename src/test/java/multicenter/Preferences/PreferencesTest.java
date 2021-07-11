@@ -1,8 +1,8 @@
 package multicenter.Preferences;
 
-import app.multicenter.Platform.LanguageManager;
-import app.multicenter.Platform.ThemeManager;
-import app.multicenter.Preferences.Preferences;
+import app.multicenter.platform.LanguageManager;
+import app.multicenter.platform.ThemeManager;
+import app.multicenter.preferences.Preferences;
 import org.junit.Assert;
 import org.junit.Test;
 

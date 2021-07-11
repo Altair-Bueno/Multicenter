@@ -1,7 +1,7 @@
-package app.multicenter.GUI;
+package app.multicenter.gui;
 
-import app.multicenter.Space.PersonalSpace;
-import app.multicenter.Widget.*;
+import app.multicenter.space.PersonalSpace;
+import app.multicenter.widget.*;
 
 import javax.swing.*;
 import java.awt.*;

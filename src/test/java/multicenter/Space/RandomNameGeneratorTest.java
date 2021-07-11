@@ -1,8 +1,8 @@
-package multicenter.Space;
+package multicenter.space;
 
-import app.multicenter.Preferences.Preferences;
-import app.multicenter.Space.PersonalSpace;
-import app.multicenter.Space.RandomNameGenerator;
+import app.multicenter.preferences.Preferences;
+import app.multicenter.space.PersonalSpace;
+import app.multicenter.space.RandomNameGenerator;
 
 import java.io.File;
 

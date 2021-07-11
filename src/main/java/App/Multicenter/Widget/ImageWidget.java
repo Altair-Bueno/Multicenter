@@ -1,10 +1,10 @@
-package app.multicenter.Widget;
+package app.multicenter.widget;
 
 
-import app.multicenter.Space.RandomNameGenerator;
-import app.multicenter.Space.SearchedString;
-import app.multicenter.Widget.Data.ImageWidgetData;
-import app.multicenter.Widget.Data.WidgetData;
+import app.multicenter.space.RandomNameGenerator;
+import app.multicenter.space.SearchedString;
+import app.multicenter.widget.data.ImageWidgetData;
+import app.multicenter.widget.data.WidgetData;
 import org.apache.commons.io.FilenameUtils;
 
 import javax.imageio.ImageIO;

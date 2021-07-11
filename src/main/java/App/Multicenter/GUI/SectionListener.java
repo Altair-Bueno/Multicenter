@@ -1,4 +1,4 @@
-package app.multicenter.GUI;
+package app.multicenter.gui;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;

@@ -1,4 +1,4 @@
-package app.multicenter.Space;
+package app.multicenter.space;
 
 import java.io.File;
 import java.util.ArrayList;

@@ -1,7 +1,7 @@
-package multicenter.GetStarted;
+package multicenter.getstarted;
 
-import app.multicenter.GetStarted.ChooseSpaceFolderMenu;
-import app.multicenter.Preferences.Preferences;
+import app.multicenter.getstarted.ChooseSpaceFolderMenu;
+import app.multicenter.preferences.Preferences;
 
 import javax.swing.*;
 
