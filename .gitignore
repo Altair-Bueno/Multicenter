@@ -1,6 +1,12 @@
-out/
+# IntelliJ
 .idea/
-target/
+out/
 Multicenter.iml
+
+# Eclipse
+.settings/
 .classpath
 .project
+
+# Maven
+target/
