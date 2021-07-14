@@ -50,7 +50,7 @@ public class GetStartedMenu extends JFrame {
     private void nextPage() {
         currentPage++;
         switch (currentPage) {
-            case 1:
+            case 1 -> {
                 // Choose Theme
                 Preferences.setSpacesFolder(jpanel0.getFileLocation());
                 dialog.removeAll();
@@ -58,27 +58,27 @@ public class GetStartedMenu extends JFrame {
                 previous.setEnabled(true);
                 //setLocationRelativeTo(null);
                 SwingUtilities.updateComponentTreeUI(this);
-                break;
-            default:
+            }
+            default -> {
                 // Done
                 semaphore.release();
                 dispose();
+            }
         }
     }
 
     private void previousPage() {
         currentPage--;
         switch (currentPage) {
-            case 0:
+            case 0 -> {
                 // Choose spacefolder
                 dialog.removeAll();
                 dialog.add(jpanel0);
                 previous.setEnabled(false);
                 SwingUtilities.updateComponentTreeUI(this);
-                //setLocationRelativeTo(null);
-                break;
-            default:
-                throw new IllegalStateException("IDK man something is broken");
+            }
+            //setLocationRelativeTo(null);
+            default -> throw new IllegalStateException("IDK man something is broken");
         }
     }
 }

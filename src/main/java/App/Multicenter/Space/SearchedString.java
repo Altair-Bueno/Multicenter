@@ -2,7 +2,7 @@ package app.multicenter.space;
 
 import java.util.Arrays;
 
-public class SearchedString<E> implements Comparable<SearchedString> {
+public class SearchedString<E> implements Comparable<SearchedString<E>> {
     private final E widget;
     private final String cadena;
     private final double ratio;

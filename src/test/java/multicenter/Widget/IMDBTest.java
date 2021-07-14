@@ -28,23 +28,22 @@ public class IMDBTest {
         jtf.setOpaque(false);
 
         busc.setText("Buscar de nuevo");
-        busc.setPreferredSize(new Dimension(100,20));
+        busc.setPreferredSize(new Dimension(100, 20));
         deletewidg.setText("Eliminar Widget");
-        deletewidg.setPreferredSize(new Dimension(100,20));
+        deletewidg.setPreferredSize(new Dimension(100, 20));
 
-        panelt.setLayout(new GridLayout(1,1));
-        panelb.setLayout(new GridLayout(1,1));
+        panelt.setLayout(new GridLayout(1, 1));
+        panelb.setLayout(new GridLayout(1, 1));
         panelt.add(jtf);
         panelb.add(busc);
 
-        frame.setLayout(new GridLayout(2,1));
+        frame.setLayout(new GridLayout(2, 1));
         frame.add(panelt);
         frame.add(panelb);
-        frame.setSize(500,100);
+        frame.setSize(500, 100);
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-        frame.setLocation(dim.width/2-frame.getSize().width/2, dim.height/2-frame.getSize().height/2);
+        frame.setLocation(dim.width / 2 - frame.getSize().width / 2, dim.height / 2 - frame.getSize().height / 2);
         frame.setVisible(true);
-
 
 
     }

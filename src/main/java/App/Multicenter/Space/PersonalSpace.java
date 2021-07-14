@@ -1,8 +1,8 @@
 package app.multicenter.space;
 
 import app.multicenter.widget.AbstractWidget;
-import app.multicenter.widget.data.WidgetData;
 import app.multicenter.widget.Widget;
+import app.multicenter.widget.data.WidgetData;
 
 import java.io.Closeable;
 import java.io.File;
@@ -126,7 +126,7 @@ public class PersonalSpace implements Closeable, Serializable {
                 parallelStream().
                 map(e -> {
                     SearchedString<Widget> searchedString = e.search(cadena);
-                    return new SearchedString<PersonalSpace>(this, searchedString.getCadena(), searchedString.getRatio());
+                    return new SearchedString<>(this, searchedString.getCadena(), searchedString.getRatio());
                 }).
                 collect(
                         Collectors.toCollection(

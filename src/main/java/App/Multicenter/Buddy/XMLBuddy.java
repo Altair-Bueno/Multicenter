@@ -19,6 +19,7 @@ public class XMLBuddy<T> {
      * @return Objeto reconstruido.
      * @see Serializable
      */
+    @SuppressWarnings("unchecked")
     public T readFromFile(File file) throws FileNotFoundException {
         XMLDecoder decoder = new XMLDecoder(new BufferedInputStream(new FileInputStream(file)));
         return (T) decoder.readObject();
@@ -32,7 +33,7 @@ public class XMLBuddy<T> {
 
     public boolean saveToFile(File file, T object) {
         boolean out;
-        XMLEncoder encoder = null;
+        XMLEncoder encoder;
         try {
             encoder = new XMLEncoder(new BufferedOutputStream(new FileOutputStream(file)));
             encoder.writeObject(object);

@@ -46,6 +46,7 @@ public class PlatformManager {
                 System.setProperty("apple.awt.graphics.EnableQ2DX", "true");
                 System.setProperty("apple.laf.useScreenMenuBar", "true");
                 System.setProperty("apple.awt.textantialiasing", "true");
+                System.setProperty("apple.eawt.quitStrategy", "CLOSE_ALL_WINDOWS");
                 // MacOS: Icon Set
                 /*
                 Application.getApplication().setDockIconImage(

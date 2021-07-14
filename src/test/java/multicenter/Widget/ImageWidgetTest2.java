@@ -13,7 +13,7 @@ public class ImageWidgetTest2 {
         JFrame frame = new JFrame();
         frame.setSize(new Dimension(500, 500));
 
-        JPanel panelAñadir = new JPanel();
+        JPanel addPanel = new JPanel();
 
         button.addActionListener(e -> {
 
@@ -27,12 +27,13 @@ public class ImageWidgetTest2 {
             }
         });
 
-        panelAñadir.add(button);
-        frame.add(panelAñadir);
+        addPanel.add(button);
+        frame.add(addPanel);
 
 
         frame.setVisible(true);
     }
+
     public static void main(String[] args) {
         Preferences.loadPreferences();
 

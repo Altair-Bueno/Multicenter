@@ -61,7 +61,7 @@ public class AppWindow extends JFrame {
 
         // Iconos (Windows)
         Image im = Toolkit.getDefaultToolkit().createImage(ClassLoader.getSystemResource("app/multicenter/Icons/512x512.png"));
-        ArrayList<Image> icons = new ArrayList<Image>();
+        ArrayList<Image> icons = new ArrayList<>();
         icons.add(im.getScaledInstance(16, 16, Image.SCALE_SMOOTH));
         icons.add(im.getScaledInstance(32, 32, Image.SCALE_SMOOTH));
         setIconImages(icons);
@@ -81,9 +81,9 @@ public class AppWindow extends JFrame {
      * Crea y muestra todos los elementos visuales de la aplicación
      */
     public static void createAndShowGUI() {
-        PersonalSpaceView personalSpaceView = null;
+        // PersonalSpaceView personalSpaceView = null;
         SideBar sideBar = new SideBar();
-        AppWindow app = new AppWindow(personalSpaceView, sideBar);
+        AppWindow app = new AppWindow(null, sideBar);
         app.setDefaultPersonalSpace();
         sideBar.app = app;
         app.createMenu();

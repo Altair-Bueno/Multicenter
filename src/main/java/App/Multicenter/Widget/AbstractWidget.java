@@ -43,7 +43,7 @@ public abstract class AbstractWidget extends JInternalFrame
         SortedSet<SearchedString<Widget>> res = new TreeSet<>(Comparator.reverseOrder());
         Iterator<String> iter = Arrays.stream(frase.split("\\W+")).iterator();
         while (iter.hasNext()) {
-            res.add(new SearchedString<Widget>(w, frase, ref));
+            res.add(new SearchedString<>(w, frase, ref));
         }
         return res.first();
     }

@@ -1,9 +1,9 @@
 package app.multicenter;
 
-import app.multicenter.gui.AppWindow;
-import app.multicenter.getstarted.*;
-import app.multicenter.preferences.Preferences;
+import app.multicenter.getstarted.GetStartedMenu;
 import app.multicenter.getstarted.LoadingScreen;
+import app.multicenter.gui.AppWindow;
+import app.multicenter.preferences.Preferences;
 
 import java.awt.*;
 import java.util.concurrent.Semaphore;

@@ -37,11 +37,11 @@ public class ImageWidget extends AbstractWidget {
     private final List<String> footer;
     private final File imagesFolder; // Spacesfolder > Imagesfolder > Imagenes
     private final List<File> img; // Las imagenes mantienen el nombre original
-    private int carrouselLocation;
-    private File[] imgselected;
     private final JButton button = new JButton("Examinar");
     private final JButton izquierda = new JButton("<<");
     private final JButton derecha = new JButton(">>");
+    private int carrouselLocation;
+    private File[] imgselected;
 
     /**
      * Constructor del widget al que le llega por
@@ -54,7 +54,7 @@ public class ImageWidget extends AbstractWidget {
         super.setSize(new Dimension(500, 450));
         super.setFrameIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(ClassLoader.getSystemResource("app/multicenter/Icons/WidgetIcons/imagen.png"))));
         imagesFolder = new File(iwd.imagesFolder);
-        img = new ArrayList<>(Arrays.stream(iwd.images).map(File::new).collect(Collectors.toList()));
+        img = Arrays.stream(iwd.images).map(File::new).collect(Collectors.toList());
         footer = new ArrayList<>(Arrays.asList(iwd.footer));
         carrouselLocation = 0;
         showPanel();
@@ -130,7 +130,6 @@ public class ImageWidget extends AbstractWidget {
             super.getContentPane().removeAll();
             super.validate();
             super.add(image);
-            SwingUtilities.updateComponentTreeUI(this);
         } else {
             JPanel panel = new JPanel();
 
@@ -181,8 +180,8 @@ public class ImageWidget extends AbstractWidget {
             super.validate();
             super.add(panel);
             super.pack();
-            SwingUtilities.updateComponentTreeUI(this);
         }
+        SwingUtilities.updateComponentTreeUI(this);
 
     }
 
@@ -192,7 +191,7 @@ public class ImageWidget extends AbstractWidget {
      * o archivos de imagen.
      */
     public void panelexaminar() {
-        JPanel panelAñadir = new JPanel();
+        JPanel addpanel = new JPanel();
         JTextField dir = new JTextField();
 
         button.addActionListener(e -> {
@@ -216,12 +215,12 @@ public class ImageWidget extends AbstractWidget {
 
         });
 
-        panelAñadir.add(button);
+        addpanel.add(button);
 
         // Actualizar
         super.getContentPane().removeAll();
         super.validate();
-        super.add(panelAñadir);
+        super.add(addpanel);
         SwingUtilities.updateComponentTreeUI(this);
     }
 
@@ -271,8 +270,7 @@ public class ImageWidget extends AbstractWidget {
         RandomNameGenerator rng = new RandomNameGenerator();
 
 
-        for (int i = 0; i < imgselected.length; i++) {
-            File f = imgselected[i];
+        for (File f : imgselected) {
             String ext = FilenameUtils.getExtension(f.getName());
             String imagename = img.size() + "_" + rng.generate(folder, "." + ext);
 

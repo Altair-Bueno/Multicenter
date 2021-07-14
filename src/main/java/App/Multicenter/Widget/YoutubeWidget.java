@@ -346,7 +346,7 @@ public class YoutubeWidget extends AbstractWidget {
         }
 
         public void setThumbnail_url(String thumnail_url) {
-            this.thumbnail_url = thumbnail_url;
+            this.thumbnail_url = thumnail_url;
         }
 
         @Override

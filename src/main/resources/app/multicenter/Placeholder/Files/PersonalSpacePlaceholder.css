@@ -1,29 +1,31 @@
-p{
+p {
     font-size: 150%;
 }
 
-h1{
+h1 {
     font-size: 170%;
     margin-top: 30px;
-    margin-bottom: 0px;
+    margin-bottom: 0;
 }
 
-h2{
-    position:absolute;
-    bottom:1px;
-    width:100%;
-    margin-top:30px;
+h2 {
+    position: absolute;
+    bottom: 1px;
+    width: 100%;
+    margin-top: 30px;
 }
 
-.intro{
+.intro {
     margin-top: 25px;
     margin-left: 25px;
 }
-ol{
+
+ol {
     margin-top: 15px;
     font-size: 110%;
     margin-bottom: 1px;
 }
-ul{
+
+ul {
     font-size: 100%;
 }
