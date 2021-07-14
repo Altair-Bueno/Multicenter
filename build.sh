@@ -5,4 +5,4 @@
 # - assembly_single: Creates jar
 # - Dmaven.test.skip=true : Skips tests
 ##################################################
-mvn clean compile package assembly:single -Dmaven.test.skip=true
+mvn clean compile package assembly:single -Dmaven.test.skip=true -B
