@@ -1,4 +1,4 @@
-package multicenter.Preferences;
+package multicenter.preferences;
 
 import app.multicenter.platform.LanguageManager;
 import app.multicenter.platform.ThemeManager;

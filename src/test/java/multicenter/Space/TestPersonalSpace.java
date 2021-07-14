@@ -1,4 +1,4 @@
-package multicenter.Space;
+package multicenter.space;
 
 import app.multicenter.buddy.XMLBuddy;
 import app.multicenter.preferences.Preferences;
