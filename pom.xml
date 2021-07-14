@@ -13,6 +13,7 @@
     <!-- Properties -->
     <properties>
         <name>Multicenter</name>
+        <macosJDK>/Library/Java/JavaVirtualMachines/jdk-14.0.1.jdk</macosJDK>
 
         <maven.compiler.source>14</maven.compiler.source>
         <maven.compiler.target>14</maven.compiler.target>
@@ -55,8 +56,17 @@
                 <version>1.11.0</version>
                 <configuration>
                     <plist>
+                        <CFBundleName>${name}</CFBundleName>
+                        <CFBundleDisplayName>${name}</CFBundleDisplayName>
+                        <CFBundleIconFile>src/main/resources/app/multicenter/Icons/2048x2048.icns</CFBundleIconFile>
+                        <CFBundleDevelopmentRegion>English</CFBundleDevelopmentRegion>
                         <JVMMainClassName>app.multicenter.Multicenter</JVMMainClassName>
                     </plist>
+                    <nativeBinary>X86_64</nativeBinary>
+                    <jdk>
+                        <include>true</include>
+                        <location>${macosJDK}</location>
+                    </jdk>
                 </configuration>
                 <executions>
                     <execution>
