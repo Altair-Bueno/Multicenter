@@ -1,4 +1,4 @@
-name: "Tasks"
+name: Add issues to Github proyect board
 
 on:
   issues:

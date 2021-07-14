@@ -14,6 +14,7 @@
     <properties>
         <name>Multicenter</name>
         <macosJDK>/Library/Java/JavaVirtualMachines/jdk-14.0.1.jdk</macosJDK>
+        <mainclass>app.multicenter.Multicenter</mainclass>
 
         <maven.compiler.source>14</maven.compiler.source>
         <maven.compiler.target>14</maven.compiler.target>
@@ -24,6 +25,7 @@
     <build>
         <finalName>${name}</finalName>
         <plugins>
+            <!-- site goal-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-site-plugin</artifactId>
@@ -34,12 +36,13 @@
                 <artifactId>maven-project-info-reports-plugin</artifactId>
                 <version>3.0.0</version>
             </plugin>
+            <!-- JAR artifact -->
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>app.multicenter.Multicenter</mainClass>
+                            <mainClass>${mainclass}</mainClass>
                         </manifest>
                         <manifestSection>
                             <Name>${name}</Name>
@@ -50,6 +53,7 @@
                     </descriptorRefs>
                 </configuration>
             </plugin>
+            <!-- macOS .app -->
             <plugin>
                 <groupId>de.perdian.maven.plugins</groupId>
                 <artifactId>macosappbundler-maven-plugin</artifactId>
@@ -60,7 +64,7 @@
                         <CFBundleDisplayName>${name}</CFBundleDisplayName>
                         <CFBundleIconFile>src/main/resources/app/multicenter/Icons/2048x2048.icns</CFBundleIconFile>
                         <CFBundleDevelopmentRegion>English</CFBundleDevelopmentRegion>
-                        <JVMMainClassName>app.multicenter.Multicenter</JVMMainClassName>
+                        <JVMMainClassName>${mainclass}</JVMMainClassName>
                     </plist>
                     <nativeBinary>X86_64</nativeBinary>
                     <jdk>

@@ -9,12 +9,13 @@ Multicenter es un espacio de trabajo diseñado para optimizar la organización d
 
 # Sobre el proyecto
 
-![Diagrama de clases](Model.png)
+![Diagrama de clases](.github/resources/Model.png)
 
 ## Workflows
 
 - [default-project-board-action](https://github.com/skeet70/default-project-board-action): GitHub action para añadir los issues automaticamente al tablero Kanban de la pestaña "proyectos"
 - [todo-to-issue-action](https://github.com/alstr/todo-to-issue-action): GitHub action para crear issues a partir de comentarios TODO en el código
+- [building-and-testing-java-with-maven](https://docs.github.com/es/actions/guides/building-and-testing-java-with-maven): Github action para crear .jar de forma automática
 
 ## Contributing
 
