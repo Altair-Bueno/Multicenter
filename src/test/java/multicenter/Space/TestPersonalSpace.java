@@ -26,13 +26,13 @@ public class TestPersonalSpace {
         PersonalSpace ps2 = new PersonalSpace("Test", Preferences.getSpacesFolder());
         ps2.addWidget(new NotesWidget(ps2.getCarpeta()));
 
-        Set<PersonalSpaceData> set = new HashSet<>();
+        HashSet<PersonalSpaceData> set = new HashSet<>();
 
         set.add(ps2.getPersonalSpaceDataInstance());
         set.add(ps.getPersonalSpaceDataInstance());
 
 
-        XMLBuddy<Set<PersonalSpaceData>> xml = new XMLBuddy<>();
+        XMLBuddy<HashSet<PersonalSpaceData>> xml = new XMLBuddy<>();
 
         xml.saveToFile(Preferences.getSpacesSaveFile(), set);
 

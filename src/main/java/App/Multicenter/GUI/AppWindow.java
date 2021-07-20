@@ -89,8 +89,8 @@ public class AppWindow extends JFrame {
         app.createMenu();
 
         if (Preferences.getSpacesSaveFile().exists()) {
-            XMLBuddy<List<PersonalSpaceData>> x = new XMLBuddy<>();
-            List<PersonalSpaceData> data = new ArrayList<>();
+            XMLBuddy<ArrayList<PersonalSpaceData>> x = new XMLBuddy<>();
+            ArrayList<PersonalSpaceData> data = new ArrayList<>();
 
             try {
                 data = x.readFromFile(Preferences.getSpacesSaveFile());
@@ -161,8 +161,8 @@ public class AppWindow extends JFrame {
                 .map(PersonalSpace::getPersonalSpaceDataInstance)
                 .collect(Collectors.toList());
 
-        XMLBuddy<List<PersonalSpaceData>> x = new XMLBuddy<>();
-        x.saveToFile(Preferences.getSpacesSaveFile(), personalSpaceData);
+        XMLBuddy<ArrayList<PersonalSpaceData>> x = new XMLBuddy<>();
+        x.saveToFile(Preferences.getSpacesSaveFile(), (ArrayList<PersonalSpaceData>) personalSpaceData);
 
         super.dispose();
 

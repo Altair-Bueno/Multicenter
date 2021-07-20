@@ -310,7 +310,7 @@ public class YoutubeWidget extends AbstractWidget {
     }
 
     @Override
-    public void moveFilesToFolder(File folder) throws IOException {
+    public void moveFilesToFolder(File folder) {
     }
 
     @Override

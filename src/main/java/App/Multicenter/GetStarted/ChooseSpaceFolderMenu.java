@@ -21,7 +21,7 @@ public class ChooseSpaceFolderMenu extends JPanel {
     /**
      * Método para setear el spaceFolder.
      *
-     * @param parent
+     * @param parent parent component
      */
 
 

@@ -84,6 +84,8 @@ public interface Widget {
      * Mueve el Widget a la carpeta que recibe como parámetro
      *
      * @param folder carpeta a la que mover los archivos
+     * @throws IOException Si la operación no se ha completado
+     * satisfactoriamente
      */
     void moveFilesToFolder(File folder) throws IOException;
 
@@ -106,6 +108,7 @@ public interface Widget {
     /**
      * Cambia la capa del widget por
      * la pasada como parámetro.
+     * @param capa capa destino
      */
     void setLayer(int capa);
 

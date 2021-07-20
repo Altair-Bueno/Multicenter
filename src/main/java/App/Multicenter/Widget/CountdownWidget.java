@@ -15,7 +15,7 @@ public class CountdownWidget extends AbstractWidget {
      * Crea un widget de cuenta atrás, ajustando las variables
      * de clases necesarias para su funcionamiento.
      *
-     * <p><p>Aclaración para la implementación de la fecha del evento
+     * Aclaración para la implementación de la fecha del evento
      * recibida como parámetro:
      * Date tiene que crearse con new Date(Año, Mes, Dia), donde:
      * <ul>
@@ -60,7 +60,7 @@ public class CountdownWidget extends AbstractWidget {
      * con el único String del widget: su título.
      *
      * @param cadena La cadena a buscar.
-     * @return
+     * @return SearchedString
      */
 
     public SearchedString<Widget> search(String cadena) {
@@ -82,7 +82,7 @@ public class CountdownWidget extends AbstractWidget {
     }
 
     @Override
-    public void moveFilesToFolder(File folder) throws IOException {
+    public void moveFilesToFolder(File folder) {
     }
 
     @Override

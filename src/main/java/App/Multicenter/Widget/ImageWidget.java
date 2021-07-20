@@ -47,7 +47,7 @@ public class ImageWidget extends AbstractWidget {
      * Constructor del widget al que le llega por
      * parámetro un objeto tipo ImageWidgetData.
      *
-     * @param iwd
+     * @param iwd ImageWidgetData deserializado
      */
     protected ImageWidget(ImageWidgetData iwd) {
         super(iwd);
@@ -73,7 +73,7 @@ public class ImageWidget extends AbstractWidget {
      * Constructor del widget al que le llega por
      * parámetro un archivo tipo File.
      *
-     * @param f
+     * @param f Archivo donde almacenar el widget
      */
     public ImageWidget(File f) {
         super.setFrameIcon(
@@ -285,7 +285,6 @@ public class ImageWidget extends AbstractWidget {
      * almacenar las imágenes del widget.
      *
      * @param folder carpeta a la que mover los archivos
-     * @throws IOException
      */
     @Override
     public void moveFilesToFolder(File folder) {
@@ -340,7 +339,7 @@ public class ImageWidget extends AbstractWidget {
 
 
     @Override
-    public void close() throws IOException {
+    public void close() {
         // Nothing to close lmao
     }
 }

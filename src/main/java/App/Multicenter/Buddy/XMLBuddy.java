@@ -8,9 +8,9 @@ import java.io.*;
  * Proporciona herramientas para leer y escribir clases a
  * escritura de forma sencilla
  *
- * @param <T> Objeto reconstruido esperado
+ * @param <T> Objeto reconstruido esperado. Debe implementar Serializable
  */
-public class XMLBuddy<T> {
+public class XMLBuddy<T extends Serializable> {
 
     /**
      * Reconstruye la clase almacenada en el archivo XML que recibe como
@@ -19,6 +19,7 @@ public class XMLBuddy<T> {
      * @param file Archivo del que leer
      * @return Objeto reconstruido.
      * @see Serializable
+     * @throws FileNotFoundException Si no existe dicho archivo
      */
     @SuppressWarnings("unchecked")
     public T readFromFile(File file) throws FileNotFoundException {
@@ -32,6 +33,8 @@ public class XMLBuddy<T> {
      * Almacena el estado de una instancia en el interior de un archivo XML
      *
      * @param file Archivo donde almacenar el contenido
+     * @param object Objeto a guardar. Debe ser serializable
+     * @return true si se guarda satisfactoriamente, falso en otro caso
      */
 
     public boolean saveToFile(File file, T object) {

@@ -29,13 +29,12 @@ public class PersonalSpace implements Closeable, Serializable {
 
 
     /**
-     * Instancia un nuevo espacio personal.
-     * <p>
-     * Se intenta abrir el carpeta XML con la información
-     * del árbol de widgets almacenada dentro y si no se
-     * encuentra el carpeta (porque no está creado, o
-     * porque haya habido algún error), se crea un árbol
-     * de widgets vacío)
+     * Instancia un nuevo espacio personal. Se intenta abrir el carpeta XML
+     * con la información del árbol de widgets almacenada dentro y si no se
+     * encuentra el carpeta (porque no está creado, o porque haya habido
+     * algún error), se crea un árbol de widgets vacío)
+     * @param name Nombre del espacio personal
+     * @param f carpeta que le corresponde
      */
 
     public PersonalSpace(String name, File f) {

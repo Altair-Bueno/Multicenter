@@ -16,8 +16,8 @@ public class EmbeddedWidget extends AbstractWidget {
      * Crea un Widget del tipo Embedded, siendo este capaz de mostrar contenido
      * de cualquier tipo de página web dentro del proio widget.
      *
-     * @param url
-     * @param nombreRecurso
+     * @param url URL a la que apuntar
+     * @param nombreRecurso nombre del widget
      */
 
     public EmbeddedWidget(String url, String nombreRecurso) {
@@ -30,7 +30,7 @@ public class EmbeddedWidget extends AbstractWidget {
      * con todas las partes separadas de la URL obtenida en el constructor.
      *
      * @param cadena La cadena a buscar.
-     * @return
+     * @return Searched string
      */
 
     public SearchedString<Widget> search(String cadena) {
@@ -74,7 +74,7 @@ public class EmbeddedWidget extends AbstractWidget {
     }
 
     @Override
-    public void moveFilesToFolder(File folder) throws IOException {
+    public void moveFilesToFolder(File folder){
     }
 
     @Override
