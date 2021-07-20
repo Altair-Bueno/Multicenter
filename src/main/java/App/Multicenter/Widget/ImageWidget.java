@@ -141,7 +141,7 @@ public class ImageWidget extends AbstractWidget {
             image = new JLabel("Añade fotos desde el modo edición",
                     new ImageIcon(
                             ClassLoader
-                            .getSystemResource("app/multicenter/Placeholder/Photos/placeholderImagewidget.png")
+                                    .getSystemResource("app/multicenter/Placeholder/Photos/placeholderImagewidget.png")
                     ),
                     SwingConstants.LEADING);
 

@@ -31,7 +31,7 @@ public class ChooseSpaceFolderMenu extends JPanel {
 
         chooseSpacesFolder.setText(
                 "<html>" +
-                "<h2 style=\"text-align:center;font-family:verdana;\">" +
+                        "<h2 style=\"text-align:center;font-family:verdana;\">" +
                         "Elige un directorio para almacenar los datos de la aplicación" +
                         "</h2>" +
                         "</html>");

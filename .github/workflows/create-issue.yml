@@ -1,5 +1,5 @@
 name: Create Issues from TODO comments
-on: ["push"]
+on: [ "push" ]
 jobs:
   build:
     runs-on: "ubuntu-latest"

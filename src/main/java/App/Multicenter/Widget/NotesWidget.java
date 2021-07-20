@@ -51,13 +51,13 @@ public class NotesWidget extends AbstractWidget {
         setResizable(true);
         super.add(jEditorPane);
         super.setFrameIcon(
-                    new ImageIcon(
-                    Toolkit.getDefaultToolkit()
-                            .createImage(
-                                    ClassLoader
-                                            .getSystemResource("app/multicenter/Icons/WidgetIcons/notas.png")
-                            )
-            )
+                new ImageIcon(
+                        Toolkit.getDefaultToolkit()
+                                .createImage(
+                                        ClassLoader
+                                                .getSystemResource("app/multicenter/Icons/WidgetIcons/notas.png")
+                                )
+                )
         );
         super.setTitle("Nota de texto");
         super.setClosable(true);
@@ -113,7 +113,8 @@ public class NotesWidget extends AbstractWidget {
      */
 
     public SearchedString<Widget> search(String cadena) {
-        if (edit) throw new IllegalStateException("Edit mode on. Please disable edit view first");
+        if (edit)
+            throw new IllegalStateException("Edit mode on. Please disable edit view first");
         return super.bestSearchedString(jEditorPane.getText(), cadena, this);
     }
 

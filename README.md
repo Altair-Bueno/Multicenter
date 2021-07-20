@@ -7,10 +7,10 @@
 
 # Bienvenido a Multicenter
 
-Multicenter es un espacio de trabajo diseñado para optimizar la organización de 
-archivos multimedia, texto plano y utilidades de distintos usos (música, agenda 
-personal, etc.). Está pensado para estudiantes, aunque no es de uso exclusivo. 
-La mejora en la presentación de la información es el máximo beneficio y nuestra 
+Multicenter es un espacio de trabajo diseñado para optimizar la organización de
+archivos multimedia, texto plano y utilidades de distintos usos (música, agenda
+personal, etc.). Está pensado para estudiantes, aunque no es de uso exclusivo.
+La mejora en la presentación de la información es el máximo beneficio y nuestra
 meta es que ayude a todos los usuarios posibles.
 
 ![Noche de cine](docs/assets/img/examples/Noche_de_cine.png)
@@ -21,9 +21,13 @@ meta es que ayude a todos los usuarios posibles.
 
 ## Workflows
 
-- [default-project-board-action](https://github.com/skeet70/default-project-board-action): GitHub action para añadir los issues automaticamente al tablero Kanban de la pestaña "proyectos"
-- [todo-to-issue-action](https://github.com/alstr/todo-to-issue-action): GitHub action para crear issues a partir de comentarios TODO en el código
-- [building-and-testing-java-with-maven](https://docs.github.com/es/actions/guides/building-and-testing-java-with-maven): Github action para crear .jar de forma automática
+- [default-project-board-action](https://github.com/skeet70/default-project-board-action):
+  GitHub action para añadir los issues automaticamente al tablero Kanban de la
+  pestaña "proyectos"
+- [todo-to-issue-action](https://github.com/alstr/todo-to-issue-action): GitHub
+  action para crear issues a partir de comentarios TODO en el código
+- [building-and-testing-java-with-maven](https://docs.github.com/es/actions/guides/building-and-testing-java-with-maven):
+  Github action para crear .jar de forma automática
 
 ## Contributing
 
@@ -42,10 +46,11 @@ Librerías y recursos utilizados para la realización de este proyecto
 - [Mockito](https://site.mockito.org/)
 
 # Build
-Para construir el proyecto es necesario tener instalado en el equipo Maven. 
-Para más información sobre Maven, visita la web de 
-[Apache](https://maven.apache.org/). Para crear un .app y su correspondiente 
-.dmg, usa el script [build_macos.sh](build_macos.sh). En Windows y Linux, 
+
+Para construir el proyecto es necesario tener instalado en el equipo Maven. Para
+más información sobre Maven, visita la web de
+[Apache](https://maven.apache.org/). Para crear un .app y su correspondiente
+.dmg, usa el script [build_macos.sh](build_macos.sh). En Windows y Linux,
 ejecute en consola la siguiente línea:
 
 ```
@@ -54,7 +59,7 @@ mvn clean compile assembly:single -Dmaven.test.skip=true -B
 
 # About
 
-Proyecto para la asignatura de Introdución a la Ingeniería del Software de la 
+Proyecto para la asignatura de Introdución a la Ingeniería del Software de la
 Universidad de Málaga. Realizado por:
 
 - [Antona Espejo, Jesús](https://github.com/JantonaE)

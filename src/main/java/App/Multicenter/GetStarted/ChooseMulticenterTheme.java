@@ -15,10 +15,10 @@ public class ChooseMulticenterTheme extends JPanel {
         setLayout(new BorderLayout(10, 0));
         label.setText(
                 "<html>" +
-                "<h2 style=\"text-align:center;font-family:verdana;\">" +
-                "Selecciona el tema de la aplicación, podrás cambiarlo más adelante" +
-                "</h2>" +
-                "</html>");
+                        "<h2 style=\"text-align:center;font-family:verdana;\">" +
+                        "Selecciona el tema de la aplicación, podrás cambiarlo más adelante" +
+                        "</h2>" +
+                        "</html>");
         label.setVisible(true);
 
         JRadioButton first = new JRadioButton();

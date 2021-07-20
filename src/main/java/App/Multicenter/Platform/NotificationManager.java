@@ -36,7 +36,7 @@ public class NotificationManager {
      * @param text        Contenido de la notificación
      * @param messageType Tipo de mensaje
      * @throws AWTException Si las notificaciones no están soportadas en
-     * este sistema
+     *                      este sistema
      */
     public static void notifyNow(Image image,
                                  String tooltip,
@@ -57,7 +57,7 @@ public class NotificationManager {
      * @param text        Contenido de la notificación
      * @param messageType Tipo de mensaje
      * @throws AWTException Si las notificaciones no están soportadas en este
-     * sistema
+     *                      sistema
      */
     private static void notifyNow(TrayIcon trayIcon,
                                   String caption, String text,
@@ -82,7 +82,7 @@ public class NotificationManager {
      * @param messageType Tipo de mensaje
      * @return Timer activo
      * @throws AWTException Si las notificaciones no están soportadas en
-     * este sistema
+     *                      este sistema
      */
     public static Timer notifyLater(Date date,
                                     Image image,
@@ -107,7 +107,7 @@ public class NotificationManager {
      * @param messageType Tipo de mensaje
      * @return Timer activo
      * @throws AWTException Si las notificaciones no están soportadas
-     * en este sistema
+     *                      en este sistema
      */
     private static Timer notifyLater(Date date,
                                      TrayIcon trayIcon,

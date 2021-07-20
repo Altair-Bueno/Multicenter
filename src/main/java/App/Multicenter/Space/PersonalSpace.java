@@ -121,7 +121,7 @@ public class PersonalSpace implements Closeable, Serializable {
      * la cadena junto con el widget del que
      * provienen.
      */
-    public SortedSet<SearchedString<PersonalSpace>> searchString (String cadena) {
+    public SortedSet<SearchedString<PersonalSpace>> searchString(String cadena) {
         return widgets.
                 parallelStream().
                 map(e -> {

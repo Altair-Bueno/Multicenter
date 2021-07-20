@@ -71,12 +71,9 @@ public class Preferences {
                                 Integer.parseInt(dim[1]))
                         );
                     }
-                    case " working_directory" ->
-                            setSpacesFolder(new File(settings[1]));
-                    case " theme" ->
-                            setTheme(Integer.parseInt(settings[1]));
-                    case " lang" ->
-                            setLanguage(settings[1]);
+                    case " working_directory" -> setSpacesFolder(new File(settings[1]));
+                    case " theme" -> setTheme(Integer.parseInt(settings[1]));
+                    case " lang" -> setLanguage(settings[1]);
                 }
             }
         } catch (Exception e) {
@@ -224,8 +221,8 @@ public class Preferences {
         );
         prop.setProperty("window_size",
                 (int) getWindowsSize().getWidth() +
-                "-" +
-                (int) getWindowsSize().getHeight()
+                        "-" +
+                        (int) getWindowsSize().getHeight()
         );
         prop.setProperty("lang", getLanguage());
 

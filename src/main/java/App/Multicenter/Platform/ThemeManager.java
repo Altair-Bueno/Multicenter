@@ -60,7 +60,7 @@ public class ThemeManager {
      *
      * @return Código de tema actual
      * @throws IllegalStateException Si no se ha inicializado correctamente
-     * la aplicación
+     *                               la aplicación
      */
     public static int getCurrentTheme() {
         if (CURRENT == -1)
