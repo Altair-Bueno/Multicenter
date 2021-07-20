@@ -1,3 +1,4 @@
+#!/usr/bin/sh
 ##################################################
 # - clean: deletes cache
 # - compile: compiles java code

@@ -71,6 +71,9 @@
                         <include>true</include>
                         <location>${macosJDK}</location>
                     </jdk>
+                    <dmg>
+                        <generate>true</generate>
+                    </dmg>
                 </configuration>
                 <executions>
                     <execution>

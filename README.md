@@ -1,9 +1,17 @@
-<h3 align="center"><img src="src/main/resources/app/multicenter/Icons/180x180.png" alt="Multicenter Logo" width="180" height="auto"></h3>
+<h3 align="center">
+    <img src="src/main/resources/app/multicenter/Icons/180x180.png"
+         alt="Multicenter Logo" 
+         width="180" 
+         height="180">
+</h3>
 
 # Bienvenido a Multicenter
 
-
-Multicenter es un espacio de trabajo diseñado para optimizar la organización de archivos multimedia, texto plano y utilidades de distintos usos (música, agenda personal, etc.). Está pensado para estudiantes, aunque no es de uso exclusivo. La mejora en la presentación de la información es el máximo beneficio y nuestra meta es que ayude a todos los usuarios posibles.
+Multicenter es un espacio de trabajo diseñado para optimizar la organización de 
+archivos multimedia, texto plano y utilidades de distintos usos (música, agenda 
+personal, etc.). Está pensado para estudiantes, aunque no es de uso exclusivo. 
+La mejora en la presentación de la información es el máximo beneficio y nuestra 
+meta es que ayude a todos los usuarios posibles.
 
 ![Noche de cine](docs/assets/img/examples/Noche_de_cine.png)
 
@@ -33,9 +41,21 @@ Librerías y recursos utilizados para la realización de este proyecto
 - [JUnit](https://junit.org/junit5/)
 - [Mockito](https://site.mockito.org/)
 
+# Build
+Para construir el proyecto es necesario tener instalado en el equipo Maven. 
+Para más información sobre Maven, visita la web de 
+[Apache](https://maven.apache.org/). Para crear un .app y su correspondiente 
+.dmg, usa el script [build_macos.sh](build_macos.sh). En Windows y Linux, 
+ejecute en consola la siguiente línea:
+
+```
+mvn clean compile assembly:single -Dmaven.test.skip=true -B
+```
+
 # About
 
-Proyecto para la asignatura de Introdución a la Ingeniería del Software de la Universidad de Málaga. Realizado por
+Proyecto para la asignatura de Introdución a la Ingeniería del Software de la 
+Universidad de Málaga. Realizado por:
 
 - [Antona Espejo, Jesús](https://github.com/JantonaE)
 - [Bueno Calvente, Altair](https://github.com/Altair-Bueno)
