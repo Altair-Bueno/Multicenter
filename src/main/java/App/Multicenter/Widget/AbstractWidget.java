@@ -15,7 +15,8 @@ public abstract class AbstractWidget extends JInternalFrame
         implements Widget, Closeable, Comparable<AbstractWidget> {
 
     // Constantes de valores por defecto
-    public static final Dimension STANDARD_DIMENSION = new Dimension(200, 200);
+    public static final Dimension STANDARD_DIMENSION =
+            new Dimension(200, 200);
 
     // Variables de clase
     protected String id;
@@ -39,9 +40,16 @@ public abstract class AbstractWidget extends JInternalFrame
 
 
     // Operaciones
-    protected SearchedString<Widget> bestSearchedString(String frase, String ref, Widget w) {
-        SortedSet<SearchedString<Widget>> res = new TreeSet<>(Comparator.reverseOrder());
-        Iterator<String> iter = Arrays.stream(frase.split("\\W+")).iterator();
+    protected SearchedString<Widget> bestSearchedString(String frase,
+                                                        String ref,
+                                                        Widget w) {
+        SortedSet<SearchedString<Widget>> res =
+                new TreeSet<>(
+                        Comparator.reverseOrder()
+                );
+        Iterator<String> iter = Arrays
+                .stream(frase.split("\\W+"))
+                .iterator();
         while (iter.hasNext()) {
             res.add(new SearchedString<>(w, frase, ref));
         }

@@ -35,9 +35,15 @@ public class NotificationManager {
      * @param caption     Título de la notificación
      * @param text        Contenido de la notificación
      * @param messageType Tipo de mensaje
-     * @throws AWTException Si las notificaciones no están soportadas en este sistema
+     * @throws AWTException Si las notificaciones no están soportadas en
+     * este sistema
      */
-    public static void notifyNow(Image image, String tooltip, String caption, String text, TrayIcon.MessageType messageType) throws AWTException {
+    public static void notifyNow(Image image,
+                                 String tooltip,
+                                 String caption,
+                                 String text,
+                                 TrayIcon.MessageType messageType)
+            throws AWTException {
         TrayIcon trayIcon = new TrayIcon(image, tooltip);
         notifyNow(trayIcon, caption, text, messageType);
     }
@@ -45,13 +51,18 @@ public class NotificationManager {
     /**
      * Muestra una notificacion en el centro de control del usuario
      *
-     * @param trayIcon    Representa un elemento que puede ser añadido al centro de control del usuario
+     * @param trayIcon    Representa un elemento que puede ser añadido al
+     *                    centro de control del usuario
      * @param caption     Título de la notificación
      * @param text        Contenido de la notificación
      * @param messageType Tipo de mensaje
-     * @throws AWTException Si las notificaciones no están soportadas en este sistema
+     * @throws AWTException Si las notificaciones no están soportadas en este
+     * sistema
      */
-    private static void notifyNow(TrayIcon trayIcon, String caption, String text, TrayIcon.MessageType messageType) throws AWTException {
+    private static void notifyNow(TrayIcon trayIcon,
+                                  String caption, String text,
+                                  TrayIcon.MessageType messageType)
+            throws AWTException {
         SystemTray systemTray = SystemTray.getSystemTray();
         systemTray.add(trayIcon);
         trayIcon.displayMessage(caption, text, messageType);
@@ -70,9 +81,16 @@ public class NotificationManager {
      * @param text        Contenido de la notificación
      * @param messageType Tipo de mensaje
      * @return Timer activo
-     * @throws AWTException Si las notificaciones no están soportadas en este sistema
+     * @throws AWTException Si las notificaciones no están soportadas en
+     * este sistema
      */
-    public static Timer notifyLater(Date date, Image image, String appname, String caption, String text, TrayIcon.MessageType messageType) throws AWTException {
+    public static Timer notifyLater(Date date,
+                                    Image image,
+                                    String appname,
+                                    String caption,
+                                    String text,
+                                    TrayIcon.MessageType messageType)
+            throws AWTException {
         return notifyLater(date, new TrayIcon(image, appname), caption, text, messageType);
     }
 
@@ -82,15 +100,23 @@ public class NotificationManager {
      * sistema se mostrará inmediatamente
      *
      * @param date        Fecha en la que se producirá la notificación
-     * @param trayIcon    Representa un elemento que puede ser añadido al centro de control del usuario
+     * @param trayIcon    Representa un elemento que puede ser añadido al centro
+     *                    de control del usuario
      * @param caption     Título de la notificación
      * @param text        Contenido de la notificación
      * @param messageType Tipo de mensaje
      * @return Timer activo
-     * @throws AWTException Si las notificaciones no están soportadas en este sistema
+     * @throws AWTException Si las notificaciones no están soportadas
+     * en este sistema
      */
-    private static Timer notifyLater(Date date, TrayIcon trayIcon, String caption, String text, TrayIcon.MessageType messageType) throws AWTException {
-        if (!isSupported()) throw new AWTException("Unable to send desktop notification");
+    private static Timer notifyLater(Date date,
+                                     TrayIcon trayIcon,
+                                     String caption,
+                                     String text,
+                                     TrayIcon.MessageType messageType)
+            throws AWTException {
+        if (!isSupported())
+            throw new AWTException("Unable to send desktop notification");
         TimerTask timerTask = new TimerTask() {
             @Override
             public void run() {

@@ -59,10 +59,12 @@ public class ThemeManager {
      * Devuelve el código de tema actualmente en la aplicación
      *
      * @return Código de tema actual
-     * @throws IllegalStateException Si no se ha inicializado correctamente la aplicación
+     * @throws IllegalStateException Si no se ha inicializado correctamente
+     * la aplicación
      */
     public static int getCurrentTheme() {
-        if (CURRENT == -1) throw new IllegalStateException("ThemeManager not correctly initialized");
+        if (CURRENT == -1)
+            throw new IllegalStateException("ThemeManager not correctly initialized");
         return CURRENT;
     }
 

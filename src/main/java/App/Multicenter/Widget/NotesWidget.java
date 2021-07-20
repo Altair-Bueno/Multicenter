@@ -50,7 +50,15 @@ public class NotesWidget extends AbstractWidget {
         markdownFile = new File(nwd.markdownFile);
         setResizable(true);
         super.add(jEditorPane);
-        super.setFrameIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(ClassLoader.getSystemResource("app/multicenter/Icons/WidgetIcons/notas.png"))));
+        super.setFrameIcon(
+                    new ImageIcon(
+                    Toolkit.getDefaultToolkit()
+                            .createImage(
+                                    ClassLoader
+                                            .getSystemResource("app/multicenter/Icons/WidgetIcons/notas.png")
+                            )
+            )
+        );
         super.setTitle("Nota de texto");
         super.setClosable(true);
         super.repaint();
@@ -77,7 +85,16 @@ public class NotesWidget extends AbstractWidget {
         markdownFile = new File(spacesFolder, super.id);
         setResizable(true);
         super.add(jEditorPane);
-        super.setFrameIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(ClassLoader.getSystemResource("app/multicenter/Icons/WidgetIcons/notas.png"))));
+        super.setFrameIcon(
+                new ImageIcon(
+                        Toolkit
+                                .getDefaultToolkit()
+                                .createImage(
+                                        ClassLoader
+                                                .getSystemResource("app/multicenter/Icons/WidgetIcons/notas.png")
+                                )
+                )
+        );
         super.setClosable(true);
         try {
             renderMardownMode();
@@ -91,7 +108,8 @@ public class NotesWidget extends AbstractWidget {
      * Método buscar:
      *
      * @param cadena La cadena a buscar.
-     * @return la cadena que más se parezca basada en el ratio a la que se le ha pasado por parámetro
+     * @return la cadena que más se parezca basada en el ratio a la que se le
+     * ha pasado por parámetro
      */
 
     public SearchedString<Widget> search(String cadena) {
@@ -163,7 +181,8 @@ public class NotesWidget extends AbstractWidget {
 
     private void renderMardownMode() throws IOException {
         jEditorPane.setEditable(false);
-        InputStreamReader r = new InputStreamReader(new FileInputStream(markdownFile));
+        InputStreamReader r =
+                new InputStreamReader(new FileInputStream(markdownFile));
         Node document = parser.parseReader(r);
         jEditorPane.setContentType("text/html");
         String renderedHTML = renderer.render(document);

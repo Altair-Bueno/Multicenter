@@ -8,8 +8,9 @@ import java.util.ResourceBundle;
  * de forma sencilla. Incluye las constantes para cambiar el idioma
  * a solo aquellos soportados por Multicenter.
  * Para poder utilizar esta clase de forma satisfactoria, es necesario ejecutar
- * al inicio de la aplicación el método setLanguage para iniciar esta clase estática
- * Esta clase funciona de forma estática por lo que no se puede instanciar.
+ * al inicio de la aplicación el método setLanguage para iniciar esta clase
+ * estática. Esta clase funciona de forma estática por lo que no se puede
+ * instanciar.
  */
 public class LanguageManager {
     // Idiomas soportados
@@ -34,7 +35,8 @@ public class LanguageManager {
      * @throws IllegalStateException Si no se ha inicializado correctamente la aplicación
      */
     public static String getActualLocale() {
-        if (resourceBundle == null) throw new IllegalStateException("LanguageManager is not correctly initialized");
+        if (resourceBundle == null) throw new
+                IllegalStateException("LanguageManager is not correctly initialized");
         return actualLocale;
     }
 

@@ -13,7 +13,8 @@ import java.io.*;
 public class XMLBuddy<T> {
 
     /**
-     * Reconstruye la clase almacenada en el archivo XML que recibe como parámetro
+     * Reconstruye la clase almacenada en el archivo XML que recibe como
+     * parámetro
      *
      * @param file Archivo del que leer
      * @return Objeto reconstruido.
@@ -21,7 +22,9 @@ public class XMLBuddy<T> {
      */
     @SuppressWarnings("unchecked")
     public T readFromFile(File file) throws FileNotFoundException {
-        XMLDecoder decoder = new XMLDecoder(new BufferedInputStream(new FileInputStream(file)));
+        XMLDecoder decoder = new XMLDecoder(
+                new BufferedInputStream(new FileInputStream(file))
+        );
         return (T) decoder.readObject();
     }
 
@@ -35,7 +38,9 @@ public class XMLBuddy<T> {
         boolean out;
         XMLEncoder encoder;
         try {
-            encoder = new XMLEncoder(new BufferedOutputStream(new FileOutputStream(file)));
+            encoder = new XMLEncoder(
+                    new BufferedOutputStream(new FileOutputStream(file))
+            );
             encoder.writeObject(object);
             encoder.close();
             out = true;

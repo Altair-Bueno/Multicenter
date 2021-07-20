@@ -44,7 +44,8 @@ public class Multicenter {
             Taskbar.getTaskbar().setProgressValue(100);
         // ShowGUI
         Semaphore semaphore = new Semaphore(0);
-        javax.swing.SwingUtilities.invokeLater(() -> AppWindow.createAndShowGUI(semaphore));
+        javax.swing.SwingUtilities.invokeLater(() ->
+                AppWindow.createAndShowGUI(semaphore));
 
         try {
             semaphore.acquire();

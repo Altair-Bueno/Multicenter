@@ -9,7 +9,8 @@ import java.util.List;
  * Clase serializable intermedia utilizada para almacenar
  * los datos de la aplicación y recuperarlos sin problemas
  * Para poder cargar estos datos en una instancia de
- * PersonalSpaces, es necesario utilizar {@link PersonalSpace#loadPersonalSpaces(PersonalSpaceData)}
+ * PersonalSpaces, es necesario utilizar
+ * {@link PersonalSpace#loadPersonalSpaces(PersonalSpaceData)}
  *
  * @see PersonalSpace#loadPersonalSpaces(PersonalSpaceData)
  */

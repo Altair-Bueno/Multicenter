@@ -52,7 +52,16 @@ public class ImageWidget extends AbstractWidget {
     protected ImageWidget(ImageWidgetData iwd) {
         super(iwd);
         super.setSize(new Dimension(500, 450));
-        super.setFrameIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(ClassLoader.getSystemResource("app/multicenter/Icons/WidgetIcons/imagen.png"))));
+        super.setFrameIcon(
+                new ImageIcon(
+                        Toolkit
+                                .getDefaultToolkit()
+                                .createImage(
+                                        ClassLoader
+                                                .getSystemResource("app/multicenter/Icons/WidgetIcons/imagen.png")
+                                )
+                )
+        );
         imagesFolder = new File(iwd.imagesFolder);
         img = Arrays.stream(iwd.images).map(File::new).collect(Collectors.toList());
         footer = new ArrayList<>(Arrays.asList(iwd.footer));
@@ -67,7 +76,16 @@ public class ImageWidget extends AbstractWidget {
      * @param f
      */
     public ImageWidget(File f) {
-        super.setFrameIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(ClassLoader.getSystemResource("app/multicenter/Icons/WidgetIcons/imagen.png"))));
+        super.setFrameIcon(
+                new ImageIcon(
+                        Toolkit
+                                .getDefaultToolkit()
+                                .createImage(
+                                        ClassLoader
+                                                .getSystemResource("app/multicenter/Icons/WidgetIcons/imagen.png")
+                                )
+                )
+        );
         RandomNameGenerator r = new RandomNameGenerator();
         id = r.generate(f);
         imagesFolder = new File(f, id);
@@ -80,7 +98,8 @@ public class ImageWidget extends AbstractWidget {
     }
 
     public SearchedString<Widget> search(String cadena) {
-        if (footer.isEmpty()) return new SearchedString<>(this, "", cadena);
+        if (footer.isEmpty())
+            return new SearchedString<>(this, "", cadena);
         return footer.stream().
                 map(e -> bestSearchedString(e, cadena, this)).
                 max(Comparator.naturalOrder()).
@@ -120,7 +139,10 @@ public class ImageWidget extends AbstractWidget {
         if (img.isEmpty()) {
             // Placeholder
             image = new JLabel("Añade fotos desde el modo edición",
-                    new ImageIcon(ClassLoader.getSystemResource("app/multicenter/Placeholder/Photos/placeholderImagewidget.png")),
+                    new ImageIcon(
+                            ClassLoader
+                            .getSystemResource("app/multicenter/Placeholder/Photos/placeholderImagewidget.png")
+                    ),
                     SwingConstants.LEADING);
 
             image.setFont(new Font("Verdana", Font.BOLD, 15));
@@ -272,11 +294,18 @@ public class ImageWidget extends AbstractWidget {
 
         for (File f : imgselected) {
             String ext = FilenameUtils.getExtension(f.getName());
-            String imagename = img.size() + "_" + rng.generate(folder, "." + ext);
+            String imagename =
+                    img.size() +
+                            "_" +
+                            rng.generate(folder, "." + ext);
 
             try {
                 File temp = new File(folder, imagename);
-                Files.copy(f.toPath(), temp.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                Files.copy(
+                        f.toPath(),
+                        temp.toPath(),
+                        StandardCopyOption.REPLACE_EXISTING
+                );
                 img.add(temp);
                 String[] pie = f.getName().split("\\.");
                 footer.add(pie[0]);
@@ -306,8 +335,6 @@ public class ImageWidget extends AbstractWidget {
             data.images[i] = img.get(i).getAbsolutePath();
             data.footer[i] = footer.get(i);
         }
-        //data.images = (String[]) img.stream().map(File::getAbsolutePath).toArray();
-        //data.footer = footer.toArray(new String[0]);
         return super.getWidgetsDataInstance(data);
     }
 

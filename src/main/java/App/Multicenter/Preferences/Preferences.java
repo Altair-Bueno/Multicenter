@@ -37,13 +37,16 @@ public class Preferences {
      *     <li>Crea el archivo de preferencias y guarda esta configuración inicial</li>
      * </ul>
      *
-     * @return true si existía una configuración anterior y false si dicho archivo
-     * no existe
+     * @return true si existía una configuración anterior y false si dicho
+     * archivo no existe
      */
     public static boolean loadPreferences() {
         PlatformManager.setJVMEnviroment();
 
-        spacesFolder = new File(System.getProperty("user.home"), "Multicenter Files");
+        spacesFolder = new File(
+                System.getProperty("user.home"),
+                "Multicenter Files"
+        );
         spacesFolder.mkdir();
 
         windowsSize = new Dimension(800, 800);
@@ -55,18 +58,25 @@ public class Preferences {
         try (InputStream in = new FileInputStream(propertiesFile)) {
             prop.loadFromXML(in);
 
-            String ajustes = prop.toString().substring(1, prop.toString().length() - 1);
+            String ajustes = prop
+                    .toString()
+                    .substring(1, prop.toString().length() - 1);
             for (String s : ajustes.split(",")) {
                 String[] settings = s.split("=");
 
                 switch (settings[0]) {
                     case "window_size" -> {
                         String[] dim = settings[1].split("-");
-                        setWindowsSize(new Dimension(Integer.parseInt(dim[0]), Integer.parseInt(dim[1])));
+                        setWindowsSize(new Dimension(Integer.parseInt(dim[0]),
+                                Integer.parseInt(dim[1]))
+                        );
                     }
-                    case " working_directory" -> setSpacesFolder(new File(settings[1]));
-                    case " theme" -> setTheme(Integer.parseInt(settings[1]));
-                    case " lang" -> setLanguage(settings[1]);
+                    case " working_directory" ->
+                            setSpacesFolder(new File(settings[1]));
+                    case " theme" ->
+                            setTheme(Integer.parseInt(settings[1]));
+                    case " lang" ->
+                            setLanguage(settings[1]);
                 }
             }
         } catch (Exception e) {
@@ -80,7 +90,8 @@ public class Preferences {
      * @return El spacesFolder (directorio de trabajo)
      */
     public static File getSpacesFolder() {
-        if (prop == null) throw new IllegalStateException("Preferences not correctly initialized");
+        if (prop == null)
+            throw new IllegalStateException("Preferences not correctly initialized");
         return spacesFolder;
     }
 
@@ -90,12 +101,14 @@ public class Preferences {
      * @param spacesFolder el nuevo spacesFolder.
      */
     public static void setSpacesFolder(File spacesFolder) {
-        if (prop == null) throw new IllegalStateException("Preferences not correctly initialized");
+        if (prop == null)
+            throw new IllegalStateException("Preferences not correctly initialized");
         Preferences.spacesFolder = spacesFolder;
     }
 
     public static File getSpacesSaveFile() {
-        if (prop == null) throw new IllegalStateException("Preferences not correctly initialized");
+        if (prop == null)
+            throw new IllegalStateException("Preferences not correctly initialized");
         return new File(spacesFolder, "savefile.xml");
     }
 
@@ -111,7 +124,8 @@ public class Preferences {
      * </ul>
      */
     public static int getTheme() {
-        if (prop == null) throw new IllegalStateException("Preferences not correctly initialized");
+        if (prop == null)
+            throw new IllegalStateException("Preferences not correctly initialized");
         return ThemeManager.getCurrentTheme();
     }
 
@@ -127,7 +141,8 @@ public class Preferences {
      *              </ul>
      */
     public static void setTheme(int theme) {
-        if (prop == null) throw new IllegalStateException("Preferences not correctly initialized");
+        if (prop == null)
+            throw new IllegalStateException("Preferences not correctly initialized");
         ThemeManager.setTheme(theme);
     }
 
@@ -142,7 +157,8 @@ public class Preferences {
      * </ul>
      */
     public static String getLanguage() {
-        if (prop == null) throw new IllegalStateException("Preferences not correctly initialized");
+        if (prop == null)
+            throw new IllegalStateException("Preferences not correctly initialized");
         return LanguageManager.getActualLocale();
     }
 
@@ -156,7 +172,8 @@ public class Preferences {
      *                 </ul>
      */
     public static void setLanguage(String language) {
-        if (prop == null) throw new IllegalStateException("Preferences not correctly initialized");
+        if (prop == null)
+            throw new IllegalStateException("Preferences not correctly initialized");
         LanguageManager.setLanguage(language);
     }
 
@@ -167,7 +184,8 @@ public class Preferences {
      * @return La dimensión de la ventana.
      */
     public static Dimension getWindowsSize() {
-        if (prop == null) throw new IllegalStateException("Preferences not correctly initialized");
+        if (prop == null)
+            throw new IllegalStateException("Preferences not correctly initialized");
         return windowsSize;
     }
 
@@ -177,7 +195,8 @@ public class Preferences {
      * @param windowsSize La dimensión de la ventana.
      */
     public static void setWindowsSize(Dimension windowsSize) {
-        if (prop == null) throw new IllegalStateException("Preferences not correctly initialized");
+        if (prop == null)
+            throw new IllegalStateException("Preferences not correctly initialized");
         Preferences.windowsSize = windowsSize;
     }
 
@@ -187,16 +206,27 @@ public class Preferences {
     }
 
     /**
-     * Almacena la configuración actual de forma persistente en el disco. Si este método
-     * no es llamado antes del cierre de la aplicación no se almacenarán los cambios
+     * Almacena la configuración actual de forma persistente en el disco.
+     * Si este método no es llamado antes del cierre de la aplicación no
+     * se almacenarán los cambios
      *
-     * @return true si se ha podido almacenar correctamente o false si dicha acción
-     * ha fallado
+     * @return true si se ha podido almacenar correctamente o false si
+     * dicha acción ha fallado
      */
     public static boolean save() {
-        prop.setProperty("working_directory", getSpacesFolder().getAbsolutePath());
-        prop.setProperty("theme", Integer.toString(getTheme()));
-        prop.setProperty("window_size", (int) getWindowsSize().getWidth() + "-" + (int) getWindowsSize().getHeight());
+        prop.setProperty(
+                "working_directory",
+                getSpacesFolder().getAbsolutePath()
+        );
+        prop.setProperty(
+                "theme",
+                Integer.toString(getTheme())
+        );
+        prop.setProperty("window_size",
+                (int) getWindowsSize().getWidth() +
+                "-" +
+                (int) getWindowsSize().getHeight()
+        );
         prop.setProperty("lang", getLanguage());
 
         try (OutputStream out = new FileOutputStream(propertiesFile)) {
