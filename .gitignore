@@ -8,5 +8,8 @@ Multicenter.iml
 .classpath
 .project
 
+# vscode
+.vscode/
+
 # Maven
 target/

@@ -13,11 +13,11 @@
     <!-- Properties -->
     <properties>
         <name>Multicenter</name>
-        <macosJDK>/Library/Java/JavaVirtualMachines/jdk-14.0.1.jdk</macosJDK>
+        <macosJDK>/Library/Java/JavaVirtualMachines/openjdk-16.0.1/Contents/Home</macosJDK>
         <mainclass>app.multicenter.Multicenter</mainclass>
 
-        <maven.compiler.source>14</maven.compiler.source>
-        <maven.compiler.target>14</maven.compiler.target>
+        <maven.compiler.source>16</maven.compiler.source>
+        <maven.compiler.target>16</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -131,7 +131,7 @@
         <dependency>
             <groupId>org.jsoup</groupId>
             <artifactId>jsoup</artifactId>
-            <version>1.13.1</version>
+            <version>1.14.2</version>
         </dependency>
 
         <!-- ui desinger -->
